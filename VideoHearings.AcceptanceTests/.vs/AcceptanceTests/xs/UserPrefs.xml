@@ -1,0 +1,55 @@
+﻿<Properties StartupConfiguration="{020BC1EB-3259-49B5-816E-8D34A5CB8B3E}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="VideoHearings.AcceptanceTests.Configuration/ConfigurationManager.cs">
+    <Files>
+      <File FileName="VideoHearings.AcceptanceTests.Configuration/ConfigurationManager.cs" Line="36" Column="34" />
+      <File FileName="VideoHearings.AcceptanceTests.Model/Context/ITestContext.cs" Line="3" Column="7" />
+      <File FileName="VideoHearings.AcceptanceTests.Model/Context/TestContextBase.cs" Line="42" Column="83" />
+      <File FileName="VideoHearings.AcceptanceTests.Model/Type/CaseType.cs" Line="14" Column="1" />
+      <File FileName="VideoHearings.AcceptanceTests.Model/Role/CaseRole.cs" Line="1" Column="11" />
+      <File FileName="VideoHearings.AcceptanceTests.Model/Role/HearingRole.cs" Line="1" Column="11" />
+      <File FileName="VideoHearings.AcceptanceTests.Model/Role/UserRole.cs" Line="9" Column="19" />
+      <File FileName="VideoHearings.AcceptanceTests.Model/Type/HearingType.cs" Line="12" Column="22" />
+      <File FileName="VideoHearings.AcceptanceTests.Model/User/TestUser.cs" Line="14" Column="45" />
+      <File FileName="VideoHearings.AcceptanceTests.Model/User/UserSecrets.cs" Line="1" Column="1" />
+      <File FileName="VideoHearings.AcceptanceTests.Configuration/ServiceSettings/AdminWebServiceSettings.cs" Line="1" Column="11" />
+      <File FileName="VideoHearings.AcceptanceTests.Configuration/ServiceSettings/IServiceSettings.cs" Line="1" Column="11" />
+      <File FileName="VideoHearings.AcceptanceTests.Configuration/ServiceSettings/ServiceSettingsBase.cs" Line="1" Column="11" />
+      <File FileName="VideoHearings.AcceptanceTests.Configuration/ServiceSettings/ServiceWebServiceSettings.cs" Line="1" Column="11" />
+      <File FileName="VideoHearings.AcceptanceTests.Configuration/SecuritySettings/AdminWebSecuritySettings.cs" Line="1" Column="11" />
+      <File FileName="VideoHearings.AcceptanceTests.Configuration/SecuritySettings/ISecuritySettings.cs" Line="1" Column="11" />
+      <File FileName="VideoHearings.AcceptanceTests.Configuration/SecuritySettings/SecuritySettingsBase.cs" Line="1" Column="11" />
+      <File FileName="VideoHearings.AcceptanceTests.Configuration/SecuritySettings/ServiceWebSecuritySettings.cs" Line="1" Column="11" />
+      <File FileName="VideoHearings.AcceptanceTests.Driver/Support/BrowserSupport.cs" Line="1" Column="1" />
+      <File FileName="VideoHearings.AcceptanceTests.Driver/Support/DeviceSupport.cs" Line="1" Column="11" />
+      <File FileName="VideoHearings.AcceptanceTests.Driver/Support/OsSupport.cs" Line="1" Column="1" />
+      <File FileName="VideoHearings.AcceptanceTests.Driver/DriverManager.cs" Line="9" Column="16" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Option id="ShowAllFiles" value="True" />
+          <Node name="AcceptanceTests" expanded="True">
+            <Node name="AcceptanceTests.Configuration" expanded="True">
+              <Node name="Dependencies" expanded="True" />
+              <Node name="ConfigurationManager.cs" selected="True" />
+            </Node>
+            <Node name="AcceptanceTests.Driver" expanded="True" />
+            <Node name="AcceptanceTests.Tests" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.UnitTesting.TestPad">
+        <State name="__root__">
+          <Node name="AcceptanceTests" expanded="True" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.AcceptanceTests.Tests PreferredExecutionTarget="MonoDevelop.Default" />
+</Properties>
