@@ -39,12 +39,10 @@ namespace AcceptanceTests.Tests.IntegrationTests
         public void InitDriverHookTests()
         {
             var targetBrowser = NUnitParamReader.GetTargetBrowser();
-            var targetApp = NUnitParamReader.GetTargetApp();
             DriverHook hook = new DriverHook(_saucelabsSettings, null, _testContext, _objectContainer);
             _session = hook.InitDriver();
             _session.Should().NotBeNull();
             _session.Driver.Native.As<NgWebDriver>().WrappedDriver.ToString().Should().Contain(targetBrowser.ToString());
-            _testContext.CurrentApp.Should().Be(targetApp.ToString());
         }
     }
 }
