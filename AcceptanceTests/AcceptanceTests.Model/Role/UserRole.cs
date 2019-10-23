@@ -2,10 +2,10 @@
 {
     public enum UserRole
     {
-        CLERK,
-        CASE_ADMIN,
-        VH_OFFICER,
-        REPRESENTATIVE,
-        INDIVIDUAL
+        Clerk,
+        CaseAdmin,
+        VhOfficer,
+        Representative,
+        Individual
     }
 }

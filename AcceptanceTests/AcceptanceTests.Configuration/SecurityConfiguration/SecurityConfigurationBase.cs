@@ -1,6 +1,6 @@
-﻿namespace AcceptanceTests.Configuration.SecuritySettings
+﻿namespace AcceptanceTests.Configuration.SecurityConfiguration
 {
-    public class SecuritySettingsBase : ISecuritySettings
+    public class SecurityConfigurationBase : ISecurityConfiguration
     {
         public string Authority { get; set; }
         public string ClientId { get; set; }

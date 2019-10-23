@@ -1,6 +1,6 @@
-﻿namespace AcceptanceTests.Configuration.SecuritySettings
+﻿namespace AcceptanceTests.Configuration.SecurityConfiguration
 {
-    public interface ISecuritySettings
+    public interface ISecurityConfiguration
     {
         string ClientId { get; set; }
         string ClientSecret { get; set; }

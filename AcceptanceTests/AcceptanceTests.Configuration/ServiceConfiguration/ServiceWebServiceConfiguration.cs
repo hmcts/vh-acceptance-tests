@@ -1,6 +1,6 @@
-﻿namespace AcceptanceTests.Configuration.Settings
+﻿namespace AcceptanceTests.Configuration.ServiceConfiguration
 {
-    public class AdminWebServiceSettings : ServiceSettingsBase
+    public class ServiceWebSeviceConfiguration : ServiceConfigurationBase
     {
         public string PexipSelfTestNodeUri { get; set; }
         public string KinlySelfTestScoreEndpointUrl { get; set; }

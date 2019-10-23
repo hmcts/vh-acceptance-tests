@@ -1,10 +1,70 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
-    <Compile Remove="Class1.cs" />
+    <None Remove="adminwebsite.useraccounts.json" />
+    <None Remove="servicewebsite.useraccounts.json" />
+    <None Remove="serviceweb.chrome.desktop.runsettings.xml" />
+    <None Remove="adminweb.firefox.desktop.runsettings.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Features\SignIn.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>SignIn.feature.cs</LastGenOutput>
+    </None>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="useraccounts.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="appsettings %28copy%29.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="adminwebsite %28copy%29.useraccounts.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
+    <PackageReference Include="SpecFlow" Version="3.0.225" />
+    <PackageReference Include="SpecFlow.NUnit" Version="3.0.225" />
+    <PackageReference Include="SpecRun.Runner" Version="3.0.391" />
+    <PackageReference Include="Coypu" Version="3.1.1" />
+    <PackageReference Include="Coypu.NUnit" Version="3.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Features\" />
+    <Folder Include="Steps\" />
+    <Folder Include="Hooks\" />
+    <Folder Include="IntegrationTests\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Features\SignIn.feature.cs">
+      <DependentUpon>SignIn.feature</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AcceptanceTests.Model\AcceptanceTests.Model.csproj" />
+    <ProjectReference Include="..\AcceptanceTests.Driver\AcceptanceTests.Driver.csproj" />
+    <ProjectReference Include="..\AcceptanceTests.PageObject\AcceptanceTests.PageObject.csproj" />
+    <ProjectReference Include="..\AcceptanceTests.Configuration\AcceptanceTests.Configuration.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="adminwebsite.useraccounts.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="servicewebsite.useraccounts.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="serviceweb.chrome.desktop.runsettings.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="adminweb.firefox.desktop.runsettings.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>

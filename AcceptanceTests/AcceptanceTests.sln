@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcceptanceTests.Model", "Ac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcceptanceTests.Tests", "AcceptanceTests.Tests\AcceptanceTests.Tests.csproj", "{2BFA8477-4423-487B-B6FF-FB61F6484E13}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcceptanceTests.PageObject", "AcceptanceTests.PageObject\AcceptanceTests.PageObject.csproj", "{B0A65853-482D-4F43-A2E8-F99B79978E2A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,5 +33,9 @@ Global
 		{2BFA8477-4423-487B-B6FF-FB61F6484E13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BFA8477-4423-487B-B6FF-FB61F6484E13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BFA8477-4423-487B-B6FF-FB61F6484E13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0A65853-482D-4F43-A2E8-F99B79978E2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0A65853-482D-4F43-A2E8-F99B79978E2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0A65853-482D-4F43-A2E8-F99B79978E2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0A65853-482D-4F43-A2E8-F99B79978E2A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

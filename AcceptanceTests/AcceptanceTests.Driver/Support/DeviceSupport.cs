@@ -2,8 +2,9 @@
 {
     public enum DeviceSupport
     {
-        PC,
-        iPhone,
+        Pc,
+        Iphone,
+        Ipad,
         Samsung,
     }
 }

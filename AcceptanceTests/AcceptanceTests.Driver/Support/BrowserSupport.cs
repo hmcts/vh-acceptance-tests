@@ -5,6 +5,7 @@
         Firefox,
         Safari,
         Chrome,
-        Edge
+        Edge,
+        Headless
     }
 }

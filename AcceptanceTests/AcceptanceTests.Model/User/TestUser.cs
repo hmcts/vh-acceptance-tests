@@ -8,6 +8,7 @@ namespace AcceptanceTests.Model.User
     public class TestUser
     {
         public Guid Id { get; set; }
+        public List<Guid> Hearings { get; set; }
         public UserRole Role { get; set; }
         public string AlternativeEmail { get; set; }
         public string Firstname { get; set; } 

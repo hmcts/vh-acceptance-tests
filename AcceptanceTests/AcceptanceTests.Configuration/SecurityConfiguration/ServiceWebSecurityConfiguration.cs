@@ -1,6 +1,6 @@
-﻿namespace AcceptanceTests.Configuration.SecuritySettings
+﻿namespace AcceptanceTests.Configuration.SecurityConfiguration
 {
-    public class ServiceWebSecuritySettings : SecuritySettingsBase
+    public class ServiceWebSecurityConfiguration : SecurityConfigurationBase
     {
         public string GraphApiBaseUri { get; set; }
         public string TemporaryPassword { get; set; }

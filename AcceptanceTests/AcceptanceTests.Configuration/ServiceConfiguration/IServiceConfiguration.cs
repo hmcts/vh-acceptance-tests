@@ -1,6 +1,6 @@
-﻿namespace AcceptanceTests.Configuration.Settings
+﻿namespace AcceptanceTests.Configuration.ServiceConfiguration
 {
-    public interface IServiceSettings
+    public interface IServiceConfiguration
     {
         string BookingsApiUrl { get; set; }
         string BookingsApiResourceId { get; set; }
