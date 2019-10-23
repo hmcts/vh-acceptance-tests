@@ -2,7 +2,7 @@
 using Coypu.Drivers;
 using Coypu.Drivers.Selenium;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
+using System;
 
 namespace AcceptanceTests.Driver
 {
@@ -16,7 +16,22 @@ namespace AcceptanceTests.Driver
        
         private static NgWebDriver CustomWebDriver(IWebDriver driver)
         {
-            return new NgWebDriver(driver);
+            var ngdriver = new NgWebDriver(driver);
+            ngdriver.IgnoreSynchronization = true;
+            TryMaximize(ngdriver);
+            return ngdriver;
+        }
+
+        private static void TryMaximize(NgWebDriver ngdriver)
+        {
+            try
+            {
+                ngdriver.Manage().Window.Maximize();
+            }
+            catch (NotImplementedException e)
+            {
+                Console.WriteLine("Skipping maximize, not supported on current platform: " + e.Message);
+            }
         }
     }
 }

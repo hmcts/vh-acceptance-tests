@@ -14,8 +14,8 @@ namespace AcceptanceTests.Driver
         public static DriverOptions GetDesktopDriverOptions(BrowserSupport targetBrowser, bool blockCameraAndMic)
         {
             DriverOptions driverOptions = DesktopDriverCapabilities.GetDriverCapabilities(targetBrowser, blockCameraAndMic);
-            driverOptions.AcceptInsecureCertificates = true;
-            driverOptions.UnhandledPromptBehavior = UnhandledPromptBehavior.Accept;
+            //driverOptions.AcceptInsecureCertificates = true;
+            //driverOptions.UnhandledPromptBehavior = UnhandledPromptBehavior.Accept;
             
             return driverOptions;
         }
@@ -26,6 +26,7 @@ namespace AcceptanceTests.Driver
             return DesktopDriverCapabilities.GetDesktopDriverCapabilities(options, scenarioTitle) as DesiredCapabilities;
         }
 
+        //TODO: Fix driver options cant match capability error
         public static IWebDriver InitDesktopLocalBrowser(BrowserSupport targetBrowser, DriverOptions options)
         {
             IWebDriver driver = null;
@@ -41,7 +42,8 @@ namespace AcceptanceTests.Driver
                     driver = new EdgeDriver((EdgeOptions)options);
                     break;
                 case BrowserSupport.Firefox:
-                    driver = new FirefoxDriver((FirefoxOptions)options);
+                    //driver = new FirefoxDriver((FirefoxOptions)options);
+                    driver = new FirefoxDriver();
                     break;
             }
             return driver;

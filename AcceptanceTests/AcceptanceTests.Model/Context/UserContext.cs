@@ -12,9 +12,15 @@ namespace AcceptanceTests.Model.Context
         public List<TestUser> TestUsers { get; set; }
         public TestUser CurrentUser { get; set; }
 
+        public string GetUsername(TestUser testUser)
+        {
+            return testUser.Displayname + TestUserSecrets.TestUsernameStem;
+        }
+
         public TestUser GetFirstOrDefaultUserByRole(string role)
         {
             var user = TestUsers.FirstOrDefault(x => x.Role.Equals(EnumParser.ParseText<UserRole>(role)));
+            user.Username = GetUsername(user);
 
             if (user != null)
             {

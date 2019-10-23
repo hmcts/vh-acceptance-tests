@@ -1,5 +1,7 @@
 ﻿using System;
 using Coypu;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 
 namespace AcceptanceTests.PageObject.Page
 {
@@ -13,6 +15,7 @@ namespace AcceptanceTests.PageObject.Page
         protected Page(BrowserSession driver)
         {
             WrappedDriver = driver ?? throw new ArgumentNullException(nameof(driver));
+            Visit();
         }
 
         public void Visit()
@@ -20,6 +23,7 @@ namespace AcceptanceTests.PageObject.Page
             if (!IsPageLoaded())
             {
                 WrappedDriver.Visit(Path);
+                WaitForPageToLoad();
                 IsPageLoaded();
             }
             
@@ -27,8 +31,8 @@ namespace AcceptanceTests.PageObject.Page
 
         public bool IsPageLoaded()
         {
+            WaitForPageToLoad();
             AssertCurrentPageLocation(Path);
-            AssertCurrentPageHeading(HeadingText);
             return true;
         }
 
@@ -48,6 +52,19 @@ namespace AcceptanceTests.PageObject.Page
             {
                 throw new ArgumentException($"'{pageHeading}' page is not the current page. The actual page was '{WrappedDriver.Title}'");
             }      
+        }
+
+        public void WaitForPageToLoad()
+        {
+            try
+            {
+                var wait = new WebDriverWait((IWebDriver)WrappedDriver.Native, TimeSpan.FromSeconds(20));
+                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(Path));
+            }
+            catch (Exception)
+            {
+                throw new ArgumentException($"'{Path}' page is not the current page. The actual page was '{WrappedDriver.Location}'");
+            }
         }
     } 
 }

@@ -18,15 +18,14 @@ namespace AcceptanceTests.Driver
         {
             IWebDriver webdriver = null;
             ICapabilities capabilities = null;
-            DriverOptions options = null;
             var parsedBrowser = EnumParser.ParseText<BrowserSupport>(targetBrowser);
             saucelabsSettings.SetRemoteUrl(platform);
 
             switch (platform)
             {
                 case PlatformSupport.Desktop:
-                    options = DesktopDriver.GetDesktopDriverOptions(parsedBrowser, blockCameraAndMicTag);
                     capabilities = DesktopDriver.GetDesktopDriverCapabilities(parsedBrowser, scenarioTitle, blockCameraAndMicTag);
+                    var options = DesktopDriver.GetDesktopDriverOptions(parsedBrowser, blockCameraAndMicTag);
                     webdriver = DesktopDriver.InitDesktopLocalBrowser(parsedBrowser, options);
                     break;
                 case PlatformSupport.Mobile:

@@ -24,6 +24,7 @@ namespace AcceptanceTests.Tests.Steps
         public void GivenIamRegisteredAsRoleInTheVideoHearingsAD(string role)
         {
             var currentUser = _testContext.UserContext.GetFirstOrDefaultUserByRole(role);
+            currentUser.Username = _testContext.UserContext.GetUsername(currentUser);
             _testContext.UserContext.CurrentUser = currentUser;
         }
 

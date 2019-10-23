@@ -15,4 +15,7 @@
     <ProjectReference Include="..\AcceptanceTests.Driver\AcceptanceTests.Driver.csproj" />
     <ProjectReference Include="..\AcceptanceTests.Model\AcceptanceTests.Model.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
+  </ItemGroup>
 </Project>

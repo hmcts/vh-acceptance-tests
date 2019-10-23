@@ -1,4 +1,5 @@
 ﻿using Coypu;
+using OpenQA.Selenium;
 
 namespace AcceptanceTests.PageObject.Page
 {
@@ -10,5 +11,6 @@ namespace AcceptanceTests.PageObject.Page
 
         void Visit();
         bool IsPageLoaded();
+        void WaitForPageToLoad();
     }
 }

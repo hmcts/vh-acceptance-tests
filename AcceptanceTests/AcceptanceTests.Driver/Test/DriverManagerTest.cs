@@ -4,7 +4,6 @@ using AcceptanceTests.Driver.Support;
 using Coypu;
 using FluentAssertions;
 using NUnit.Framework;
-using TechTalk.SpecFlow;
 
 namespace AcceptanceTests.Driver.Test
 {

@@ -49,7 +49,7 @@ namespace AcceptanceTests.Driver.Capabilities
                 firefoxOptions.AddArgument("use-fake-device-for-media-stream");
                 firefoxOptions.AddArgument("media.navigator.streams.fake");
             }
-            firefoxOptions.PlatformName =  "Windows 10";
+            //firefoxOptions.PlatformName =  "Windows 10";
             firefoxOptions.BrowserVersion = "latest";
             return firefoxOptions;
         }
@@ -72,16 +72,17 @@ namespace AcceptanceTests.Driver.Capabilities
                 chromeOptions.AddArgument("use-fake-device-for-media-stream");
             }
 
-            chromeOptions.PlatformName = "Windows 10";
-            chromeOptions.BrowserVersion = "74.0";
+            //chromeOptions.PlatformName = "Windows 10";
+            //chromeOptions.BrowserVersion = "74.0";
+            chromeOptions.BrowserVersion = "latest";
             return chromeOptions;
         }
 
         public static DriverOptions GetSafariCapabilities()
         {
             var safariOptions = new SafariOptions();
-            safariOptions.PlatformName = "macOS 10.14";
-            safariOptions.BrowserVersion = "12.0";
+            //safariOptions.PlatformName = "Mac OSX 10.13";
+            //safariOptions.BrowserVersion = "12.0";
             return safariOptions;
         }
     }

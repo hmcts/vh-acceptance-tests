@@ -11,6 +11,7 @@ namespace AcceptanceTests.PageObject.Page
 
         public DashboardPage(BrowserSession driver) : base(driver)
         {
+            Path = "dashboard";
         }
 
         public bool IsPanelElementsCountDisplayed(int expectedPanelCount)
