@@ -15,7 +15,6 @@ namespace AcceptanceTests.PageObject.Page
         protected Page(BrowserSession driver)
         {
             WrappedDriver = driver ?? throw new ArgumentNullException(nameof(driver));
-            Visit();
         }
 
         public void Visit()
@@ -23,7 +22,6 @@ namespace AcceptanceTests.PageObject.Page
             if (!IsPageLoaded())
             {
                 WrappedDriver.Visit(Path);
-                WaitForPageToLoad();
                 IsPageLoaded();
             }
             
@@ -54,6 +52,7 @@ namespace AcceptanceTests.PageObject.Page
             }      
         }
 
+        // TODO: remove -> this doesn't seem to work!
         public void WaitForPageToLoad()
         {
             try
