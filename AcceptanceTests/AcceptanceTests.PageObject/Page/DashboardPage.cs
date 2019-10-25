@@ -8,7 +8,7 @@ namespace AcceptanceTests.PageObject.Page
 {
     public class DashboardPage : Page
     {
-        private static string PanelTitleLocator = "//*[@class='vhpanel-title']";
+        private const string PanelTitleLocator = "h1.vhpanel-title";
 
         public DashboardPage(BrowserSession driver) : base(driver)
         {
@@ -28,10 +28,11 @@ namespace AcceptanceTests.PageObject.Page
             return panel != null;
         }
 
-        public IEnumerable<SnapshotElementScope> GetDashboardPanelElements()
+        public IEnumerable<ElementScope> GetDashboardPanelElements()
         {
-            DriverExtension.WaitForElementPresentByXPath(WrappedDriver, PanelTitleLocator);
-            return WrappedDriver.FindAllXPath(PanelTitleLocator);
+            var elements = DriverExtension.WaitForElementPresentByCss(WrappedDriver, PanelTitleLocator);
+            var count = elements.Count();
+            return elements;
         }
     }
 }

@@ -6,31 +6,33 @@ namespace AcceptanceTests.Driver.Drivers
 {
     public class DriverExtension
     {
-        private static TimeSpan DefaultTimeout = TimeSpan.FromSeconds(15);
+        private static readonly Options DefaultOptions = new Options { Timeout = TimeSpan.FromSeconds(15) };
 
-        public static void WaitForElementPresentByCss(BrowserSession driver, string cssLocator)
+        public static IEnumerable<ElementScope> WaitForElementPresentByCss(BrowserSession driver, string cssLocator)
         {
             try
             {
-                var until = new Func<IEnumerable<ElementScope>>(() =>
-               driver.FindAllCss(cssLocator, null, new Options { Timeout = DefaultTimeout }))();
+                var result = new Func<IEnumerable<ElementScope>>(() => driver.FindAllCss(cssLocator, null, DefaultOptions))();
+
+                return result;
             }
             catch (Exception)
             {
-                throw new MissingHtmlException($"Element {cssLocator} was not found on page after waiting for {DefaultTimeout} seconds.");
+                throw new MissingHtmlException($"Css selected Element {cssLocator} was not found on page.");
             }
         }
 
-        public static void WaitForElementPresentByXPath(BrowserSession driver, string xPathLocator)
+        public static IEnumerable<SnapshotElementScope> WaitForElementPresentByXPath(BrowserSession driver, string xPathLocator)
         {
             try
             {
-                var until = new Func<IEnumerable<ElementScope>>(() =>
-               driver.FindAllCss(xPathLocator, null, new Options { Timeout = DefaultTimeout }))();
+                var result = new Func<IEnumerable<SnapshotElementScope>>(() => driver.FindAllXPath(xPathLocator, null, DefaultOptions))();
+
+                return result;
             }
             catch (Exception)
             {
-                throw new MissingHtmlException($"Element {xPathLocator} was not found on page after waiting for {DefaultTimeout.Seconds} seconds.");
+                throw new MissingHtmlException($"XPath selected Element {xPathLocator} was not found on page.");
             }
         }
     }
