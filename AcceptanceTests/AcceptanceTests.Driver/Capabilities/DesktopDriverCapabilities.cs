@@ -73,7 +73,6 @@ namespace AcceptanceTests.Driver.Capabilities
             }
 
             //chromeOptions.PlatformName = "Windows 10";
-            //chromeOptions.BrowserVersion = "74.0";
             chromeOptions.BrowserVersion = "latest";
             return chromeOptions;
         }

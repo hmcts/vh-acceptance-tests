@@ -48,7 +48,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Features\SignIn.feature.cs" />
-    <Compile Remove="Features\AdminWebsite\SignIn.feature.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AcceptanceTests.Model\AcceptanceTests.Model.csproj" />

@@ -6,7 +6,8 @@ namespace AcceptanceTests.Driver.Drivers
 {
     public class DriverExtension
     {
-        private static readonly Options DefaultOptions = new Options { Timeout = TimeSpan.FromSeconds(15) };
+        private static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(15);
+        private static readonly Options DefaultOptions = new Options { Timeout = DefaultTimeout, WaitBeforeClick = DefaultTimeout };
 
         public static IEnumerable<ElementScope> WaitForElementPresentByCss(BrowserSession driver, string cssLocator)
         {
@@ -18,7 +19,7 @@ namespace AcceptanceTests.Driver.Drivers
             }
             catch (Exception)
             {
-                throw new MissingHtmlException($"Css selected Element {cssLocator} was not found on page.");
+                throw new MissingHtmlException($"Css selected Element {cssLocator} was not found on page after waiting {DefaultTimeout} seconds.");
             }
         }
 
@@ -32,7 +33,7 @@ namespace AcceptanceTests.Driver.Drivers
             }
             catch (Exception)
             {
-                throw new MissingHtmlException($"XPath selected Element {xPathLocator} was not found on page.");
+                throw new MissingHtmlException($"XPath selected Element {xPathLocator} was not found on page after waiting {DefaultTimeout} seconds.");
             }
         }
     }
