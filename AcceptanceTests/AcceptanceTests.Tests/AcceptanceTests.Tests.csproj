@@ -45,11 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Features\SignIn.feature.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Features\AdminWebsite\SignIn.feature.cs">
-      <DependentUpon>SignIn.feature</DependentUpon>
-    </Compile>
+    <Compile Remove="Features\AdminWebsite\SignIn.feature.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AcceptanceTests.Model\AcceptanceTests.Model.csproj" />
@@ -67,7 +63,7 @@
     <Content Include="serviceweb.chrome.desktop.runsettings.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="adminweb.firefox.desktop.runsettings.xml">
+    <Content Include="adminwebsite.firefox.desktop.runsettings.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

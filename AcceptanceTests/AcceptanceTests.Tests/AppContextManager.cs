@@ -5,7 +5,6 @@ using AcceptanceTests.Driver.Settings;
 using AcceptanceTests.Driver.Support;
 using AcceptanceTests.Model;
 using AcceptanceTests.Model.Context;
-using AcceptanceTests.Model.User;
 using Microsoft.Extensions.Configuration;
 
 namespace AcceptanceTests.Tests
