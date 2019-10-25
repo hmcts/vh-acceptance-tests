@@ -17,6 +17,7 @@
     <Folder Include="Context\" />
     <Folder Include="User\" />
     <Folder Include="Type\" />
+    <Folder Include="Page\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.9.0" />

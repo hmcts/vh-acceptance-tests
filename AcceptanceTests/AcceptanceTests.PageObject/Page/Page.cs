@@ -52,7 +52,6 @@ namespace AcceptanceTests.PageObject.Page
             }      
         }
 
-        // TODO: remove -> this doesn't seem to work!
         public void WaitForPageToLoad()
         {
             try

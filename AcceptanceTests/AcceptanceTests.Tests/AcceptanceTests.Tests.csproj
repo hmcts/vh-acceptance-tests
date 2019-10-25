@@ -45,6 +45,7 @@
     <Folder Include="Steps\" />
     <Folder Include="Hooks\" />
     <Folder Include="IntegrationTests\" />
+    <Folder Include="Features\ServiceWebsite\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Features\SignIn.feature.cs" />
@@ -68,5 +69,17 @@
     <Content Include="adminwebsite.firefox.desktop.runsettings.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <SpecFlowFeatureFiles Update="Features\ServiceWebsite\SignIn.feature">
+      <Visible>False</Visible>
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>SignIn.feature.cs</LastGenOutput>
+    </SpecFlowFeatureFiles>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Features\ServiceWebsite\SignIn.feature.cs">
+      <DependentUpon>SignIn.feature</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

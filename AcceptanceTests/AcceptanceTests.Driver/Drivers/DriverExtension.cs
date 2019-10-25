@@ -14,7 +14,7 @@ namespace AcceptanceTests.Driver.Drivers
             try
             {
                 var result = new Func<IEnumerable<ElementScope>>(() => driver.FindAllCss(cssLocator, null, DefaultOptions))();
-
+                Console.WriteLine($"Element {cssLocator} successfully found on page.");
                 return result;
             }
             catch (Exception)
@@ -28,7 +28,7 @@ namespace AcceptanceTests.Driver.Drivers
             try
             {
                 var result = new Func<IEnumerable<SnapshotElementScope>>(() => driver.FindAllXPath(xPathLocator, null, DefaultOptions))();
-
+                Console.WriteLine($"Element {xPathLocator} successfully found on page.");
                 return result;
             }
             catch (Exception)
