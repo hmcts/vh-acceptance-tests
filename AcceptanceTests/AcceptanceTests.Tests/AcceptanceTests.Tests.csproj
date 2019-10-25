@@ -10,10 +10,6 @@
     <None Remove="adminweb.firefox.desktop.runsettings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="Features\SignIn.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>SignIn.feature.cs</LastGenOutput>
-    </None>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -25,6 +21,10 @@
     </None>
     <None Update="adminwebsite %28copy%29.useraccounts.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Features\AdminWebsite\SignIn.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>SignIn.feature.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -41,9 +41,13 @@
     <Folder Include="Steps\" />
     <Folder Include="Hooks\" />
     <Folder Include="IntegrationTests\" />
+    <Folder Include="Features\AdminWebsite\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Features\SignIn.feature.cs">
+    <Compile Remove="Features\SignIn.feature.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Features\AdminWebsite\SignIn.feature.cs">
       <DependentUpon>SignIn.feature</DependentUpon>
     </Compile>
   </ItemGroup>

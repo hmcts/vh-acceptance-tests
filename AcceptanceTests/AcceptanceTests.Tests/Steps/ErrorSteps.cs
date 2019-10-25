@@ -30,8 +30,13 @@ namespace AcceptanceTests.Tests.Steps
                     break;
                 default:
                     throw new NotSupportedException($"Message {messageType} is not currently supported");
-            }
-            
+            } 
+        }
+
+        [Then(@"I can follow the '(.*)' CTA on the screen")]
+        public void ThenICanFollowTheCTAOnTheScreen(string ctaText)
+        {
+            ScenarioContext.Current.Pending();
         }
     }
 }

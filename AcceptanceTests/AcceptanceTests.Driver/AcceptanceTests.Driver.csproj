@@ -2,6 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <PackOnBuild>true</PackOnBuild>
+    <PackageId>vh-acceptance-tests-driver</PackageId>
+    <PackageVersion>1.0</PackageVersion>
+    <Authors>Andressa Dantas</Authors>
+    <Owners>Video Hearings</Owners>
+    <PackageProjectUrl>https://github.com/hmcts/vh-acceptance-tests</PackageProjectUrl>
+    <Title>VH Acceptance Tests Driver</Title>
+    <Description>Selenium Webdriver package for VH Acceptance Tests.</Description>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,6 +24,10 @@
     <PackageReference Include="SpecFlow" Version="3.0.225" />
     <PackageReference Include="SpecFlow.NUnit" Version="3.0.225" />
     <PackageReference Include="Protractor" Version="0.12.0" />
+    <PackageReference Include="NuGet.Build.Packaging" Version="0.2.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Support\" />

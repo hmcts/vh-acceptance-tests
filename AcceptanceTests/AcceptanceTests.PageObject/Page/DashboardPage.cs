@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AcceptanceTests.Driver.Drivers;
 using Coypu;
 
 namespace AcceptanceTests.PageObject.Page
@@ -29,6 +30,7 @@ namespace AcceptanceTests.PageObject.Page
 
         public IEnumerable<SnapshotElementScope> GetDashboardPanelElements()
         {
+            DriverExtension.WaitForElementPresentByXPath(WrappedDriver, PanelTitleLocator);
             return WrappedDriver.FindAllXPath(PanelTitleLocator);
         }
     }
