@@ -20,7 +20,7 @@ namespace AcceptanceTests.Tests.Steps
             _testContext = testContext;
         }
 
-        [Then(@"(.*) panel is displayed")]
+        [Then(@"the '(.*)' panel is displayed")]
         public void ThenBookAVideoHearingPanelIsDisplayed(string expectedPanelTitle)
         {
             var userContext = _testContext.UserContext;

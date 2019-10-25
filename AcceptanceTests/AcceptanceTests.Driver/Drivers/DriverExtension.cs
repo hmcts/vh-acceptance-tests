@@ -12,8 +12,9 @@ namespace AcceptanceTests.Driver.Drivers
         {
             try
             {
+                var options = GetDefaultOptions();
                 var until = new Func<IEnumerable<ElementScope>>(() =>
-               driver.FindAllCss(cssLocator, null, new Options { Timeout = DefaultTimeout }))();
+               driver.FindAllCss(cssLocator, null, options))();
             }
             catch (Exception)
             {
@@ -25,13 +26,27 @@ namespace AcceptanceTests.Driver.Drivers
         {
             try
             {
+                var options = GetDefaultOptions();
                 var until = new Func<IEnumerable<ElementScope>>(() =>
-               driver.FindAllCss(xPathLocator, null, new Options { Timeout = DefaultTimeout }))();
+               driver.FindAllXPath(xPathLocator, null, options))();
             }
             catch (Exception)
             {
                 throw new MissingHtmlException($"Element {xPathLocator} was not found on page after waiting for {DefaultTimeout.Seconds} seconds.");
             }
+
+            Console.WriteLine($"Element {xPathLocator} successfully found on page.");
+        }
+
+        public static Options GetDefaultOptions()
+        {
+            var options = new Options
+            {
+                WaitBeforeClick = DefaultTimeout,
+                Timeout = DefaultTimeout
+            };
+
+            return options;
         }
     }
 }

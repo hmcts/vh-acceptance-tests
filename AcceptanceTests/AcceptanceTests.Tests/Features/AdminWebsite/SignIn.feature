@@ -7,7 +7,7 @@
 Scenario Outline: VH Officer sign in to the Admin Website then see two panels
     Given I am registered as 'VH Officer' in the Video Hearings Azure AD
     When I sign in to the 'Admin Website' using my account details 
-    Then '<panel_title>' panel is displayed 
+    Then the '<panel_title>' panel is displayed 
     Examples:
     |panel_title|
     |Book a video hearing|
@@ -17,7 +17,7 @@ Scenario Outline: VH Officer sign in to the Admin Website then see two panels
 Scenario Outline: Case Admin sign in to the Admin Website then see one panel
     Given I am registered as 'Case Admin' in the Video Hearings Azure AD
     When I sign in to the 'Admin Website' using my account details 
-    Then '<panel_title>' panel is displayed 
+    Then the '<panel_title>' panel is displayed 
     Examples:
     |panel_title|
     |Book a video hearing|
