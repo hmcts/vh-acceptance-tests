@@ -1,4 +1,7 @@
-﻿using AcceptanceTests.Driver.Capabilities;
+﻿using System;
+using System.IO;
+using System.Reflection;
+using AcceptanceTests.Driver.Capabilities;
 using AcceptanceTests.Driver.Support;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -33,7 +36,7 @@ namespace AcceptanceTests.Driver
             switch (targetBrowser)
             {
                 case BrowserSupport.Chrome:
-                    driver = new ChromeDriver((ChromeOptions)options);
+                    driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), (ChromeOptions)options);
                     break;
                 case BrowserSupport.Safari:
                     driver = new SafariDriver((SafariOptions)options);
