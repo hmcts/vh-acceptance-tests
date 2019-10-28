@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using AcceptanceTests.Configuration.SecurityConfiguration;
-using AcceptanceTests.Configuration.ServiceConfiguration;
+using AcceptanceTests.Configuration.TestConfiguration;
 using AcceptanceTests.Model.User;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;

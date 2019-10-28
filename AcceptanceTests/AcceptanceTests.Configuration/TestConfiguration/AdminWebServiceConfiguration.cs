@@ -1,4 +1,4 @@
-﻿namespace AcceptanceTests.Configuration.ServiceConfiguration
+﻿namespace AcceptanceTests.Configuration.TestConfiguration
 {
     public class AdminWebServiceConfiguration : ServiceConfigurationBase
     {

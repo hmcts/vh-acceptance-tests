@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using AcceptanceTests.Configuration.SecurityConfiguration;
-using AcceptanceTests.Configuration.ServiceConfiguration;
+using AcceptanceTests.Configuration.TestConfiguration;
 using AcceptanceTests.Model.Context;
 using System.IO;
 using System.Reflection;
