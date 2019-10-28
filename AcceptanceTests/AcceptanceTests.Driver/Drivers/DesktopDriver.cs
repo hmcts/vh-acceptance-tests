@@ -14,23 +14,22 @@ namespace AcceptanceTests.Driver
 {
     public class DesktopDriver
     { 
-        public static DriverOptions GetDesktopDriverOptions(BrowserSupport targetBrowser, bool blockCameraAndMic)
+        public static DriverOptions GetDesktopDriverOptions(BrowserSupport targetBrowser, string scenarioTitle, bool blockCameraAndMic)
         {
             DriverOptions driverOptions = DesktopDriverCapabilities.GetDriverCapabilities(targetBrowser, blockCameraAndMic);
-            //driverOptions.AcceptInsecureCertificates = true;
-            //driverOptions.UnhandledPromptBehavior = UnhandledPromptBehavior.Accept;
-            
+            //driverOptions = DesktopDriverCapabilities.GetDesktopDriverAdditionalOptions(driverOptions, scenarioTitle);
+
             return driverOptions;
         }
 
         public static DesiredCapabilities GetDesktopDriverCapabilities(BrowserSupport targetBrowser, string scenarioTitle, bool blockCameraAndMic)
         {
-            var options = GetDesktopDriverOptions(targetBrowser, blockCameraAndMic);
-            return DesktopDriverCapabilities.GetDesktopDriverCapabilities(options, scenarioTitle) as DesiredCapabilities;
+            var options = GetDesktopDriverOptions(targetBrowser, scenarioTitle, blockCameraAndMic);
+            var desiredCapabilities = DesktopDriverCapabilities.GetDesktopDriverAdditionalOptions(options, scenarioTitle).ToCapabilities() as DesiredCapabilities;
+            return desiredCapabilities;
         }
 
-        //TODO: Fix driver options cant match capability error
-        public static IWebDriver InitDesktopLocalBrowser(BrowserSupport targetBrowser, DriverOptions options)
+        public static IWebDriver InitDesktopBrowser(BrowserSupport targetBrowser, DriverOptions options)
         {
             IWebDriver driver = null;
             switch (targetBrowser)
@@ -45,12 +44,11 @@ namespace AcceptanceTests.Driver
                     driver = new EdgeDriver((EdgeOptions)options);
                     break;
                 case BrowserSupport.Firefox:
-                    //driver = new FirefoxDriver((FirefoxOptions)options);
-                    driver = new FirefoxDriver();
+                    driver = new FirefoxDriver((FirefoxOptions)options);
+                    //driver = new FirefoxDriver();
                     break;
             }
             return driver;
         }
-
     }
 }

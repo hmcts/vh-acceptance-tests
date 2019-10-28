@@ -14,14 +14,15 @@ namespace AcceptanceTests.Tests.Hooks
 
         public static SauceLabsSettings GetSauceLabsSettings(IConfigurationRoot configRoot)
         {
-            return Options.Create(configRoot.GetSection("Saucelabs").Get<SauceLabsSettings>()).Value;
+            var saucelabsSettings = Options.Create(configRoot.GetSection("Saucelabs").Get<SauceLabsSettings>()).Value;
+            return saucelabsSettings;
         }
 
-        public static void LogPassed(bool passed, IDriver driver)
+        public static void LogPassed(bool passed, BrowserSession driver)
         {
             try
             {
-                ((IJavaScriptExecutor)driver).ExecuteScript("sauce:job-result=" + (passed ? "passed" : "failed"));
+                driver.ExecuteScript("sauce:job-result=" + (passed ? "passed" : "failed"));
             }
             catch (Exception e)
             {

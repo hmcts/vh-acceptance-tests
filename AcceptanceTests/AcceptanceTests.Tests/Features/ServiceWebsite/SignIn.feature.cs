@@ -71,12 +71,12 @@ namespace AcceptanceTests.Tests.Features.ServiceWebsite
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Person with no upcoming hearings when signing in to the Service Website is redire" +
-            "cted to Video Website")]
+        [NUnit.Framework.DescriptionAttribute("Users with no pending questionnaires to complete when signing in to the Service W" +
+            "ebsite is redirected to Video Website")]
         [NUnit.Framework.CategoryAttribute("smoketest")]
         [NUnit.Framework.TestCaseAttribute("Individual", null)]
         [NUnit.Framework.TestCaseAttribute("Representative", null)]
-        public virtual void PersonWithNoUpcomingHearingsWhenSigningInToTheServiceWebsiteIsRedirectedToVideoWebsite(string role, string[] exampleTags)
+        public virtual void UsersWithNoPendingQuestionnairesToCompleteWhenSigningInToTheServiceWebsiteIsRedirectedToVideoWebsite(string role, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "smoketest"};
@@ -84,41 +84,46 @@ namespace AcceptanceTests.Tests.Features.ServiceWebsite
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Person with no upcoming hearings when signing in to the Service Website is redire" +
-                    "cted to Video Website", null, @__tags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Users with no pending questionnaires to complete when signing in to the Service W" +
+                    "ebsite is redirected to Video Website", null, @__tags);
 #line 7
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line 8
     testRunner.Given(string.Format("I am registered as \'{0}\' in the Video Hearings Azure AD", role), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
-    testRunner.But("I don\'t have any upcoming video hearings scheduled", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "But ");
+    testRunner.And("I don\'t have any pending questionnaires to complete", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 10
     testRunner.When("I sign in to the \'Service Website\' using my account details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 11
-    testRunner.Then("I am redirected to \'Video Website\' automatically", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.Then("I am redirected to the \'Video Website\' automatically", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Individual without computer submits questionnaire is redirected to Video Web")]
-        [NUnit.Framework.CategoryAttribute("VIH-4577")]
-        [NUnit.Framework.CategoryAttribute("Individual")]
-        public virtual void IndividualWithoutComputerSubmitsQuestionnaireIsRedirectedToVideoWeb()
+        [NUnit.Framework.DescriptionAttribute("User with no pending questionnaires to complete but dropped out when signing in t" +
+            "o the Service Website is redirected to Video Website")]
+        [NUnit.Framework.TestCaseAttribute("Do you have a computer?", null)]
+        [NUnit.Framework.TestCaseAttribute("Does your computer have a camera and microphone?", null)]
+        [NUnit.Framework.TestCaseAttribute("Will you have access to the Internet?", null)]
+        public virtual void UserWithNoPendingQuestionnairesToCompleteButDroppedOutWhenSigningInToTheServiceWebsiteIsRedirectedToVideoWebsite(string question_Title, string[] exampleTags)
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Individual without computer submits questionnaire is redirected to Video Web", null, new string[] {
-                        "VIH-4577",
-                        "Individual"});
-#line 19
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User with no pending questionnaires to complete but dropped out when signing in t" +
+                    "o the Service Website is redirected to Video Website", null, exampleTags);
+#line 17
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
+#line 18
+    testRunner.Given("I am registered as \'Individual\' in the Video Hearings Azure AD", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 19
+    testRunner.And("I don\'t have any pending questionnaires to complete", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 20
-    testRunner.Given("Individual participant has already submitted questionnaire but drops out", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+    testRunner.But(string.Format("I answered \'No\' to \'{0}\' question", question_Title), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "But ");
 #line 21
-    testRunner.When("\'Individual\' with no upcoming hearings logs in with valid credentials", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+    testRunner.When("I sign in to the \'Service Website\' using my account details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 22
-    testRunner.Then("Participant should be redirected to Video Web", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.Then("I am redirected to \'Video Website\' automatically", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

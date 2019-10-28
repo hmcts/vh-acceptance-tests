@@ -20,6 +20,9 @@ namespace AcceptanceTests.Tests.Hooks
         {
             var testContext = _appContextManager.SetUpTestContext(NUnitParamReader.GetTargetApp());
             _objectContainer.RegisterInstanceAs(testContext);
+
+            var _saucelabsSettings = SaucelabsHook.GetSauceLabsSettings(_appContextManager.ConfigRoot);
+            _objectContainer.RegisterInstanceAs(_saucelabsSettings);
         }
     }
 }

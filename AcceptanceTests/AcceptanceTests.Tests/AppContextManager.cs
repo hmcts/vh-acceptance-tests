@@ -13,15 +13,15 @@ namespace AcceptanceTests.Tests
     {
         //private static BookingsApiClientHelper _bookingsApiHelper;
         //private static DataSetUpValidation _dataSetUpValidation;
-        private static IConfigurationRoot _configRoot;
+        public IConfigurationRoot ConfigRoot { get; private set; }
 
         public ITestContext SetUpTestContext(SutSupport currentApp)
         {
             var appSecret = SutSettings.GetTargetAppSecret(currentApp);
-            _configRoot = ConfigurationManager.BuildDefaultConfigRoot(currentApp.ToString(), appSecret);
+            ConfigRoot = ConfigurationManager.BuildDefaultConfigRoot(currentApp.ToString(), appSecret);
             //var restClient = new RestClient(vhServiceConfig.BookingsApiUrl);
             //_bookingsApiHelper.CreateClient(restClient, token);
-            ITestContext testContext = (TestContextBase)ConfigurationManager.ParseConfigurationIntoTestContext(_configRoot).Result;
+            ITestContext testContext = (TestContextBase)ConfigurationManager.ParseConfigurationIntoTestContext(ConfigRoot).Result;
             Console.WriteLine(MethodBase.GetCurrentMethod().Name, "Setting TestContext.BaseUrl to: " + testContext.BaseUrl);
             testContext.CurrentApp = currentApp.ToString();
             Console.WriteLine(MethodBase.GetCurrentMethod().Name, "Setting TestContext.CurrentApp to: " + testContext.CurrentApp);

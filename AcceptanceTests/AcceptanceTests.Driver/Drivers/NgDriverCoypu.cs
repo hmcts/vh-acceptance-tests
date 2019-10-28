@@ -6,7 +6,6 @@ using System;
 
 namespace AcceptanceTests.Driver
 {
-    // TODO: fix or remove this
     public class NgDriverCoypu : SeleniumWebDriver
     {
         public NgDriverCoypu(IWebDriver driver, Browser browser)

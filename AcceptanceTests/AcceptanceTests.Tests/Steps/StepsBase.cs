@@ -1,6 +1,7 @@
 ﻿using System;
 using AcceptanceTests.Model.Context;
 using Coypu;
+using TechTalk.SpecFlow;
 
 namespace AcceptanceTests.Tests.Steps
 {
@@ -10,7 +11,8 @@ namespace AcceptanceTests.Tests.Steps
         protected ITestContext _testContext;
         protected readonly BrowserSession _driver;
 
-        public StepsBase(AppContextManager appContextManager, ITestContext testContext, BrowserSession driver)
+        public StepsBase(AppContextManager appContextManager, ITestContext testContext,
+                            BrowserSession driver)
         {
             _appContextManager = appContextManager;
             _testContext = testContext;

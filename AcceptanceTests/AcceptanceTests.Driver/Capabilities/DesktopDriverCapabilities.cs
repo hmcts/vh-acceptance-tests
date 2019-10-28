@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using AcceptanceTests.Driver.Support;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -10,12 +11,13 @@ namespace AcceptanceTests.Driver.Capabilities
 {
     public static class DesktopDriverCapabilities
     {
-        public static ICapabilities GetDesktopDriverCapabilities(DriverOptions driverOptions, string scenarioTitle)
+        //TODO: Fix this -> invalid argument: cannot parse capability goog:chromeOptions from invalid argument: unrecognised chrome options
+        public static DriverOptions GetDesktopDriverAdditionalOptions(DriverOptions driverOptions, string scenarioTitle)
         {
             driverOptions.AddAdditionalCapability("name", scenarioTitle);
             driverOptions.AddAdditionalCapability("build", $"{Environment.GetEnvironmentVariable("Build_DefinitionName")} {Environment.GetEnvironmentVariable("RELEASE_RELEASENAME")}");
-
-            return driverOptions.ToCapabilities();
+            
+            return driverOptions;
         }
 
         internal static DriverOptions GetDriverCapabilities(BrowserSupport targetBrowser, bool blockCameraAndMic)
@@ -49,7 +51,7 @@ namespace AcceptanceTests.Driver.Capabilities
                 firefoxOptions.AddArgument("use-fake-device-for-media-stream");
                 firefoxOptions.AddArgument("media.navigator.streams.fake");
             }
-            //firefoxOptions.PlatformName =  "Windows 10";
+            firefoxOptions.PlatformName =  "Windows 10";
             firefoxOptions.BrowserVersion = "latest";
             return firefoxOptions;
         }
@@ -68,12 +70,17 @@ namespace AcceptanceTests.Driver.Capabilities
 
             if (!blockCameraAndMic)
             {
-                chromeOptions.AddArgument("use-fake-ui-for-media-stream");
-                chromeOptions.AddArgument("use-fake-device-for-media-stream");
+                var args = new List<string>
+                            {
+                                "use-fake-ui-for-media-stream",
+                                "use-fake-device-for-media-stream",
+                                "autoAcceptAlerts"
+                            };
+                chromeOptions.AddArguments(args);
             }
-
-            //chromeOptions.PlatformName = "Windows 10";
             chromeOptions.BrowserVersion = "latest";
+            chromeOptions.PlatformName = "Windows 10";
+            
             return chromeOptions;
         }
 

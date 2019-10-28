@@ -30,7 +30,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="SecurityConfiguration\" />
-    <Folder Include="ServiceConfiguration\" />
+    <Folder Include="TestConfiguration\" />
     <Folder Include="Tests\" />
   </ItemGroup>
   <ItemGroup>

@@ -8,16 +8,17 @@ namespace AcceptanceTests.Driver
 {
     public class SauceLabsDriver : SeleniumWebDriver
     {
-        public SauceLabsDriver(Browser browser, ICapabilities capabilities, string host)
-            : base(CustomWebDriver(capabilities, host), browser)
+        public SauceLabsDriver(Browser browser, DriverOptions options, string host)
+            : base(CustomWebDriver(options, host), browser)
         {
         }
 
-        private static RemoteWebDriver CustomWebDriver(ICapabilities capabilities, string host)
+        private static RemoteWebDriver CustomWebDriver(DriverOptions options, string host)
         {
-            var commandTimeout = TimeSpan.FromMinutes(1.5);
             var remoteAppHost = new Uri(host);
-            return new RemoteWebDriver(remoteAppHost, capabilities, commandTimeout);
+
+            var remoteDriver = new RemoteWebDriver(remoteAppHost, options);
+            return remoteDriver;
         }
     }
 }

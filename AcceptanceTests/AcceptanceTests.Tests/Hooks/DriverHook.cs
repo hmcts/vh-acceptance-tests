@@ -10,22 +10,19 @@ namespace AcceptanceTests.Tests.Hooks
     [Binding]
     public sealed class DriverHook
     {
-        private readonly BrowserSession _driver;
+        private BrowserSession _driver;
         private readonly ITestContext _testContext;
         private readonly SauceLabsSettings _saucelabsSettings;
         private readonly ScenarioContext _scenarioContext;
         private readonly IObjectContainer _objectContainer;
 
         public DriverHook(SauceLabsSettings saucelabsSettings,
-            ScenarioContext injectedContext, ITestContext testContext, IObjectContainer objectContainer)
+            ScenarioContext scenarioContext, ITestContext testContext, IObjectContainer objectContainer)
         {
             _saucelabsSettings = saucelabsSettings;
-            _scenarioContext = injectedContext;
+            _scenarioContext = scenarioContext;
             _testContext = testContext;
             _objectContainer = objectContainer;
-            _driver = InitDriver();
-            _objectContainer.RegisterInstanceAs(_driver);
-
         }
 
         public BrowserSession InitDriver()
@@ -33,14 +30,18 @@ namespace AcceptanceTests.Tests.Hooks
             var scenarioTitle = ScenarioManager.GetScenarioTitle(_scenarioContext);
             var blockCamAndMicrophone = ScenarioManager.HasTag(ScenarioTags.BlockCameraAndMic.ToString(), _scenarioContext);
             var driverManager = new DriverManager();
-            return driverManager.Init(_testContext.BaseUrl, NUnitParamReader.GetTargetBrowser().ToString(),
-                                        NUnitParamReader.GetTargetPlatform(), NUnitParamReader.GetTargetDevice(),
+            _driver = driverManager.Init(_testContext.BaseUrl, NUnitParamReader.GetTargetBrowser().ToString(),
+                                        NUnitParamReader.GetTargetPlatform(),
                                         scenarioTitle, blockCamAndMicrophone, _saucelabsSettings);
+
+            _objectContainer.RegisterInstanceAs(_driver);
+            return _driver;
         }
 
         [BeforeScenario(Order = 2)]
         public void BeforeScenario()
         {
+            _driver = InitDriver();
             _driver.Visit(_testContext.BaseUrl);
         }
 
@@ -50,7 +51,7 @@ namespace AcceptanceTests.Tests.Hooks
             if (_saucelabsSettings.RunWithSaucelabs)
             {
                 bool passed = _scenarioContext.TestError == null;
-                SaucelabsHook.LogPassed(passed, _driver.Driver);
+                SaucelabsHook.LogPassed(passed, _driver);
             }
 
             TearDownSession();

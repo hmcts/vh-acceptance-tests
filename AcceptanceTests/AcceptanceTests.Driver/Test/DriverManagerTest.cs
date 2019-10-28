@@ -38,7 +38,7 @@ namespace AcceptanceTests.Driver.Test
         public void InitLocalBrowserDesktopSuccessTest(string browser)
         {
             var driverManager = new DriverManager();
-            _session = driverManager.Init(BaseUrl, browser, defaultPlatform, DeviceSupport.Pc, ScenarioTitle, BlockCamAndMicrophone, _saucelabsSettings);
+            _session = driverManager.Init(BaseUrl, browser, defaultPlatform, ScenarioTitle, BlockCamAndMicrophone, _saucelabsSettings);
             _session.Should().NotBeNull();
             _session.Driver.Window.Title.Should().NotBeNull();
         }
@@ -50,7 +50,7 @@ namespace AcceptanceTests.Driver.Test
         public void InitLocalBrowserDesktopBlockCamAndMicSuccessTest(string browser)
         {
             var driverManager = new DriverManager();
-            _session = driverManager.Init(BaseUrl, browser, defaultPlatform, DeviceSupport.Pc, ScenarioTitle, true, _saucelabsSettings);
+            _session = driverManager.Init(BaseUrl, browser, defaultPlatform, ScenarioTitle, true, _saucelabsSettings);
             _session.Should().NotBeNull();
             _session.Driver.Window.Title.Should().NotBeNull();
         }
@@ -62,19 +62,9 @@ namespace AcceptanceTests.Driver.Test
             var driverManager = new DriverManager();
             Assert.Throws<NotSupportedException>(() =>
             {
-                driverManager.Init(BaseUrl, browser, defaultPlatform, DeviceSupport.Pc, ScenarioTitle, BlockCamAndMicrophone, _saucelabsSettings);
+                driverManager.Init(BaseUrl, browser, defaultPlatform, ScenarioTitle, BlockCamAndMicrophone, _saucelabsSettings);
 
             });
-        }
-
-        [TestCase("Ipad")]
-        [TestCase("Iphone")]
-        public void InitBrowserSupportedMobileSuccessTest(DeviceSupport device)
-        {
-            var driverManager = new DriverManager();
-            _session = driverManager.Init(BaseUrl, BrowserSupport.Safari.ToString(), PlatformSupport.Mobile, device, ScenarioTitle, BlockCamAndMicrophone, _saucelabsSettings);
-            _session.Should().NotBeNull();
-            _session.Driver.Window.Title.Should().NotBeNull();
         }
 
         [Test]
@@ -83,7 +73,7 @@ namespace AcceptanceTests.Driver.Test
             var driverManager = new DriverManager();
             Assert.Throws<NotSupportedException>(() =>
             {
-                driverManager.Init(BaseUrl, BrowserSupport.Chrome.ToString(), PlatformSupport.Mobile, DeviceSupport.Samsung, ScenarioTitle, BlockCamAndMicrophone, _saucelabsSettings);
+                driverManager.Init(BaseUrl, BrowserSupport.Chrome.ToString(), PlatformSupport.Mobile, ScenarioTitle, BlockCamAndMicrophone, _saucelabsSettings);
             });
         }
     }

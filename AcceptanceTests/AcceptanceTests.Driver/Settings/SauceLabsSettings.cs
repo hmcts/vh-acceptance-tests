@@ -5,20 +5,12 @@ namespace AcceptanceTests.Driver.Settings
 {
     public class SauceLabsSettings
     {
-        public SauceLabsSettings()
-        {
-            if (RunWithSaucelabs)
-            {
-                SetRemoteUrl(PlatformSupport.Desktop);
-            }
-        }
-
-        public bool RunWithSaucelabs => !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(AccessKey);
 
         public string Username { get; set; }
         public string AccessKey { get; set; }
         public string MobileAccessKey { get; set; }
         public string RemoteServerUrl { get; private set; }
+        public bool RunWithSaucelabs => !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(AccessKey);
 
         public string SetRemoteUrl(PlatformSupport platform)
         {

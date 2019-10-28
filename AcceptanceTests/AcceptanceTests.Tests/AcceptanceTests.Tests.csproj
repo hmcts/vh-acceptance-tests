@@ -5,15 +5,14 @@
     <PublishChromeDriver>true</PublishChromeDriver>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="adminwebsite.useraccounts.json" />
-    <None Remove="servicewebsite.useraccounts.json" />
-    <None Remove="serviceweb.chrome.desktop.runsettings.xml" />
     <None Remove="adminweb.firefox.desktop.runsettings.xml" />
+    <None Remove="resources\adminwebsite\adminwebsite.firefox.desktop.runsettings.xml" />
+    <None Remove="resources\adminwebsite\adminwebsite.useraccounts.json" />
+    <None Remove="resources\servicewebsite\serviceweb.chrome.desktop.runsettings.xml" />
+    <None Remove="resources\servicewebsite\servicewebsite.useraccounts.json" />
+    <None Remove="appsettings.AdminWeb.json" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Features\AdminWebsite\SigningIn.feature">
       <Generator></Generator>
     </None>
@@ -28,6 +27,18 @@
     </None>
     <None Update="Features\AdminWebsite\SignIn.feature">
       <Generator></Generator>
+    </None>
+    <None Update="resources\adminwebsite\adminwebsite.appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\servicewebsite\servicewebsite.appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\videowebsite\servicewebsite.appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -46,6 +57,9 @@
     <Folder Include="Hooks\" />
     <Folder Include="IntegrationTests\" />
     <Folder Include="Features\ServiceWebsite\" />
+    <Folder Include="resources\" />
+    <Folder Include="resources\videowebsite\" />
+    <Folder Include="bin\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Features\SignIn.feature.cs" />
@@ -57,16 +71,16 @@
     <ProjectReference Include="..\AcceptanceTests.Configuration\AcceptanceTests.Configuration.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="adminwebsite.useraccounts.json">
+    <Content Include="resources\adminwebsite\adminwebsite.firefox.desktop.runsettings.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="servicewebsite.useraccounts.json">
+    <Content Include="resources\adminwebsite\adminwebsite.useraccounts.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="serviceweb.chrome.desktop.runsettings.xml">
+    <Content Include="resources\servicewebsite\serviceweb.chrome.desktop.runsettings.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="adminwebsite.firefox.desktop.runsettings.xml">
+    <Content Include="resources\servicewebsite\servicewebsite.useraccounts.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
