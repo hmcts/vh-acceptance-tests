@@ -31,7 +31,7 @@ namespace AcceptanceTests.PageObject.Page
         public IEnumerable<ElementScope> GetDashboardPanelElements()
         {
             var elements = DriverExtension.WaitForElementPresentByCss(WrappedDriver, PanelTitleLocator);
-            var count = elements.Count();
+            
             return elements;
         }
     }

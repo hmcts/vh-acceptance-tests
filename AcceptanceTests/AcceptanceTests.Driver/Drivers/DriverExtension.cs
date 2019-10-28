@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Coypu;
 
 namespace AcceptanceTests.Driver.Drivers
@@ -13,7 +14,7 @@ namespace AcceptanceTests.Driver.Drivers
         {
             try
             {
-                var result = new Func<IEnumerable<ElementScope>>(() => driver.FindAllCss(cssLocator, null, DefaultOptions))();
+                var result = new Func<IEnumerable<ElementScope>>(() => driver.FindAllCss(cssLocator, x => x.Any(), DefaultOptions))();
                 Console.WriteLine($"Element {cssLocator} successfully found on page.");
                 return result;
             }
@@ -27,7 +28,7 @@ namespace AcceptanceTests.Driver.Drivers
         {
             try
             {
-                var result = new Func<IEnumerable<SnapshotElementScope>>(() => driver.FindAllXPath(xPathLocator, null, DefaultOptions))();
+                var result = new Func<IEnumerable<SnapshotElementScope>>(() => driver.FindAllXPath(xPathLocator, x => x.Any(), DefaultOptions))();
                 Console.WriteLine($"Element {xPathLocator} successfully found on page.");
                 return result;
             }
