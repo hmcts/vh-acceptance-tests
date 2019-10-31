@@ -17,6 +17,8 @@
     <None Remove="resources\servicewebsite\adminwebsite.edge.desktop.runsettings.xml" />
     <None Remove="resources\servicewebsite\adminwebsite.firefox.desktop.runsettings.xml" />
     <None Remove="resources\servicewebsite\adminwebsite.safari.desktop.runsettings.xml" />
+    <None Remove="resources\videowebsite\videowebsite.appsettings.json" />
+    <None Remove="resources\videowebsite\servicewebsite.useraccounts.json" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Features\AdminWebsite\SigningIn.feature">
@@ -45,6 +47,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="resources\videowebsite\videowebsite.appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -106,6 +111,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="resources\servicewebsite\servicewebsite.safari.desktop.runsettings.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\videowebsite\videowebsite.appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\videowebsite\videowebsite.useraccounts.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

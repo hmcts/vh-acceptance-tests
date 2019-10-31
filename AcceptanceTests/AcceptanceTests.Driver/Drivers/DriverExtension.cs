@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Coypu;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 
 namespace AcceptanceTests.Driver.Drivers
 {
@@ -35,6 +37,19 @@ namespace AcceptanceTests.Driver.Drivers
             catch (Exception)
             {
                 throw new MissingHtmlException($"XPath selected Element {xPathLocator} was not found on page after waiting {DefaultTimeout} seconds.");
+            }
+        }
+
+        public static void WaitForPageToLoad(BrowserSession driver, string url)
+        {
+            try
+            {
+                var wait = new WebDriverWait((IWebDriver)driver.Native, DefaultTimeout);
+                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(url)); 
+            }
+            catch (Exception)
+            {
+                throw new MissingHtmlException($"Page {url} was not found after waiting {DefaultTimeout} seconds.");
             }
         }
     }

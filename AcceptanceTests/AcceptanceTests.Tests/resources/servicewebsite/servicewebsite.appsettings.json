@@ -1,10 +1,10 @@
 ﻿{
-  "WebsiteUrl": "https://vh-service-web-dev.hearings.reform.hmcts.net/",
+  "WebsiteUrl": "https://vh-service-web-sandbox.hearings.reform.hmcts.net/",
   "VhBrowserSettings": [
     {
       "BrowserName": "Chrome",
       "Platform": "Windows 10",
-      "Version": "latest"
+      "Version": "78.0"
     },
     {
       "BrowserName": "Firefox",
@@ -19,7 +19,7 @@
     {
       "BrowserName": "Edge",
       "Platform": "Windows 10",
-      "Version": "latest"
+      "Version": "18.17763"
     }
   ]
 }

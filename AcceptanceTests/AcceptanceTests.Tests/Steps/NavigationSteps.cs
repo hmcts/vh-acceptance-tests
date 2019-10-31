@@ -1,4 +1,5 @@
-﻿using AcceptanceTests.Driver.Support;
+﻿using AcceptanceTests.Driver.Drivers;
+using AcceptanceTests.Driver.Support;
 using AcceptanceTests.Model;
 using AcceptanceTests.Model.Context;
 using Coypu;
@@ -18,7 +19,8 @@ namespace AcceptanceTests.Tests.Steps
         [Then(@"I am redirected to the '(.*)' automatically")]
         public void ThenParticipantShouldBeRedirectedToVideoWeb(string targetApp)
         {
-            _appContextManager.SwitchTargetAppContext(targetApp, _testContext);
+            _testContext = _appContextManager.SwitchTargetAppContext(targetApp, _testContext);
+            DriverExtension.WaitForPageToLoad(_driver, _testContext.BaseUrl);
             _driver.Location.ToString().Should().Contain(_testContext.BaseUrl);
         }
     }
