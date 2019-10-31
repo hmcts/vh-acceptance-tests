@@ -35,7 +35,6 @@
     </None>
     <None Update="Features\AdminWebsite\SignIn.feature">
       <Generator></Generator>
-      <Visible>False</Visible>
     </None>
     <None Update="resources\adminwebsite\adminwebsite.appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -128,8 +127,8 @@
     </SpecFlowFeatureFiles>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Features\ServiceWebsite\SignIn.feature.cs">
+    <SpecFlowObsoleteCodeBehindFiles Update="Features\ServiceWebsite\SignIn.feature.cs">
       <DependentUpon>SignIn.feature</DependentUpon>
-    </Compile>
+    </SpecFlowObsoleteCodeBehindFiles>
   </ItemGroup>
 </Project>

@@ -1,6 +1,4 @@
 ﻿using AcceptanceTests.Driver.Drivers;
-using AcceptanceTests.Driver.Support;
-using AcceptanceTests.Model;
 using AcceptanceTests.Model.Context;
 using Coypu;
 using FluentAssertions;

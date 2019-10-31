@@ -3,6 +3,7 @@
     public enum SutSupport
     {
         AdminWebsite,
-        ServiceWebsite
+        ServiceWebsite,
+        VideoWebsite
     }
 }

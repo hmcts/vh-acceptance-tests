@@ -17,6 +17,7 @@ namespace AcceptanceTests.Tests.Steps
         public void WhenISignInToTheWebsiteUsingMyAccountDetails(string targetApp)
         {
             _testContext = _appContextManager.SwitchTargetAppContext(targetApp, _testContext);
+            _driver.Visit(_testContext.BaseUrl);
             SignInHelper.SignIn(_driver, _testContext);
         }
     }
