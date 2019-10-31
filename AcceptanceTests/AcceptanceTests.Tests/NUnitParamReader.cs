@@ -1,22 +1,54 @@
 ﻿using System;
 using AcceptanceTests.Driver.Support;
+using AcceptanceTests.Model;
 
 namespace AcceptanceTests.Tests
 {
     public class NUnitParamReader
     {
-        public static SutSupport GetTargetApp()
+        public static SutSupport GetTargetApp(string configApp = null)
         {
-            SutSupport targetApp;
             var nUnitParam = NUnit.Framework.TestContext.Parameters["TargetApp"];
-            Console.WriteLine($"nUnitParam {nUnitParam}");
-            return Enum.TryParse(nUnitParam, true, out targetApp) ? targetApp : SutSupport.AdminWebsite;
+            Console.WriteLine($"GetTargetApp NUnitParam is: {nUnitParam}");
+
+            SutSupport targetApp = SutSupport.AdminWebsite;
+
+            if (nUnitParam != null)
+            {
+                targetApp = EnumParser.ParseText<SutSupport>(nUnitParam);
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(configApp))
+                {
+                    targetApp = EnumParser.ParseText<SutSupport>(configApp);
+                }
+            }
+            Console.WriteLine($"Setting target app to: {targetApp}");
+            return targetApp;
         }
 
-        public static BrowserSupport GetTargetBrowser()
+        public static BrowserSupport GetTargetBrowser(string configBrowser = null)
         {
-            BrowserSupport targetBrowser;
-            return Enum.TryParse(NUnit.Framework.TestContext.Parameters["TargetBrowser"], true, out targetBrowser) ? targetBrowser : BrowserSupport.Chrome;
+
+            var nUnitParam = NUnit.Framework.TestContext.Parameters["TargetBrowser"];
+            Console.WriteLine($"GetTargetApp NUnitParam is: {nUnitParam}");
+
+            BrowserSupport targetBrowser = BrowserSupport.Chrome;
+
+            if (nUnitParam != null)
+            {
+                targetBrowser = EnumParser.ParseText<BrowserSupport>(nUnitParam);
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(configBrowser))
+                {
+                    targetBrowser = EnumParser.ParseText<BrowserSupport>(configBrowser);
+                }
+            }
+            Console.WriteLine($"Setting target browser to: {targetBrowser}");
+            return targetBrowser;
         }
 
         public static PlatformSupport GetTargetPlatform()

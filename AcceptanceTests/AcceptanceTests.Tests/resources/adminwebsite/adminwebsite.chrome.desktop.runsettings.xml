@@ -3,7 +3,7 @@
   <!-- Parameters used by tests at run time -->
   <TestRunParameters>
       <Parameter name="TargetApp" value="AdminWebsite" />
-      <Parameter name="TargetBrowser" value="Firefox" />
+      <Parameter name="TargetBrowser" value="Chrome" />
       <Parameter name="TargetPlatform" value="Desktop" />
   </TestRunParameters>
 </RunSettings>

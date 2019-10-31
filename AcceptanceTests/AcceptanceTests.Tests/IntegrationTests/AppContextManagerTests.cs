@@ -17,6 +17,14 @@ namespace AcceptanceTests.Tests.IntegrationTests
 
         }
 
+        [TestCase("AdminWebsite")]
+        [TestCase("ServiceWebsite")]
+        public void SetUpTestContextWithInjectedAppTest(string app)
+        {
+            var testContext = _appContextManager.SetUpTestContext(app);
+            testContext.CurrentApp.Should().Be(app, "Because no NUnit parameter should have been given for this test to run.");
+        }
+
         [TestCase("Admin Website", "Admin Website")]
         [TestCase("Admin Website", "Service Website")]
         [TestCase ("Service Website", "Service Website")]

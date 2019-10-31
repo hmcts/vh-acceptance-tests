@@ -11,20 +11,22 @@ namespace AcceptanceTests.Tests
 {
     public class AppContextManager
     {
-        //private static BookingsApiClientHelper _bookingsApiHelper;
-        //private static DataSetUpValidation _dataSetUpValidation;
+        private const string TestBuildName = "Acceptance Tests.Tests";
         public IConfigurationRoot ConfigRoot { get; private set; }
 
-        public ITestContext SetUpTestContext(SutSupport currentApp)
+        public ITestContext SetUpTestContext(string injectedApp = null)
         {
-            var appSecret = SutSettings.GetTargetAppSecret(currentApp);
-            ConfigRoot = ConfigurationManager.BuildDefaultConfigRoot(currentApp.ToString(), appSecret);
-            //var restClient = new RestClient(vhServiceConfig.BookingsApiUrl);
-            //_bookingsApiHelper.CreateClient(restClient, token);
+            var targetApp = GetTargetApp(injectedApp);  
+            
+            var appSecret = SutSettings.GetTargetAppSecret(targetApp);
+            ConfigRoot = ConfigurationManager.BuildDefaultConfigRoot(targetApp.ToString(), appSecret);
+
             ITestContext testContext = (TestContextBase)ConfigurationManager.ParseConfigurationIntoTestContext(ConfigRoot).Result;
             Console.WriteLine(MethodBase.GetCurrentMethod().Name, "Setting TestContext.BaseUrl to: " + testContext.BaseUrl);
-            testContext.CurrentApp = currentApp.ToString();
+
+            testContext.CurrentApp = targetApp.ToString();
             Console.WriteLine(MethodBase.GetCurrentMethod().Name, "Setting TestContext.CurrentApp to: " + testContext.CurrentApp);
+
             return testContext;
         }
 
@@ -32,21 +34,15 @@ namespace AcceptanceTests.Tests
         {
             ITestContext testContext;
             var currentUserContext = currentTestContext;
-            //currentUserContext.CurrentUser = new TestUser();
-            //currentUserContext.CurrentUser.Username = currentTestContext.UserContext.CurrentUser.Username;
-            //currentUserContext.TestUserSecrets.TestUserPassword = currentTestContext.UserContext.TestUserSecrets.TestUserPassword;
 
-            SutSupport parsedTargetApp = GetTargetApp(targetApp);
-            
+            var parsedTargetApp = EnumParser.ParseText <SutSupport>(targetApp);
+            var currentApp = EnumParser.ParseText<SutSupport>(currentTestContext.CurrentApp);
 
-            if (!parsedTargetApp.Equals(EnumParser.ParseText<SutSupport>(currentTestContext.CurrentApp)))
+            if (!parsedTargetApp.Equals(currentApp))
             {
-
-                testContext = SetUpTestContext(parsedTargetApp);
+                testContext = SetUpTestContext(targetApp);
                 testContext.UserContext.CurrentUser = currentUserContext.UserContext.CurrentUser;
                 testContext.UserContext.TestUserSecrets = currentTestContext.UserContext.TestUserSecrets;
-                //testContext.UserContext.CurrentUser.Username = currentUserContext.CurrentUser.Username;
-                //testContext.UserContext.TestUserSecrets.TestUserPassword = currentUserContext.TestUserSecrets.TestUserPassword;
             }  
             else
                 testContext = currentTestContext;
@@ -54,14 +50,28 @@ namespace AcceptanceTests.Tests
             return testContext;
         }
 
-        public SutSupport GetTargetApp(string targetApp)
+        private SutSupport GetTargetApp(string injectedApp)
         {
-            SutSupport parsedTargetApp = SutSupport.AdminWebsite;
+            SutSupport targetApp;
+            if (string.IsNullOrEmpty(injectedApp))
+            {
+                var configApp = ConfigurationManager.GetTargetAppFromAppSettingsConfiguration();
+                targetApp = NUnitParamReader.GetTargetApp(configApp);
+            }
+            else
+            {
+                targetApp = EnumParser.ParseText<SutSupport>(injectedApp);
+            }
+            return targetApp;
+        }
 
-            if (!string.IsNullOrEmpty(targetApp))
-                parsedTargetApp = EnumParser.ParseText<SutSupport>(targetApp);
+        public static string GetBuildName()
+        {
+            var buildName = $"{ Environment.GetEnvironmentVariable("Build_DefinitionName") } { Environment.GetEnvironmentVariable("RELEASE_RELEASENAME")}";
+            if (string.IsNullOrEmpty(buildName.Trim()))
+                buildName = TestBuildName;
 
-            return parsedTargetApp;
+            return buildName;
         }
     }
 }

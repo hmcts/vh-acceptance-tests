@@ -11,6 +11,14 @@ namespace AcceptanceTests.Configuration
 {
     public class ConfigurationManager
     {
+        public static string GetTargetAppFromAppSettingsConfiguration()
+        {
+            var configRoot = new ConfigurationBuilder()
+             .AddJsonFile($"appsettings.json");
+            var targetApp = ConfigurationReader.GetTargetApp(configRoot.Build());
+            return targetApp;
+        }
+
         public static IConfigurationRoot BuildDefaultConfigRoot(string targetApp, string userSecrets)
         {
             var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
@@ -40,6 +48,7 @@ namespace AcceptanceTests.Configuration
             var vhServiceConfig = ConfigurationReader.GetVhServiceConfig(configRoot);
 
             var testContext = new TestContextBase();
+            testContext.TargetBrowser = ConfigurationReader.GetTargetBrowser(configRoot);
             testContext.BookingsApiBearerToken = await GetBearerToken(azureAdConfig, vhServiceConfig);
             testContext.BookingsApiBaseUrl = vhServiceConfig.BookingsApiUrl;
             testContext.BaseUrl = ConfigurationReader.GetWebsiteUrl(configRoot);

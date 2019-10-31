@@ -4,6 +4,9 @@ using AcceptanceTests.Driver;
 using TechTalk.SpecFlow;
 using AcceptanceTests.Driver.Settings;
 using AcceptanceTests.Model.Context;
+using AcceptanceTests.Configuration;
+using System;
+using AcceptanceTests.Driver.Support;
 
 namespace AcceptanceTests.Tests.Hooks
 {
@@ -25,14 +28,21 @@ namespace AcceptanceTests.Tests.Hooks
             _objectContainer = objectContainer;
         }
 
+        private string GetTargetBrowser()
+        {
+            var browser = _testContext.TargetBrowser;
+            var targetBrowser = NUnitParamReader.GetTargetBrowser(browser).ToString();
+            return targetBrowser;
+        }
+
         public BrowserSession InitDriver()
         {
-            var scenarioTitle = ScenarioManager.GetScenarioTitle(_scenarioContext);
             var blockCamAndMicrophone = ScenarioManager.HasTag(ScenarioTags.BlockCameraAndMic.ToString(), _scenarioContext);
+            var buildName = AppContextManager.GetBuildName();
             var driverManager = new DriverManager();
-            _driver = driverManager.Init(_testContext.BaseUrl, NUnitParamReader.GetTargetBrowser().ToString(),
+            _driver = driverManager.Init(_testContext.BaseUrl, GetTargetBrowser(),
                                         NUnitParamReader.GetTargetPlatform(),
-                                        scenarioTitle, blockCamAndMicrophone, _saucelabsSettings);
+                                        _scenarioContext.ScenarioInfo, buildName, blockCamAndMicrophone, _saucelabsSettings);
 
             _objectContainer.RegisterInstanceAs(_driver);
             return _driver;
@@ -42,7 +52,15 @@ namespace AcceptanceTests.Tests.Hooks
         public void BeforeScenario()
         {
             _driver = InitDriver();
-            _driver.Visit(_testContext.BaseUrl);
+            try
+            {
+                _driver.Visit(_testContext.BaseUrl);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error visiting BaseUrl {_testContext.BaseUrl}: {ex.GetBaseException()}");
+            }
+            
         }
 
         [AfterScenario(Order = 0)]

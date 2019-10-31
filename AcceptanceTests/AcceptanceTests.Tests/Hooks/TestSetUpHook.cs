@@ -18,7 +18,7 @@ namespace AcceptanceTests.Tests.Hooks
         [BeforeScenario(Order = 0)]
         public void OneTimeSetup()
         {
-            var testContext = _appContextManager.SetUpTestContext(NUnitParamReader.GetTargetApp());
+            var testContext = _appContextManager.SetUpTestContext();
             _objectContainer.RegisterInstanceAs(testContext);
 
             var _saucelabsSettings = SaucelabsHook.GetSauceLabsSettings(_appContextManager.ConfigRoot);

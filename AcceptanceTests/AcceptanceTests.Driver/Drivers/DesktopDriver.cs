@@ -1,35 +1,42 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
 using AcceptanceTests.Driver.Capabilities;
+using AcceptanceTests.Driver.Settings;
 using AcceptanceTests.Driver.Support;
+using AcceptanceTests.Model;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Safari;
+using TechTalk.SpecFlow;
 
 namespace AcceptanceTests.Driver
 {
     public class DesktopDriver
     { 
-        public static DriverOptions GetDesktopDriverOptions(BrowserSupport targetBrowser, string scenarioTitle, bool blockCameraAndMic)
+        public static DriverOptions GetDesktopLocalDriverOptions(BrowserSupport targetBrowser, bool blockCameraAndMic)
         {
-            DriverOptions driverOptions = DesktopDriverCapabilities.GetDriverCapabilities(targetBrowser, blockCameraAndMic);
-            //driverOptions = DesktopDriverCapabilities.GetDesktopDriverAdditionalOptions(driverOptions, scenarioTitle);
+            DriverOptions driverOptions = DesktopDriverOptions.GetLocalDriverOptions(targetBrowser, blockCameraAndMic);
 
             return driverOptions;
         }
 
-        public static DesiredCapabilities GetDesktopDriverCapabilities(BrowserSupport targetBrowser, string scenarioTitle, bool blockCameraAndMic)
+        public static DriverOptions GetDesktopRemoteDriverOptions(BrowserSettings browserSettings, ScenarioInfo scenarioInfo, bool blockCameraAndMic)
         {
-            var options = GetDesktopDriverOptions(targetBrowser, scenarioTitle, blockCameraAndMic);
-            var desiredCapabilities = DesktopDriverCapabilities.GetDesktopDriverAdditionalOptions(options, scenarioTitle).ToCapabilities() as DesiredCapabilities;
+            var driverOptions = DesktopDriverOptions.GetRemoteDesktopOptions(browserSettings, scenarioInfo, blockCameraAndMic);
+            return driverOptions;
+        }
+
+        public static DesiredCapabilities GetDesktopDriverCapabilities(BrowserSettings browserSettings, ScenarioInfo scenarioInfo, string buildName, bool blockCameraAndMic)
+        {
+            var targetBrowser = EnumParser.ParseText<BrowserSupport>(browserSettings.BrowserName);
+            var desiredCapabilities = DesktopDriverCapabilities.GetRemoteDesktopCapabilities(targetBrowser, browserSettings, scenarioInfo, buildName, blockCameraAndMic);
             return desiredCapabilities;
         }
 
-        public static IWebDriver InitDesktopBrowser(BrowserSupport targetBrowser, DriverOptions options)
+        public static IWebDriver InitDesktopLocalBrowser(BrowserSupport targetBrowser, DriverOptions options)
         {
             IWebDriver driver = null;
             switch (targetBrowser)

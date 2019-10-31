@@ -8,5 +8,6 @@
         public string VideoAppUrl { get; set; }
         public string BookingsApiBearerToken { get; set; }
         public string BookingsApiBaseUrl { get; set; }
+        public string TargetBrowser { get; set;}
     }
 }

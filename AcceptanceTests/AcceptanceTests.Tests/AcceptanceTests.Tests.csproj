@@ -11,6 +11,12 @@
     <None Remove="resources\servicewebsite\serviceweb.chrome.desktop.runsettings.xml" />
     <None Remove="resources\servicewebsite\servicewebsite.useraccounts.json" />
     <None Remove="appsettings.AdminWeb.json" />
+    <None Remove="resources\adminwebsite\adminwebsite.firefox.desktop %28copy%29.runsettings.xml" />
+    <None Remove="resources\adminwebsite\adminwebsite.firefox.desktop %28another copy%29.runsettings.xml" />
+    <None Remove="resources\adminwebsite\adminwebsite.firefox.desktop %283rd copy%29.runsettings.xml" />
+    <None Remove="resources\servicewebsite\adminwebsite.edge.desktop.runsettings.xml" />
+    <None Remove="resources\servicewebsite\adminwebsite.firefox.desktop.runsettings.xml" />
+    <None Remove="resources\servicewebsite\adminwebsite.safari.desktop.runsettings.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Features\AdminWebsite\SigningIn.feature">
@@ -27,6 +33,7 @@
     </None>
     <None Update="Features\AdminWebsite\SignIn.feature">
       <Generator></Generator>
+      <Visible>False</Visible>
     </None>
     <None Update="resources\adminwebsite\adminwebsite.appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -77,10 +84,28 @@
     <Content Include="resources\adminwebsite\adminwebsite.useraccounts.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="resources\servicewebsite\serviceweb.chrome.desktop.runsettings.xml">
+    <Content Include="resources\servicewebsite\servicewebsite.chrome.desktop.runsettings.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="resources\servicewebsite\servicewebsite.useraccounts.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\adminwebsite\adminwebsite.edge.desktop.runsettings.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\adminwebsite\adminwebsite.safari.desktop.runsettings.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\adminwebsite\adminwebsite.chrome.desktop.runsettings.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\servicewebsite\servicewebsite.edge.desktop.runsettings.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\servicewebsite\servicewebsite.firefox.desktop.runsettings.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\servicewebsite\servicewebsite.safari.desktop.runsettings.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

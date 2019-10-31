@@ -1,10 +1,10 @@
 ﻿using System;
 using Coypu;
-using OpenQA.Selenium;
 using TechTalk.SpecFlow;
 using AcceptanceTests.Driver.Settings;
 using Microsoft.Extensions.Configuration;
 using Options = Microsoft.Extensions.Options.Options;
+using System.Collections.Generic;
 
 namespace AcceptanceTests.Tests.Hooks
 {
@@ -15,6 +15,8 @@ namespace AcceptanceTests.Tests.Hooks
         public static SauceLabsSettings GetSauceLabsSettings(IConfigurationRoot configRoot)
         {
             var saucelabsSettings = Options.Create(configRoot.GetSection("Saucelabs").Get<SauceLabsSettings>()).Value;
+            saucelabsSettings.TargetBrowserSettings = Options.Create(configRoot.GetSection("VhBrowserSettings").Get<List<BrowserSettings>>()).Value;
+
             return saucelabsSettings;
         }
 

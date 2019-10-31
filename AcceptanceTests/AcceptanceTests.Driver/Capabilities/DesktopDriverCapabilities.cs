@@ -1,71 +1,94 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using AcceptanceTests.Driver.Settings;
 using AcceptanceTests.Driver.Support;
-using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.Safari;
+using OpenQA.Selenium.Remote;
+using TechTalk.SpecFlow;
 
 namespace AcceptanceTests.Driver.Capabilities
 {
     public static class DesktopDriverCapabilities
     {
         //TODO: Fix this -> invalid argument: cannot parse capability goog:chromeOptions from invalid argument: unrecognised chrome options
-        public static DriverOptions GetDesktopDriverAdditionalOptions(DriverOptions driverOptions, string scenarioTitle)
+        public static DesiredCapabilities GetDesktopDriverAdditionalCapabilities(DesiredCapabilities desiredCapabilities,
+                                                                                    ScenarioInfo scenarioTitle, string buildName)
         {
-            driverOptions.AddAdditionalCapability("name", scenarioTitle);
-            driverOptions.AddAdditionalCapability("build", $"{Environment.GetEnvironmentVariable("Build_DefinitionName")} {Environment.GetEnvironmentVariable("RELEASE_RELEASENAME")}");
-            
-            return driverOptions;
+            desiredCapabilities.SetCapability("name", scenarioTitle);
+            desiredCapabilities.SetCapability("build", buildName);
+
+            var sauceOptions = new Dictionary<string, object>();
+            desiredCapabilities.SetCapability("sauce:options", sauceOptions);
+
+            return desiredCapabilities;
         }
 
-        internal static DriverOptions GetDriverCapabilities(BrowserSupport targetBrowser, bool blockCameraAndMic)
+        public static DesiredCapabilities GetRemoteDesktopCapabilities(BrowserSupport targetBrowser, BrowserSettings browserSettings,
+                                                                            ScenarioInfo scenarioInfo, string buildName, bool blockCameraAndMic)
         {
-            DriverOptions driverOptions = null;
+            var desiredCapabilities = new DesiredCapabilities();
             switch (targetBrowser)
             {
                 case BrowserSupport.Chrome:
-                    driverOptions = GetChromeCapabilities(blockCameraAndMic);
+                    desiredCapabilities = GetChromeCapabilities(blockCameraAndMic);
                     break;
                 case BrowserSupport.Safari:
-                    driverOptions = GetSafariCapabilities();
+                    desiredCapabilities = GetSafariCapabilities();
                     break;
                 case BrowserSupport.Edge:
-                    driverOptions = GetEdgeCapabilities();
+                    desiredCapabilities = GetEdgeCapabilities();
                     break;
                 case BrowserSupport.Firefox:
-                    driverOptions = GetFirefoxCapabilities(blockCameraAndMic);
+                    desiredCapabilities = GetFirefoxCapabilities(blockCameraAndMic);
                     break;
             }
 
-            return driverOptions;
+            desiredCapabilities.SetCapability("seleniumVersion", "3.11.0");
+            desiredCapabilities.SetCapability("platformName", browserSettings.Platform);
+            desiredCapabilities.SetCapability("browserName", browserSettings.BrowserName);
+            desiredCapabilities.SetCapability("browserVersion", browserSettings.Version);
+            desiredCapabilities.SetCapability("platform", browserSettings.Platform);
+            desiredCapabilities.SetCapability("version", browserSettings.Version);
+
+            var sauceOptions = new Dictionary<string, object>();
+            sauceOptions.Add("build", buildName);
+            sauceOptions.Add("name", scenarioInfo.Title);
+            sauceOptions.Add("tags", scenarioInfo.Tags);
+            desiredCapabilities.SetCapability("sauce:options", sauceOptions);
+
+            return desiredCapabilities;
         }
 
-        public static DriverOptions GetFirefoxCapabilities(bool blockCameraAndMic)
+        public static DesiredCapabilities GetFirefoxCapabilities(bool blockCameraAndMic)
         {
+            var capabilities = new DesiredCapabilities();
             var firefoxOptions = new FirefoxOptions();
             if (!blockCameraAndMic)
             {
-                firefoxOptions.AddArgument("use-fake-ui-for-media-stream");
-                firefoxOptions.AddArgument("use-fake-device-for-media-stream");
-                firefoxOptions.AddArgument("media.navigator.streams.fake");
+                var args = new List<string>
+                            {
+                                "use-fake-ui-for-media-stream",
+                                "use-fake-device-for-media-stream",
+                                "media.navigator.streams.fake",
+                                "autoAcceptAlerts"
+                            };
+                firefoxOptions.AddArguments(args);
+                capabilities.SetCapability("args", firefoxOptions);
             }
-            firefoxOptions.PlatformName =  "Windows 10";
-            firefoxOptions.BrowserVersion = "latest";
-            return firefoxOptions;
+
+            return capabilities;
+
         }
 
-        public static DriverOptions GetEdgeCapabilities()
+        public static DesiredCapabilities GetEdgeCapabilities()
         {
-            var edgeOptions = new EdgeOptions();
-            edgeOptions.PlatformName = "Windows 10";
-            edgeOptions.BrowserVersion = "latest";
-            return edgeOptions;
+            var capabilities = new DesiredCapabilities();
+            return capabilities;
         }
 
-        public static DriverOptions GetChromeCapabilities(bool blockCameraAndMic)
+        public static DesiredCapabilities GetChromeCapabilities(bool blockCameraAndMic)
         {
+            var capabilities = new DesiredCapabilities();
             var chromeOptions = new ChromeOptions();
 
             if (!blockCameraAndMic)
@@ -77,19 +100,16 @@ namespace AcceptanceTests.Driver.Capabilities
                                 "autoAcceptAlerts"
                             };
                 chromeOptions.AddArguments(args);
+                capabilities.SetCapability("args", args);
             }
-            chromeOptions.BrowserVersion = "latest";
-            chromeOptions.PlatformName = "Windows 10";
             
-            return chromeOptions;
+            return capabilities;
         }
 
-        public static DriverOptions GetSafariCapabilities()
+        public static DesiredCapabilities GetSafariCapabilities()
         {
-            var safariOptions = new SafariOptions();
-            //safariOptions.PlatformName = "Mac OSX 10.13";
-            //safariOptions.BrowserVersion = "12.0";
-            return safariOptions;
+            var capabilities = new DesiredCapabilities();
+            return capabilities;
         }
     }
 }

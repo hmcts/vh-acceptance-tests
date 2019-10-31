@@ -4,6 +4,7 @@ using AcceptanceTests.Driver.Support;
 using Coypu;
 using FluentAssertions;
 using NUnit.Framework;
+using TechTalk.SpecFlow;
 
 namespace AcceptanceTests.Driver.Test
 {
@@ -13,7 +14,8 @@ namespace AcceptanceTests.Driver.Test
         private const string BaseUrl = "https://vh-admin-web-api-dev.hearings.reform.hmcts.net/";
         private BrowserSession _session;
         private SauceLabsSettings _saucelabsSettings;
-        private const string ScenarioTitle = "Acceptance Test Framework : Driver Tests";
+        private ScenarioInfo _scenarioInfo;
+        private string _buildName = "Acceptance Tests: Driver Tests";
         private const bool BlockCamAndMicrophone = false;
 
         private const PlatformSupport defaultPlatform = PlatformSupport.Desktop;
@@ -22,6 +24,8 @@ namespace AcceptanceTests.Driver.Test
         public void SetUp()
         {
             _saucelabsSettings = new SauceLabsSettings();
+            var tags = new string[] { "integrationTests", "DriverManagerTest" };
+            _scenarioInfo = new ScenarioInfo("Acceptance Test Framework : Driver Tests", "Testing driver integration tests", tags);
         }
 
         [TearDown]
@@ -34,11 +38,10 @@ namespace AcceptanceTests.Driver.Test
         [TestCase("Firefox")]
         [TestCase("Safari")]
         [TestCase("Chrome")]
-        [TestCase("Edge")]
         public void InitLocalBrowserDesktopSuccessTest(string browser)
         {
             var driverManager = new DriverManager();
-            _session = driverManager.Init(BaseUrl, browser, defaultPlatform, ScenarioTitle, BlockCamAndMicrophone, _saucelabsSettings);
+            _session = driverManager.Init(BaseUrl, browser, defaultPlatform, _scenarioInfo, _buildName, BlockCamAndMicrophone, _saucelabsSettings);
             _session.Should().NotBeNull();
             _session.Driver.Window.Title.Should().NotBeNull();
         }
@@ -46,11 +49,10 @@ namespace AcceptanceTests.Driver.Test
         [TestCase("Firefox")]
         [TestCase("Safari")]
         [TestCase("Chrome")]
-        [TestCase("Edge")]
         public void InitLocalBrowserDesktopBlockCamAndMicSuccessTest(string browser)
         {
             var driverManager = new DriverManager();
-            _session = driverManager.Init(BaseUrl, browser, defaultPlatform, ScenarioTitle, true, _saucelabsSettings);
+            _session = driverManager.Init(BaseUrl, browser, defaultPlatform, _scenarioInfo, _buildName, true, _saucelabsSettings);
             _session.Should().NotBeNull();
             _session.Driver.Window.Title.Should().NotBeNull();
         }
@@ -62,7 +64,7 @@ namespace AcceptanceTests.Driver.Test
             var driverManager = new DriverManager();
             Assert.Throws<NotSupportedException>(() =>
             {
-                driverManager.Init(BaseUrl, browser, defaultPlatform, ScenarioTitle, BlockCamAndMicrophone, _saucelabsSettings);
+                driverManager.Init(BaseUrl, browser, defaultPlatform, _scenarioInfo, _buildName, BlockCamAndMicrophone, _saucelabsSettings);
 
             });
         }
@@ -71,9 +73,9 @@ namespace AcceptanceTests.Driver.Test
         public void InitBrowserNotSupportedMobileThrowsExceptionTest()
         {
             var driverManager = new DriverManager();
-            Assert.Throws<NotSupportedException>(() =>
+            Assert.Throws<PlatformNotSupportedException>(() =>
             {
-                driverManager.Init(BaseUrl, BrowserSupport.Chrome.ToString(), PlatformSupport.Mobile, ScenarioTitle, BlockCamAndMicrophone, _saucelabsSettings);
+                driverManager.Init(BaseUrl, BrowserSupport.Chrome.ToString(), PlatformSupport.Mobile, _scenarioInfo, _buildName, BlockCamAndMicrophone, _saucelabsSettings);
             });
         }
     }

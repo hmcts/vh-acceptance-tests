@@ -5,13 +5,15 @@ using Coypu.Drivers;
 using AcceptanceTests.Model;
 using AcceptanceTests.Driver.Settings;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Remote;
+using TechTalk.SpecFlow;
 
 namespace AcceptanceTests.Driver
 {
     public class DriverManager
     {
-        public BrowserSession Init(string baseUrl, string targetBrowser, PlatformSupport platform, string scenarioTitle,
-                                        bool blockCameraAndMicTag, SauceLabsSettings saucelabsSettings)
+        public BrowserSession Init(string baseUrl, string targetBrowser, PlatformSupport platform, ScenarioInfo scenarioInfo,
+                                        string buildName, bool blockCameraAndMicTag, SauceLabsSettings saucelabsSettings)
         {
             IDriver driver = null;
             var parsedBrowser = EnumParser.ParseText<BrowserSupport>(targetBrowser);
@@ -20,8 +22,7 @@ namespace AcceptanceTests.Driver
             switch (platform)
             {
                 case PlatformSupport.Desktop:
-                    var options = DesktopDriver.GetDesktopDriverOptions(parsedBrowser, scenarioTitle, blockCameraAndMicTag);
-                    driver = GetDesktopDriver(options, parsedBrowser, saucelabsSettings);
+                    driver = InitDesktopDriver(scenarioInfo, buildName, blockCameraAndMicTag, saucelabsSettings, parsedBrowser);
                     break;
                 case PlatformSupport.Mobile:
                     throw new PlatformNotSupportedException($"Platform {platform} is not currently supported");
@@ -44,26 +45,46 @@ namespace AcceptanceTests.Driver
             return new BrowserSession(sessionConfiguration, driver);
         }
 
-        public IDriver GetDesktopDriver(DriverOptions options, BrowserSupport parsedBrowser, SauceLabsSettings saucelabsSettings)
+        private IDriver InitDesktopDriver(ScenarioInfo scenarioInfo, string buildName, bool blockCameraAndMicTag, SauceLabsSettings saucelabsSettings, BrowserSupport parsedBrowser)
         {
-            IDriver seleniumDriver;
-            var browser = Browser.Parse(parsedBrowser.ToString());
-
+            IDriver driver;
             if (saucelabsSettings.RunWithSaucelabs)
             {
-                seleniumDriver = InitSauceLabsDriver(browser, options, saucelabsSettings.RemoteServerUrl);
-            } else
+                var browserSettings = saucelabsSettings.GetFirstOrDefaultBrowserSettingsBySupportedBrowser(parsedBrowser);
+                var capabilities = DesktopDriver.GetDesktopDriverCapabilities(browserSettings, scenarioInfo, buildName, blockCameraAndMicTag);
+                //var options = DesktopDriver.GetDesktopRemoteDriverOptions(browserSettings, scenarioInfo, blockCameraAndMicTag);
+                //driver = GetDesktopRemoteDriver(options, parsedBrowser, saucelabsSettings);
+                driver = GetDesktopRemoteDriver(capabilities, parsedBrowser, saucelabsSettings);
+            }
+            else
             {
 
-                var driver = DesktopDriver.InitDesktopBrowser(parsedBrowser, options);
-                seleniumDriver = new NgDriverCoypu(driver, browser);
+                var options = DesktopDriver.GetDesktopLocalDriverOptions(parsedBrowser, blockCameraAndMicTag);
+                driver = GetDesktopLocalDriver(options, parsedBrowser);
             }
+
+            return driver;
+        }
+
+        public IDriver GetDesktopLocalDriver(DriverOptions options, BrowserSupport targetBrowser)
+        {
+            var driver = DesktopDriver.InitDesktopLocalBrowser(targetBrowser, options);
+            var seleniumDriver = new NgDriverCoypu(driver, Browser.Parse(targetBrowser.ToString()));
+            
             return seleniumDriver;
         }
 
-        public IDriver InitSauceLabsDriver(Browser browser, DriverOptions options, string remoteUrl)
+        private IDriver GetDesktopRemoteDriver(DesiredCapabilities capabilities, BrowserSupport targetBrowser, SauceLabsSettings saucelabsSettings)
         {
-            return new SauceLabsDriver(browser, options, remoteUrl); 
+            var commandTimeout = TimeSpan.FromMinutes(1.5);
+            var seleniumDriver = new SauceLabsDriver(Browser.Parse(targetBrowser.ToString()), capabilities, saucelabsSettings.RemoteServerUrl, commandTimeout);
+            return seleniumDriver;
+        }
+
+        private IDriver GetDesktopRemoteDriver(DriverOptions options, BrowserSupport targetBrowser, SauceLabsSettings saucelabsSettings)
+        {
+            var seleniumDriver = new SauceLabsDriver(Browser.Parse(targetBrowser.ToString()), options, saucelabsSettings.RemoteServerUrl);
+            return seleniumDriver;
         }
     }
 }

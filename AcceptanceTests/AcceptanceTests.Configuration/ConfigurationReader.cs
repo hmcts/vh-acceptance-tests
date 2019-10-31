@@ -9,6 +9,16 @@ namespace AcceptanceTests.Configuration
 {
     public class ConfigurationReader
     {
+        public static string GetTargetApp(IConfigurationRoot configRoot)
+        {
+            return configRoot.GetSection("TargetApp").Value;
+        }
+
+        public static string GetTargetBrowser(IConfigurationRoot configRoot)
+        {
+            return configRoot.GetSection("TargetBrowser").Value;
+        }
+
         public static ISecurityConfiguration GetAzureAdConfig(IConfigurationRoot configRoot)
         {
             return Options.Create(configRoot.GetSection("AzureAd").Get<SecurityConfigurationBase>()).Value;
