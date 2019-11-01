@@ -70,7 +70,7 @@ Mobile devices are not yet supported, although the feature is implemented this f
 Checkout the projects and ensure you have one of the supported and tested browsers installed: Chrome, Firefox or Edge.
 
 ## What do I need to run these in Saucelabs?
-You'll need to update the[appsettings.json](https://github.com/hmcts/vh-acceptance-tests/blob/feature/initial-project-structure/AcceptanceTests/AcceptanceTests.Tests/appsettings.json) with "Username" and "AccessKey" values for your saucelabs account:
+You'll need to update the [appsettings.json](https://github.com/hmcts/vh-acceptance-tests/blob/feature/initial-project-structure/AcceptanceTests/AcceptanceTests.Tests/appsettings.json) with "Username" and "AccessKey" values for your saucelabs account:
 ```json
 {
   "Logging": {
