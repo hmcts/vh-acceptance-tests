@@ -10,23 +10,21 @@ namespace AcceptanceTests.Driver.Capabilities
 {
     public static class DesktopDriverCapabilities
     {
-        //TODO: Fix this -> invalid argument: cannot parse capability goog:chromeOptions from invalid argument: unrecognised chrome options
-        public static DesiredCapabilities GetDesktopDriverAdditionalCapabilities(DesiredCapabilities desiredCapabilities,
-                                                                                    ScenarioInfo scenarioTitle, string buildName)
+        public static Dictionary<string, object> GetSauceOptions(ScenarioInfo scenarioInfo, string buildName)
         {
-            desiredCapabilities.SetCapability("name", scenarioTitle);
-            desiredCapabilities.SetCapability("build", buildName);
-
             var sauceOptions = new Dictionary<string, object>();
-            desiredCapabilities.SetCapability("sauce:options", sauceOptions);
+            sauceOptions.Add("build", buildName);
+            sauceOptions.Add("name", scenarioInfo.Title);
+            sauceOptions.Add("tags", scenarioInfo.Tags);
 
-            return desiredCapabilities;
+            return sauceOptions;
         }
-
+#pragma warning disable 618
         public static DesiredCapabilities GetRemoteDesktopCapabilities(BrowserSupport targetBrowser, BrowserSettings browserSettings,
                                                                             ScenarioInfo scenarioInfo, string buildName, bool blockCameraAndMic)
         {
             var desiredCapabilities = new DesiredCapabilities();
+            var browserName = browserSettings.BrowserName;
             switch (targetBrowser)
             {
                 case BrowserSupport.Chrome:
@@ -37,6 +35,7 @@ namespace AcceptanceTests.Driver.Capabilities
                     break;
                 case BrowserSupport.Edge:
                     desiredCapabilities = GetEdgeCapabilities();
+                    browserName = "MicrosoftEdge";
                     break;
                 case BrowserSupport.Firefox:
                     desiredCapabilities = GetFirefoxCapabilities(blockCameraAndMic);
@@ -45,15 +44,12 @@ namespace AcceptanceTests.Driver.Capabilities
 
             desiredCapabilities.SetCapability("seleniumVersion", "3.11.0");
             desiredCapabilities.SetCapability("platformName", browserSettings.Platform);
-            desiredCapabilities.SetCapability("browserName", browserSettings.BrowserName);
+            desiredCapabilities.SetCapability("browserName", browserName);
             desiredCapabilities.SetCapability("browserVersion", browserSettings.Version);
-            desiredCapabilities.SetCapability("platform", browserSettings.Platform);
-            desiredCapabilities.SetCapability("version", browserSettings.Version);
+            //desiredCapabilities.SetCapability("platform", browserSettings.Platform);
+            //desiredCapabilities.SetCapability("version", browserSettings.Version);
 
-            var sauceOptions = new Dictionary<string, object>();
-            sauceOptions.Add("build", buildName);
-            sauceOptions.Add("name", scenarioInfo.Title);
-            sauceOptions.Add("tags", scenarioInfo.Tags);
+            var sauceOptions = GetSauceOptions(scenarioInfo, buildName);
             desiredCapabilities.SetCapability("sauce:options", sauceOptions);
 
             return desiredCapabilities;
@@ -111,5 +107,6 @@ namespace AcceptanceTests.Driver.Capabilities
             var capabilities = new DesiredCapabilities();
             return capabilities;
         }
+#pragma warning restore 618
     }
 }

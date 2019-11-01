@@ -1,5 +1,6 @@
 ﻿using System;
 using AcceptanceTests.Model;
+using AcceptanceTests.Model.Context;
 using AcceptanceTests.Model.Type;
 using AcceptanceTests.PageObject.Page;
 using Coypu;
@@ -9,13 +10,12 @@ using TechTalk.SpecFlow;
 namespace AcceptanceTests.Tests.Steps
 {
     [Binding]
-    public class ErrorSteps
+    public class ErrorSteps : StepsBase
     {
-        BrowserSession _driver;
 
-        public ErrorSteps(BrowserSession driver)
+        public ErrorSteps(AppContextManager appContextManager, ScenarioContext scenarioContext, ITestContext testContext,
+                            BrowserSession driver) : base(appContextManager, scenarioContext, testContext, driver)
         {
-            _driver = driver;
         }
 
         [Then(@"I see a page with the '(.*)' message and the content below:")]
@@ -36,7 +36,7 @@ namespace AcceptanceTests.Tests.Steps
         [Then(@"I can follow the '(.*)' CTA on the screen")]
         public void ThenICanFollowTheCTAOnTheScreen(string ctaText)
         {
-            ScenarioContext.Current.Pending();
+            _scenarioContext.Pending();
         }
     }
 }

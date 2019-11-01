@@ -8,8 +8,8 @@ namespace AcceptanceTests.Tests.Steps
     [Binding]
     public class SignInSteps : StepsBase
     {
-        public SignInSteps(AppContextManager appContextManager, ITestContext testContext, BrowserSession driver)
-            : base(appContextManager, testContext, driver)
+        public SignInSteps(AppContextManager appContextManager, ScenarioContext scenarioContext, ITestContext testContext, BrowserSession driver)
+            : base(appContextManager, scenarioContext, testContext, driver)
         {
         }
 

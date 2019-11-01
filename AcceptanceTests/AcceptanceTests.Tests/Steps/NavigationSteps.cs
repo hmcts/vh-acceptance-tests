@@ -9,8 +9,8 @@ namespace AcceptanceTests.Tests.Steps
     [Binding]
     public class NavigationSteps : StepsBase
     {
-        public NavigationSteps(AppContextManager appContextManager, ITestContext testContext, BrowserSession driver)
-            : base(appContextManager, testContext, driver)
+        public NavigationSteps(AppContextManager appContextManager, ScenarioContext scenarioContext, ITestContext testContext, BrowserSession driver)
+            : base(appContextManager, scenarioContext, testContext, driver)
         {
         }
 

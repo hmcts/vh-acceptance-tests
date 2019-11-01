@@ -52,8 +52,6 @@ namespace AcceptanceTests.Driver
             {
                 var browserSettings = saucelabsSettings.GetFirstOrDefaultBrowserSettingsBySupportedBrowser(parsedBrowser);
                 var capabilities = DesktopDriver.GetDesktopDriverCapabilities(browserSettings, scenarioInfo, buildName, blockCameraAndMicTag);
-                //var options = DesktopDriver.GetDesktopRemoteDriverOptions(browserSettings, scenarioInfo, blockCameraAndMicTag);
-                //driver = GetDesktopRemoteDriver(options, parsedBrowser, saucelabsSettings);
                 driver = GetDesktopRemoteDriver(capabilities, parsedBrowser, saucelabsSettings);
             }
             else
@@ -73,13 +71,14 @@ namespace AcceptanceTests.Driver
             
             return seleniumDriver;
         }
-
+#pragma warning disable 618
         private IDriver GetDesktopRemoteDriver(DesiredCapabilities capabilities, BrowserSupport targetBrowser, SauceLabsSettings saucelabsSettings)
         {
             var commandTimeout = TimeSpan.FromMinutes(1.5);
             var seleniumDriver = new SauceLabsDriver(Browser.Parse(targetBrowser.ToString()), capabilities, saucelabsSettings.RemoteServerUrl, commandTimeout);
             return seleniumDriver;
         }
+#pragma warning restore 618
 
         private IDriver GetDesktopRemoteDriver(DriverOptions options, BrowserSupport targetBrowser, SauceLabsSettings saucelabsSettings)
         {

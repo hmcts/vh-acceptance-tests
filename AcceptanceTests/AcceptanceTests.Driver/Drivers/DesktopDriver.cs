@@ -23,18 +23,19 @@ namespace AcceptanceTests.Driver
             return driverOptions;
         }
 
-        public static DriverOptions GetDesktopRemoteDriverOptions(BrowserSettings browserSettings, ScenarioInfo scenarioInfo, bool blockCameraAndMic)
+        public static DriverOptions GetDesktopRemoteDriverOptions(BrowserSettings browserSettings, ScenarioInfo scenarioInfo, string buildName, bool blockCameraAndMic)
         {
-            var driverOptions = DesktopDriverOptions.GetRemoteDesktopOptions(browserSettings, scenarioInfo, blockCameraAndMic);
+            var driverOptions = DesktopDriverOptions.GetRemoteDesktopOptions(browserSettings, scenarioInfo, buildName, blockCameraAndMic);
             return driverOptions;
         }
-
+#pragma warning disable 618
         public static DesiredCapabilities GetDesktopDriverCapabilities(BrowserSettings browserSettings, ScenarioInfo scenarioInfo, string buildName, bool blockCameraAndMic)
         {
             var targetBrowser = EnumParser.ParseText<BrowserSupport>(browserSettings.BrowserName);
             var desiredCapabilities = DesktopDriverCapabilities.GetRemoteDesktopCapabilities(targetBrowser, browserSettings, scenarioInfo, buildName, blockCameraAndMic);
             return desiredCapabilities;
         }
+#pragma warning restore 618
 
         public static IWebDriver InitDesktopLocalBrowser(BrowserSupport targetBrowser, DriverOptions options)
         {
@@ -52,7 +53,6 @@ namespace AcceptanceTests.Driver
                     break;
                 case BrowserSupport.Firefox:
                     driver = new FirefoxDriver((FirefoxOptions)options);
-                    //driver = new FirefoxDriver();
                     break;
             }
             return driver;

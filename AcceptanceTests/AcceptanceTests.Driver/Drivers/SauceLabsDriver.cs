@@ -21,7 +21,7 @@ namespace AcceptanceTests.Driver
             var remoteDriver = new RemoteWebDriver(remoteAppHost, options);
             return remoteDriver;
         }
-
+#pragma warning disable 618
         public SauceLabsDriver(Browser browser, DesiredCapabilities capabilities, string host, TimeSpan commandTimeout)
             : base(CustomWebDriver(capabilities, host, commandTimeout), browser)
         {
@@ -34,5 +34,6 @@ namespace AcceptanceTests.Driver
             var remoteDriver = new RemoteWebDriver(remoteAppHost, capabilities, commandTimeout);
             return remoteDriver;
         }
+#pragma warning restore 618
     }
 }
