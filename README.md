@@ -10,6 +10,7 @@ Use individual packages to integrate into other test projects. Run tests on desk
 
 ## How do I select which application and browser to test on?
 In the project root folder, create a file appsettings.json with the target application and browser as follows:
+```json
 {
   "Logging": {
     "LogLevel": {
@@ -25,12 +26,14 @@ In the project root folder, create a file appsettings.json with the target appli
   "TargetApp": "AdminWebsite", // choose from AdminWebsite or ServiceWebsite
   "TargetBrowser": "Chrome" // choose from Safari, Edge, Firefox or Chrome
 }
+```
 
 ## Where can I see what are the browser configurations?
 Browser configurations can be found in the application specific folders under resources/[targetApp] as per example below:
 AcceptanceTests.Tests/resources/adminwebsite/adminwebsite.appsettings.json
 
 And their content:
+```json
 {
   "WebsiteUrl": "https://vh-admin-web-dev.hearings.reform.hmcts.net/",
   "VhBrowserSettings": [
@@ -56,7 +59,7 @@ And their content:
     }
   ]
 }
-
+```
 ## How do I know I'm pointing to the correct test environment?
 Under the same file you find the browser settings you can see WebsiteUrl, e.g. AcceptanceTests.Tests/resources/adminwebsite/adminwebsite.appsettings.json
 
@@ -68,6 +71,7 @@ Checkout the projects and ensure you have one of the supported and tested browse
 
 ## What do I need to run these in Saucelabs?
 You'll need to update the[appsettings.json](https://github.com/hmcts/vh-acceptance-tests/blob/feature/initial-project-structure/AcceptanceTests/AcceptanceTests.Tests/appsettings.json) with "Username" and "AccessKey" values for your saucelabs account:
+```json
 {
   "Logging": {
     "LogLevel": {
@@ -83,21 +87,23 @@ You'll need to update the[appsettings.json](https://github.com/hmcts/vh-acceptan
   "TargetApp": "AdminWebsite", // choose from AdminWebsite or ServiceWebsite
   "TargetBrowser": "Edge" // choose from Safari, Edge, Firefox or Chrome
 }
-
-Where do I see the test results?
+```
+## Where do I see the test results?
 You need to login to your saucelabs account and check for your tests on the dashboard. To make it easier to filter, you can pass in Scenario tags using specflow feature files:
+```gherkin
 @smoketest
 @adminWebsite
 @signIn
-@caseAdmin
-Scenario Outline: Case Admin sign in to the Admin Website then see one panel
-    Given I am registered as 'Case Admin' in the Video Hearings Azure AD
+@vhOfficer
+Scenario Outline: VH Officer sign in to the Admin Website then see two panels
+    Given I am registered as 'VH Officer' in the Video Hearings Azure AD
     When I sign in to the 'Admin Website' using my account details 
     Then the '<panel_title>' panel is displayed 
     Examples:
     |panel_title|
     |Book a video hearing|
-
+    |Questionnaire results|
+```
 ## How do I consume these packages?
 You can create a new test project using the same structure from AcceptanceTests.Test, adding AcceptanceTests.Configuration, Driver, Model and PageObject NuGet Packages pointing at our internal NuGet packages manager. Ensure your project structure makes use of all Hooks and mimics the folder structure for Features, Steps and Resources.
 
@@ -106,12 +112,12 @@ You can create a new test project using the same structure from AcceptanceTests.
 ## How do I release an automated test?
 
 ## Past Challenges
-Platform incompatibility in SauceLabs
-Lack of support for Specflow on Mac
-Windows slow tests
-Safari 12 protocol updates requiring handle to be passed
-Mismatch Edge vs. MicrosoftEdge browser name in SauceLabs
-Ability to fetch elements on the page using different locators - still happening on Safari
+- Platform incompatibility in SauceLabs
+- Lack of support for Specflow on Mac
+- Windows slow tests
+- Safari 12 protocol updates requiring handle to be passed
+- Mismatch Edge vs. MicrosoftEdge browser name in SauceLabs
+- Ability to fetch elements on the page using different locators - still happening on Safari
 
 ## Resources
 ### Saucelabs
