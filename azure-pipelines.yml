@@ -18,12 +18,22 @@ variables:
   - group: Saucelabs
   - group: vh domains and urls
   - group: vh test users
-  - name: subscription
-    value: 'Reform-CFT-VH-Dev'
+  - name: Authority
+    value: https://login.microsoftonline.com/$(TenantId)
+  - name: ClientId
+    value: $(vh-service-web-appid)
+  - name: ClientSecret
+    value: $(vh-service-web-key)
+  - name: current_web_url
+    value: $(service_web_url)
+  - name: environment
+    value: test2
   - name: keyvault
     value: 'vhcoreinfraht$(environment)'
   - name: ReadKeyVaultSecrets
     value: 'TenantId, vh-service-web-appid, vh-service-web-key'
+  - name: subscription
+    value: 'Reform-CFT-VH-Dev'
 
 steps:
 - task: gittools.gitversion.gitversion-task.GitVersion@5
