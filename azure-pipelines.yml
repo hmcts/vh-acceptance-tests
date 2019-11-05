@@ -96,7 +96,6 @@ steps:
     searchFolder: '$(Build.ArtifactStagingDirectory)'
     testFiltercriteria: 'TestCategory!=Local'
     uiTests: true
-    overrideTestrunParameters: '-TargetApp ServiceWebsite -TargetBrowser Chrome -TargetPlatform Desktop'
     runInParallel: true
     codeCoverageEnabled: true
     rerunFailedTests: false
