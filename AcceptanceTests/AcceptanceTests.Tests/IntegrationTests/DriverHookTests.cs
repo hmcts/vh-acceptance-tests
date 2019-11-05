@@ -42,7 +42,6 @@ namespace AcceptanceTests.Tests.IntegrationTests
         }
 
         [Test]
-        [Category("Local")]
         public void InitDriverHookLocalBrowserDefaultValuesTest()
         {
             var targetBrowser = NUnitParamReader.GetTargetBrowser();

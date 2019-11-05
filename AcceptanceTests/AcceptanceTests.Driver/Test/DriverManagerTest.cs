@@ -37,8 +37,17 @@ namespace AcceptanceTests.Driver.Test
 
         [TestCase("Firefox")]
         [TestCase("Safari")]
-        [TestCase("Chrome")]
+        [Category("Local")]
         public void InitLocalBrowserDesktopSuccessTest(string browser)
+        {
+            var driverManager = new DriverManager();
+            _session = driverManager.Init(BaseUrl, browser, defaultPlatform, _scenarioInfo, _buildName, BlockCamAndMicrophone, _saucelabsSettings);
+            _session.Should().NotBeNull();
+            _session.Driver.Window.Title.Should().NotBeNull();
+        }
+
+        [TestCase("Chrome")]
+        public void InitLocalChromeBrowserDesktopSuccessTest(string browser)
         {
             var driverManager = new DriverManager();
             _session = driverManager.Init(BaseUrl, browser, defaultPlatform, _scenarioInfo, _buildName, BlockCamAndMicrophone, _saucelabsSettings);
@@ -48,8 +57,17 @@ namespace AcceptanceTests.Driver.Test
 
         [TestCase("Firefox")]
         [TestCase("Safari")]
-        [TestCase("Chrome")]
+        [Category("Local")]
         public void InitLocalBrowserDesktopBlockCamAndMicSuccessTest(string browser)
+        {
+            var driverManager = new DriverManager();
+            _session = driverManager.Init(BaseUrl, browser, defaultPlatform, _scenarioInfo, _buildName, true, _saucelabsSettings);
+            _session.Should().NotBeNull();
+            _session.Driver.Window.Title.Should().NotBeNull();
+        }
+
+        [TestCase("Chrome")]
+        public void InitLocalChromeBrowserDesktopBlockCamAndMicSuccessTest(string browser)
         {
             var driverManager = new DriverManager();
             _session = driverManager.Init(BaseUrl, browser, defaultPlatform, _scenarioInfo, _buildName, true, _saucelabsSettings);

@@ -27,10 +27,10 @@ namespace AcceptanceTests.Tests.IntegrationTests
             targetApp.Should().Be(EnumParser.ParseText<SutSupport>(app));
         }
 
-        [TestCase(null)]
-        [TestCase("Chrome")]
+
         [TestCase("Safari")]
         [TestCase("Firefox")]
+        [Category("Local")]
         public void GetTargetBrowserTest(string browser)
         {
             var targetBrowser = NUnitParamReader.GetTargetBrowser(browser);
@@ -38,10 +38,27 @@ namespace AcceptanceTests.Tests.IntegrationTests
             targetBrowser.Should().NotBeNull();
         }
 
+        [TestCase(null)]
         [TestCase("Chrome")]
+        public void GetTargetChromeOrNullBrowserTest(string browser)
+        {
+            var targetBrowser = NUnitParamReader.GetTargetBrowser(browser);
+            Console.WriteLine($"Target browser is {targetBrowser.ToString()}");
+            targetBrowser.Should().NotBeNull();
+        }
+
         [TestCase("Safari")]
         [TestCase("Firefox")]
+        [Category("Local")]
         public void GetTargetBrowserMatchesBrowserTest(string browser)
+        {
+            var targetBrowser = NUnitParamReader.GetTargetBrowser(browser);
+            Console.WriteLine($"Target browser is {targetBrowser.ToString()}");
+            targetBrowser.Should().Be(EnumParser.ParseText<BrowserSupport>(browser));
+        }
+
+        [TestCase("Chrome")]
+        public void GetTargetChromeBrowserMatchesBrowserTest(string browser)
         {
             var targetBrowser = NUnitParamReader.GetTargetBrowser(browser);
             Console.WriteLine($"Target browser is {targetBrowser.ToString()}");
