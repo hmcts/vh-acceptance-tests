@@ -20,7 +20,7 @@ namespace AcceptanceTests.Tests.IntegrationTests
 
         [TestCase("AdminWebsite")]
         [TestCase("ServiceWebsite")]
-        [TestCaseAttribute("TargetApp", null)]
+        [Category("Local")]
         public void GetTargetAppShouldMatchAppTest(string app)
         {
             var targetApp = NUnitParamReader.GetTargetApp(app);
