@@ -1,4 +1,7 @@
-﻿using AcceptanceTests.Model.Context;
+﻿using AcceptanceTests.Model;
+using AcceptanceTests.Model.Context;
+using AcceptanceTests.Model.Role;
+using AcceptanceTests.Model.User;
 using AcceptanceTests.Tests.Helpers;
 using Coypu;
 using TechTalk.SpecFlow;
@@ -24,7 +27,8 @@ namespace AcceptanceTests.Tests.Steps
         [Given(@"I am registered as '(.*)' in the Video Hearings Azure AD")]
         public void GivenIAmRegisteredAsInTheVideoHearingsAzureAD(string role)
         {
-            _testContext.UserContext.CurrentUser = UserHelper.SetCurrentUser(_testContext, role);
+            _testContext.UserContext.CurrentUser = new TestUser();
+            _testContext.UserContext.CurrentUser.Role = EnumParser.ParseText<UserRole>(role);
         }
     }
 }

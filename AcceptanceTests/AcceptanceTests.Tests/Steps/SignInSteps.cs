@@ -18,6 +18,8 @@ namespace AcceptanceTests.Tests.Steps
         {
             _testContext = _appContextManager.SwitchTargetAppContext(targetApp, _testContext);
             _driver.Visit(_testContext.BaseUrl);
+            _testContext.UserContext.CurrentUser = UserHelper.SetCurrentUser(_testContext,
+                                                                             _testContext.UserContext.CurrentUser.Role.ToString());
             SignInHelper.SignIn(_driver, _testContext);
         }
     }
