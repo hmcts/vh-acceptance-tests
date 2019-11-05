@@ -94,7 +94,7 @@ steps:
   displayName: 'VsTest - testAssemblies'
   inputs:
     searchFolder: '$(Build.ArtifactStagingDirectory)'
-    testFiltercriteria: 'TestCategory!=Local'
+    testFiltercriteria: '(TestCategory!=Local)'
     uiTests: true
     runInParallel: true
     codeCoverageEnabled: true
