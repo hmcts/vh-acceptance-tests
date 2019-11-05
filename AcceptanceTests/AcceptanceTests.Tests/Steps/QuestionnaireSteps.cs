@@ -16,14 +16,14 @@ namespace AcceptanceTests.Tests.Steps
         public void GivenIDontHaveAnyPendingQuestionnairesToComplete()
         {
             //TODO: Call bookings API to ensure the current user doesn't have any pending questionnaires to complete
-            //_scenarioContext.Pending();
+            _scenarioContext.Pending();
         }
 
         [Given(@"I answered '(.*)' to '(.*)' question")]
         public void GivenIAnsweredToQuestion(string answer, string questionTitle)
         {
             //TODO: Call bookings API to ensure the current user doesn't have any pending questionnaires to complete and have answered No to the appropriate question
-           // _scenarioContext.Pending();
+            _scenarioContext.Pending();
         }
     }
 }

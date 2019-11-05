@@ -29,7 +29,6 @@ namespace AcceptanceTests.Tests.IntegrationTests
             targetApp.Should().Be(EnumParser.ParseText<SutSupport>(app));
         }
 
-
         [TestCase("Safari")]
         [TestCase("Firefox")]
         [Category("Local")]
