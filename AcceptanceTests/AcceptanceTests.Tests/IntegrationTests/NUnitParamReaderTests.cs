@@ -20,9 +20,11 @@ namespace AcceptanceTests.Tests.IntegrationTests
 
         [TestCase("AdminWebsite")]
         [TestCase("ServiceWebsite")]
+        [TestCaseAttribute("TargetApp", null)]
         public void GetTargetAppShouldMatchAppTest(string app)
         {
             var targetApp = NUnitParamReader.GetTargetApp(app);
+
             Console.WriteLine($"Target app is {targetApp.ToString()}");
             targetApp.Should().Be(EnumParser.ParseText<SutSupport>(app));
         }
