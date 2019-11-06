@@ -103,8 +103,9 @@ steps:
 - task: VSTest@2
   displayName: 'VsTest - testAssemblies'
   inputs:
+    testAssemblyVer2: 'AcceptanceTests.*.dll'
     searchFolder: '$(Build.ArtifactStagingDirectory)'
-    testFiltercriteria: '(TestCategory!=Local)'
+    testFiltercriteria: 'TestCategory!=Local'
     uiTests: true
     runInParallel: true
     codeCoverageEnabled: true
