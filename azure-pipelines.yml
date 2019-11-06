@@ -102,6 +102,7 @@ steps:
 
 - task: DotNetCoreCLI@2
   displayName: 'dotnet push'
+  condition: and(always(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   inputs:
     command: push
     publishVstsFeed: '3f69a23d-fbc7-4541-afc7-4cccefcad773/e48b2732-376c-4052-ba97-b28783c9bab5'
