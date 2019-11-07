@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <PackOnBuild>true</PackOnBuild>
+    <PackageId>vh-acceptance-tests-driver</PackageId>
+    <PackageVersion>1.0</PackageVersion>
+    <Authors>Andressa Dantas</Authors>
+    <Owners>Video Hearings</Owners>
+    <PackageProjectUrl>https://github.com/hmcts/vh-acceptance-tests</PackageProjectUrl>
+    <Title>VH Acceptance Tests Driver</Title>
+    <Description>Selenium Webdriver package for VH Acceptance Tests.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Coypu" Version="3.1.1" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.6.0" />
+    <PackageReference Include="Coypu.NUnit" Version="3.0.1" />
+    <PackageReference Include="FluentAssertions" Version="5.9.0" />
+    <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="NUnit.ConsoleRunner" Version="3.10.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
+    <PackageReference Include="SpecFlow" Version="3.0.225" />
+    <PackageReference Include="SpecFlow.NUnit" Version="3.0.225" />
+    <PackageReference Include="Protractor" Version="0.12.0" />
+    <PackageReference Include="NuGet.Build.Packaging" Version="0.2.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="78.0.3904.7000" />
+    <PackageReference Include="Selenium.WebDriver.MicrosoftWebDriver" Version="10.0.17134" />
+    <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.26.0" />
+    <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Support\" />
+    <Folder Include="Test\" />
+    <Folder Include="Drivers\" />
+    <Folder Include="Settings\" />
+    <Folder Include="Capabilities\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AcceptanceTests.Model\AcceptanceTests.Model.csproj" />
+  </ItemGroup>
+</Project>
