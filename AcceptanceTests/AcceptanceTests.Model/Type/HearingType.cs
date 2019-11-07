@@ -2,13 +2,13 @@
 {
     public enum HearingType
     {
-        APPLICATION_TO_SET_JUDGMENT_ASIDE,
-        FIRST_DIRECTIONS_APPOINTMENT,
-        HEARING,
-        FIRST_HEARING,
-        SUBSTANTIVE_HEARING,
-        CASE_MANAGEMENT,
-        DIRECTIONS_HEARING,
-        FINAL_HEARING
+        ApplicationToSetJudgmentAside,
+        FirstDirectionsAppointment,
+        Hearing,
+        FirstHearing,
+        SubstantiveHearing,
+        CaseManagement,
+        DirectionsHearing,
+        FinalHearing
     }
 }

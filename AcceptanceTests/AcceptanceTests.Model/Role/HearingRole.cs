@@ -2,9 +2,9 @@
 {
     public enum HearingRole
     {
-        CLAIMANT_LIP,
-        SOLICITOR,
-        DEFENDANT_LIP,
-        RESPONDENT_LIP
+        ClaimantLip,
+        Solicitor,
+        DefendantLip,
+        RespondentLip
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-namespace AcceptanceTests.Model.Page
+﻿namespace AcceptanceTests.Model.Page
 {
     public enum PageName
     {

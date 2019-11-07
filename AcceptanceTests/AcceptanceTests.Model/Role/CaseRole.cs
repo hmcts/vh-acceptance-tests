@@ -2,9 +2,9 @@
 {
     public enum CaseRole
     {
-        CLAIMANT,
-        DEFENDANT,
-        APPLICANT,
-        RESPONDENT
+        Claimant,
+        Defendant,
+        Applicant,
+        Respondent
     }
 }
