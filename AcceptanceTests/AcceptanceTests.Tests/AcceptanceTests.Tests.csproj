@@ -62,6 +62,10 @@
     <PackageReference Include="SpecRun.Runner" Version="3.0.391" />
     <PackageReference Include="Coypu" Version="3.1.1" />
     <PackageReference Include="Coypu.NUnit" Version="3.0.1" />
+    <PackageReference Include="VH.AcceptanceTests.Driver" Version="1.0.0" />
+    <PackageReference Include="VH.AcceptanceTests.Model" Version="1.0.0" />
+    <PackageReference Include="VH.AcceptanceTests.Configuration" Version="1.0.0" />
+    <PackageReference Include="VH.AcceptanceTests.PageObject" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Steps\" />
@@ -74,12 +78,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Features\SignIn.feature.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AcceptanceTests.Model\AcceptanceTests.Model.csproj" />
-    <ProjectReference Include="..\AcceptanceTests.Driver\AcceptanceTests.Driver.csproj" />
-    <ProjectReference Include="..\AcceptanceTests.PageObject\AcceptanceTests.PageObject.csproj" />
-    <ProjectReference Include="..\AcceptanceTests.Configuration\AcceptanceTests.Configuration.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="resources\adminwebsite\adminwebsite.firefox.desktop.runsettings.xml">
@@ -125,10 +123,5 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>SignIn.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
-  </ItemGroup>
-  <ItemGroup>
-    <SpecFlowObsoleteCodeBehindFiles Update="Features\ServiceWebsite\SignIn.feature.cs">
-      <DependentUpon>SignIn.feature</DependentUpon>
-    </SpecFlowObsoleteCodeBehindFiles>
   </ItemGroup>
 </Project>

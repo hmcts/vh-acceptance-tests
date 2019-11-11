@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <PackOnBuild>true</PackOnBuild>
-    <PackageId>vh-acceptance-tests-configuration</PackageId>
+    <PackageId>VH.AcceptanceTests.Configuration</PackageId>
     <PackageVersion>1.0</PackageVersion>
     <Authors>Andressa Dantas</Authors>
     <Owners>Video Hearings</Owners>
@@ -27,13 +27,11 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="VH.AcceptanceTests.Model" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="SecurityConfiguration\" />
     <Folder Include="TestConfiguration\" />
     <Folder Include="Tests\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AcceptanceTests.Model\AcceptanceTests.Model.csproj" />
   </ItemGroup>
 </Project>

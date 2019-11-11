@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <PackOnBuild>true</PackOnBuild>
-    <PackageId>vh-acceptance-tests-pageobject</PackageId>
+    <PackageId>VH.AcceptanceTests.PageObject</PackageId>
     <PackageVersion>1.0</PackageVersion>
     <Authors>Andressa Dantas</Authors>
     <Owners>Video Hearings</Owners>
@@ -21,14 +21,12 @@
     <Folder Include="Components\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AcceptanceTests.Driver\AcceptanceTests.Driver.csproj" />
-    <ProjectReference Include="..\AcceptanceTests.Model\AcceptanceTests.Model.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
     <PackageReference Include="NuGet.Build.Packaging" Version="0.2.2">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="VH.AcceptanceTests.Model" Version="1.0.0" />
+    <PackageReference Include="VH.AcceptanceTests.Driver" Version="1.0.0" />
   </ItemGroup>
 </Project>

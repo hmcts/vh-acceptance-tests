@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <PackOnBuild>true</PackOnBuild>
-    <PackageId>vh-acceptance-tests-model</PackageId>
+    <PackageId>VH.AcceptanceTests.Model</PackageId>
     <PackageVersion>1.0</PackageVersion>
     <Authors>Andressa Dantas</Authors>
     <Owners>Video Hearings</Owners>
