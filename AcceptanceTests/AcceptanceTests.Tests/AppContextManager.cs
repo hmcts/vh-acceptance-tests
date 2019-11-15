@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
 using AcceptanceTests.Configuration;
 using AcceptanceTests.Driver.Settings;
@@ -19,7 +20,8 @@ namespace AcceptanceTests.Tests
             var targetApp = GetTargetApp(injectedApp);  
             
             var appSecret = SutSettings.GetTargetAppSecret(targetApp);
-            ConfigRoot = ConfigurationManager.BuildDefaultConfigRoot(targetApp.ToString(), appSecret);
+            var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            ConfigRoot = ConfigurationManager.BuildDefaultConfigRoot(path, targetApp.ToString(), appSecret);
 
             ITestContext testContext = (TestContextBase)ConfigurationManager.ParseConfigurationIntoTestContext(ConfigRoot).Result;
             Console.WriteLine(MethodBase.GetCurrentMethod().Name, "Setting TestContext.BaseUrl to: " + testContext.BaseUrl);

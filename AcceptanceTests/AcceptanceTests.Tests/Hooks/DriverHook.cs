@@ -4,9 +4,7 @@ using AcceptanceTests.Driver;
 using TechTalk.SpecFlow;
 using AcceptanceTests.Driver.Settings;
 using AcceptanceTests.Model.Context;
-using AcceptanceTests.Configuration;
 using System;
-using AcceptanceTests.Driver.Support;
 
 namespace AcceptanceTests.Tests.Hooks
 {

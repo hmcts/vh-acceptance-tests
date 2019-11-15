@@ -26,7 +26,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="VH.AcceptanceTests.Model" Version="1.0.0" />
-    <PackageReference Include="VH.AcceptanceTests.Driver" Version="1.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AcceptanceTests.Model\AcceptanceTests.Model.csproj" />
+    <ProjectReference Include="..\AcceptanceTests.Driver\AcceptanceTests.Driver.csproj" />
   </ItemGroup>
 </Project>
