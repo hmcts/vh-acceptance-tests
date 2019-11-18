@@ -62,10 +62,6 @@
     <PackageReference Include="Coypu" Version="3.1.1" />
     <PackageReference Include="Coypu.NUnit" Version="3.0.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
-    <PackageReference Include="VH.AcceptanceTests.Configuration" Version="1.0.0" />
-    <PackageReference Include="VH.AcceptanceTests.Driver" Version="1.0.0" />
-    <PackageReference Include="VH.AcceptanceTests.Model" Version="1.0.0" />
-    <PackageReference Include="VH.AcceptanceTests.PageObject" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Steps\" />
@@ -122,5 +118,11 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>SignIn.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AcceptanceTests.Configuration\AcceptanceTests.Configuration.csproj" />
+    <ProjectReference Include="..\AcceptanceTests.Driver\AcceptanceTests.Driver.csproj" />
+    <ProjectReference Include="..\AcceptanceTests.Model\AcceptanceTests.Model.csproj" />
+    <ProjectReference Include="..\AcceptanceTests.PageObject\AcceptanceTests.PageObject.csproj" />
   </ItemGroup>
 </Project>
