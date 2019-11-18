@@ -1,6 +1,4 @@
-﻿using System.IO;
-using System.Reflection;
-using AcceptanceTests.Driver.Capabilities;
+﻿using AcceptanceTests.Driver.Capabilities;
 using AcceptanceTests.Driver.Settings;
 using AcceptanceTests.Driver.Support;
 using AcceptanceTests.Model;
@@ -43,7 +41,7 @@ namespace AcceptanceTests.Driver
             switch (targetBrowser)
             {
                 case BrowserSupport.Chrome:
-                    driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), (ChromeOptions)options);
+                    driver = new ChromeDriver("./", (ChromeOptions) options);
                     break;
                 case BrowserSupport.Safari:
                     driver = new SafariDriver((SafariOptions)options);

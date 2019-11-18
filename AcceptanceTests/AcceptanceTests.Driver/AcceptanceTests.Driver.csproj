@@ -2,14 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <PublishChromeDriver>true</PublishChromeDriver>
     <PackOnBuild>true</PackOnBuild>
-    <PackageId>vh-acceptance-tests-driver</PackageId>
+    <PackageId>VH.AcceptanceTests.Driver</PackageId>
     <PackageVersion>1.0</PackageVersion>
     <Authors>Andressa Dantas</Authors>
     <Owners>Video Hearings</Owners>
     <PackageProjectUrl>https://github.com/hmcts/vh-acceptance-tests</PackageProjectUrl>
     <Title>VH Acceptance Tests Driver</Title>
     <Description>Selenium Webdriver package for VH Acceptance Tests.</Description>
+    <OutputType>Library</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,11 +21,9 @@
     <PackageReference Include="FluentAssertions" Version="5.9.0" />
     <PackageReference Include="NUnit" Version="3.12.0" />
     <PackageReference Include="NUnit.ConsoleRunner" Version="3.10.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
     <PackageReference Include="SpecFlow" Version="3.0.225" />
-    <PackageReference Include="SpecFlow.NUnit" Version="3.0.225" />
-    <PackageReference Include="Protractor" Version="0.12.0" />
     <PackageReference Include="NuGet.Build.Packaging" Version="0.2.2">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
@@ -32,6 +32,7 @@
     <PackageReference Include="Selenium.WebDriver.MicrosoftWebDriver" Version="10.0.17134" />
     <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.26.0" />
     <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
+    <PackageReference Include="Protractor.Net.Standard.Latest.Selenium" Version="0.12.1" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Support\" />
@@ -39,6 +40,22 @@
     <Folder Include="Drivers\" />
     <Folder Include="Settings\" />
     <Folder Include="Capabilities\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="resources\adminwebsite\adminwebsite.chrome.desktop.runsettings.xml" />
+    <None Remove="resources\adminwebsite\adminwebsite.edge.desktop.runsettings.xml" />
+    <None Remove="resources\adminwebsite\adminwebsite.firefox.desktop.runsettings.xml" />
+    <None Remove="resources\adminwebsite\adminwebsite.safari.desktop.runsettings.xml" />
+    <None Remove="resources\adminwebsite\adminwebsite.useraccounts.json" />
+    <None Remove="resources\servicewebsite\servicewebsite.chrome.desktop.runsettings.xml" />
+    <None Remove="resources\servicewebsite\servicewebsite.edge.desktop.runsettings.xml" />
+    <None Remove="resources\servicewebsite\servicewebsite.firefox.desktop.runsettings.xml" />
+    <None Remove="resources\servicewebsite\servicewebsite.safari.desktop.runsettings.xml" />
+    <None Remove="resources\servicewebsite\servicewebsite.useraccounts.json" />
+    <None Remove="resources\videowebsite\videowebsite.appsettings.json" />
+    <None Remove="resources\videowebsite\videowebsite.useraccounts.json" />
+    <None Remove="resources\adminwebsite\adminwebsite.appsettings.json" />
+    <None Remove="resources\servicewebsite\servicewebsite.appsettings.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AcceptanceTests.Model\AcceptanceTests.Model.csproj" />

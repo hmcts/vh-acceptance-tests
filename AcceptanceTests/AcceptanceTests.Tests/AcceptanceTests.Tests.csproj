@@ -55,13 +55,13 @@
   <ItemGroup>
     <PackageReference Include="NUnit" Version="3.12.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
-    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="78.0.3904.7000" />
     <PackageReference Include="SpecFlow" Version="3.0.225" />
     <PackageReference Include="SpecFlow.NUnit" Version="3.0.225" />
     <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.0.225" />
     <PackageReference Include="SpecRun.Runner" Version="3.0.391" />
     <PackageReference Include="Coypu" Version="3.1.1" />
     <PackageReference Include="Coypu.NUnit" Version="3.0.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Steps\" />
@@ -70,16 +70,9 @@
     <Folder Include="Features\ServiceWebsite\" />
     <Folder Include="resources\" />
     <Folder Include="resources\videowebsite\" />
-    <Folder Include="bin\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Features\SignIn.feature.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AcceptanceTests.Model\AcceptanceTests.Model.csproj" />
-    <ProjectReference Include="..\AcceptanceTests.Driver\AcceptanceTests.Driver.csproj" />
-    <ProjectReference Include="..\AcceptanceTests.PageObject\AcceptanceTests.PageObject.csproj" />
-    <ProjectReference Include="..\AcceptanceTests.Configuration\AcceptanceTests.Configuration.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="resources\adminwebsite\adminwebsite.firefox.desktop.runsettings.xml">
@@ -127,8 +120,9 @@
     </SpecFlowFeatureFiles>
   </ItemGroup>
   <ItemGroup>
-    <SpecFlowObsoleteCodeBehindFiles Update="Features\ServiceWebsite\SignIn.feature.cs">
-      <DependentUpon>SignIn.feature</DependentUpon>
-    </SpecFlowObsoleteCodeBehindFiles>
+    <ProjectReference Include="..\AcceptanceTests.Configuration\AcceptanceTests.Configuration.csproj" />
+    <ProjectReference Include="..\AcceptanceTests.Driver\AcceptanceTests.Driver.csproj" />
+    <ProjectReference Include="..\AcceptanceTests.Model\AcceptanceTests.Model.csproj" />
+    <ProjectReference Include="..\AcceptanceTests.PageObject\AcceptanceTests.PageObject.csproj" />
   </ItemGroup>
 </Project>

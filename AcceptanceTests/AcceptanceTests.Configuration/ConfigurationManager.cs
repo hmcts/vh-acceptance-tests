@@ -4,8 +4,7 @@ using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using AcceptanceTests.Configuration.SecurityConfiguration;
 using AcceptanceTests.Configuration.TestConfiguration;
 using AcceptanceTests.Model.Context;
-using System.IO;
-using System.Reflection;
+using System;
 
 namespace AcceptanceTests.Configuration
 {
@@ -19,10 +18,11 @@ namespace AcceptanceTests.Configuration
             return targetApp;
         }
 
-        public static IConfigurationRoot BuildDefaultConfigRoot(string targetApp, string userSecrets)
+        public static IConfigurationRoot BuildDefaultConfigRoot(string rootFolder, string targetApp, string userSecrets)
         {
-            var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
-                                                + $"/resources/{targetApp.ToLower()}/{targetApp.ToLower()}";
+            var path = $"{rootFolder}/resources/{targetApp.ToLower()}/{targetApp.ToLower()}";
+
+            Console.WriteLine($"Loading configuration from path {path}");
             var configRootBuilder = new ConfigurationBuilder()
              .AddJsonFile($"appsettings.json")
              .AddJsonFile($"{path}.appsettings.json")
