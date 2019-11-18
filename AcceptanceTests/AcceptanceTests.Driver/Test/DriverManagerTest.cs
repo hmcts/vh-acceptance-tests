@@ -67,6 +67,7 @@ namespace AcceptanceTests.Driver.Test
         }
 
         [TestCase("Chrome")]
+        [Category("Local")]
         public void InitLocalChromeBrowserDesktopBlockCamAndMicSuccessTest(string browser)
         {
             var driverManager = new DriverManager();
