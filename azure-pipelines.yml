@@ -107,9 +107,9 @@ steps:
     searchFolder: '$(Build.ArtifactStagingDirectory)'
     testFiltercriteria: 'TestCategory!=Local'
     uiTests: true
-    runInParallel: true
+    runInParallel: false
     codeCoverageEnabled: true
-    rerunFailedTests: false
+    rerunFailedTests: true
 
 - task: DotNetCoreCLI@2
   displayName: 'dotnet push'
