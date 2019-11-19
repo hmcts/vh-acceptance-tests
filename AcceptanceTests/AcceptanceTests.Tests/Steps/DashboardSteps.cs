@@ -1,7 +1,7 @@
 ﻿using System;
 using AcceptanceTests.Model.Context;
 using AcceptanceTests.Model.Role;
-using AcceptanceTests.PageObject.Page.AdminWebsite;
+using AcceptanceTests.PageObject.Pages.AdminWebsite;
 using Coypu;
 using FluentAssertions;
 using TechTalk.SpecFlow;

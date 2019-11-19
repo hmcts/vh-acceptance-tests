@@ -7,7 +7,7 @@ namespace AcceptanceTests.PageObject.Components
 {
     public class AddressForm : Component
     {
-        //Gets the input fields only
+        //Gets the form input fields
         public void HouseNumber() => By.Id("houseNumber");
         public void Street() => By.Id("street");
         public void City() => By.Id("city");
@@ -20,7 +20,7 @@ namespace AcceptanceTests.PageObject.Components
         public void City(string city) => DriverExtension.ClearFieldInputValuesKeyboard(WrappedDriver, By.Id("city"), city);
         public void County(string county) => DriverExtension.ClearFieldInputValuesKeyboard(WrappedDriver, By.Id("county"), county);
 
-        protected AddressForm(BrowserSession driver) : base(driver)
+        public AddressForm(BrowserSession driver) : base(driver)
         {
         }
 
