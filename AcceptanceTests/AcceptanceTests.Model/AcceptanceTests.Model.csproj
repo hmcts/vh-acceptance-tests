@@ -18,6 +18,7 @@
     <Folder Include="User\" />
     <Folder Include="Type\" />
     <Folder Include="Page\" />
+    <Folder Include="Forms\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.9.0" />
@@ -25,5 +26,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Faker.Net" Version="1.1.1" />
   </ItemGroup>
 </Project>

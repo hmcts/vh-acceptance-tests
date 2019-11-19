@@ -19,6 +19,7 @@
     <None Remove="resources\servicewebsite\adminwebsite.safari.desktop.runsettings.xml" />
     <None Remove="resources\videowebsite\videowebsite.appsettings.json" />
     <None Remove="resources\videowebsite\servicewebsite.useraccounts.json" />
+    <None Remove="TechTalk.SpecRun.Common.dll" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Features\AdminWebsite\SigningIn.feature">
@@ -109,6 +110,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="resources\videowebsite\videowebsite.useraccounts.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TechTalk.SpecRun.Common.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

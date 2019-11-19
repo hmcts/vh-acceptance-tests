@@ -19,6 +19,7 @@
   <ItemGroup>
     <Folder Include="Page\" />
     <Folder Include="Components\" />
+    <Folder Include="Page\AdminWebsite\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
