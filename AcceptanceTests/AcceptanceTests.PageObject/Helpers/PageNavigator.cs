@@ -10,6 +10,11 @@ namespace AcceptanceTests.PageObject.Helpers
         private List<Page> _userJourneyPages;
         public readonly ScenarioContext _scenarioContext;
 
+        public PageNavigator(ScenarioContext scenarioContext)
+        {
+            _scenarioContext = scenarioContext;
+        }
+
         public UserJourneyPage CurrentPage
         {
             get
@@ -32,20 +37,16 @@ namespace AcceptanceTests.PageObject.Helpers
             
         }
 
+        public Page GetPage(string pageUri)
+        {
+            return _userJourneyPages.Single(page => page.Path == pageUri);
+        }
+
         public List<Page> PageList
         {
             get
             {
                 return _userJourneyPages;
-            }
-        }
-
-        public Page GetPage(string pageUri)
-        {
-            switch (pageUri)
-            {
-                default:
-                    return _userJourneyPages.Single(page => page.Path == pageUri);
             }
         }
     }

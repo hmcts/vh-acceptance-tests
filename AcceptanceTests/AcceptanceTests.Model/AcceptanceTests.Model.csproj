@@ -19,6 +19,7 @@
     <Folder Include="Type\" />
     <Folder Include="Page\" />
     <Folder Include="Forms\" />
+    <Folder Include="Mappings\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.9.0" />
