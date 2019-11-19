@@ -4,6 +4,7 @@ using System.Linq;
 using Coypu;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using Protractor;
 
 namespace AcceptanceTests.Driver.Drivers
 {
@@ -40,6 +41,19 @@ namespace AcceptanceTests.Driver.Drivers
             }
         }
 
+        public static IWebElement WaitUntilElementVisible(BrowserSession driver, By elementLocator, int timeout = 30)
+        {
+            try
+            {
+                var wait = new WebDriverWait((IWebDriver)driver.Native, TimeSpan.FromSeconds(timeout));
+                return wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(elementLocator));
+            }
+            catch (NoSuchElementException ex)
+            {
+                throw new NoSuchElementException($"Element with locator: '{elementLocator}' was not found in current context page.", ex);
+            }
+        }
+
         public static void WaitForPageToLoad(BrowserSession driver, string url)
         {
             try
@@ -51,6 +65,38 @@ namespace AcceptanceTests.Driver.Drivers
             {
                 throw new MissingHtmlException($"Page {url} was not found after waiting {DefaultTimeout} seconds.");
             }
+        }
+
+        public static void ClearFieldInputValues(BrowserSession driver, By element, string value)
+        {
+            var webElement = WaitUntilElementVisible(driver, element);
+            webElement.Clear();
+            webElement.SendKeys(value);
+        }
+
+        public static void ClearFieldInputValuesKeyboard(BrowserSession driver, By element, string value)
+        {
+            var webElement = WaitUntilElementVisible(driver, element);
+            var text = webElement.GetAttribute("value");
+
+            Console.WriteLine($"Current element {element} text is {text}");
+
+            while (!string.IsNullOrEmpty(text))
+            {
+                try
+                {
+                    webElement.SendKeys(Keys.Backspace);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"An exception occurred when sending Keys.Backspace to element {element}");
+                    Console.WriteLine(ex.Message);
+                }
+
+                text = webElement.GetAttribute("value");
+            }
+
+            webElement.SendKeys(value);
         }
     }
 }
