@@ -103,7 +103,7 @@ steps:
 - task: VSTest@2
   displayName: 'VsTest - testAssemblies'
   inputs:
-    testAssemblyVer2: 'AcceptanceTests.*.dll'
+    testAssemblyVer2: 'AcceptanceTests.*Test*.dll'
     searchFolder: '$(Build.ArtifactStagingDirectory)'
     testFiltercriteria: 'TestCategory!=Local'
     uiTests: true
