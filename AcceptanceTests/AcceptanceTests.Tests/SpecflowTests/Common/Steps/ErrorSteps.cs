@@ -2,7 +2,7 @@
 using AcceptanceTests.Model;
 using AcceptanceTests.Model.Context;
 using AcceptanceTests.Model.Type;
-using AcceptanceTests.PageObject.Pages;
+using AcceptanceTests.PageObject.Pages.Common;
 using Coypu;
 using FluentAssertions;
 using TechTalk.SpecFlow;

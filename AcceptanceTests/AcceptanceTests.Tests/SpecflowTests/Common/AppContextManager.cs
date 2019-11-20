@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Reflection;
 using AcceptanceTests.Configuration;
 using AcceptanceTests.Driver.Settings;
@@ -15,12 +14,11 @@ namespace AcceptanceTests.SpecflowTests.Common
         private const string TestBuildName = "Acceptance Tests.Tests";
         public IConfigurationRoot ConfigRoot { get; private set; }
 
-        public ITestContext SetUpTestContext(string injectedApp = null)
+        public ITestContext SetUpTestContext(string path, string injectedApp = null)
         {
             var targetApp = GetTargetApp(injectedApp);  
             
             var appSecret = SutSettings.GetTargetAppSecret(targetApp);
-            var path =$"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}/SpecflowTests/{targetApp}/Resources";
             ConfigRoot = ConfigurationManager.BuildDefaultConfigRoot(path, targetApp.ToString(), appSecret);
 
             ITestContext testContext = (TestContextBase)ConfigurationManager.ParseConfigurationIntoTestContext(ConfigRoot).Result;
@@ -52,7 +50,7 @@ namespace AcceptanceTests.SpecflowTests.Common
             return testContext;
         }
 
-        private SutSupport GetTargetApp(string injectedApp)
+        public SutSupport GetTargetApp(string injectedApp = null)
         {
             SutSupport targetApp;
             if (string.IsNullOrEmpty(injectedApp))

@@ -1,8 +1,7 @@
 ﻿using System;
 using Coypu;
-using Protractor;
 
-namespace AcceptanceTests.PageObject.Pages
+namespace AcceptanceTests.PageObject.Pages.Common
 {
     public class SignInPage : Page
     {

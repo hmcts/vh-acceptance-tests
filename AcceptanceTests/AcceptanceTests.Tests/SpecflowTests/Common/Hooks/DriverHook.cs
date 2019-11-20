@@ -12,7 +12,7 @@ using AcceptanceTests.SpecflowTests.Common.Hooks;
 namespace AcceptanceTests.Tests.SpecflowTests.Common.Hooks
 {
     [Binding]
-    public sealed class DriverHook
+    public class DriverHook
     {
         private BrowserSession _driver;
         private readonly ITestContext _testContext;
@@ -29,7 +29,7 @@ namespace AcceptanceTests.Tests.SpecflowTests.Common.Hooks
             _objectContainer = objectContainer;
         }
 
-        private string GetTargetBrowser()
+        protected string GetTargetBrowser()
         {
             var browser = _testContext.TargetBrowser;
             var targetBrowser = NUnitParamReader.GetTargetBrowser(browser).ToString();

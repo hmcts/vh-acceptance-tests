@@ -1,5 +1,5 @@
 ﻿using AcceptanceTests.Model.Context;
-using AcceptanceTests.PageObject.Pages;
+using AcceptanceTests.PageObject.Pages.Common;
 using Coypu;
 
 namespace AcceptanceTests.PageObject.Helpers

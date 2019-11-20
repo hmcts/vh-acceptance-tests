@@ -3,9 +3,9 @@ using Coypu;
 
 namespace AcceptanceTests.PageObject.Pages.AdminWebsite
 {
-    public class BookVideoHearingJourney : UserJourneyPage
+    public class BookingConfirmationPage : Page
     {
-        public BookVideoHearingJourney(BrowserSession driver) : base(driver)
+        public BookingConfirmationPage(BrowserSession driver, string path) : base(driver, path)
         {
         }
     }

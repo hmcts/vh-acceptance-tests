@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using AcceptanceTests.Driver;
 using AcceptanceTests.Driver.Settings;
 using AcceptanceTests.Model.Context;
@@ -24,7 +26,9 @@ namespace AcceptanceTests.Tests.IntegrationTests
         public void TestSetUp()
         {
             SetUp();
-            _testContext = _appContextManager.SetUpTestContext();
+            var targetApp = _appContextManager.GetTargetApp();
+            var path = $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}/SpecflowTests/{targetApp}/Resources";
+            _testContext = _appContextManager.SetUpTestContext(path);
             _saucelabsSettings = SaucelabsHook.GetSauceLabsSettings(_appContextManager.ConfigRoot);
             _scenarioInfo = new ScenarioInfo("AcceptanceTests.Tests: Driver Hook tests", "Integration Test InitDriverHookDefaultValuesTest", new string[] { });
 

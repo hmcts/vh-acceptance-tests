@@ -3,7 +3,7 @@ using Coypu;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
-namespace AcceptanceTests.PageObject.Pages
+namespace AcceptanceTests.PageObject.Pages.Common
 {
     public class Page : IPage
     {
@@ -14,6 +14,12 @@ namespace AcceptanceTests.PageObject.Pages
 
         public Page(BrowserSession driver)
         {
+            WrappedDriver = driver ?? throw new ArgumentNullException(nameof(driver));
+        }
+
+        public Page(BrowserSession driver, string path)
+        {
+            Path = path;
             WrappedDriver = driver ?? throw new ArgumentNullException(nameof(driver));
         }
 

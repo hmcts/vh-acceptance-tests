@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AcceptanceTests.Driver.Drivers;
+using AcceptanceTests.PageObject.Pages.Common;
 using Coypu;
 
 namespace AcceptanceTests.PageObject.Pages.AdminWebsite
@@ -12,7 +13,11 @@ namespace AcceptanceTests.PageObject.Pages.AdminWebsite
 
         public DashboardPage(BrowserSession driver) : base(driver)
         {
-            Path = "dashboard";
+            Path = "/dashboard";
+        }
+
+        public DashboardPage(BrowserSession driver, string path) : base(driver, path)
+        {
         }
 
         public bool IsPanelElementsCountDisplayed(int expectedPanelCount)

@@ -1,5 +1,7 @@
 ﻿using TechTalk.SpecFlow;
 using BoDi;
+using System.Reflection;
+using System.IO;
 
 namespace AcceptanceTests.SpecflowTests.Common.Hooks
 {
@@ -18,7 +20,14 @@ namespace AcceptanceTests.SpecflowTests.Common.Hooks
         [BeforeScenario(Order = 0)]
         public void OneTimeSetup()
         {
-            var testContext = _appContextManager.SetUpTestContext();
+            var targetApp = _appContextManager.GetTargetApp();
+            var path = $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}/SpecflowTests/{targetApp}/Resources";
+            OneTimeSetup(path);
+        }
+
+        public void OneTimeSetup(string path)
+        {
+            var testContext = _appContextManager.SetUpTestContext(path);
             _objectContainer.RegisterInstanceAs(testContext);
 
             var _saucelabsSettings = SaucelabsHook.GetSauceLabsSettings(_appContextManager.ConfigRoot);

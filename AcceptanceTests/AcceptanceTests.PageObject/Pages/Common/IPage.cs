@@ -1,7 +1,6 @@
 ﻿using Coypu;
-using OpenQA.Selenium;
 
-namespace AcceptanceTests.PageObject.Pages
+namespace AcceptanceTests.PageObject.Pages.Common
 {
     public interface IPage
     {
