@@ -1,4 +1,4 @@
-﻿namespace AcceptanceTests.Tests
+﻿namespace AcceptanceTests.SpecflowTests.Common.Scenario
 {
     public enum ScenarioTags
     {

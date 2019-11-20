@@ -4,7 +4,7 @@ using Coypu;
 using FluentAssertions;
 using TechTalk.SpecFlow;
 
-namespace AcceptanceTests.Tests.Steps
+namespace AcceptanceTests.SpecflowTests.Common.Steps
 {
     [Binding]
     public class NavigationSteps : StepsBase

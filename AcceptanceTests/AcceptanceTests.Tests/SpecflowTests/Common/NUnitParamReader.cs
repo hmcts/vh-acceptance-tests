@@ -2,7 +2,7 @@
 using AcceptanceTests.Driver.Support;
 using AcceptanceTests.Model;
 
-namespace AcceptanceTests.Tests
+namespace AcceptanceTests.SpecflowTests.Common
 {
     public class NUnitParamReader
     {

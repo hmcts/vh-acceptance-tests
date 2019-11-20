@@ -31,7 +31,6 @@
   <ItemGroup>
     <Folder Include="SecurityConfiguration\" />
     <Folder Include="TestConfiguration\" />
-    <Folder Include="Tests\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AcceptanceTests.Model\AcceptanceTests.Model.csproj" />

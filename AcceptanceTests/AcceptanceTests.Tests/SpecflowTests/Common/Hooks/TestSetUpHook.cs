@@ -1,7 +1,7 @@
 ﻿using TechTalk.SpecFlow;
 using BoDi;
 
-namespace AcceptanceTests.Tests.Hooks
+namespace AcceptanceTests.SpecflowTests.Common.Hooks
 {
     [Binding]
     public class TestSetUpHook

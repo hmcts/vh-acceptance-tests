@@ -6,7 +6,7 @@ using Coypu;
 using FluentAssertions;
 using TechTalk.SpecFlow;
 
-namespace AcceptanceTests.Tests.Steps
+namespace AcceptanceTests.SpecflowTests.AdminWebsite.Steps
 {
     [Binding]
     public sealed class DashboardSteps

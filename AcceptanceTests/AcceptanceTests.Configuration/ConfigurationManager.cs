@@ -20,7 +20,7 @@ namespace AcceptanceTests.Configuration
 
         public static IConfigurationRoot BuildDefaultConfigRoot(string rootFolder, string targetApp, string userSecrets)
         {
-            var path = $"{rootFolder}/resources/{targetApp.ToLower()}/{targetApp.ToLower()}";
+            var path = $"{rootFolder}/{targetApp.ToLower()}";
 
             Console.WriteLine($"Loading configuration from path {path}");
             var configRootBuilder = new ConfigurationBuilder()

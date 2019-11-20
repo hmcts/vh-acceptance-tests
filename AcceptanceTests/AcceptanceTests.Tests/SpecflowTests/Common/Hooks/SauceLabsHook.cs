@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Options = Microsoft.Extensions.Options.Options;
 using System.Collections.Generic;
 
-namespace AcceptanceTests.Tests.Hooks
+namespace AcceptanceTests.SpecflowTests.Common.Hooks
 {
     [Binding]
     public sealed class SaucelabsHook

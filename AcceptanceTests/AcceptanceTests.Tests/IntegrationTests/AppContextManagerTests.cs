@@ -1,6 +1,6 @@
-﻿using System;
-using AcceptanceTests.Model.Context;
+﻿using AcceptanceTests.Model.Context;
 using AcceptanceTests.Model.User;
+using AcceptanceTests.SpecflowTests.Common;
 using FluentAssertions;
 using NUnit.Framework;
 

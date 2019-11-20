@@ -3,7 +3,8 @@ using AcceptanceTests.Driver.Settings;
 using AcceptanceTests.Driver.Support;
 using AcceptanceTests.Model;
 using AcceptanceTests.Model.Context;
-using AcceptanceTests.Tests.Hooks;
+using AcceptanceTests.SpecflowTests.Common;
+using AcceptanceTests.SpecflowTests.Common.Hooks;
 using FluentAssertions;
 using NUnit.Framework;
 

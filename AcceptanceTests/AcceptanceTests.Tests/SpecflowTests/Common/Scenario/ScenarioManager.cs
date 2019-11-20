@@ -2,7 +2,7 @@
 using System.Linq;
 using TechTalk.SpecFlow;
 
-namespace AcceptanceTests.Tests
+namespace AcceptanceTests.SpecflowTests.Common.Scenario
 {
     public class ScenarioManager
     {

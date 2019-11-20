@@ -54,3 +54,4 @@ Scenario: Non-Admin users can see the Contact Us CTA on the unauthorised page on
     Given I am on the 'Admin Website' as an authorised 'Individual' user 
     When I see the 'unauthorised' page
     Then I can follow the 'Contact Us' CTA on the screen
+    

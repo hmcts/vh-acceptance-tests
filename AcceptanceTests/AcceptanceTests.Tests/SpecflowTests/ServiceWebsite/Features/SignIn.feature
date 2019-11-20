@@ -34,4 +34,4 @@ Scenario Outline: User with no pending questionnaires to complete but dropped ou
     |Do you have a computer?|
     |Does your computer have a camera and microphone?|
     |Will you have access to the Internet?|
- 
+     

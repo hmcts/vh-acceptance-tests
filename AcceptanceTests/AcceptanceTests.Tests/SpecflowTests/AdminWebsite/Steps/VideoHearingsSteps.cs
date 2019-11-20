@@ -1,8 +1,10 @@
 ﻿using AcceptanceTests.Model.Context;
+using AcceptanceTests.SpecflowTests.Common;
+using AcceptanceTests.SpecflowTests.Common.Steps;
 using Coypu;
 using TechTalk.SpecFlow;
 
-namespace AcceptanceTests.Tests.Steps
+namespace AcceptanceTests.SpecflowTests.AdminWebsite.Steps
 {
     public class VideoHearingsSteps : StepsBase
     {

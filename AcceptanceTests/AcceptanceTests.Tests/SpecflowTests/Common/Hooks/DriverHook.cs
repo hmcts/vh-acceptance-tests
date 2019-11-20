@@ -5,8 +5,11 @@ using TechTalk.SpecFlow;
 using AcceptanceTests.Driver.Settings;
 using AcceptanceTests.Model.Context;
 using System;
+using AcceptanceTests.SpecflowTests.Common;
+using AcceptanceTests.SpecflowTests.Common.Scenario;
+using AcceptanceTests.SpecflowTests.Common.Hooks;
 
-namespace AcceptanceTests.Tests.Hooks
+namespace AcceptanceTests.Tests.SpecflowTests.Common.Hooks
 {
     [Binding]
     public sealed class DriverHook

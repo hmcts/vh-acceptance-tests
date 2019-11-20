@@ -8,7 +8,7 @@ using AcceptanceTests.Model;
 using AcceptanceTests.Model.Context;
 using Microsoft.Extensions.Configuration;
 
-namespace AcceptanceTests.Tests
+namespace AcceptanceTests.SpecflowTests.Common
 {
     public class AppContextManager
     {
@@ -20,7 +20,7 @@ namespace AcceptanceTests.Tests
             var targetApp = GetTargetApp(injectedApp);  
             
             var appSecret = SutSettings.GetTargetAppSecret(targetApp);
-            var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var path =$"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}/SpecflowTests/{targetApp}/resources";
             ConfigRoot = ConfigurationManager.BuildDefaultConfigRoot(path, targetApp.ToString(), appSecret);
 
             ITestContext testContext = (TestContextBase)ConfigurationManager.ParseConfigurationIntoTestContext(ConfigRoot).Result;
