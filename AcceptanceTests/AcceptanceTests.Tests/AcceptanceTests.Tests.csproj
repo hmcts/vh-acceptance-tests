@@ -38,6 +38,7 @@
     <Folder Include="SpecflowTests\Common\" />
     <Folder Include="SpecflowTests\" />
     <Folder Include="SpecflowTests\VideoWebsite\" />
+    <Folder Include="bin\Debug\netcoreapp2.2\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="TechTalk.SpecRun.Common.dll">
@@ -110,9 +111,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Update="SpecflowTests\AdminWebsite\Features\SignIn.feature.cs">
-      <DependentUpon>SignIn.feature</DependentUpon>
-    </Compile>
-    <Compile Update="SpecflowTests\ServiceWebsite\Features\SignIn.feature.cs">
       <DependentUpon>SignIn.feature</DependentUpon>
     </Compile>
   </ItemGroup>
