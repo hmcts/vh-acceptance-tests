@@ -20,7 +20,7 @@ namespace AcceptanceTests.SpecflowTests.Common
             var targetApp = GetTargetApp(injectedApp);  
             
             var appSecret = SutSettings.GetTargetAppSecret(targetApp);
-            var path =$"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}/SpecflowTests/{targetApp}/resources";
+            var path =$"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}/SpecflowTests/{targetApp}/Resources";
             ConfigRoot = ConfigurationManager.BuildDefaultConfigRoot(path, targetApp.ToString(), appSecret);
 
             ITestContext testContext = (TestContextBase)ConfigurationManager.ParseConfigurationIntoTestContext(ConfigRoot).Result;
