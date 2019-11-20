@@ -37,7 +37,8 @@ namespace AcceptanceTests.Model.Mappings
                     HearingType.SubstantiveHearing,
                     HearingType.CaseManagement,
                     HearingType.DirectionsHearing,
-                    HearingType.Hearing
+                    HearingType.Hearing,
+                    HearingType.FinalHearing
                 };
             return list;
         }

@@ -20,15 +20,15 @@ namespace AcceptanceTests.Model.Context
         public TestUser GetFirstOrDefaultUserByRole(string role)
         {
             var user = TestUsers.FirstOrDefault(x => x.Role.Equals(EnumParser.ParseText<UserRole>(role)));
-            user.Username = GetUsername(user);
 
             if (user != null)
             {
-                return user;
+                user.Username = GetUsername(user);
             } else
             {
                 throw new Exception($"Couldn't find user with role {role} in UserContext.TestUsers");
-            } 
+            }
+            return user;
         }
 
         public IEnumerable<TestUser> GetAllUsersByRole(string role)
