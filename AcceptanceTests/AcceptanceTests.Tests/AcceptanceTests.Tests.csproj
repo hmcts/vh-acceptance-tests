@@ -109,9 +109,4 @@
     <ProjectReference Include="..\AcceptanceTests.Model\AcceptanceTests.Model.csproj" />
     <ProjectReference Include="..\AcceptanceTests.PageObject\AcceptanceTests.PageObject.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Update="SpecflowTests\AdminWebsite\Features\SignIn.feature.cs">
-      <DependentUpon>SignIn.feature</DependentUpon>
-    </Compile>
-  </ItemGroup>
 </Project>
