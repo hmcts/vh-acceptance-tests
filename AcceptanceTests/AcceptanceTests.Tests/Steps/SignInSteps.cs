@@ -1,7 +1,7 @@
-﻿using TechTalk.SpecFlow;
+﻿using AcceptanceTests.PageObject.Helpers;
 using AcceptanceTests.Model.Context;
+using TechTalk.SpecFlow;
 using Coypu;
-using AcceptanceTests.Tests.Helpers;
 
 namespace AcceptanceTests.Tests.Steps
 {

@@ -2,7 +2,7 @@
 using AcceptanceTests.Model.Context;
 using AcceptanceTests.Model.Role;
 using AcceptanceTests.Model.User;
-using AcceptanceTests.Tests.Helpers;
+using AcceptanceTests.PageObject.Helpers;
 using Coypu;
 using TechTalk.SpecFlow;
 

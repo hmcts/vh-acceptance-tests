@@ -2,7 +2,7 @@
 using Coypu;
 using Protractor;
 
-namespace AcceptanceTests.PageObject.Page
+namespace AcceptanceTests.PageObject.Pages
 {
     public class SignInPage : Page
     {

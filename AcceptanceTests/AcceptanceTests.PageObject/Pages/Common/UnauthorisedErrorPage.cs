@@ -1,7 +1,7 @@
 ﻿using AcceptanceTests.PageObject.Components;
 using Coypu;
 
-namespace AcceptanceTests.PageObject.Page
+namespace AcceptanceTests.PageObject.Pages
 {
     public class UnauthorisedErrorPage : Page
     {

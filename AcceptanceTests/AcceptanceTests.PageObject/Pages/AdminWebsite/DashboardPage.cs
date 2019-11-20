@@ -4,7 +4,7 @@ using System.Linq;
 using AcceptanceTests.Driver.Drivers;
 using Coypu;
 
-namespace AcceptanceTests.PageObject.Page
+namespace AcceptanceTests.PageObject.Pages.AdminWebsite
 {
     public class DashboardPage : Page
     {

@@ -5,6 +5,7 @@
         ClaimantLip,
         Solicitor,
         DefendantLip,
-        RespondentLip
+        RespondentLip,
+        ApplicantLip
     }
 }

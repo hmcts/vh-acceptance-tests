@@ -1,10 +1,8 @@
-﻿using System;
-using AcceptanceTests.Driver.Support;
-using AcceptanceTests.Model.Context;
-using AcceptanceTests.PageObject.Page;
+﻿using AcceptanceTests.Model.Context;
+using AcceptanceTests.PageObject.Pages;
 using Coypu;
 
-namespace AcceptanceTests.Tests.Helpers
+namespace AcceptanceTests.PageObject.Helpers
 {
     public class SignInHelper
     {

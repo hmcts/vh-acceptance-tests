@@ -17,8 +17,11 @@
     <Compile Remove="ui-elements.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Page\" />
+    <Folder Include="Pages\" />
     <Folder Include="Components\" />
+    <Folder Include="Pages\AdminWebsite\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Pages\Common\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />

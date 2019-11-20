@@ -1,8 +1,7 @@
-﻿using System;
-using AcceptanceTests.Model.Context;
+﻿using AcceptanceTests.Model.Context;
 using AcceptanceTests.Model.User;
 
-namespace AcceptanceTests.Tests.Helpers
+namespace AcceptanceTests.PageObject.Helpers
 {
     public class UserHelper
     {
