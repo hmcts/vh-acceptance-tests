@@ -1,4 +1,5 @@
-﻿using AcceptanceTests.Driver.Drivers;
+﻿using AcceptanceTests.Driver.DriverExtensions;
+using AcceptanceTests.Driver.Drivers;
 using Coypu;
 
 namespace AcceptanceTests.PageObject.Components
@@ -12,7 +13,7 @@ namespace AcceptanceTests.PageObject.Components
 
         public string ContactUsForHelpText()
         {
-            DriverExtension.WaitForElementPresentByCss(WrappedDriver, ComponentLocator);
+            WaitDriverExtension.WaitForElementPresentByCss(WrappedDriver, ComponentLocator);
             var text = WrappedDriver.FindCss(ComponentLocator).Text.Trim();
             return text;
         }

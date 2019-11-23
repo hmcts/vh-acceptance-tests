@@ -2,7 +2,7 @@
 using Coypu;
 using TechTalk.SpecFlow;
 
-namespace AcceptanceTests.SpecflowTests.Common.Steps
+namespace AcceptanceTests.Tests.SpecflowTests.Common.Steps
 {
     [Binding]
     public class QuestionnaireSteps : StepsBase
@@ -16,7 +16,7 @@ namespace AcceptanceTests.SpecflowTests.Common.Steps
         public void GivenIDontHaveAnyPendingQuestionnairesToComplete()
         {
             //TODO: Call bookings API to ensure the current user doesn't have any pending questionnaires to complete
-            _scenarioContext.Pending();
+            //_scenarioContext.Pending();
         }
 
         [Given(@"I answered '(.*)' to '(.*)' question")]

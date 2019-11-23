@@ -13,7 +13,7 @@ namespace AcceptanceTests.PageObject.Pages.Common
         public SignInPage(BrowserSession driver): base(driver)
         {
             HeadingText = "Sign in to your account";
-            Path = "login.microsoftonline.com";
+            Uri = "login.microsoftonline.com";
         }
 
         public void SignInAs(string username, string password)

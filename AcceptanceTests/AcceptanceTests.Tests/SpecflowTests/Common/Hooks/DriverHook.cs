@@ -5,28 +5,24 @@ using TechTalk.SpecFlow;
 using AcceptanceTests.Driver.Settings;
 using AcceptanceTests.Model.Context;
 using System;
-using AcceptanceTests.SpecflowTests.Common;
 using AcceptanceTests.SpecflowTests.Common.Scenario;
-using AcceptanceTests.SpecflowTests.Common.Hooks;
 
 namespace AcceptanceTests.Tests.SpecflowTests.Common.Hooks
 {
-    [Binding]
     public class DriverHook
     {
         private BrowserSession _driver;
-        private readonly ITestContext _testContext;
-        private readonly SauceLabsSettings _saucelabsSettings;
+        private ITestContext _testContext;
+        private SauceLabsSettings _saucelabsSettings;
         private readonly ScenarioContext _scenarioContext;
         private readonly IObjectContainer _objectContainer;
+        private readonly AppContextManager _appContextManager;
 
-        public DriverHook(SauceLabsSettings saucelabsSettings,
-            ScenarioContext scenarioContext, ITestContext testContext, IObjectContainer objectContainer)
+        public DriverHook(ScenarioContext scenarioContext, IObjectContainer objectContainer, AppContextManager appContextManager)
         {
-            _saucelabsSettings = saucelabsSettings;
             _scenarioContext = scenarioContext;
-            _testContext = testContext;
             _objectContainer = objectContainer;
+            _appContextManager = appContextManager;
         }
 
         protected string GetTargetBrowser()
@@ -49,9 +45,11 @@ namespace AcceptanceTests.Tests.SpecflowTests.Common.Hooks
             return _driver;
         }
 
-        [BeforeScenario(Order = 2)]
-        public void BeforeScenario()
+        public BrowserSession SetUpDriver(ITestContext testContext)
         {
+            _testContext = testContext;
+            _saucelabsSettings = SaucelabsHook.GetSauceLabsSettings(_appContextManager.ConfigRoot);
+
             _driver = InitDriver();
             try
             {
@@ -61,23 +59,22 @@ namespace AcceptanceTests.Tests.SpecflowTests.Common.Hooks
             {
                 throw new Exception($"Error visiting BaseUrl {_testContext.BaseUrl}: {ex.GetBaseException()}");
             }
-            
+            return _driver;
         }
 
-        [AfterScenario(Order = 0)]
-        public void AfterScenario()
+        public void UpdateSauceLabsResults()
         {
             if (_saucelabsSettings.RunWithSaucelabs)
             {
                 bool passed = _scenarioContext.TestError == null;
                 SaucelabsHook.LogPassed(passed, _driver);
             }
-
-            TearDownSession();
         }
 
         public void TearDownSession()
         {
+            UpdateSauceLabsResults();
+
             if (_driver != null)
                 _driver.Dispose();
 

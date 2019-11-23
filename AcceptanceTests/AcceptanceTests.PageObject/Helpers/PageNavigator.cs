@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using AcceptanceTests.PageObject.Pages.Common;
 using TechTalk.SpecFlow;
 
@@ -7,25 +6,32 @@ namespace AcceptanceTests.PageObject.Helpers
 {
     public class PageNavigator
     {
-        private UserJourneyPage _userJourney;
         public readonly ScenarioContext _scenarioContext;
 
-        public PageNavigator(ScenarioContext scenarioContext, UserJourneyPage userJourney)
+        public PageNavigator(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
-            _userJourney = userJourney;
         }
 
-        public Page GetPage(string pageUri)
-        {
-            return _userJourney.Pages.Single(page => page.Path == pageUri);
-        }
+        public static UserJourneyPage CurrentPage { get; set; }
 
-        public List<Page> PageList
+        public static void CompleteJourney(UserJourney userJourney)
         {
-            get
+            foreach (var page in userJourney.Pages)
             {
-                return _userJourney.Pages;
+                var journeyPage = page;
+                try
+                {
+                    Console.WriteLine($"Current page: {page.HeadingText}");
+                    journeyPage.FillDetails(default);
+                    journeyPage.Continue();
+                }
+                catch(Exception)
+                {
+                    Console.WriteLine("Page has no forms to be filled.");
+                    Console.WriteLine("Continuing to next page.");
+                    journeyPage.Continue();
+                }
             }
         }
     }

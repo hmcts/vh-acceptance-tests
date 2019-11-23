@@ -1,7 +1,7 @@
 ﻿using System;
 using AcceptanceTests.Driver.Support;
 using AcceptanceTests.Model;
-using AcceptanceTests.SpecflowTests.Common;
+using AcceptanceTests.Tests.SpecflowTests.Common;
 using FluentAssertions;
 using NUnit.Framework;
 

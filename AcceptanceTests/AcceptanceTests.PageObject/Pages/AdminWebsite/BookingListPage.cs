@@ -3,9 +3,9 @@ using Coypu;
 
 namespace AcceptanceTests.PageObject.Pages.AdminWebsite
 {
-    public class BookingListPage : Page
+    public class BookingListPage : UserJourneyPage
     {
-        public BookingListPage(BrowserSession driver, string path) : base(driver, path)
+        public BookingListPage(BrowserSession driver, string path, string headingText) : base(driver, path, headingText)
         {
         }
     }

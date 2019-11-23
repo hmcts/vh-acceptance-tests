@@ -31,9 +31,9 @@
     <None Remove="SpecflowTests\ServiceWebsite\Resources\servicewebsite.edge.desktop.runsettings.xml" />
     <None Remove="SpecflowTests\ServiceWebsite\Resources\servicewebsite.useraccounts.json" />
     <None Remove="SpecflowTests\ServiceWebsite\Resources\servicewebsite.appsettings.json" />
-    <None Remove="SpecflowTests\VideoWebsite\Resources\videowebsite.appsettings.json" />
     <None Remove="SpecflowTests\VideoWebsite\Resources\videowebsite.useraccounts.json" />
     <None Remove="TechTalk.SpecRun.Common.dll" />
+    <None Remove="SpecflowTests\VideoWebsite\Resources\servicewebsite.appsettings.json" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Features\AdminWebsite\SigningIn.feature">
@@ -78,7 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="IntegrationTests\" />
-    <Folder Include="SpecflowTests\AdminWebsite\Navigation\" />
+    <Folder Include="SpecflowTests\AdminWebsite\UserJourneys\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Features\SignIn.feature.cs" />
@@ -126,13 +126,13 @@
     <Content Include="SpecflowTests\ServiceWebsite\Resources\servicewebsite.appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="SpecflowTests\VideoWebsite\Resources\videowebsite.appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="SpecflowTests\VideoWebsite\Resources\videowebsite.useraccounts.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="TechTalk.SpecRun.Common.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SpecflowTests\VideoWebsite\Resources\videowebsite.appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

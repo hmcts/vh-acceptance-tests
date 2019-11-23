@@ -11,7 +11,7 @@ namespace AcceptanceTests.PageObject.Pages.Common
         public UnauthorisedErrorPage(BrowserSession driver) : base(driver)
         {
             HeadingText = "You are not authorised to use this service";
-            Path = "/unauthorised";
+            Uri = "/unauthorised";
             _contactUs = new ContactUsComponent(driver);
         }
 

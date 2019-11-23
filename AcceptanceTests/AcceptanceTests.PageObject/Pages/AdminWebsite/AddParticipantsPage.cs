@@ -5,11 +5,11 @@ using Coypu;
 
 namespace AcceptanceTests.PageObject.Pages.AdminWebsite
 {
-    public class AddParticipantsPage : Page
+    public class AddParticipantsPage : UserJourneyPage
     {
         public AddressForm _addressForm; 
 
-        public AddParticipantsPage(BrowserSession driver, string uri) : base(driver, uri)
+        public AddParticipantsPage(BrowserSession driver, string uri, string headingText) : base(driver, uri, headingText)
         {
         }
 
@@ -17,7 +17,7 @@ namespace AcceptanceTests.PageObject.Pages.AdminWebsite
         {
             _addressForm = new AddressForm(WrappedDriver);
             _addressForm.AssertComponentLoaded(this);
-            _addressForm.AddAddress(address);
+            _addressForm.FillFormDetails(address);
         }
     }
 }

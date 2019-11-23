@@ -3,9 +3,9 @@ using Coypu;
 
 namespace AcceptanceTests.PageObject.Pages.AdminWebsite
 {
-    public class HearingDetailsPage : Page
+    public class HearingDetailsPage : UserJourneyPage
     {
-        public HearingDetailsPage(BrowserSession driver, string path) : base(driver, path)
+        public HearingDetailsPage(BrowserSession driver, string path, string headingText) : base(driver, path, headingText)
         {
         }
     }

@@ -1,6 +1,6 @@
 ﻿using AcceptanceTests.Model.Context;
-using AcceptanceTests.SpecflowTests.Common;
-using AcceptanceTests.SpecflowTests.Common.Steps;
+using AcceptanceTests.Tests.SpecflowTests.Common;
+using AcceptanceTests.Tests.SpecflowTests.Common.Steps;
 using Coypu;
 using TechTalk.SpecFlow;
 

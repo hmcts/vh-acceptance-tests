@@ -40,6 +40,7 @@
     <Folder Include="Drivers\" />
     <Folder Include="Settings\" />
     <Folder Include="Capabilities\" />
+    <Folder Include="DriverExtensions\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="resources\adminwebsite\adminwebsite.chrome.desktop.runsettings.xml" />

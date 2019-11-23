@@ -7,19 +7,21 @@ using AcceptanceTests.Model;
 using AcceptanceTests.Model.Context;
 using Microsoft.Extensions.Configuration;
 
-namespace AcceptanceTests.SpecflowTests.Common
+namespace AcceptanceTests.Tests.SpecflowTests.Common
 {
     public class AppContextManager
     {
+        private string _path;
         private const string TestBuildName = "Acceptance Tests.Tests";
         public IConfigurationRoot ConfigRoot { get; private set; }
 
         public ITestContext SetUpTestContext(string path, string injectedApp = null)
         {
+            _path = path;
             var targetApp = GetTargetApp(injectedApp);  
             
             var appSecret = SutSettings.GetTargetAppSecret(targetApp);
-            ConfigRoot = ConfigurationManager.BuildDefaultConfigRoot(path, targetApp.ToString(), appSecret);
+            ConfigRoot = ConfigurationManager.BuildDefaultConfigRoot(_path, targetApp.ToString(), appSecret);
 
             ITestContext testContext = (TestContextBase)ConfigurationManager.ParseConfigurationIntoTestContext(ConfigRoot).Result;
             Console.WriteLine(MethodBase.GetCurrentMethod().Name, "Setting TestContext.BaseUrl to: " + testContext.BaseUrl);
@@ -40,7 +42,7 @@ namespace AcceptanceTests.SpecflowTests.Common
 
             if (!parsedTargetApp.Equals(currentApp))
             {
-                testContext = SetUpTestContext(targetApp);
+                testContext = SetUpTestContext(_path, targetApp);
                 testContext.UserContext.CurrentUser = currentUserContext.UserContext.CurrentUser;
                 testContext.UserContext.TestUserSecrets = currentTestContext.UserContext.TestUserSecrets;
             }  

@@ -1,22 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AcceptanceTests.Driver.Drivers;
+using AcceptanceTests.Driver.DriverExtensions;
 using AcceptanceTests.PageObject.Pages.Common;
 using Coypu;
 
 namespace AcceptanceTests.PageObject.Pages.AdminWebsite
 {
-    public class DashboardPage : Page
+    public class DashboardPage : UserJourneyPage
     {
         private const string PanelTitleLocator = "h1.vhpanel-title";
+        private static string BookHearingPanelButton => "//*[@id='vhpanel-green']/h1";
+        private static string QuestionnaireResultPanelButton => "//*[@id='vhpanel-blue']/h1";
 
-        public DashboardPage(BrowserSession driver) : base(driver)
-        {
-            Path = "/dashboard";
-        }
-
-        public DashboardPage(BrowserSession driver, string path) : base(driver, path)
+        public DashboardPage(BrowserSession driver, string uri, string headingText) : base(driver, uri, headingText)
         {
         }
 
@@ -35,9 +32,12 @@ namespace AcceptanceTests.PageObject.Pages.AdminWebsite
 
         public IEnumerable<ElementScope> GetDashboardPanelElements()
         {
-            var elements = DriverExtension.WaitForElementPresentByCss(WrappedDriver, PanelTitleLocator);
+            var elements = WaitDriverExtension.WaitForElementPresentByCss(WrappedDriver, PanelTitleLocator);
             
             return elements;
         }
+
+        public void BookHearing() => ButtonDriverExtension.ClickElement(WrappedDriver, BookHearingPanelButton);
+        public void QuestionnaireResult() => ButtonDriverExtension.ClickElement(WrappedDriver, QuestionnaireResultPanelButton);
     }
 }

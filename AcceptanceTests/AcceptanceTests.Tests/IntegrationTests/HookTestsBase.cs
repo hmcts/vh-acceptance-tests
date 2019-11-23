@@ -1,4 +1,4 @@
-﻿using AcceptanceTests.SpecflowTests.Common;
+﻿using AcceptanceTests.Tests.SpecflowTests.Common;
 using BoDi;
 
 namespace AcceptanceTests.Tests.IntegrationTests

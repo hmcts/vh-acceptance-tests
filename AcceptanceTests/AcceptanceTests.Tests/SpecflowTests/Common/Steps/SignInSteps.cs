@@ -3,7 +3,7 @@ using AcceptanceTests.Model.Context;
 using TechTalk.SpecFlow;
 using Coypu;
 
-namespace AcceptanceTests.SpecflowTests.Common.Steps
+namespace AcceptanceTests.Tests.SpecflowTests.Common.Steps
 {
     [Binding]
     public class SignInSteps : StepsBase

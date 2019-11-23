@@ -2,7 +2,7 @@
 using Coypu;
 using TechTalk.SpecFlow;
 
-namespace AcceptanceTests.SpecflowTests.Common.Steps
+namespace AcceptanceTests.Tests.SpecflowTests.Common.Steps
 {
     public class StepsBase
     {

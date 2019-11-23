@@ -9,7 +9,7 @@ namespace AcceptanceTests.PageObject.Pages.Common
     {
         
         public string HeadingText { get; protected set; }
-        public string Path { get; protected set; }
+        public string Uri { get; protected set; }
         public BrowserSession WrappedDriver { get; protected set; }
 
         public Page(BrowserSession driver)
@@ -17,9 +17,9 @@ namespace AcceptanceTests.PageObject.Pages.Common
             WrappedDriver = driver ?? throw new ArgumentNullException(nameof(driver));
         }
 
-        public Page(BrowserSession driver, string path)
+        public Page(BrowserSession driver, string uri)
         {
-            Path = path;
+            Uri = uri;
             WrappedDriver = driver ?? throw new ArgumentNullException(nameof(driver));
         }
 
@@ -27,7 +27,7 @@ namespace AcceptanceTests.PageObject.Pages.Common
         {
             if (!IsPageLoaded())
             {
-                WrappedDriver.Visit(Path);
+                WrappedDriver.Visit(Uri);
                 IsPageLoaded();
             }
             
@@ -36,7 +36,7 @@ namespace AcceptanceTests.PageObject.Pages.Common
         public bool IsPageLoaded()
         {
             WaitForPageToLoad();
-            AssertCurrentPageLocation(Path);
+            AssertCurrentPageLocation(Uri);
             return true;
         }
 
@@ -63,11 +63,11 @@ namespace AcceptanceTests.PageObject.Pages.Common
             try
             {
                 var wait = new WebDriverWait((IWebDriver)WrappedDriver.Native, TimeSpan.FromSeconds(20));
-                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(Path));
+                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlContains(Uri));
             }
             catch (Exception)
             {
-                throw new ArgumentException($"'{Path}' page is not the current page. The actual page was '{WrappedDriver.Location}'");
+                throw new ArgumentException($"'{Uri}' page is not the current page. The actual page was '{WrappedDriver.Location}'");
             }
         }
     } 

@@ -6,7 +6,7 @@ using AcceptanceTests.PageObject.Helpers;
 using Coypu;
 using TechTalk.SpecFlow;
 
-namespace AcceptanceTests.SpecflowTests.Common.Steps
+namespace AcceptanceTests.Tests.SpecflowTests.Common.Steps
 {
     [Binding]
     public class UserSteps : StepsBase
