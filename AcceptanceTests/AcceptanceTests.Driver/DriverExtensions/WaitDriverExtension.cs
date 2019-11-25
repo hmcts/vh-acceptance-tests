@@ -12,7 +12,7 @@ namespace AcceptanceTests.Driver.DriverExtensions
         private static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(15);
         private static readonly Options DefaultOptions = new Options { Timeout = DefaultTimeout, WaitBeforeClick = DefaultTimeout };
 
-        public static IEnumerable<ElementScope> WaitForElementPresentByCss(BrowserSession driver, string cssLocator)
+        public static IEnumerable<ElementScope> WaitForElementsPresentByCss(BrowserSession driver, string cssLocator)
         {
             try
             {
@@ -26,7 +26,7 @@ namespace AcceptanceTests.Driver.DriverExtensions
             }
         }
 
-        public static IEnumerable<SnapshotElementScope> WaitForElementPresentByXPath(BrowserSession driver, string xPathLocator)
+        public static IEnumerable<SnapshotElementScope> WaitForElementsPresentByXPath(BrowserSession driver, string xPathLocator)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace AcceptanceTests.Driver.DriverExtensions
             try
             {
                 var wait = new WebDriverWait((IWebDriver)driver.Native, TimeSpan.FromSeconds(timeout));
-                return wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(elementLocator));
+                return wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(elementLocator));
             }
             catch (NoSuchElementException ex)
             {
@@ -66,6 +66,19 @@ namespace AcceptanceTests.Driver.DriverExtensions
             }
         }
 
+        public static ElementScope WaitUntilElementClickable(BrowserSession driver, string elementLocator)
+        {
+            try
+            {
+                var result = new Func<ElementScope>(() => driver.FindButton(elementLocator, DefaultOptions))();
+                Console.WriteLine($"Element {elementLocator} successfully found on page.");
+                return result;
+            }
+            catch (NoSuchElementException ex)
+            {
+                throw new NoSuchElementException($"Element with locator: '{elementLocator}' was not found in current context page.", ex);
+            }
+        }
 
         public static void WaitForPageToLoad(BrowserSession driver, string url)
         {

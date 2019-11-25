@@ -1,36 +1,44 @@
 ﻿using System;
+using AcceptanceTests.Model.Page;
+using AcceptanceTests.PageObject.Pages.AdminWebsite;
 using AcceptanceTests.PageObject.Pages.Common;
-using TechTalk.SpecFlow;
 
 namespace AcceptanceTests.PageObject.Helpers
 {
     public class PageNavigator
     {
-        public readonly ScenarioContext _scenarioContext;
-
-        public PageNavigator(ScenarioContext scenarioContext)
-        {
-            _scenarioContext = scenarioContext;
-        }
-
         public static UserJourneyPage CurrentPage { get; set; }
 
         public static void CompleteJourney(UserJourney userJourney)
         {
             foreach (var page in userJourney.Pages)
             {
-                var journeyPage = page;
+                CurrentPage = page;
+
+                if (CurrentPage.GetType().IsEquivalentTo(typeof(DashboardPage)))
+                {
+                    switch (userJourney.DashboardOption)
+                    {
+                        case DashboardOption.BookAvideoHearing:
+                            var dashboardPage = (DashboardPage)CurrentPage;
+                            dashboardPage.BookHearing();
+                            break;
+                        default:
+                            throw new NotImplementedException($"Dashboard option {userJourney.DashboardOption} is not implemented.");
+                    }
+                }
                 try
                 {
-                    Console.WriteLine($"Current page: {page.HeadingText}");
-                    journeyPage.FillDetails(default);
-                    journeyPage.Continue();
+                    var headingToPrint = string.IsNullOrEmpty(CurrentPage.HeadingText) ? CurrentPage.Uri : CurrentPage.HeadingText;
+                    Console.WriteLine($"Current page: {headingToPrint}");
+                    CurrentPage.FillDetails(default);
+                    CurrentPage.Continue();
                 }
                 catch(Exception)
                 {
                     Console.WriteLine("Page has no forms to be filled.");
                     Console.WriteLine("Continuing to next page.");
-                    journeyPage.Continue();
+                    CurrentPage.Continue();
                 }
             }
         }

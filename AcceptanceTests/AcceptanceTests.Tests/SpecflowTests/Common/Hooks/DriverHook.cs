@@ -15,12 +15,21 @@ namespace AcceptanceTests.Tests.SpecflowTests.Common.Hooks
         private ITestContext _testContext;
         private SauceLabsSettings _saucelabsSettings;
         private readonly ScenarioContext _scenarioContext;
+        private ScenarioInfo _scenarioInfo;
         private readonly IObjectContainer _objectContainer;
         private readonly AppContextManager _appContextManager;
 
         public DriverHook(ScenarioContext scenarioContext, IObjectContainer objectContainer, AppContextManager appContextManager)
         {
             _scenarioContext = scenarioContext;
+            _scenarioInfo = scenarioContext.ScenarioInfo;
+            _objectContainer = objectContainer;
+            _appContextManager = appContextManager;
+        }
+
+        public DriverHook(ScenarioInfo scenarioInfo, IObjectContainer objectContainer, AppContextManager appContextManager)
+        {
+            _scenarioInfo = scenarioInfo;
             _objectContainer = objectContainer;
             _appContextManager = appContextManager;
         }
@@ -34,12 +43,12 @@ namespace AcceptanceTests.Tests.SpecflowTests.Common.Hooks
 
         public BrowserSession InitDriver()
         {
-            var blockCamAndMicrophone = ScenarioManager.HasTag(ScenarioTags.BlockCameraAndMic.ToString(), _scenarioContext);
+            var blockCamAndMicrophone = ScenarioManager.HasTag(ScenarioTags.BlockCameraAndMic.ToString(), _scenarioInfo);
             var buildName = AppContextManager.GetBuildName();
             var driverManager = new DriverManager();
             _driver = driverManager.Init(_testContext.BaseUrl, GetTargetBrowser(),
                                         NUnitParamReader.GetTargetPlatform(),
-                                        _scenarioContext.ScenarioInfo, buildName, blockCamAndMicrophone, _saucelabsSettings);
+                                        _scenarioInfo, buildName, blockCamAndMicrophone, _saucelabsSettings);
 
             _objectContainer.RegisterInstanceAs(_driver);
             return _driver;

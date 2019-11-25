@@ -6,21 +6,21 @@ namespace AcceptanceTests.SpecflowTests.Common.Scenario
 {
     public class ScenarioManager
     {
-        public static string GetScenarioTitle(ScenarioContext scenarioContext)
+        public static string GetScenarioTitle(ScenarioInfo scenarioInfo)
         {
             var title = "Acceptance Test Framework Integration Test : Tests";
-            if (scenarioContext != null)
-                title = scenarioContext.ScenarioInfo.Title;
+            if (scenarioInfo != null)
+                title = scenarioInfo.Title;
 
             return title;
         }
 
-        public static bool HasTag(string tagName, ScenarioContext scenarioContext)
+        public static bool HasTag(string tagName, ScenarioInfo scenarioInfo)
         {
             bool hasTag = false;
 
-            if (scenarioContext != null)
-                hasTag = scenarioContext.ScenarioInfo.Tags.Any(tag => tag.Equals(tagName, StringComparison.CurrentCultureIgnoreCase));
+            if (scenarioInfo != null)
+                hasTag = scenarioInfo.Tags.Any(tag => tag.Equals(tagName, StringComparison.CurrentCultureIgnoreCase));
 
             return hasTag;
         }

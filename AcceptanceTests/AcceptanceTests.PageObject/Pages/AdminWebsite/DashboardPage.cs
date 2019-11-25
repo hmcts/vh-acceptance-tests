@@ -4,16 +4,17 @@ using System.Linq;
 using AcceptanceTests.Driver.DriverExtensions;
 using AcceptanceTests.PageObject.Pages.Common;
 using Coypu;
+using OpenQA.Selenium;
 
 namespace AcceptanceTests.PageObject.Pages.AdminWebsite
 {
     public class DashboardPage : UserJourneyPage
     {
         private const string PanelTitleLocator = "h1.vhpanel-title";
-        private static string BookHearingPanelButton => "//*[@id='vhpanel-green']/h1";
-        private static string QuestionnaireResultPanelButton => "//*[@id='vhpanel-blue']/h1";
+        private static By BookHearingPanelButton => By.XPath("//*[@id='vhpanel-green']/h1");
+        private static By QuestionnaireResultPanelButton => By.XPath("//*[@id='vhpanel-blue']/h1");
 
-        public DashboardPage(BrowserSession driver, string uri, string headingText) : base(driver, uri, headingText)
+        public DashboardPage(BrowserSession driver, string uri) : base(driver, uri)
         {
         }
 
@@ -32,7 +33,7 @@ namespace AcceptanceTests.PageObject.Pages.AdminWebsite
 
         public IEnumerable<ElementScope> GetDashboardPanelElements()
         {
-            var elements = WaitDriverExtension.WaitForElementPresentByCss(WrappedDriver, PanelTitleLocator);
+            var elements = WaitDriverExtension.WaitForElementsPresentByCss(WrappedDriver, PanelTitleLocator);
             
             return elements;
         }

@@ -1,4 +1,4 @@
-﻿using AcceptanceTests.Model.Forms;
+﻿using AcceptanceTests.Model.FormData;
 using AcceptanceTests.PageObject.Components;
 using AcceptanceTests.PageObject.Pages.Common;
 using Coypu;
@@ -9,8 +9,9 @@ namespace AcceptanceTests.PageObject.Pages.AdminWebsite
     {
         public AddressForm _addressForm; 
 
-        public AddParticipantsPage(BrowserSession driver, string uri, string headingText) : base(driver, uri, headingText)
+        public AddParticipantsPage(BrowserSession driver, string uri) : base(driver, uri)
         {
+            HeadingText = "Add Participants";
         }
 
         public void FillInAddress(Address address)

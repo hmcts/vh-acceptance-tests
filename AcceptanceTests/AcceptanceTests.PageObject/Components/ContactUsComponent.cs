@@ -13,7 +13,7 @@ namespace AcceptanceTests.PageObject.Components
 
         public string ContactUsForHelpText()
         {
-            WaitDriverExtension.WaitForElementPresentByCss(WrappedDriver, ComponentLocator);
+            WaitDriverExtension.WaitForElementsPresentByCss(WrappedDriver, ComponentLocator);
             var text = WrappedDriver.FindCss(ComponentLocator).Text.Trim();
             return text;
         }

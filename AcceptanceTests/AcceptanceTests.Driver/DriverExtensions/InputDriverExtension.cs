@@ -8,14 +8,14 @@ namespace AcceptanceTests.Driver.DriverExtensions
     {
         public static void InputValues(BrowserSession driver, By element, string value) => WaitDriverExtension.WaitUntilElementVisible(driver, element).SendKeys(value);
 
-        public static void ClearFieldInputValues(BrowserSession driver, By element, string value)
+        public static void ClearTextAndEnterText(BrowserSession driver, By element, string value)
         {
             var webElement = WaitDriverExtension.WaitUntilElementVisible(driver, element);
             webElement.Clear();
             webElement.SendKeys(value);
         }
 
-        public static void ClearFieldInputValuesKeyboard(BrowserSession driver, By element, string value)
+        public static void ClearTextUsingKeyboardAndEnterText(BrowserSession driver, By element, string value)
         {
             var webElement = WaitDriverExtension.WaitUntilElementVisible(driver, element);
             var text = webElement.GetAttribute("value");

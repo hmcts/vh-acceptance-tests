@@ -8,11 +8,17 @@ namespace AcceptanceTests.PageObject.Pages.Common
 {
     public class UserJourneyPage : Page
     {
-        List<IFormComponent> _pageFormList;
+        protected List<string> breadcrumbs = new List<string> { "Hearing details", "Hearing schedule", "Assign judge",
+                                                        "Add participants", "Other information", "Summary"};
+        protected List<IFormComponent> _pageFormList;
         
         public UserJourneyPage(BrowserSession driver, string uri, string headingText) : base(driver, uri)
         {
             HeadingText = headingText;
+        }
+
+        public UserJourneyPage(BrowserSession driver, string uri) : base(driver, uri)
+        {
         }
 
         public virtual void FillDetails(object formData)
@@ -26,7 +32,13 @@ namespace AcceptanceTests.PageObject.Pages.Common
         public virtual void Continue()
         {
             IsPageLoaded();
-            WaitDriverExtension.WaitUntilElementVisible(WrappedDriver, By.Id("next")).Click();
+            ButtonDriverExtension.ClickElement(WrappedDriver, By.Id("nextButton"));
+        }
+
+        public virtual void Cancel()
+        {
+            IsPageLoaded();
+            ButtonDriverExtension.ClickElement(WrappedDriver, By.Id("cancelButton"));
         }
     }
 }

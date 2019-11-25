@@ -2,6 +2,7 @@
 using AcceptanceTests.Model.Context;
 using AcceptanceTests.Model.Role;
 using AcceptanceTests.PageObject.Pages.AdminWebsite;
+using AcceptanceTests.Tests.SpecflowTests.AdminWebsite.Navigation;
 using Coypu;
 using FluentAssertions;
 using TechTalk.SpecFlow;
@@ -16,7 +17,7 @@ namespace AcceptanceTests.SpecflowTests.AdminWebsite.Steps
 
         public DashboardSteps(ITestContext testContext, BrowserSession driver)
         {
-            _dashboard = new DashboardPage(driver);
+            _dashboard = new DashboardPage(driver, PageUri.DashboardPage);
             _testContext = testContext;
         }
 

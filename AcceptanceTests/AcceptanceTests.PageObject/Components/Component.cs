@@ -20,7 +20,7 @@ namespace AcceptanceTests.PageObject.Components
         {
             try
             {
-                WaitDriverExtension.WaitForElementPresentByXPath(WrappedDriver, ComponentLocator);
+                WaitDriverExtension.WaitForElementsPresentByXPath(WrappedDriver, ComponentLocator);
             }
             catch (Exception)
             {
