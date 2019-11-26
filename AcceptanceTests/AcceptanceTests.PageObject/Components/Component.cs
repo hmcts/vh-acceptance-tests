@@ -1,6 +1,7 @@
 ﻿using System;
+using AcceptanceTests.Driver.DriverExtensions;
 using AcceptanceTests.Driver.Drivers;
-using AcceptanceTests.PageObject.Pages;
+using AcceptanceTests.PageObject.Pages.Common;
 using Coypu;
 
 namespace AcceptanceTests.PageObject.Components
@@ -19,11 +20,11 @@ namespace AcceptanceTests.PageObject.Components
         {
             try
             {
-                DriverExtension.WaitForElementPresentByXPath(WrappedDriver, ComponentLocator);
+                WaitDriverExtension.WaitForElementsPresentByXPath(WrappedDriver, ComponentLocator);
             }
             catch (Exception)
             {
-                throw new MissingHtmlException($"Component {ComponentLocator} was not found on page {page.Path}.");
+                throw new MissingHtmlException($"Component {ComponentLocator} was not found on page {page.Uri}.");
             }
             
         }

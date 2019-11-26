@@ -1,7 +1,7 @@
 ﻿using AcceptanceTests.PageObject.Components;
 using Coypu;
 
-namespace AcceptanceTests.PageObject.Pages
+namespace AcceptanceTests.PageObject.Pages.Common
 {
     public class UnauthorisedErrorPage : Page
     {
@@ -11,7 +11,7 @@ namespace AcceptanceTests.PageObject.Pages
         public UnauthorisedErrorPage(BrowserSession driver) : base(driver)
         {
             HeadingText = "You are not authorised to use this service";
-            Path = "/unauthorised";
+            Uri = "/unauthorised";
             _contactUs = new ContactUsComponent(driver);
         }
 

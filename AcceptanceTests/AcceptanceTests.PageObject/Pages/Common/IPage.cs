@@ -1,12 +1,11 @@
 ﻿using Coypu;
-using OpenQA.Selenium;
 
-namespace AcceptanceTests.PageObject.Pages
+namespace AcceptanceTests.PageObject.Pages.Common
 {
     public interface IPage
     {
         string HeadingText { get; }
-        string Path { get; }
+        string Uri { get; }
         BrowserSession WrappedDriver { get; }
 
         void Visit();

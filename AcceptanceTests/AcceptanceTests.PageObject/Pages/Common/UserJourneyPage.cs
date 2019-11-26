@@ -1,20 +1,44 @@
-﻿using AcceptanceTests.Driver.Drivers;
+﻿using System.Collections.Generic;
+using AcceptanceTests.Driver.DriverExtensions;
+using AcceptanceTests.PageObject.Components;
 using Coypu;
 using OpenQA.Selenium;
 
-namespace AcceptanceTests.PageObject.Pages
+namespace AcceptanceTests.PageObject.Pages.Common
 {
     public class UserJourneyPage : Page
     {
-        public UserJourneyPage(BrowserSession driver, string url) : base(driver)
+        protected List<string> breadcrumbs = new List<string> { "Hearing details", "Hearing schedule", "Assign judge",
+                                                        "Add participants", "Other information", "Summary"};
+        protected List<IFormComponent> _pageFormList;
+        
+        public UserJourneyPage(BrowserSession driver, string uri, string headingText) : base(driver, uri)
         {
-            Path = url;
+            HeadingText = headingText;
+        }
+
+        public UserJourneyPage(BrowserSession driver, string uri) : base(driver, uri)
+        {
+        }
+
+        public virtual void FillDetails(object formData)
+        {
+            foreach (var form in _pageFormList)
+            {
+                form.FillFormDetails(formData);
+            }
         }
 
         public virtual void Continue()
         {
             IsPageLoaded();
-            DriverExtension.WaitUntilElementVisible(WrappedDriver, By.Id("next")).Click();
+            ButtonDriverExtension.ClickElement(WrappedDriver, By.Id("nextButton"));
+        }
+
+        public virtual void Cancel()
+        {
+            IsPageLoaded();
+            ButtonDriverExtension.ClickElement(WrappedDriver, By.Id("cancelButton"));
         }
     }
 }

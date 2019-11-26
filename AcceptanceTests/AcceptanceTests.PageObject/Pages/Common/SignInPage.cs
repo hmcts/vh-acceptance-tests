@@ -1,8 +1,7 @@
 ﻿using System;
 using Coypu;
-using Protractor;
 
-namespace AcceptanceTests.PageObject.Pages
+namespace AcceptanceTests.PageObject.Pages.Common
 {
     public class SignInPage : Page
     {
@@ -14,7 +13,7 @@ namespace AcceptanceTests.PageObject.Pages
         public SignInPage(BrowserSession driver): base(driver)
         {
             HeadingText = "Sign in to your account";
-            Path = "login.microsoftonline.com";
+            Uri = "login.microsoftonline.com";
         }
 
         public void SignInAs(string username, string password)

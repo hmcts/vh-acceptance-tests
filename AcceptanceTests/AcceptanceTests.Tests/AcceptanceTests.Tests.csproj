@@ -3,13 +3,14 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <PublishChromeDriver>true</PublishChromeDriver>
+    <PackOnBuild>true</PackOnBuild>
+    <PackageId>VH.AcceptanceTests.Tests</PackageId>
+    <Authors>Video Hearings</Authors>
+    <Description>Test base package with common hooks, steps and configuration loading for specflow tests.</Description>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="adminweb.firefox.desktop.runsettings.xml" />
-    <None Remove="resources\adminwebsite\adminwebsite.firefox.desktop.runsettings.xml" />
-    <None Remove="resources\adminwebsite\adminwebsite.useraccounts.json" />
     <None Remove="resources\servicewebsite\serviceweb.chrome.desktop.runsettings.xml" />
-    <None Remove="resources\servicewebsite\servicewebsite.useraccounts.json" />
     <None Remove="appsettings.AdminWeb.json" />
     <None Remove="resources\adminwebsite\adminwebsite.firefox.desktop %28copy%29.runsettings.xml" />
     <None Remove="resources\adminwebsite\adminwebsite.firefox.desktop %28another copy%29.runsettings.xml" />
@@ -17,9 +18,22 @@
     <None Remove="resources\servicewebsite\adminwebsite.edge.desktop.runsettings.xml" />
     <None Remove="resources\servicewebsite\adminwebsite.firefox.desktop.runsettings.xml" />
     <None Remove="resources\servicewebsite\adminwebsite.safari.desktop.runsettings.xml" />
-    <None Remove="resources\videowebsite\videowebsite.appsettings.json" />
     <None Remove="resources\videowebsite\servicewebsite.useraccounts.json" />
+    <None Remove="SpecflowTests\AdminWebsite\Resources\adminwebsite.useraccounts.json" />
+    <None Remove="SpecflowTests\AdminWebsite\Resources\adminwebsite.firefox.desktop.runsettings.xml" />
+    <None Remove="SpecflowTests\AdminWebsite\Resources\adminwebsite.safari.desktop.runsettings.xml" />
+    <None Remove="SpecflowTests\AdminWebsite\Resources\adminwebsite.edge.desktop.runsettings.xml" />
+    <None Remove="SpecflowTests\AdminWebsite\Resources\adminwebsite.appsettings.json" />
+    <None Remove="SpecflowTests\AdminWebsite\Resources\adminwebsite.chrome.desktop.runsettings.xml" />
+    <None Remove="SpecflowTests\ServiceWebsite\Resources\servicewebsite.safari.desktop.runsettings.xml" />
+    <None Remove="SpecflowTests\ServiceWebsite\Resources\servicewebsite.firefox.desktop.runsettings.xml" />
+    <None Remove="SpecflowTests\ServiceWebsite\Resources\servicewebsite.chrome.desktop.runsettings.xml" />
+    <None Remove="SpecflowTests\ServiceWebsite\Resources\servicewebsite.edge.desktop.runsettings.xml" />
+    <None Remove="SpecflowTests\ServiceWebsite\Resources\servicewebsite.useraccounts.json" />
+    <None Remove="SpecflowTests\ServiceWebsite\Resources\servicewebsite.appsettings.json" />
+    <None Remove="SpecflowTests\VideoWebsite\Resources\videowebsite.useraccounts.json" />
     <None Remove="TechTalk.SpecRun.Common.dll" />
+    <None Remove="SpecflowTests\VideoWebsite\Resources\servicewebsite.appsettings.json" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Features\AdminWebsite\SigningIn.feature">
@@ -34,15 +48,6 @@
     <None Update="adminwebsite %28copy%29.useraccounts.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Features\AdminWebsite\SignIn.feature">
-      <Generator></Generator>
-    </None>
-    <None Update="resources\adminwebsite\adminwebsite.appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="resources\servicewebsite\servicewebsite.appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="resources\videowebsite\servicewebsite.appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -52,81 +57,83 @@
     <None Update="resources\videowebsite\videowebsite.appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="TechTalk.SpecRun.Common.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NUnit" Version="3.12.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
-    <PackageReference Include="SpecFlow" Version="3.0.225" />
-    <PackageReference Include="SpecFlow.NUnit" Version="3.0.225" />
-    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.0.225" />
-    <PackageReference Include="SpecRun.Runner" Version="3.0.391" />
+    <PackageReference Include="SpecFlow" Version="3.1.67" />
+    <PackageReference Include="SpecFlow.NUnit" Version="3.1.67" />
+    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.1.67" />
+    <PackageReference Include="SpecRun.Runner" Version="3.1.36" />
     <PackageReference Include="Coypu" Version="3.1.1" />
     <PackageReference Include="Coypu.NUnit" Version="3.0.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
+    <PackageReference Include="NuGet.Build.Packaging" Version="0.2.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Steps\" />
-    <Folder Include="Hooks\" />
     <Folder Include="IntegrationTests\" />
-    <Folder Include="Features\ServiceWebsite\" />
-    <Folder Include="resources\" />
-    <Folder Include="resources\videowebsite\" />
+    <Folder Include="SpecflowTests\AdminWebsite\UserJourneys\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Features\SignIn.feature.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="resources\adminwebsite\adminwebsite.firefox.desktop.runsettings.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\adminwebsite\adminwebsite.useraccounts.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\servicewebsite\servicewebsite.chrome.desktop.runsettings.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\servicewebsite\servicewebsite.useraccounts.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\adminwebsite\adminwebsite.edge.desktop.runsettings.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\adminwebsite\adminwebsite.safari.desktop.runsettings.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\adminwebsite\adminwebsite.chrome.desktop.runsettings.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\servicewebsite\servicewebsite.edge.desktop.runsettings.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\servicewebsite\servicewebsite.firefox.desktop.runsettings.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\servicewebsite\servicewebsite.safari.desktop.runsettings.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\videowebsite\videowebsite.appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="resources\videowebsite\videowebsite.useraccounts.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TechTalk.SpecRun.Common.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <SpecFlowFeatureFiles Update="Features\ServiceWebsite\SignIn.feature">
-      <Visible>False</Visible>
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>SignIn.feature.cs</LastGenOutput>
-    </SpecFlowFeatureFiles>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AcceptanceTests.Configuration\AcceptanceTests.Configuration.csproj" />
     <ProjectReference Include="..\AcceptanceTests.Driver\AcceptanceTests.Driver.csproj" />
     <ProjectReference Include="..\AcceptanceTests.Model\AcceptanceTests.Model.csproj" />
     <ProjectReference Include="..\AcceptanceTests.PageObject\AcceptanceTests.PageObject.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SpecflowTests\AdminWebsite\Resources\adminwebsite.useraccounts.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SpecflowTests\AdminWebsite\Resources\adminwebsite.firefox.desktop.runsettings.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SpecflowTests\AdminWebsite\Resources\adminwebsite.safari.desktop.runsettings.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SpecflowTests\AdminWebsite\Resources\adminwebsite.edge.desktop.runsettings.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SpecflowTests\AdminWebsite\Resources\adminwebsite.appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SpecflowTests\AdminWebsite\Resources\adminwebsite.chrome.desktop.runsettings.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SpecflowTests\ServiceWebsite\Resources\servicewebsite.safari.desktop.runsettings.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SpecflowTests\ServiceWebsite\Resources\servicewebsite.firefox.desktop.runsettings.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SpecflowTests\ServiceWebsite\Resources\servicewebsite.chrome.desktop.runsettings.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SpecflowTests\ServiceWebsite\Resources\servicewebsite.edge.desktop.runsettings.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SpecflowTests\ServiceWebsite\Resources\servicewebsite.useraccounts.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SpecflowTests\ServiceWebsite\Resources\servicewebsite.appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SpecflowTests\VideoWebsite\Resources\videowebsite.useraccounts.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TechTalk.SpecRun.Common.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SpecflowTests\VideoWebsite\Resources\videowebsite.appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>

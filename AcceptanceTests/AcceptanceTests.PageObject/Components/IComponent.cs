@@ -1,5 +1,4 @@
-﻿using System;
-using Coypu;
+﻿using Coypu;
 
 namespace AcceptanceTests.PageObject.Components
 {

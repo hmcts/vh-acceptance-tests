@@ -1,8 +1,11 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using AcceptanceTests.Driver;
 using AcceptanceTests.Driver.Settings;
 using AcceptanceTests.Model.Context;
-using AcceptanceTests.Tests.Hooks;
+using AcceptanceTests.Tests.SpecflowTests.Common;
+using AcceptanceTests.Tests.SpecflowTests.Common.Hooks;
 using Coypu;
 using FluentAssertions;
 using NUnit.Framework;
@@ -13,6 +16,7 @@ namespace AcceptanceTests.Tests.IntegrationTests
 {
     public class DriverHookTests : HookTestsBase
     {
+        private string _path;
         private ITestContext _testContext;
         private BrowserSession _session;
         private SauceLabsSettings _saucelabsSettings;
@@ -23,7 +27,8 @@ namespace AcceptanceTests.Tests.IntegrationTests
         public void TestSetUp()
         {
             SetUp();
-            _testContext = _appContextManager.SetUpTestContext();
+            _path = $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}/SpecflowTests/";
+            _testContext = _appContextManager.SetUpTestContext(_path);
             _saucelabsSettings = SaucelabsHook.GetSauceLabsSettings(_appContextManager.ConfigRoot);
             _scenarioInfo = new ScenarioInfo("AcceptanceTests.Tests: Driver Hook tests", "Integration Test InitDriverHookDefaultValuesTest", new string[] { });
 
@@ -80,7 +85,7 @@ namespace AcceptanceTests.Tests.IntegrationTests
         [TestCase("ServiceWebsite", "Firefox")]
         public void InitDriverHookRemoteBrowserCorrectWebsiteLaunchesTest(string app, string browser)
         {
-            _testContext = _appContextManager.SetUpTestContext(app);
+            _testContext = _appContextManager.SetUpTestContext(_path, app);
             _testContext.CurrentApp.Should().Be(app, "Because no NUnit parameter should have been given for this test to run.");
 
             var targetBrowser = NUnitParamReader.GetTargetBrowser(browser);

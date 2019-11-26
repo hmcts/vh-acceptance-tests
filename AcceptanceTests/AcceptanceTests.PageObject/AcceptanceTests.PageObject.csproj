@@ -17,11 +17,8 @@
     <Compile Remove="ui-elements.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Pages\" />
     <Folder Include="Components\" />
-    <Folder Include="Pages\AdminWebsite\" />
-    <Folder Include="Helpers\" />
-    <Folder Include="Pages\Common\" />
+    <Folder Include="Components\DropdownLists\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />

@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AcceptanceTests.Driver.Drivers;
+using AcceptanceTests.Driver.DriverExtensions;
+using AcceptanceTests.PageObject.Pages.Common;
 using Coypu;
+using OpenQA.Selenium;
 
 namespace AcceptanceTests.PageObject.Pages.AdminWebsite
 {
-    public class DashboardPage : Page
+    public class DashboardPage : UserJourneyPage
     {
         private const string PanelTitleLocator = "h1.vhpanel-title";
+        private static By BookHearingPanelButton => By.XPath("//*[@id='vhpanel-green']/h1");
+        private static By QuestionnaireResultPanelButton => By.XPath("//*[@id='vhpanel-blue']/h1");
 
-        public DashboardPage(BrowserSession driver) : base(driver)
+        public DashboardPage(BrowserSession driver, string uri) : base(driver, uri)
         {
-            Path = "dashboard";
         }
 
         public bool IsPanelElementsCountDisplayed(int expectedPanelCount)
@@ -30,9 +33,12 @@ namespace AcceptanceTests.PageObject.Pages.AdminWebsite
 
         public IEnumerable<ElementScope> GetDashboardPanelElements()
         {
-            var elements = DriverExtension.WaitForElementPresentByCss(WrappedDriver, PanelTitleLocator);
+            var elements = WaitDriverExtension.WaitForElementsPresentByCss(WrappedDriver, PanelTitleLocator);
             
             return elements;
         }
+
+        public void BookHearing() => ButtonDriverExtension.ClickElement(WrappedDriver, BookHearingPanelButton);
+        public void QuestionnaireResult() => ButtonDriverExtension.ClickElement(WrappedDriver, QuestionnaireResultPanelButton);
     }
 }
