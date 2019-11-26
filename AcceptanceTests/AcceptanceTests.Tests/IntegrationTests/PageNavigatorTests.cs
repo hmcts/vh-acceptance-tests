@@ -41,6 +41,7 @@ namespace AcceptanceTests.Tests.IntegrationTests
         }
 
         [Test]
+        [Category("Local")]
         public void CompleteCreateHearingDetailsUserJourneyTest()
         {
             var userJourney = UserJourneyManager.CreateHearingDetailsUserJourney(_driver);
@@ -49,6 +50,7 @@ namespace AcceptanceTests.Tests.IntegrationTests
         }
 
         [Test]
+        [Category("Local")]
         public void CompleteAddParticipantUserJourneyTest()
         {
             var userJourney = UserJourneyManager.CreateAddParticipantUserJourney(_driver);
