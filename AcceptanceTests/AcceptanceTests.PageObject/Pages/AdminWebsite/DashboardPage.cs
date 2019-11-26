@@ -38,7 +38,7 @@ namespace AcceptanceTests.PageObject.Pages.AdminWebsite
             return elements;
         }
 
-        public void BookHearing() => ButtonDriverExtension.ClickElement(WrappedDriver, BookHearingPanelButton);
-        public void QuestionnaireResult() => ButtonDriverExtension.ClickElement(WrappedDriver, QuestionnaireResultPanelButton);
+        public void BookHearing() => ClickDriverExtension.ClickElement(WrappedDriver, BookHearingPanelButton);
+        public void QuestionnaireResult() => ClickDriverExtension.ClickElement(WrappedDriver, QuestionnaireResultPanelButton);
     }
 }

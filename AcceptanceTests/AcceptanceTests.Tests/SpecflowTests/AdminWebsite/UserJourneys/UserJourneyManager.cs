@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AcceptanceTests.Model.Page;
 using AcceptanceTests.PageObject.Pages.AdminWebsite;
 using AcceptanceTests.PageObject.Pages.Common;
@@ -19,30 +18,30 @@ namespace AcceptanceTests.Tests.SpecflowTests.AdminWebsite.UserJourneys
             return userJourney;
         }
 
-        public static UserJourney CreateHearingScheduleUserJourney(BrowserSession driver)
+        public static UserJourney CreateHearingScheduleUserJourney(BrowserSession driver, bool runningWithSaucelabs)
         {
             var userJourney = CreateHearingDetailsUserJourney(driver);
-            userJourney.Pages.Add(new HearingSchedulePage(driver, PageUri.HearingSchedulePage));
+            userJourney.Pages.Add(new HearingSchedulePage(driver, PageUri.HearingSchedulePage, runningWithSaucelabs));
             return userJourney;
         }
 
-        public static UserJourney CreateAssignJudgeUserJourney(BrowserSession driver)
+        public static UserJourney CreateAssignJudgeUserJourney(BrowserSession driver, bool runningWithSaucelabs)
         {
-            var userJourney = CreateHearingScheduleUserJourney(driver);
+            var userJourney = CreateHearingScheduleUserJourney(driver, runningWithSaucelabs);
             userJourney.Pages.Add(new AssignJudgePage(driver, PageUri.AssignJudgePage));
             return userJourney;
         }
 
-        public static UserJourney CreateOtherInformationJourney(BrowserSession driver)
+        public static UserJourney CreateOtherInformationJourney(BrowserSession driver, bool runningWithSaucelabs)
         {
-            var userJourney = CreateAssignJudgeUserJourney(driver);
+            var userJourney = CreateAssignJudgeUserJourney(driver, runningWithSaucelabs);
             userJourney.Pages.Add(new OtherInformationPage(driver, PageUri.OtherInformationPage));
             return userJourney;
         }
 
-        public static UserJourney  CreateAddParticipantUserJourney(BrowserSession driver)
+        public static UserJourney  CreateAddParticipantUserJourney(BrowserSession driver, bool runningWithSaucelabs)
         {
-            var userJourney = CreateAssignJudgeUserJourney(driver);
+            var userJourney = CreateOtherInformationJourney(driver, runningWithSaucelabs);
             userJourney.Pages.Add(new AddParticipantsPage(driver, PageUri.AddParticipantsPage));
             return userJourney;
         }

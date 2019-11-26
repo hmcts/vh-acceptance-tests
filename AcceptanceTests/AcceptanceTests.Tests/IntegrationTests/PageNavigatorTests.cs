@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Reflection;
 using AcceptanceTests.Model.Context;
-using AcceptanceTests.Model.Role;
+using AcceptanceTests.Model.User;
 using AcceptanceTests.PageObject.Helpers;
 using AcceptanceTests.PageObject.Pages.AdminWebsite;
 using AcceptanceTests.Tests.SpecflowTests.AdminWebsite.UserJourneys;
@@ -40,6 +40,12 @@ namespace AcceptanceTests.Tests.IntegrationTests
             SignInHelper.SignIn(_driver, testContext);
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            _driverHook.TearDownSession();
+        }
+
         [Test]
         [Category("Local")]
         public void CompleteCreateHearingDetailsUserJourneyTest()
@@ -53,7 +59,7 @@ namespace AcceptanceTests.Tests.IntegrationTests
         [Category("Local")]
         public void CompleteCreateHearingScheduleUserJourneyTest()
         {
-            var userJourney = UserJourneyManager.CreateHearingScheduleUserJourney(_driver);
+            var userJourney = UserJourneyManager.CreateHearingScheduleUserJourney(_driver, false);
             PageNavigator.CompleteJourney(userJourney);
             PageNavigator.CurrentPage.GetType().Should().Be(typeof(HearingSchedulePage));
         }
@@ -62,7 +68,7 @@ namespace AcceptanceTests.Tests.IntegrationTests
         [Category("Local")]
         public void CompleteCreateAssignJudgeUserJourneyTest()
         {
-            var userJourney = UserJourneyManager.CreateAssignJudgeUserJourney(_driver);
+            var userJourney = UserJourneyManager.CreateAssignJudgeUserJourney(_driver, false);
             PageNavigator.CompleteJourney(userJourney);
             PageNavigator.CurrentPage.GetType().Should().Be(typeof(AssignJudgePage));
         }
@@ -71,7 +77,7 @@ namespace AcceptanceTests.Tests.IntegrationTests
         [Category("Local")]
         public void CompleteCreateOtherInformationUserJourneyTest()
         {
-            var userJourney = UserJourneyManager.CreateOtherInformationJourney(_driver);
+            var userJourney = UserJourneyManager.CreateOtherInformationJourney(_driver, false);
             PageNavigator.CompleteJourney(userJourney);
             PageNavigator.CurrentPage.GetType().Should().Be(typeof(OtherInformationPage));
         }
@@ -80,7 +86,7 @@ namespace AcceptanceTests.Tests.IntegrationTests
         [Category("Local")]
         public void CompleteAddParticipantUserJourneyTest()
         {
-            var userJourney = UserJourneyManager.CreateAddParticipantUserJourney(_driver);
+            var userJourney = UserJourneyManager.CreateAddParticipantUserJourney(_driver, false);
             PageNavigator.CompleteJourney(userJourney);
             PageNavigator.CurrentPage.GetType().Should().Be(typeof(AddParticipantsPage));
         }

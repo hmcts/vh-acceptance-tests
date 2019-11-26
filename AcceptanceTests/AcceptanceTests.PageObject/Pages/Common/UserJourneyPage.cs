@@ -32,13 +32,13 @@ namespace AcceptanceTests.PageObject.Pages.Common
         public virtual void Continue()
         {
             IsPageLoaded();
-            ButtonDriverExtension.ClickElement(WrappedDriver, By.Id("nextButton"));
+            ClickDriverExtension.ClickElement(WrappedDriver, By.Id("nextButton"));
         }
 
         public virtual void Cancel()
         {
             IsPageLoaded();
-            ButtonDriverExtension.ClickElement(WrappedDriver, By.Id("cancelButton"));
+            ClickDriverExtension.ClickElement(WrappedDriver, By.Id("cancelButton"));
         }
     }
 }

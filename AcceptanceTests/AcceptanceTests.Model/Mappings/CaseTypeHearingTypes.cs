@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
-using AcceptanceTests.Model.Type;
+using AcceptanceTests.Model.Hearing;
 
 namespace AcceptanceTests.Model.Mappings
 {
     public class CaseTypeHearingTypes
     {
-        public static List<HearingType> GetCivilMoneyClaimsHearingTypes()
+        public static List<string> GetCivilMoneyClaimsHearingTypes()
         {
-            var list = new List<HearingType> {
+            var list = new List<string> {
                     HearingType.ApplicationToSetJudgmentAside,
                     HearingType.FirstHearing,
                     HearingType.DirectionsHearing,
@@ -17,9 +17,9 @@ namespace AcceptanceTests.Model.Mappings
             return list;
         }
 
-        public static List<HearingType> GetFinancialRemedyHearingTypes()
+        public static List<string> GetFinancialRemedyHearingTypes()
         {
-            var list = new List<HearingType> {
+            var list = new List<string> {
                     HearingType.FirstDirectionsAppointment,
                     HearingType.FirstHearing,
                     HearingType.DirectionsHearing,
@@ -30,9 +30,9 @@ namespace AcceptanceTests.Model.Mappings
             return list;
         }
 
-        public static List<HearingType> GetTaxHearingTypes()
+        public static List<string> GetTaxHearingTypes()
         {
-            var list = new List<HearingType> {
+            var list = new List<string> {
                     HearingType.FirstHearing,
                     HearingType.SubstantiveHearing,
                     HearingType.CaseManagement,

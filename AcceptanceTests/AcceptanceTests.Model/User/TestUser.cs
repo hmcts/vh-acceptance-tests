@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using AcceptanceTests.Model.Role;
-using AcceptanceTests.Model.Type;
+using AcceptanceTests.Model.Case;
 
 namespace AcceptanceTests.Model.User
 {

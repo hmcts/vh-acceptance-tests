@@ -8,28 +8,34 @@ namespace AcceptanceTests.PageObject.Components.Forms
 {
     public class HearingDetailsFormComponent : Component, IFormComponent
     {
-        public void CaseNumber(string value) => InputDriverExtension.ClearTextAndEnterText(WrappedDriver, By.Id("caseNumber"), value);
-        public void CaseName(string value) => InputDriverExtension.ClearTextAndEnterText(WrappedDriver, By.Id("caseName"), value);
+        public void CaseNumber(string value) => InputDriverExtension.ClearValuesAndEnterText(WrappedDriver, By.Id("caseNumber"), value);
+        public void CaseName(string value) => InputDriverExtension.ClearValuesAndEnterText(WrappedDriver, By.Id("caseName"), value);
         public DropdownList HearingTypesDropdownList => new DropdownList(WrappedDriver, "Hearing Types", "hearingType");
-        public void CheckQuestionnaireNotRequired() => ButtonDriverExtension.ClickCheckboxElement(WrappedDriver, By.Id("questionnaireNotRequired"));
+        public void CheckQuestionnaireNotRequired() => ClickDriverExtension.CheckCheckboxElement(WrappedDriver, By.Id("questionnaireNotRequired"));
+        public void UnCheckQuestionnaireRequired() => ClickDriverExtension.UnCheckCheckboxElement(WrappedDriver, By.Id("questionnaireNotRequired"));
 
-        internal HearingDetailsFormComponent(BrowserSession driver) : base(driver)
+        public HearingDetailsFormComponent(BrowserSession driver) : base(driver)
         {
         }
 
         public void FillFormDetails(object formDataObject)
         {
-            var hearingDetails = (HearingDetails)formDataObject;
+            var hearingDetailsFormData = (HearingDetails)formDataObject;
 
-            if (hearingDetails == null)
+            if (hearingDetailsFormData == null)
             {
-                hearingDetails = new HearingDetails().GenerateFakeHearing();
+                hearingDetailsFormData = new HearingDetails().GenerateFakeHearing();
             }
 
-            CaseNumber(hearingDetails.CaseNumber);
-            CaseName(hearingDetails.CaseName);
-            HearingTypesDropdownList.SelectFirst();
-            CheckQuestionnaireNotRequired();
+            CaseNumber(hearingDetailsFormData.CaseNumber);
+            CaseName(hearingDetailsFormData.CaseName);
+            HearingTypesDropdownList.FillFormDetails(hearingDetailsFormData.HearingType);
+
+            if (hearingDetailsFormData.DontSendQuestionnaire)
+                CheckQuestionnaireNotRequired();
+            else
+                UnCheckQuestionnaireRequired();
+
         }
     }
 }

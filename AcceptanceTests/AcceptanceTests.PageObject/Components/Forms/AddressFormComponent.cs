@@ -7,12 +7,11 @@ namespace AcceptanceTests.PageObject.Components.Forms
 {
     public class AddressForm : Component, IFormComponent
     {
-        //Clears the input values then enter details into fields
-        //sometimes the ClearFieldInputValues() doesn't work, so using ClearFieldInputValuesKeyboard() instead
-        public void HouseNumber(string houseNumber) => InputDriverExtension.ClearTextAndEnterText(WrappedDriver, By.Id("houseNumber"), houseNumber);
-        public void Street(string street) => InputDriverExtension.ClearTextUsingKeyboardAndEnterText(WrappedDriver, By.Id("street"), street);
-        public void City(string city) => InputDriverExtension.ClearTextUsingKeyboardAndEnterText(WrappedDriver, By.Id("city"), city);
-        public void County(string county) => InputDriverExtension.ClearTextUsingKeyboardAndEnterText(WrappedDriver, By.Id("county"), county);
+        //Clears the input values and then enter details into fields
+        public void HouseNumber(string houseNumber) => InputDriverExtension.ClearValuesAndEnterText(WrappedDriver, By.Id("houseNumber"), houseNumber);
+        public void Street(string street) => InputDriverExtension.ClearValuesAndEnterText(WrappedDriver, By.Id("street"), street);
+        public void City(string city) => InputDriverExtension.ClearValuesAndEnterText(WrappedDriver, By.Id("city"), city);
+        public void County(string county) => InputDriverExtension.ClearValuesAndEnterText(WrappedDriver, By.Id("county"), county);
 
         public AddressForm(BrowserSession driver) : base(driver)
         {
