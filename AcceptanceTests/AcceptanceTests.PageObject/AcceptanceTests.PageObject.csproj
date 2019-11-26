@@ -19,6 +19,8 @@
   <ItemGroup>
     <Folder Include="Components\" />
     <Folder Include="Components\DropdownLists\" />
+    <Folder Include="Components\Forms\" />
+    <Folder Include="Components\Inputs\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />

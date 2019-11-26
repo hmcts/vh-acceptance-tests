@@ -1,5 +1,5 @@
 ﻿using AcceptanceTests.Model.FormData;
-using AcceptanceTests.PageObject.Components;
+using AcceptanceTests.PageObject.Components.Forms;
 using AcceptanceTests.PageObject.Pages.Common;
 using Coypu;
 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using AcceptanceTests.Driver.DriverExtensions;
-using AcceptanceTests.PageObject.Components;
+using AcceptanceTests.PageObject.Components.Forms;
 using Coypu;
 using OpenQA.Selenium;
 

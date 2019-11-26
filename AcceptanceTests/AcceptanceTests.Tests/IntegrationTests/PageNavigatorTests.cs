@@ -51,6 +51,33 @@ namespace AcceptanceTests.Tests.IntegrationTests
 
         [Test]
         [Category("Local")]
+        public void CompleteCreateHearingScheduleUserJourneyTest()
+        {
+            var userJourney = UserJourneyManager.CreateHearingScheduleUserJourney(_driver);
+            PageNavigator.CompleteJourney(userJourney);
+            PageNavigator.CurrentPage.GetType().Should().Be(typeof(HearingSchedulePage));
+        }
+
+        [Test]
+        [Category("Local")]
+        public void CompleteCreateAssignJudgeUserJourneyTest()
+        {
+            var userJourney = UserJourneyManager.CreateAssignJudgeUserJourney(_driver);
+            PageNavigator.CompleteJourney(userJourney);
+            PageNavigator.CurrentPage.GetType().Should().Be(typeof(AssignJudgePage));
+        }
+
+        [Test]
+        [Category("Local")]
+        public void CompleteCreateOtherInformationUserJourneyTest()
+        {
+            var userJourney = UserJourneyManager.CreateOtherInformationJourney(_driver);
+            PageNavigator.CompleteJourney(userJourney);
+            PageNavigator.CurrentPage.GetType().Should().Be(typeof(OtherInformationPage));
+        }
+
+        [Test]
+        [Category("Local")]
         public void CompleteAddParticipantUserJourneyTest()
         {
             var userJourney = UserJourneyManager.CreateAddParticipantUserJourney(_driver);

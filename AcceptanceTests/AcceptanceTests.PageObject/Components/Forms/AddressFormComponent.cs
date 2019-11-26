@@ -1,10 +1,9 @@
 ﻿using AcceptanceTests.Model.FormData;
-using AcceptanceTests.Driver.Drivers;
 using OpenQA.Selenium;
 using Coypu;
 using AcceptanceTests.Driver.DriverExtensions;
 
-namespace AcceptanceTests.PageObject.Components
+namespace AcceptanceTests.PageObject.Components.Forms
 {
     public class AddressForm : Component, IFormComponent
     {

@@ -1,4 +1,4 @@
-﻿namespace AcceptanceTests.PageObject.Components
+﻿namespace AcceptanceTests.PageObject.Components.Forms
 {
     public interface IFormComponent : IComponent
     {

@@ -4,18 +4,16 @@ using AcceptanceTests.PageObject.Components.DropdownLists;
 using Coypu;
 using OpenQA.Selenium;
 
-namespace AcceptanceTests.PageObject.Components
+namespace AcceptanceTests.PageObject.Components.Forms
 {
-    public class HearingDetailsForm : Component, IFormComponent
+    public class HearingDetailsFormComponent : Component, IFormComponent
     {
         public void CaseNumber(string value) => InputDriverExtension.ClearTextAndEnterText(WrappedDriver, By.Id("caseNumber"), value);
         public void CaseName(string value) => InputDriverExtension.ClearTextAndEnterText(WrappedDriver, By.Id("caseName"), value);
         public DropdownList HearingTypesDropdownList => new DropdownList(WrappedDriver, "Hearing Types", "hearingType");
         public void CheckQuestionnaireNotRequired() => ButtonDriverExtension.ClickCheckboxElement(WrappedDriver, By.Id("questionnaireNotRequired"));
 
-        //public DropdownList CaseTypesDropdownList => new DropdownList(WrappedDriver, "Case Types", "caseTypes");
-
-        internal HearingDetailsForm(BrowserSession driver) : base(driver)
+        internal HearingDetailsFormComponent(BrowserSession driver) : base(driver)
         {
         }
 
