@@ -35,8 +35,9 @@ namespace AcceptanceTests.PageObject.Helpers
                         CurrentPage.FillDetails(default);
                         CurrentPage.Continue();
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        Console.WriteLine($"Exception occurred {ex.Message}");
                         Console.WriteLine("Page has no forms to be filled.");
                         Console.WriteLine("Continuing to next page.");
                         CurrentPage.Continue();
