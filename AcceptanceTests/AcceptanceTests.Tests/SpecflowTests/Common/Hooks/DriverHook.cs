@@ -15,7 +15,8 @@ namespace AcceptanceTests.Tests.SpecflowTests.Common.Hooks
         private ITestContext _testContext;
         private SauceLabsSettings _saucelabsSettings;
         private readonly ScenarioContext _scenarioContext;
-        private ScenarioInfo _scenarioInfo;
+        public ScenarioInfo _scenarioInfo;
+        public void SetScenarioInfo(ScenarioInfo scenarioInfo) => _scenarioInfo = scenarioInfo;
         private readonly IObjectContainer _objectContainer;
         private readonly AppContextManager _appContextManager;
 
@@ -27,9 +28,8 @@ namespace AcceptanceTests.Tests.SpecflowTests.Common.Hooks
             _appContextManager = appContextManager;
         }
 
-        public DriverHook(ScenarioInfo scenarioInfo, IObjectContainer objectContainer, AppContextManager appContextManager)
+        public DriverHook(IObjectContainer objectContainer, AppContextManager appContextManager)
         {
-            _scenarioInfo = scenarioInfo;
             _objectContainer = objectContainer;
             _appContextManager = appContextManager;
         }

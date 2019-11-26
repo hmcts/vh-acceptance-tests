@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Coypu;
+using OpenQA.Selenium;
 
 namespace AcceptanceTests.PageObject.Components.DropdownLists
 {
@@ -8,6 +8,6 @@ namespace AcceptanceTests.PageObject.Components.DropdownLists
         string Name { get; }
         void SelectOption(string option);
         void SelectFirst();
-        IEnumerable<SnapshotElementScope> GetList();
+        IEnumerable<IWebElement> GetList();
     }
 }

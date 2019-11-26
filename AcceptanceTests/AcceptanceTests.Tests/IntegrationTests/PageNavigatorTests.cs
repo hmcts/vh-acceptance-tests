@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
 using AcceptanceTests.Model.Context;
 using AcceptanceTests.Model.Role;
 using AcceptanceTests.PageObject.Helpers;
 using AcceptanceTests.PageObject.Pages.AdminWebsite;
-using AcceptanceTests.Tests.SpecflowTests.AdminWebsite.Navigation;
 using AcceptanceTests.Tests.SpecflowTests.AdminWebsite.UserJourneys;
-using AcceptanceTests.Tests.SpecflowTests.Common;
 using AcceptanceTests.Tests.SpecflowTests.Common.Hooks;
-using BoDi;
 using Coypu;
 using FluentAssertions;
 using NUnit.Framework;
@@ -20,7 +15,7 @@ namespace AcceptanceTests.Tests.IntegrationTests
 {
     public class PageNavigatorTests : HookTestsBase
     {
-        internal BrowserSession _driver;
+        private BrowserSession _driver;
         private DriverHook _driverHook;
         private TestSetUpHook _testSetUpHook;
 
@@ -28,8 +23,9 @@ namespace AcceptanceTests.Tests.IntegrationTests
         { 
             _testSetUpHook = new TestSetUpHook(_objectContainer, _appContextManager);
             var testContext = _testSetUpHook.OneTimeSetup(path);
+            _driverHook = new DriverHook(_objectContainer, _appContextManager);
             var scenarioInfo = new ScenarioInfo("AcceptanceTests.Tests: PageNavigatorTests", "IntegrationTests", new string[] { });
-            _driverHook = new DriverHook(scenarioInfo, _objectContainer, _appContextManager);
+            _driverHook.SetScenarioInfo(scenarioInfo);
             return testContext;
         }
 

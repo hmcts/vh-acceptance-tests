@@ -26,20 +26,22 @@ namespace AcceptanceTests.PageObject.Helpers
                         default:
                             throw new NotImplementedException($"Dashboard option {userJourney.DashboardOption} is not implemented.");
                     }
-                }
-                try
+                } else
                 {
-                    var headingToPrint = string.IsNullOrEmpty(CurrentPage.HeadingText) ? CurrentPage.Uri : CurrentPage.HeadingText;
-                    Console.WriteLine($"Current page: {headingToPrint}");
-                    CurrentPage.FillDetails(default);
-                    CurrentPage.Continue();
-                }
-                catch(Exception)
-                {
-                    Console.WriteLine("Page has no forms to be filled.");
-                    Console.WriteLine("Continuing to next page.");
-                    CurrentPage.Continue();
-                }
+                    try
+                    {
+                        var headingToPrint = string.IsNullOrEmpty(CurrentPage.HeadingText) ? CurrentPage.Uri : CurrentPage.HeadingText;
+                        Console.WriteLine($"Current page: {headingToPrint}");
+                        CurrentPage.FillDetails(default);
+                        CurrentPage.Continue();
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("Page has no forms to be filled.");
+                        Console.WriteLine("Continuing to next page.");
+                        CurrentPage.Continue();
+                    }
+                } 
             }
         }
     }

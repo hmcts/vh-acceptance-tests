@@ -53,26 +53,25 @@ namespace AcceptanceTests.Driver.DriverExtensions
             }
         }
 
+        public static IList<IWebElement> WaitUntilElementsVisible(BrowserSession driver, By elementLocator, int timeout = 30)
+        {
+            try
+            {
+                var wait = new WebDriverWait((IWebDriver)driver.Native, TimeSpan.FromSeconds(timeout));
+                return wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.PresenceOfAllElementsLocatedBy(elementLocator));
+            }
+            catch (NoSuchElementException ex)
+            {
+                throw new NoSuchElementException($"Elements with locator: '{elementLocator}' was not found in current context page.", ex);
+            }
+        }
+
         public static IWebElement WaitUntilElementClickable(BrowserSession driver, By elementLocator, int timeout = 30)
         {
             try
             {
                 var wait = new WebDriverWait((IWebDriver)driver.Native, TimeSpan.FromSeconds(timeout));
                 return wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(elementLocator));
-            }
-            catch (NoSuchElementException ex)
-            {
-                throw new NoSuchElementException($"Element with locator: '{elementLocator}' was not found in current context page.", ex);
-            }
-        }
-
-        public static ElementScope WaitUntilElementClickable(BrowserSession driver, string elementLocator)
-        {
-            try
-            {
-                var result = new Func<ElementScope>(() => driver.FindButton(elementLocator, DefaultOptions))();
-                Console.WriteLine($"Element {elementLocator} successfully found on page.");
-                return result;
             }
             catch (NoSuchElementException ex)
             {
