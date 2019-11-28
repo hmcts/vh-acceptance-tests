@@ -31,19 +31,18 @@ namespace AcceptanceTests.PageObject.Helpers
                 }
                 else
                 {
-                    //try
-                    //{
+                    try
+                    {
                         Console.WriteLine($"Current page: {headingToPrint}");
                         CurrentPage.FillDetails(default);
                         CurrentPage.Continue();
-                    //}
-                    //catch (Exception ex)
-                    //{
-                    //    Console.WriteLine($"Exception occurred {ex.Message}");
-                    //    throw(ex);
-                    //    /*Console.WriteLine("Page has no forms to be filled.");
-                    //    Console.WriteLine("Continuing to next page.");
-                    //    CurrentPage.Continue();}
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Can't continue to next page.");
+                        Console.WriteLine($"Exception occurred -> {ex.InnerException.Message}");
+                        throw (ex);
+                    }
                 } 
             }
         }
