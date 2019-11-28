@@ -17,9 +17,9 @@
         {
             Party = new DropdownListFormData();
             Role = new DropdownListFormData();
-            FirstName = Faker.Name.First();
-            LastName = Faker.Name.Last();
-            Email = $"{FirstName}.{LastName}@{Faker.Internet.DomainName()}";
+            FirstName = $"Automation_{Faker.Name.First()}";
+            LastName = Faker.Name.Last(); 
+            Email = $"Automation_{FirstName}.{LastName}@{Faker.Internet.DomainName()}";
             Title = new DropdownListFormData();
             Telephone = Faker.Phone.Number();
             DisplayName = $"{FirstName} {LastName}";

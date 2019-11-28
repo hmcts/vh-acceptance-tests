@@ -1,8 +1,5 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
-using AcceptanceTests.Driver.Support;
-using AcceptanceTests.Model;
 using AcceptanceTests.Model.Context;
 using AcceptanceTests.Model.User;
 using AcceptanceTests.Tests.SpecflowTests.Common;
