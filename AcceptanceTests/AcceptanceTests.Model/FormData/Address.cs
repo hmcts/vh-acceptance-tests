@@ -2,7 +2,7 @@
 
 namespace AcceptanceTests.Model.FormData
 {
-    public class Address
+    public class Address : IFormData
     {
         public string HouseNumber { get; set; }
         public string Street { get; set; }
@@ -10,7 +10,7 @@ namespace AcceptanceTests.Model.FormData
         public string County { get; set; }
         public string Postcode { get; set; }
 
-        public Address GenerateFakeAddress()
+        public IFormData GenerateFake()
         {
             Console.WriteLine("Generating fake address data:");
 

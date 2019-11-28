@@ -43,11 +43,11 @@ namespace AcceptanceTests.Tests.IntegrationTests
         [TearDown]
         public void TearDown()
         {
-            _driverHook.TearDownSession();
+           _driverHook.TearDownSession();
         }
 
         [Test]
-        [Category("Local")]
+        [Category("AdminWebsiteSmokeTest")]
         public void CompleteCreateHearingDetailsUserJourneyTest()
         {
             var userJourney = UserJourneyManager.CreateHearingDetailsUserJourney(_driver);
@@ -56,7 +56,7 @@ namespace AcceptanceTests.Tests.IntegrationTests
         }
 
         [Test]
-        [Category("Local")]
+        [Category("AdminWebsiteSmokeTest")]
         public void CompleteCreateHearingScheduleUserJourneyTest()
         {
             var userJourney = UserJourneyManager.CreateHearingScheduleUserJourney(_driver, false);
@@ -65,12 +65,21 @@ namespace AcceptanceTests.Tests.IntegrationTests
         }
 
         [Test]
-        [Category("Local")]
+        [Category("AdminWebsiteSmokeTest")]
         public void CompleteCreateAssignJudgeUserJourneyTest()
         {
             var userJourney = UserJourneyManager.CreateAssignJudgeUserJourney(_driver, false);
             PageNavigator.CompleteJourney(userJourney);
             PageNavigator.CurrentPage.GetType().Should().Be(typeof(AssignJudgePage));
+        }
+
+        [Test]
+        [Category("AdminWebsiteSmokeTest")]
+        public void CompleteAddParticipantUserJourneyTest()
+        {
+            var userJourney = UserJourneyManager.CreateAddParticipantUserJourney(_driver, false);
+            PageNavigator.CompleteJourney(userJourney);
+            PageNavigator.CurrentPage.GetType().Should().Be(typeof(AddParticipantsPage));
         }
 
         [Test]
@@ -82,13 +91,5 @@ namespace AcceptanceTests.Tests.IntegrationTests
             PageNavigator.CurrentPage.GetType().Should().Be(typeof(OtherInformationPage));
         }
 
-        [Test]
-        [Category("Local")]
-        public void CompleteAddParticipantUserJourneyTest()
-        {
-            var userJourney = UserJourneyManager.CreateAddParticipantUserJourney(_driver, false);
-            PageNavigator.CompleteJourney(userJourney);
-            PageNavigator.CurrentPage.GetType().Should().Be(typeof(AddParticipantsPage));
-        }
     }
 }

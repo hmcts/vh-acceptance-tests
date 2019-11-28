@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using AcceptanceTests.Driver.DriverExtensions;
+using AcceptanceTests.Model.FormData;
 using AcceptanceTests.PageObject.Pages.Common;
 using Coypu;
 using OpenQA.Selenium;
@@ -22,17 +23,16 @@ namespace AcceptanceTests.PageObject.Components.DropdownLists
             ByLocator = By.XPath(CommonLocator.DropDownList(locator));
         }
 
-        public void FillFormDetails(object formDataObject)
+        public void FillFormDetails(IFormData formDataObject)
         {
-            var option = (string)formDataObject;
-
-            if (string.IsNullOrEmpty(option))
+            var option = (DropdownListFormData)formDataObject;
+            if ((option == null) || (option != null && string.IsNullOrEmpty(option.SelectedOption)))
             {
                 SelectFirst();
             }
             else
             {
-                SelectOption(option);
+                SelectOption(option.SelectedOption);
             }
         }
     }

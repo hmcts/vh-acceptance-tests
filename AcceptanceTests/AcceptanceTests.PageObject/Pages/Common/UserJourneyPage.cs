@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using AcceptanceTests.Driver.DriverExtensions;
+using AcceptanceTests.Model.FormData;
 using AcceptanceTests.PageObject.Components.Forms;
 using Coypu;
 using OpenQA.Selenium;
@@ -21,7 +22,7 @@ namespace AcceptanceTests.PageObject.Pages.Common
         {
         }
 
-        public virtual void FillDetails(object formData)
+        public virtual void FillDetails(IFormData formData)
         {
             foreach (var form in _pageFormList)
             {

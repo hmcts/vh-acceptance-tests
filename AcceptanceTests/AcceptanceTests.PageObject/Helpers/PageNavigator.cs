@@ -43,8 +43,7 @@ namespace AcceptanceTests.PageObject.Helpers
                     //    throw(ex);
                     //    /*Console.WriteLine("Page has no forms to be filled.");
                     //    Console.WriteLine("Continuing to next page.");
-                    //    CurrentPage.Continue();*/
-                    //}
+                    //    CurrentPage.Continue();}
                 } 
             }
         }

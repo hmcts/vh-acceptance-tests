@@ -5,6 +5,7 @@ using AcceptanceTests.Driver.Settings;
 using AcceptanceTests.Driver.Support;
 using AcceptanceTests.Model;
 using AcceptanceTests.Model.Context;
+using AcceptanceTests.Model.User;
 using Microsoft.Extensions.Configuration;
 
 namespace AcceptanceTests.Tests.SpecflowTests.Common
@@ -32,7 +33,7 @@ namespace AcceptanceTests.Tests.SpecflowTests.Common
             return testContext;
         }
 
-        public ITestContext SwitchTargetAppContext(string targetApp, ITestContext currentTestContext)
+        public ITestContext SwitchTargetAppContext(string targetApp, ITestContext currentTestContext, TestUser newUser = null)
         {
             ITestContext testContext;
             var currentUserContext = currentTestContext;
@@ -43,7 +44,12 @@ namespace AcceptanceTests.Tests.SpecflowTests.Common
             if (!parsedTargetApp.Equals(currentApp))
             {
                 testContext = SetUpTestContext(_path, targetApp);
-                testContext.UserContext.CurrentUser = currentUserContext.UserContext.CurrentUser;
+
+                if (newUser == null)
+                    testContext.UserContext.CurrentUser = currentUserContext.UserContext.CurrentUser;
+                else
+                    testContext.UserContext.CurrentUser = newUser;
+
                 testContext.UserContext.TestUserSecrets = currentTestContext.UserContext.TestUserSecrets;
             }  
             else

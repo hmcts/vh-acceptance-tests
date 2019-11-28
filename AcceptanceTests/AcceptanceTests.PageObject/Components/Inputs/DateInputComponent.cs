@@ -22,7 +22,7 @@ namespace AcceptanceTests.PageObject.Components.Inputs
         }
 
 
-        public void FillFormDetails(object formDataObject)
+        public void FillFormDetails(IFormData formDataObject)
         {
             HearingSchedule hearingScheduleData = null;
             HearingDateTime dateTimeFormData = null;
@@ -39,11 +39,10 @@ namespace AcceptanceTests.PageObject.Components.Inputs
             if (hearingScheduleData == null && dateTimeFormData == null)
             {
                 var dateTimeData = new HearingDateTime();
-                var dateTimeFormat = dateTimeData.GetHearingScheduledDateFormat(WrappedDriver.GetType().ToString(), _runningWithSaucelabs);
-                dateTimeFormData = dateTimeData.GenerateFakeDateTimeData(dateTimeFormat);
+                dateTimeFormData = (HearingDateTime)dateTimeData.GenerateFake(WrappedDriver.GetType().ToString(), _runningWithSaucelabs);
             } else if (hearingScheduleData != null && hearingScheduleData.DateTime != null)
             {
-                dateTimeFormData = hearingScheduleData.DateTime;
+                dateTimeFormData = (HearingDateTime)hearingScheduleData.DateTime;
             }
 
             HearingDate(WrappedDriver, dateTimeFormData.Date);

@@ -2,7 +2,7 @@
 
 namespace AcceptanceTests.Model.FormData
 {
-    public class HearingDateTime
+    public class HearingDateTime : IFormData
     {
         public string Date { get; set; }
         public string[] StartTime { get; set; }
@@ -16,15 +16,29 @@ namespace AcceptanceTests.Model.FormData
 
         public string GetHearingScheduledDateFormat(string browser, bool runningWithSaucelabs)
         {
-            if (browser == "Chrome" && runningWithSaucelabs)
+            if (browser.Contains("Chrome") && runningWithSaucelabs)
                 return ChromeEuHearingDateFormat;
-            return browser == "Firefox" ? FirefoxHearingDateFormat : DefaultFormat;
+            return browser.Contains("Firefox") ? FirefoxHearingDateFormat : DefaultFormat;
         }
 
-        public HearingDateTime GenerateFakeDateTimeData(string dateFormat)
+        public IFormData GenerateFake()
         {
             Console.WriteLine("Generating fake hearing schedule:");
-            Date = DateTime.Now.ToString(dateFormat);
+            Date = DateTime.Now.ToString(DefaultFormat);
+            Console.WriteLine($"Generated date {Date}");
+
+            StartTime = CurrentTime();
+            Console.WriteLine($"Generated start time {StartTime[0]}:{StartTime[1]}");
+
+            Duration = $"{Faker.RandomNumber.Next(0, 23)}:{Faker.RandomNumber.Next(30, 59)}";
+            Console.WriteLine($"Generated duration {Duration}");
+            return this;
+        }
+
+        public IFormData GenerateFake(string browser, bool runningWithSaucelabs)
+        {
+            Console.WriteLine("Generating fake hearing schedule:");
+            Date = DateTime.Now.ToString(GetHearingScheduledDateFormat(browser, runningWithSaucelabs));
             Console.WriteLine($"Generated date {Date}");
 
             StartTime = CurrentTime();

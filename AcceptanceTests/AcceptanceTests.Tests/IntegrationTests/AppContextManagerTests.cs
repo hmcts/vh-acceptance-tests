@@ -21,13 +21,8 @@ namespace AcceptanceTests.Tests.IntegrationTests
             _appContextManager = new AppContextManager();
         }
 
-        public string GetPath(string targetApp)
+        public string GetPath()
         {
-            if (string.IsNullOrEmpty(targetApp))
-            {
-                targetApp = _appContextManager.GetTargetApp().ToString();
-            }
-            var supportedApp = EnumParser.ParseText<SutSupport>(targetApp);
             return  $"{Path.GetDirectoryName(Assembly.GetCallingAssembly().Location)}/SpecflowTests/";
         }
 
@@ -35,7 +30,7 @@ namespace AcceptanceTests.Tests.IntegrationTests
         [TestCase("ServiceWebsite")]
         public void SetUpTestContextWithInjectedAppTest(string app)
         {
-            var testContext = _appContextManager.SetUpTestContext(GetPath(app), app);
+            var testContext = _appContextManager.SetUpTestContext(GetPath(), app);
             testContext.CurrentApp.Should().Be(app.Replace(" ", ""), "Because no NUnit parameter should have been given for this test to run.");
         }
 
@@ -43,7 +38,7 @@ namespace AcceptanceTests.Tests.IntegrationTests
         [TestCase("Admin Website", "Service Website")]
         [TestCase ("Service Website", "Service Website")]
         [TestCase("Service Website", "Admin Website")]
-        public void SwitchAppContextTest(string targetApp, string currentApp)
+        public void SwitchAppContextTestKeepsTheSameUser(string targetApp, string currentApp)
         {
             ITestContext testContext = InitialiseTestContext(currentApp);
             var expectedUsername = "test@test.com";
@@ -56,6 +51,38 @@ namespace AcceptanceTests.Tests.IntegrationTests
             testContext.UserContext.CurrentUser.Username.Should().Be(expectedUsername);
         }
 
+        [TestCase("Admin Website", "Service Website")]
+        [TestCase("Service Website", "Admin Website")]
+        public void SwitchAppContextChangesToNewUserTest(string targetApp, string currentApp)
+        {
+            ITestContext testContext = InitialiseTestContext(currentApp);
+            var currentUser = CreateTestUser();
+            var newUser = CreateTestUser();
+            testContext.UserContext.CurrentUser = currentUser;
+            SetUpTestContextWithInjectedAppTest(currentApp);
+            testContext = _appContextManager.SwitchTargetAppContext(targetApp, testContext, newUser);
+
+            var expectedApp = testContext.CurrentApp.Replace(" ", "");
+            expectedApp.Should().Be(targetApp.Replace(" ", ""));
+            testContext.UserContext.CurrentUser.Should().Be(newUser);
+        }
+
+        [TestCase("Admin Website", "Admin Website")]
+        [TestCase("Service Website", "Service Website")]
+        public void SwitchAppContextSameAppDoesNotChangeToNewUserTest(string targetApp, string currentApp)
+        {
+            ITestContext testContext = InitialiseTestContext(currentApp);
+            var currentUser = CreateTestUser();
+            var newUser = CreateTestUser();
+            testContext.UserContext.CurrentUser = currentUser;
+            SetUpTestContextWithInjectedAppTest(currentApp);
+            testContext = _appContextManager.SwitchTargetAppContext(targetApp, testContext, newUser);
+
+            var expectedApp = testContext.CurrentApp.Replace(" ", "");
+            expectedApp.Should().Be(targetApp.Replace(" ", ""));
+            testContext.UserContext.CurrentUser.Should().Be(currentUser);
+        }
+
         private ITestContext InitialiseTestContext(string currentApp)
         {
             ITestContext testContext = new TestContextBase();
@@ -63,6 +90,18 @@ namespace AcceptanceTests.Tests.IntegrationTests
             testContext.UserContext = new UserContext();
             testContext.UserContext.CurrentUser = new TestUser();
             return testContext;
+        }
+
+        private TestUser CreateTestUser()
+        {
+            var testUser = new TestUser
+            {
+                Firstname = Faker.Name.First(),
+                Lastname = Faker.Name.Last(),
+                Username = Faker.Internet.Email()
+        };
+
+            return testUser;
         }
     }
 }

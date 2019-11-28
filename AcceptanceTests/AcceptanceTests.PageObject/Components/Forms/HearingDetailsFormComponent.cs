@@ -18,13 +18,13 @@ namespace AcceptanceTests.PageObject.Components.Forms
         {
         }
 
-        public void FillFormDetails(object formDataObject)
+        public void FillFormDetails(IFormData formDataObject)
         {
             var hearingDetailsFormData = (HearingDetails)formDataObject;
 
             if (hearingDetailsFormData == null)
             {
-                hearingDetailsFormData = new HearingDetails().GenerateFakeHearing();
+                hearingDetailsFormData = (HearingDetails)new HearingDetails().GenerateFake();
             }
 
             CaseNumber(hearingDetailsFormData.CaseNumber);

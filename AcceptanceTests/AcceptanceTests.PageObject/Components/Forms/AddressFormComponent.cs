@@ -5,7 +5,7 @@ using AcceptanceTests.Driver.DriverExtensions;
 
 namespace AcceptanceTests.PageObject.Components.Forms
 {
-    public class AddressForm : Component, IFormComponent
+    public class AddressFormComponent : Component, IFormComponent
     {
         //Clears the input values and then enter details into fields
         public void HouseNumber(string houseNumber) => InputDriverExtension.ClearValuesAndEnterText(WrappedDriver, By.Id("houseNumber"), houseNumber);
@@ -13,11 +13,11 @@ namespace AcceptanceTests.PageObject.Components.Forms
         public void City(string city) => InputDriverExtension.ClearValuesAndEnterText(WrappedDriver, By.Id("city"), city);
         public void County(string county) => InputDriverExtension.ClearValuesAndEnterText(WrappedDriver, By.Id("county"), county);
 
-        public AddressForm(BrowserSession driver) : base(driver)
+        public AddressFormComponent(BrowserSession driver) : base(driver)
         {
         }
 
-        public void FillFormDetails(object formDataObject)
+        public void FillFormDetails(IFormData formDataObject)
         {
             var address = (Address)formDataObject;
             HouseNumber(address.HouseNumber);

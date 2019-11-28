@@ -32,17 +32,17 @@ namespace AcceptanceTests.Tests.SpecflowTests.AdminWebsite.UserJourneys
             return userJourney;
         }
 
-        public static UserJourney CreateOtherInformationJourney(BrowserSession driver, bool runningWithSaucelabs)
+        public static UserJourney  CreateAddParticipantUserJourney(BrowserSession driver, bool runningWithSaucelabs)
         {
             var userJourney = CreateAssignJudgeUserJourney(driver, runningWithSaucelabs);
-            userJourney.Pages.Add(new OtherInformationPage(driver, PageUri.OtherInformationPage));
+            userJourney.Pages.Add(new AddParticipantsPage(driver, PageUri.AddParticipantsPage));
             return userJourney;
         }
 
-        public static UserJourney  CreateAddParticipantUserJourney(BrowserSession driver, bool runningWithSaucelabs)
+        public static UserJourney CreateOtherInformationJourney(BrowserSession driver, bool runningWithSaucelabs)
         {
-            var userJourney = CreateOtherInformationJourney(driver, runningWithSaucelabs);
-            userJourney.Pages.Add(new AddParticipantsPage(driver, PageUri.AddParticipantsPage));
+            var userJourney = CreateAddParticipantUserJourney(driver, runningWithSaucelabs);
+            userJourney.Pages.Add(new OtherInformationPage(driver, PageUri.OtherInformationPage));
             return userJourney;
         }
     }

@@ -1,16 +1,15 @@
 ﻿using System;
-using AcceptanceTests.Model.Hearing;
 
 namespace AcceptanceTests.Model.FormData
 {
-    public class HearingDetails
+    public class HearingDetails : IFormData
     {
         public string CaseNumber { get; set; }
         public string CaseName { get; set; }
-        public HearingType HearingType { get; set; }
+        public IFormData HearingType { get; set; }
         public bool DontSendQuestionnaire { get; set; }
 
-        public HearingDetails GenerateFakeHearing()
+        public IFormData GenerateFake()
         {
             Console.WriteLine("Generating fake hearing details data:");
 
@@ -19,6 +18,8 @@ namespace AcceptanceTests.Model.FormData
 
             CaseName = $"{Faker.Name.FullName()} vs. {Faker.Name.FullName()}";
             Console.WriteLine($"Generating fake case name {CaseName}");
+
+            HearingType = new DropdownListFormData();
 
             DontSendQuestionnaire = true;
             return this;
