@@ -35,7 +35,7 @@ AcceptanceTests.Tests/resources/adminwebsite/adminwebsite.appsettings.json
 And their content:
 ```json
 {
-  "WebsiteUrl": "https://vh-admin-web-dev.hearings.reform.hmcts.net/",
+  "WebsiteUrl": "https://localhost:5400/",
   "VhBrowserSettings": [
     {
       "BrowserName": "Chrome",

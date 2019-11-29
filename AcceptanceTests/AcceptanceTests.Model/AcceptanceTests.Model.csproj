@@ -16,8 +16,10 @@
   <ItemGroup>
     <Folder Include="Context\" />
     <Folder Include="User\" />
-    <Folder Include="Type\" />
+    <Folder Include="Messages\" />
     <Folder Include="Page\" />
+    <Folder Include="Case\" />
+    <Folder Include="Hearing\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.9.0" />

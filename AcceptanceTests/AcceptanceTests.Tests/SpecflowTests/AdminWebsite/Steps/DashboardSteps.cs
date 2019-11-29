@@ -1,6 +1,6 @@
 ﻿using System;
 using AcceptanceTests.Model.Context;
-using AcceptanceTests.Model.Role;
+using AcceptanceTests.Model.User;
 using AcceptanceTests.PageObject.Pages.AdminWebsite;
 using AcceptanceTests.Tests.SpecflowTests.AdminWebsite.Navigation;
 using Coypu;

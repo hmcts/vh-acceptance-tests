@@ -13,21 +13,36 @@ namespace AcceptanceTests.Tests.SpecflowTests.AdminWebsite.UserJourneys
         {
             var pages = new List<UserJourneyPage>();
             pages.Add(new DashboardPage(driver, PageUri.DashboardPage));
-            pages.Add(new HearingDetailsPage(driver, PageUri.HearingDetailsPage, "Hearing details"));
+            pages.Add(new HearingDetailsPage(driver, PageUri.HearingDetailsPage));
             var userJourney = new UserJourney(pages, DashboardOption.BookAvideoHearing);
             return userJourney;
         }
 
-        public static UserJourney  CreateAddParticipantUserJourney(BrowserSession driver)
+        public static UserJourney CreateHearingScheduleUserJourney(BrowserSession driver, bool runningWithSaucelabs)
         {
-            var pages = new List<UserJourneyPage>();
-            pages.Add(new DashboardPage(driver, PageUri.DashboardPage));
-            pages.Add(new HearingDetailsPage(driver, PageUri.HearingDetailsPage, "Hearing details"));
-            pages.Add(new HearingSchedulePage(driver, PageUri.HearingSchedulePage, "Time and location"));
-            pages.Add(new AssignJudgePage(driver, PageUri.AssignJudgePage, "Assign Judge"));
-            pages.Add(new OtherInformationPage(driver, PageUri.OtherInformationPage));
-            pages.Add(new AddParticipantsPage(driver, PageUri.AddParticipantsPage));
-            var userJourney = new UserJourney(pages, DashboardOption.BookAvideoHearing);
+            var userJourney = CreateHearingDetailsUserJourney(driver);
+            userJourney.Pages.Add(new HearingSchedulePage(driver, PageUri.HearingSchedulePage, runningWithSaucelabs));
+            return userJourney;
+        }
+
+        public static UserJourney CreateAssignJudgeUserJourney(BrowserSession driver, bool runningWithSaucelabs)
+        {
+            var userJourney = CreateHearingScheduleUserJourney(driver, runningWithSaucelabs);
+            userJourney.Pages.Add(new AssignJudgePage(driver, PageUri.AssignJudgePage));
+            return userJourney;
+        }
+
+        public static UserJourney  CreateAddParticipantUserJourney(BrowserSession driver, bool runningWithSaucelabs)
+        {
+            var userJourney = CreateAssignJudgeUserJourney(driver, runningWithSaucelabs);
+            userJourney.Pages.Add(new AddParticipantsPage(driver, PageUri.AddParticipantsPage));
+            return userJourney;
+        }
+
+        public static UserJourney CreateOtherInformationJourney(BrowserSession driver, bool runningWithSaucelabs)
+        {
+            var userJourney = CreateAddParticipantUserJourney(driver, runningWithSaucelabs);
+            userJourney.Pages.Add(new OtherInformationPage(driver, PageUri.OtherInformationPage));
             return userJourney;
         }
     }

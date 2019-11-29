@@ -1,6 +1,5 @@
 ﻿using AcceptanceTests.Model;
 using AcceptanceTests.Model.Context;
-using AcceptanceTests.Model.Role;
 using AcceptanceTests.Model.User;
 using AcceptanceTests.PageObject.Helpers;
 using Coypu;

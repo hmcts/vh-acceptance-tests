@@ -1,4 +1,4 @@
-﻿namespace AcceptanceTests.Model.Role
+﻿namespace AcceptanceTests.Model.User
 {
     public enum UserRole
     {

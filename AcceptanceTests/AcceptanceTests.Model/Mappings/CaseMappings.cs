@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using AcceptanceTests.Model.Type;
+using AcceptanceTests.Model.Case;
+using AcceptanceTests.Model.Hearing;
 
 namespace AcceptanceTests.Model.Mappings
 {
@@ -9,7 +10,7 @@ namespace AcceptanceTests.Model.Mappings
 
         public void CreateMappings()
         {
-            var genericHearingTypeList = new List<HearingType> { HearingType.Hearing };
+            var genericHearingTypeList = new List<string> { HearingType.Hearing };
             CreateCivilMoneyClaimsMapping();
             CreateCaseTypeApplicantRespondentMapping(CaseType.FinancialRemedy, CaseTypeHearingTypes.GetFinancialRemedyHearingTypes());
             CreateCaseTypeApplicantRespondentMapping(CaseType.ChildrenAct, genericHearingTypeList);
@@ -31,7 +32,7 @@ namespace AcceptanceTests.Model.Mappings
             MappingList.Add(caseTypeMapping.CaseType, caseTypeMapping);
         }
 
-        private void CreateCaseTypeApplicantRespondentMapping(CaseType caseType, List<HearingType> hearingTypeList)
+        private void CreateCaseTypeApplicantRespondentMapping(CaseType caseType, List<string> hearingTypeList)
         {
             var caseTypeMapping = new CaseTypesHearingsRoles
             {

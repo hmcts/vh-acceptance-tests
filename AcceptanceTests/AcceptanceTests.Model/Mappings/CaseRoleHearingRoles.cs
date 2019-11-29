@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using AcceptanceTests.Model.Role;
+using AcceptanceTests.Model.Case;
+using AcceptanceTests.Model.Hearing;
 
 namespace AcceptanceTests.Model.Mappings
 {

@@ -1,5 +1,5 @@
 ﻿{
-  "WebsiteUrl": "https://vh-service-web-sandbox.hearings.reform.hmcts.net/",
+  "WebsiteUrl": "https://localhost:5600/",
   "VhBrowserSettings": [
     {
       "BrowserName": "Chrome",

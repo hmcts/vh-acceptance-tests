@@ -1,4 +1,4 @@
-﻿namespace AcceptanceTests.Model.Type
+﻿namespace AcceptanceTests.Model.Case
 {
     public enum CaseType
     {

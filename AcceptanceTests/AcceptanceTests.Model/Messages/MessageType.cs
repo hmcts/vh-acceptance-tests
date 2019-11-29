@@ -1,5 +1,4 @@
-﻿using System;
-namespace AcceptanceTests.Model.Type
+﻿namespace AcceptanceTests.Model.Messages
 {
     public enum MessageType
     {

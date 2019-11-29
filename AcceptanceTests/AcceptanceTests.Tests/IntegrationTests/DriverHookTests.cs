@@ -18,7 +18,7 @@ namespace AcceptanceTests.Tests.IntegrationTests
     {
         private string _path;
         private ITestContext _testContext;
-        private BrowserSession _session;
+        private BrowserSession _driver;
         private SauceLabsSettings _saucelabsSettings;
         private ScenarioInfo _scenarioInfo;
         private string _buildName = "AcceptanceTests.Tests: Driver Hook tests";
@@ -37,8 +37,8 @@ namespace AcceptanceTests.Tests.IntegrationTests
         [TearDown]
         public void TearDown()
         {
-            if (_session != null)
-                _session.Dispose();
+            if (_driver != null)
+                _driver.Dispose();
 
             var drivers = _objectContainer.ResolveAll<BrowserSession>();
 
@@ -52,12 +52,12 @@ namespace AcceptanceTests.Tests.IntegrationTests
             var targetBrowser = NUnitParamReader.GetTargetBrowser();
             var blockCamAndMicrophone = false;
             var driverManager = new DriverManager();
-            _session = driverManager.Init(_testContext.BaseUrl, targetBrowser.ToString(),
+            _driver = driverManager.Init(_testContext.BaseUrl, targetBrowser.ToString(),
                                         NUnitParamReader.GetTargetPlatform(),
                                         _scenarioInfo, _buildName, blockCamAndMicrophone, new SauceLabsSettings());
 
-            _session.Should().NotBeNull();
-            _session.Driver.Native.As<NgWebDriver>().WrappedDriver.ToString().Should().Contain(targetBrowser.ToString());
+            _driver.Should().NotBeNull();
+            _driver.Driver.Native.As<NgWebDriver>().WrappedDriver.ToString().Should().Contain(targetBrowser.ToString());
         }
 
         [TestCase("Chrome")]
@@ -69,12 +69,12 @@ namespace AcceptanceTests.Tests.IntegrationTests
             var targetBrowser = NUnitParamReader.GetTargetBrowser(browser);
             var blockCamAndMicrophone = false;
             var driverManager = new DriverManager();
-            _session = driverManager.Init(_testContext.BaseUrl, targetBrowser.ToString(),
+            _driver = driverManager.Init(_testContext.BaseUrl, targetBrowser.ToString(),
                                         NUnitParamReader.GetTargetPlatform(),
                                         _scenarioInfo, _buildName, blockCamAndMicrophone, new SauceLabsSettings());
 
-            _session.Should().NotBeNull();
-            _session.Driver.Native.As<NgWebDriver>().WrappedDriver.ToString().Should().Contain(targetBrowser.ToString());
+            _driver.Should().NotBeNull();
+            _driver.Driver.Native.As<NgWebDriver>().WrappedDriver.ToString().Should().Contain(targetBrowser.ToString());
         }
 
         [TestCase("AdminWebsite", "Chrome")]
@@ -93,20 +93,20 @@ namespace AcceptanceTests.Tests.IntegrationTests
 
             var blockCamAndMicrophone = false;
             var driverManager = new DriverManager();
-            _session = driverManager.Init(_testContext.BaseUrl, targetBrowser.ToString(),
+            _driver = driverManager.Init(_testContext.BaseUrl, targetBrowser.ToString(),
                                         NUnitParamReader.GetTargetPlatform(),
                                         scenarioInfo, _buildName, blockCamAndMicrophone, _saucelabsSettings);
 
-            _session.Should().NotBeNull();
-            _session.Visit(_testContext.BaseUrl);
+            _driver.Should().NotBeNull();
+            _driver.Visit(_testContext.BaseUrl);
 
             try
             {
-                _session.Location.ToString().Should().Contain(_testContext.BaseUrl);
+                _driver.Location.ToString().Should().Contain(_testContext.BaseUrl);
             }
             catch (Exception)
             {
-                _session.Location.ToString().Should().Contain("https://login.microsoftonline.com/");
+                _driver.Location.ToString().Should().Contain("https://login.microsoftonline.com/");
             }
             
         }

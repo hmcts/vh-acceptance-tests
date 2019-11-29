@@ -1,16 +1,22 @@
-﻿using AcceptanceTests.Driver.DriverExtensions;
+﻿using System.Collections.Generic;
+using AcceptanceTests.PageObject.Components.Forms;
 using AcceptanceTests.PageObject.Pages.Common;
 using Coypu;
-using OpenQA.Selenium;
 
 namespace AcceptanceTests.PageObject.Pages.AdminWebsite
 {
     public class HearingSchedulePage : UserJourneyPage
     {
-        public void Room(string value) => InputDriverExtension.ClearTextAndEnterText(WrappedDriver, By.Id("court-room"), value);
+        IFormComponent _hearingScheduleForm;
 
-        public HearingSchedulePage(BrowserSession driver, string path, string headingText) : base(driver, path, headingText)
+        public HearingSchedulePage(BrowserSession driver, string path, bool runningWithSaucelabs) : base(driver, path)
         {
+            HeadingText = "Time and location";
+            _hearingScheduleForm = new HearingScheduleFormComponent(driver, runningWithSaucelabs);
+            _pageFormList = new List<IFormComponent>
+            {
+                _hearingScheduleForm
+            };
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using AcceptanceTests.Driver.DriverExtensions;
-using AcceptanceTests.PageObject.Components;
+using AcceptanceTests.Model.FormData;
+using AcceptanceTests.PageObject.Components.Forms;
 using Coypu;
 using OpenQA.Selenium;
 
@@ -21,7 +22,7 @@ namespace AcceptanceTests.PageObject.Pages.Common
         {
         }
 
-        public virtual void FillDetails(object formData)
+        public virtual void FillDetails(IFormData formData)
         {
             foreach (var form in _pageFormList)
             {
@@ -32,13 +33,13 @@ namespace AcceptanceTests.PageObject.Pages.Common
         public virtual void Continue()
         {
             IsPageLoaded();
-            ButtonDriverExtension.ClickElement(WrappedDriver, By.Id("nextButton"));
+            ClickDriverExtension.ClickElement(WrappedDriver, By.Id("nextButton"));
         }
 
         public virtual void Cancel()
         {
             IsPageLoaded();
-            ButtonDriverExtension.ClickElement(WrappedDriver, By.Id("cancelButton"));
+            ClickDriverExtension.ClickElement(WrappedDriver, By.Id("cancelButton"));
         }
     }
 }

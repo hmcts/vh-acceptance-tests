@@ -1,7 +1,7 @@
 ﻿using System;
 using AcceptanceTests.Model;
 using AcceptanceTests.Model.Context;
-using AcceptanceTests.Model.Type;
+using AcceptanceTests.Model.Messages;
 using AcceptanceTests.PageObject.Pages.Common;
 using Coypu;
 using FluentAssertions;

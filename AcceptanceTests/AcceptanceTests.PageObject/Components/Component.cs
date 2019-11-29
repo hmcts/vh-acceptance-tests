@@ -1,6 +1,5 @@
 ﻿using System;
 using AcceptanceTests.Driver.DriverExtensions;
-using AcceptanceTests.Driver.Drivers;
 using AcceptanceTests.PageObject.Pages.Common;
 using Coypu;
 
