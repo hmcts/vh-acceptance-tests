@@ -117,7 +117,7 @@ steps:
     fileType: Json
     transformations: |
      {
-       "WebsiteUrl": "$(current_service_web_url)"
+       "WebsiteUrl": "$(service_web_url)"
      }
      
 - task: sergeyzwezdin.magic-chunks.magic.chunks.MagicChunks@2
@@ -127,7 +127,7 @@ steps:
     fileType: Json
     transformations: |
      {
-       "WebsiteUrl": "$(current_video_web_url)"
+       "WebsiteUrl": "$(video_web_url)"
      }
 
 - task: VSTest@2
