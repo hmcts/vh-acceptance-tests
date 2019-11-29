@@ -76,7 +76,7 @@ steps:
     SecretsFilter: '$(ReadKeyVaultSecrets)'
 
 - task: sergeyzwezdin.magic-chunks.magic.chunks.MagicChunks@2
-  displayName: 'Config transform'
+  displayName: 'Main Config transform'
   inputs:
     sourcePath: '$(Build.ArtifactStagingDirectory)/appsettings.json'
     fileType: Json
@@ -97,21 +97,22 @@ steps:
        "TestUserSecrets/TestUsernameStem": "$(TestUserSecrets:TestUsernameStem)",
        "VhServices/BookingsApiResourceId": "$(bookings_api_url)",
        "VhServices/BookingsApiUrl": "$(bookings_api_url)",
-       "WebsiteUrl": "$(current_web_url)"
+       "WebsiteUrl": "$(current_web_url)",
+       "TargetApp" : "AdminWebsite"
      }
      
 - task: sergeyzwezdin.magic-chunks.magic.chunks.MagicChunks@2
-  displayName: 'Config transform'
+  displayName: 'Admin Website Config transform'
   inputs:
     sourcePath: '$(Build.ArtifactStagingDirectory)/SpecflowTests/AdminWebsite/Resources/adminwebsite.appsettings.json'
     fileType: Json
     transformations: |
      {
-       "WebsiteUrl": "$(current_web_url)"
+       "WebsiteUrl": "$(admin_web_url)"
      }
      
 - task: sergeyzwezdin.magic-chunks.magic.chunks.MagicChunks@2
-  displayName: 'Config transform'
+  displayName: 'Service Website Config transform'
   inputs:
     sourcePath: '$(Build.ArtifactStagingDirectory)/SpecflowTests/ServiceWebsite/Resources/servicewebsite.appsettings.json'
     fileType: Json
@@ -121,7 +122,7 @@ steps:
      }
      
 - task: sergeyzwezdin.magic-chunks.magic.chunks.MagicChunks@2
-  displayName: 'Config transform'
+  displayName: 'Video Website Config transform'
   inputs:
     sourcePath: '$(Build.ArtifactStagingDirectory)/SpecflowTests/VideoWebsite/Resources/videowebsite.appsettings.json'
     fileType: Json
