@@ -105,11 +105,13 @@ Scenario Outline: VH Officer sign in to the Admin Website then see two panels
     |Questionnaire results|
 ```
 ## How do I consume these packages?
-You can create a new test project using the same structure from AcceptanceTests.Test, adding AcceptanceTests.Configuration, Driver, Model and PageObject NuGet Packages pointing at our internal NuGet packages manager. Ensure your project structure makes use of all Hooks and mimics the folder structure for Features, Steps and Resources.
+You can create a new test project using the same structure from https://github.com/hmcts/vh-admin-web/tree/feature/nuget-integration/AdminWebsite/AdminWebsite.AcceptanceTests.NuGet, adding AcceptanceTests.Configuration, Driver, Model and PageObject NuGet Packages pointing at our internal NuGet packages manager or use the AcceptanceTests.Test package which already has the specflow and driver support needed. Ensure your project structure makes use of all Hooks and mimics the folder structure for Features, Steps and Resources.
 
 ## How do I write an automated test?
+If page objects need to be created, you should create them in the AcceptanceTests.PageObject NuGet package. It's important to keep the same structure so the code remains clean and scalable.
 
 ## How do I release an automated test?
+You need to ensure that all tests are passing locally. It there are framework changes, that need to go through a PR approval and vh-acceptance-tests pipeline checks. New functionality should be acompanied by unit/integration tests.
 
 ## Past Challenges
 - Platform incompatibility in SauceLabs
