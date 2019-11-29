@@ -1,7 +1,6 @@
 ﻿using Coypu;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
-using Protractor;
 
 namespace AcceptanceTests.Driver.DriverExtensions
 {
@@ -15,7 +14,7 @@ namespace AcceptanceTests.Driver.DriverExtensions
 
         public static void CheckCheckboxElement(BrowserSession driver, By elementLocator)
         {
-            var ngDriver = (NgWebDriver)driver.Native;
+            var ngDriver = NativeDriverExtension.GetDriver(driver);
             var element = ngDriver.FindElement(elementLocator);
 
             if (!element.Selected)
@@ -26,7 +25,7 @@ namespace AcceptanceTests.Driver.DriverExtensions
 
         public static void UnCheckCheckboxElement(BrowserSession driver, By elementLocator)
         {
-            var ngDriver = (NgWebDriver)driver.Native;
+            var ngDriver = NativeDriverExtension.GetDriver(driver);
             var element = ngDriver.FindElement(elementLocator);
 
             if (element.Selected)
@@ -37,7 +36,7 @@ namespace AcceptanceTests.Driver.DriverExtensions
 
         private static void ClickElement(BrowserSession driver, IWebElement element)
         {
-            var action = new Actions((NgWebDriver)driver.Native);
+            var action = new Actions(NativeDriverExtension.GetDriver(driver));
             action.MoveToElement(element).Perform();
             element.Click();
         }
