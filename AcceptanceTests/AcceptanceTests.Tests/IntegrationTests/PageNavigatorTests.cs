@@ -43,7 +43,13 @@ namespace AcceptanceTests.Tests.IntegrationTests
         [TearDown]
         public void TearDown()
         {
-           _driverHook.TearDownSession();
+            if (_driver != null)
+                _driver.Dispose();
+
+            var drivers = _objectContainer.ResolveAll<BrowserSession>();
+
+            foreach (var driver in drivers)
+                driver.Dispose();
         }
 
         [Test]
