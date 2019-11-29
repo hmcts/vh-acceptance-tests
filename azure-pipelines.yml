@@ -99,6 +99,36 @@ steps:
        "VhServices/BookingsApiUrl": "$(bookings_api_url)",
        "WebsiteUrl": "$(current_web_url)"
      }
+     
+- task: sergeyzwezdin.magic-chunks.magic.chunks.MagicChunks@2
+  displayName: 'Config transform'
+  inputs:
+    sourcePath: '$(Build.ArtifactStagingDirectory)/SpecflowTests/AdminWebsite/Resources/adminwebsite.appsettings.json'
+    fileType: Json
+    transformations: |
+     {
+       "WebsiteUrl": "$(current_web_url)"
+     }
+     
+- task: sergeyzwezdin.magic-chunks.magic.chunks.MagicChunks@2
+  displayName: 'Config transform'
+  inputs:
+    sourcePath: '$(Build.ArtifactStagingDirectory)/SpecflowTests/ServiceWebsite/Resources/servicewebsite.appsettings.json'
+    fileType: Json
+    transformations: |
+     {
+       "WebsiteUrl": "$(current_service_web_url)"
+     }
+     
+- task: sergeyzwezdin.magic-chunks.magic.chunks.MagicChunks@2
+  displayName: 'Config transform'
+  inputs:
+    sourcePath: '$(Build.ArtifactStagingDirectory)/SpecflowTests/VideoWebsite/Resources/videowebsite.appsettings.json'
+    fileType: Json
+    transformations: |
+     {
+       "WebsiteUrl": "$(current_video_web_url)"
+     }
 
 - task: VSTest@2
   displayName: 'VsTest - testAssemblies'
