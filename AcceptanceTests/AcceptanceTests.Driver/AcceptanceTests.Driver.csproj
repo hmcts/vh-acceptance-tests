@@ -5,7 +5,7 @@
     <PublishChromeDriver>true</PublishChromeDriver>
     <PackOnBuild>true</PackOnBuild>
     <PackageId>VH.AcceptanceTests.Driver</PackageId>
-    <PackageVersion>1.0.6</PackageVersion>
+    <PackageVersion>1.0.7</PackageVersion>
     <Authors>Andressa Dantas</Authors>
     <Owners>Video Hearings</Owners>
     <PackageProjectUrl>https://github.com/hmcts/vh-acceptance-tests</PackageProjectUrl>

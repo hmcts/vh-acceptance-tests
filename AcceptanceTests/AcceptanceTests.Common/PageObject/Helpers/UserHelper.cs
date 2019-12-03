@@ -1,4 +1,5 @@
-﻿using AcceptanceTests.Common.Model.Context;
+﻿using AcceptanceTests.Common.Configuration.TestUserConfig;
+using AcceptanceTests.Common.Model.Context;
 using AcceptanceTests.Common.Model.User;
 
 namespace AcceptanceTests.Common.PageObject.Helpers

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AcceptanceTests.Common.Configuration.TestUserConfig;
 using AcceptanceTests.Common.Model.User;
 
 namespace AcceptanceTests.Common.Model.Context

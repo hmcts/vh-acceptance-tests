@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using AcceptanceTests.Common.Configuration.AzureConfig;
 using AcceptanceTests.Common.Configuration.TestConfiguration;
+using AcceptanceTests.Common.Configuration.TestUserConfig;
 using AcceptanceTests.Common.Model.User;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;

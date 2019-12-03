@@ -1,4 +1,4 @@
-﻿namespace AcceptanceTests.Common.Model.User
+﻿namespace AcceptanceTests.Common.Configuration.TestUserConfig
 {
     public class UserAccountBase : IUserAccount
     {
