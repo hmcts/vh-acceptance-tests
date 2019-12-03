@@ -1,4 +1,4 @@
-﻿namespace AcceptanceTests.Common.Configuration.SecurityConfig
+﻿namespace AcceptanceTests.Common.Configuration.AzureConfig
 {
     public class AzureAdConfigBase : IAzureAdConfig
     {

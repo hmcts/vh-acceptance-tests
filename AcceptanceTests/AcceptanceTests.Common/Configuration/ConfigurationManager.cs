@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using AcceptanceTests.Common.Configuration.SecurityConfig;
+using AcceptanceTests.Common.Configuration.AzureConfig;
 using AcceptanceTests.Common.Configuration.TestConfiguration;
 using AcceptanceTests.Common.Model.Context;
 using Microsoft.Extensions.Configuration;

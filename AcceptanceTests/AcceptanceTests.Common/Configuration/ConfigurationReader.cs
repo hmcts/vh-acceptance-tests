@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using AcceptanceTests.Common.Configuration.SecurityConfig;
+using AcceptanceTests.Common.Configuration.AzureConfig;
 using AcceptanceTests.Common.Configuration.TestConfiguration;
 using AcceptanceTests.Common.Model.User;
 using Microsoft.Extensions.Configuration;
@@ -21,7 +21,7 @@ namespace AcceptanceTests.Common.Configuration
 
         public static IAzureAdConfig GetAzureAdConfig(IConfigurationRoot configRoot)
         {
-            return Options.Create(configRoot.GetSection("AzureAd").Get<SecurityConfigBase>()).Value;
+            return Options.Create(configRoot.GetSection("AzureAd").Get<AzureAdConfigBase>()).Value;
         }
 
         public static IServiceConfig GetVhServiceConfig(IConfigurationRoot configRoot)
