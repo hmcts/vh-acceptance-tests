@@ -1,6 +1,6 @@
 ﻿using System;
+using AcceptanceTests.Common.Driver.DriverExtensions;
 using AcceptanceTests.Common.PageObject.Pages.Common;
-using AcceptanceTests.Driver.DriverExtensions;
 using Coypu;
 
 namespace AcceptanceTests.Common.PageObject.Components

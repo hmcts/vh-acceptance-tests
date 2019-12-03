@@ -1,4 +1,4 @@
-﻿using AcceptanceTests.Driver.DriverExtensions;
+﻿using AcceptanceTests.Common.Driver.DriverExtensions;
 using Coypu;
 
 namespace AcceptanceTests.Common.PageObject.Components

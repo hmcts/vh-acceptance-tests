@@ -1,5 +1,5 @@
-﻿using AcceptanceTests.Common.Model.FormData;
-using AcceptanceTests.Driver.DriverExtensions;
+﻿using AcceptanceTests.Common.Driver.DriverExtensions;
+using AcceptanceTests.Common.Model.FormData;
 using Coypu;
 using OpenQA.Selenium;
 

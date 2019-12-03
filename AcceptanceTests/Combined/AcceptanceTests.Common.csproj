@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <Folder Include="Configuration\SauceLabsConfig\" />
-    <Folder Include="Driver\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,16 +36,15 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="Protractor.Net.Standard.Latest.Selenium" Version="0.12.1" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="78.0.3904.10500" />
     <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.26.0" />
     <PackageReference Include="Selenium.WebDriver.IEDriver" Version="3.150.1" />
     <PackageReference Include="Selenium.WebDriver.MicrosoftWebDriver" Version="10.1.14393" />
+    <PackageReference Include="SpecFlow" Version="3.1.67" />
+    <PackageReference Include="SpecFlow.NUnit" Version="3.1.67" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.6.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\AcceptanceTests.Driver\AcceptanceTests.Driver.csproj" />
   </ItemGroup>
 
 </Project>

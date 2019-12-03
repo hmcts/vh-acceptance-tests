@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
+using AcceptanceTests.Common.Driver.DriverExtensions;
 using AcceptanceTests.Common.Model.FormData;
 using AcceptanceTests.Common.PageObject.Components.Forms;
-using AcceptanceTests.Driver.DriverExtensions;
 using Coypu;
 using OpenQA.Selenium;
 

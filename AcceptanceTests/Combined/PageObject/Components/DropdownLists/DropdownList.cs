@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using AcceptanceTests.Common.Driver.DriverExtensions;
 using AcceptanceTests.Common.Model.FormData;
 using AcceptanceTests.Common.PageObject.Pages.Common;
-using AcceptanceTests.Driver.DriverExtensions;
 using Coypu;
 using OpenQA.Selenium;
 

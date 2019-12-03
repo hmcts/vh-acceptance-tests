@@ -1,6 +1,6 @@
-﻿using AcceptanceTests.Common.Model.FormData;
+﻿using AcceptanceTests.Common.Driver.DriverExtensions;
+using AcceptanceTests.Common.Model.FormData;
 using AcceptanceTests.Common.PageObject.Components.DropdownLists;
-using AcceptanceTests.Driver.DriverExtensions;
 using Coypu;
 using OpenQA.Selenium;
 
