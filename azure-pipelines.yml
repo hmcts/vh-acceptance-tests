@@ -37,6 +37,12 @@ steps:
     publishWebProjects: false
     projects: '**/*.csproj'
     arguments: '-o $(Build.ArtifactStagingDirectory)\ '
+    
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet build'
+  inputs:
+    projects: '**/*.csproj'
+    arguments: '-o $(Build.ArtifactStagingDirectory)\ '
 
 - task: DotNetCoreCLI@2
   displayName: 'dotnet push'
