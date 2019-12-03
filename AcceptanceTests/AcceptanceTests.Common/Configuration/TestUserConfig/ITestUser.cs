@@ -9,6 +9,6 @@ namespace AcceptanceTests.Common.Configuration.TestUserConfig
         string TestClientSecret { get; set; }
         string TestUserPassword { get; set; }
         string TestUsernameStem { get; set; }
-        List<UserAccountBase> UserAccounts { get; set; }
+        List<IUserAccount> UserAccounts { get; set; }
     }
 }
