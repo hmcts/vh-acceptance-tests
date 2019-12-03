@@ -44,9 +44,9 @@ namespace AcceptanceTests.Common.Configuration
             return Options.Create(configRoot.GetSection("TestUserSecrets").Get<UserSecrets>()).Value;
         }
 
-        public static List<TestUser> GetTestUsers(IConfigurationRoot configRoot)
+        public static List<UserAccountBase> GetTestUsers(IConfigurationRoot configRoot)
         {
-            var userList = configRoot.GetSection("UserAccounts").Get<List<TestUser>>();
+            var userList = configRoot.GetSection("UserAccounts").Get<List<UserAccountBase>>();
             return Options.Create(userList).Value;
         }
     }

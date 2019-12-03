@@ -1,6 +1,6 @@
 ﻿namespace AcceptanceTests.Common.Model.Case
 {
-    public enum CaseType
+    public enum HearingType
     {
         CivilMoneyClaims,
         FinancialRemedy,

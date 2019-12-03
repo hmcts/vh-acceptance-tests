@@ -1,6 +1,6 @@
 ﻿namespace AcceptanceTests.Common.Model.User
 {
-    public class UserAccount
+    public class UserAccountBase : IUserAccount
     {
         public string Key { get; set; }
         public string Role { get; set; }
@@ -9,10 +9,5 @@
         public string Lastname { get; set; }
         public string DisplayName { get; set; }
         public string Username { get; set; }
-        public string CaseRoleName { get; set; }
-        public string HearingRoleName { get; set; }
-        public string Representee { get; set; }
-        public string SolicitorsReference { get; set; }
-        public bool DefaultParticipant { get; set; }
     }
 }

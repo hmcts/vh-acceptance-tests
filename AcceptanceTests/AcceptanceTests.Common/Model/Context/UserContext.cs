@@ -8,15 +8,15 @@ namespace AcceptanceTests.Common.Model.Context
     public class UserContext
     {
         public UserSecrets TestUserSecrets { get; set; }
-        public List<TestUser> TestUsers { get; set; }
-        public TestUser CurrentUser { get; set; }
+        public List<UserAccountBase> TestUsers { get; set; }
+        public UserAccountBase CurrentUser { get; set; }
 
-        public string GetUsername(TestUser testUser)
+        public string GetUsername(UserAccountBase testUser)
         {
-            return testUser.Displayname + TestUserSecrets.TestUsernameStem;
+            return testUser.DisplayName + TestUserSecrets.TestUsernameStem;
         }
 
-        public TestUser GetFirstOrDefaultUserByRole(string role)
+        public UserAccountBase GetFirstOrDefaultUserByRole(string role)
         {
             var user = TestUsers.FirstOrDefault(x => x.Role.Equals(EnumParser.ParseText<UserRole>(role)));
 
@@ -30,7 +30,7 @@ namespace AcceptanceTests.Common.Model.Context
             return user;
         }
 
-        public IEnumerable<TestUser> GetAllUsersByRole(string role)
+        public IEnumerable<UserAccountBase> GetAllUsersByRole(string role)
         {
             var allUsers = TestUsers.Where(x => x.Role.Equals(EnumParser.ParseText<UserRole>(role))).ToList();
 

@@ -9,7 +9,7 @@ namespace AcceptanceTests.Common.PageObject.Helpers
         {
         }
 
-        public static TestUser SetCurrentUser(ITestContext testContext, string role)
+        public static UserAccountBase SetCurrentUser(ITestContext testContext, string role)
         {
             var currentUser = testContext.UserContext.GetFirstOrDefaultUserByRole(role);
             currentUser.Username = testContext.UserContext.GetUsername(currentUser);
