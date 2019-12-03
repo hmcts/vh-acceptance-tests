@@ -15,7 +15,7 @@ steps:
 - task: gittools.gitversion.gitversion-task.GitVersion@5
   displayName: GitVersion
 
-- task: UseDotNet@3
+- task: UseDotNet@2
   displayName: 'Install latest dotnet'
   inputs:
     version: 3.x
@@ -28,7 +28,7 @@ steps:
     vstsFeed: '3f69a23d-fbc7-4541-afc7-4cccefcad773/e48b2732-376c-4052-ba97-b28783c9bab5'
     verbosityRestore: Minimal
 
-- task: DotNetCoreCLI@3
+- task: DotNetCoreCLI@2
   displayName: 'dotnet publish'
   inputs:
     command: publish
@@ -38,7 +38,7 @@ steps:
     projects: '**/*.csproj'
     arguments: '-o $(Build.ArtifactStagingDirectory)\ '
 
-- task: DotNetCoreCLI@3
+- task: DotNetCoreCLI@2
   displayName: 'dotnet push'
   condition: and(always(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   inputs:
