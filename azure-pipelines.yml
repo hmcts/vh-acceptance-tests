@@ -10,30 +10,6 @@ pr:
 
 pool:
   name: Azure-VSTS-VS2017
-  demands:
-  - DotNetFramework
-  - vstest
-
-variables:
-  - group: Saucelabs
-  - group: vh domains and urls
-  - group: vh test users
-  - name: Authority
-    value: https://login.microsoftonline.com/$(TenantId)
-  - name: ClientId
-    value: $(vh-service-web-appid)
-  - name: ClientSecret
-    value: $(vh-service-web-key)
-  - name: current_web_url
-    value: $(service_web_url)
-  - name: environment
-    value: test2
-  - name: keyvault
-    value: 'vhcoreinfraht$(environment)'
-  - name: ReadKeyVaultSecrets
-    value: 'TenantId, vh-service-web-appid, vh-service-web-key'
-  - name: subscription
-    value: 'Reform-CFT-VH-Dev'
 
 steps:
 - task: gittools.gitversion.gitversion-task.GitVersion@5
@@ -61,86 +37,6 @@ steps:
     publishWebProjects: false
     projects: '**/*.csproj'
     arguments: '-o $(Build.ArtifactStagingDirectory)\ '
-
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet build'
-  inputs:
-    projects: '**/*.csproj'
-    arguments: '-o $(Build.ArtifactStagingDirectory)\ '
-
-- task: AzureKeyVault@1
-  displayName: 'Get Secrets'
-  inputs:
-    azureSubscription: '$(subscription)'
-    KeyVaultName: '$(keyvault)'
-    SecretsFilter: '$(ReadKeyVaultSecrets)'
-
-- task: sergeyzwezdin.magic-chunks.magic.chunks.MagicChunks@2
-  displayName: 'Main Config transform'
-  inputs:
-    sourcePath: '$(Build.ArtifactStagingDirectory)/appsettings.json'
-    fileType: Json
-    transformations: |
-     {
-       "AzureAd/Authority": "$(Authority)",
-       "AzureAd/ClientId": "$(ClientId)",
-       "AzureAd/ClientSecret": "$(ClientSecret)",
-       "AzureAd/RedirectUri": "$(current_web_url)",
-       "BaseVideoUrl": "$(video_blob_url)",
-       "Saucelabs/AccessKey": "$(Saucelabs:AccessKey)",
-       "Saucelabs/Username": "$(Saucelabs:Username)",
-       "TestUserSecrets/Individual": "$(TestUserSecrets:Individual)",
-       "TestUserSecrets/Password": "$(TestUserSecrets:Password)",
-       "TestUserSecrets/Person": "$(TestUserSecrets:Person)",
-       "TestUserSecrets/Representative": "$(TestUserSecrets:Representative)",
-       "TestUserSecrets/TestUserPassword": "$(TestUserSecrets:TestUserPassword)",
-       "TestUserSecrets/TestUsernameStem": "$(TestUserSecrets:TestUsernameStem)",
-       "VhServices/BookingsApiResourceId": "$(bookings_api_url)",
-       "VhServices/BookingsApiUrl": "$(bookings_api_url)",
-       "WebsiteUrl": "$(current_web_url)",
-       "TargetApp" : "AdminWebsite"
-     }
-     
-- task: sergeyzwezdin.magic-chunks.magic.chunks.MagicChunks@2
-  displayName: 'Admin Website Config transform'
-  inputs:
-    sourcePath: '$(Build.ArtifactStagingDirectory)/SpecflowTests/AdminWebsite/Resources/adminwebsite.appsettings.json'
-    fileType: Json
-    transformations: |
-     {
-       "WebsiteUrl": "$(admin_web_url)"
-     }
-     
-- task: sergeyzwezdin.magic-chunks.magic.chunks.MagicChunks@2
-  displayName: 'Service Website Config transform'
-  inputs:
-    sourcePath: '$(Build.ArtifactStagingDirectory)/SpecflowTests/ServiceWebsite/Resources/servicewebsite.appsettings.json'
-    fileType: Json
-    transformations: |
-     {
-       "WebsiteUrl": "$(service_web_url)"
-     }
-     
-- task: sergeyzwezdin.magic-chunks.magic.chunks.MagicChunks@2
-  displayName: 'Video Website Config transform'
-  inputs:
-    sourcePath: '$(Build.ArtifactStagingDirectory)/SpecflowTests/VideoWebsite/Resources/videowebsite.appsettings.json'
-    fileType: Json
-    transformations: |
-     {
-       "WebsiteUrl": "$(video_web_url)"
-     }
-
-- task: VSTest@2
-  displayName: 'VsTest - testAssemblies'
-  inputs:
-    testAssemblyVer2: 'AcceptanceTests.*Test*.dll'
-    searchFolder: '$(Build.ArtifactStagingDirectory)'
-    testFiltercriteria: 'TestCategory!=Local'
-    uiTests: true
-    runInParallel: false
-    codeCoverageEnabled: true
-    rerunFailedTests: true
 
 - task: DotNetCoreCLI@2
   displayName: 'dotnet push'

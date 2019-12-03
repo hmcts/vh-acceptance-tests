@@ -1,15 +1,18 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcceptanceTests.Driver", "AcceptanceTests.Driver\AcceptanceTests.Driver.csproj", "{DF4112C8-8A9F-46CC-A1D3-FABDB9D55F83}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.87
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcceptanceTests.Driver", "AcceptanceTests.Driver\AcceptanceTests.Driver.csproj", "{DF4112C8-8A9F-46CC-A1D3-FABDB9D55F83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcceptanceTests.Configuration", "AcceptanceTests.Configuration\AcceptanceTests.Configuration.csproj", "{91078642-1F27-4025-BA04-B10B9D27C634}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcceptanceTests.Configuration", "AcceptanceTests.Configuration\AcceptanceTests.Configuration.csproj", "{91078642-1F27-4025-BA04-B10B9D27C634}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcceptanceTests.Model", "AcceptanceTests.Model\AcceptanceTests.Model.csproj", "{8930F6AF-6A5C-479E-90D0-238CF7C27812}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcceptanceTests.Model", "AcceptanceTests.Model\AcceptanceTests.Model.csproj", "{8930F6AF-6A5C-479E-90D0-238CF7C27812}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcceptanceTests.Tests", "AcceptanceTests.Tests\AcceptanceTests.Tests.csproj", "{2BFA8477-4423-487B-B6FF-FB61F6484E13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcceptanceTests.Tests", "AcceptanceTests.Tests\AcceptanceTests.Tests.csproj", "{2BFA8477-4423-487B-B6FF-FB61F6484E13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcceptanceTests.PageObject", "AcceptanceTests.PageObject\AcceptanceTests.PageObject.csproj", "{B0A65853-482D-4F43-A2E8-F99B79978E2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcceptanceTests.PageObject", "AcceptanceTests.PageObject\AcceptanceTests.PageObject.csproj", "{B0A65853-482D-4F43-A2E8-F99B79978E2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcceptanceTests.Common", "Combined\AcceptanceTests.Common.csproj", "{FDF50800-5951-442D-97DE-0D521425B3B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,5 +40,15 @@ Global
 		{B0A65853-482D-4F43-A2E8-F99B79978E2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0A65853-482D-4F43-A2E8-F99B79978E2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0A65853-482D-4F43-A2E8-F99B79978E2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDF50800-5951-442D-97DE-0D521425B3B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDF50800-5951-442D-97DE-0D521425B3B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDF50800-5951-442D-97DE-0D521425B3B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDF50800-5951-442D-97DE-0D521425B3B3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {475C9922-6F24-47D2-A3E5-3FA73B73A011}
 	EndGlobalSection
 EndGlobal
