@@ -19,7 +19,7 @@ namespace AcceptanceTests.Common.Configuration
             return configRoot.GetSection("TargetBrowser").Value;
         }
 
-        public static ISecurityConfig GetAzureAdConfig(IConfigurationRoot configRoot)
+        public static IAzureAdConfig GetAzureAdConfig(IConfigurationRoot configRoot)
         {
             return Options.Create(configRoot.GetSection("AzureAd").Get<SecurityConfigBase>()).Value;
         }

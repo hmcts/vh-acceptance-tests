@@ -33,7 +33,7 @@ namespace AcceptanceTests.Common.Configuration
             return configRootBuilder.Build();
         }
 
-        public static async Task<string> GetBearerToken(ISecurityConfig azureAdConfig, IServiceConfig vhServiceConfig)
+        public static async Task<string> GetBearerToken(IAzureAdConfig azureAdConfig, IServiceConfig vhServiceConfig)
         {
             var authContext = new AuthenticationContext(azureAdConfig.Authority);
             var credential = new ClientCredential(azureAdConfig.ClientId, azureAdConfig.ClientSecret);

@@ -1,6 +1,6 @@
 ﻿namespace AcceptanceTests.Common.Configuration.SecurityConfig
 {
-    public class SecurityConfigBase : ISecurityConfig
+    public class AzureAdConfigBase : IAzureAdConfig
     {
         public string Authority { get; set; }
         public string ClientId { get; set; }

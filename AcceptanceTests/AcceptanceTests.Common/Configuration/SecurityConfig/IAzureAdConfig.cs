@@ -1,6 +1,6 @@
 ﻿namespace AcceptanceTests.Common.Configuration.SecurityConfig
 {
-    public interface ISecurityConfig
+    public interface IAzureAdConfig
     {
         string ClientId { get; set; }
         string ClientSecret { get; set; }
