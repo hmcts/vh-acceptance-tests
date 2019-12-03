@@ -12,7 +12,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcceptanceTests.Tests", "Ac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcceptanceTests.PageObject", "AcceptanceTests.PageObject\AcceptanceTests.PageObject.csproj", "{B0A65853-482D-4F43-A2E8-F99B79978E2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcceptanceTests.Common", "Combined\AcceptanceTests.Common.csproj", "{FDF50800-5951-442D-97DE-0D521425B3B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcceptanceTests.Common", "AcceptanceTests.Common\AcceptanceTests.Common.csproj", "{BCB82ACB-385E-4F4F-BF77-FFE3FAFACE49}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,10 +40,10 @@ Global
 		{B0A65853-482D-4F43-A2E8-F99B79978E2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0A65853-482D-4F43-A2E8-F99B79978E2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0A65853-482D-4F43-A2E8-F99B79978E2A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FDF50800-5951-442D-97DE-0D521425B3B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FDF50800-5951-442D-97DE-0D521425B3B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FDF50800-5951-442D-97DE-0D521425B3B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FDF50800-5951-442D-97DE-0D521425B3B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCB82ACB-385E-4F4F-BF77-FFE3FAFACE49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCB82ACB-385E-4F4F-BF77-FFE3FAFACE49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCB82ACB-385E-4F4F-BF77-FFE3FAFACE49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCB82ACB-385E-4F4F-BF77-FFE3FAFACE49}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
