@@ -1,68 +1,42 @@
-﻿using System;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using AcceptanceTests.Common.Configuration.AzureConfig;
-using AcceptanceTests.Common.Configuration.TestConfiguration;
-using AcceptanceTests.Common.Model.Context;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
-namespace AcceptanceTests.Common.Configuration
+namespace AdminWebsite.Common.Configuration
 {
     public class ConfigurationManager
     {
-        public static string GetTargetAppFromAppSettingsConfiguration()
+        private readonly string _userSecretsId;
+        public ConfigurationManager(string userSecretsId)
         {
-            var configRoot = new ConfigurationBuilder()
-             .AddJsonFile($"appsettings.json");
-            var targetApp = ConfigurationReader.GetTargetApp(configRoot.Build());
-            return targetApp;
+            _userSecretsId = userSecretsId;
         }
 
-        public static IConfigurationRoot BuildDefaultConfigRoot(string rootFolder, string targetApp, string userSecrets)
+        public IConfigurationRoot BuildConfig()
         {
-            var path = $"{rootFolder}/{targetApp}/Resources/{targetApp.ToLower()}";
-
-            Console.WriteLine($"Loading configuration from path {path}");
             var configRootBuilder = new ConfigurationBuilder()
-             .AddJsonFile($"appsettings.json")
-             .AddJsonFile($"{path}.appsettings.json")
-             .AddJsonFile($"{path}.useraccounts.json")
-             .AddEnvironmentVariables()
-             .AddUserSecrets(userSecrets);
-
+                .AddJsonFile("appsettings.json")
+                .AddJsonFile("useraccounts.json")
+                .AddUserSecrets(_userSecretsId);
             return configRootBuilder.Build();
         }
 
-        public static async Task<string> GetBearerToken(IAzureAdConfig azureAdConfig, IServiceConfig vhServiceConfig)
+        public static bool VerifyConfigValuesSet(object o)
+        {
+            return !o.GetType().GetProperties()
+                .Where(pi => pi.PropertyType == typeof(string))
+                .Select(pi => (string)pi.GetValue(o))
+                .Any(string.IsNullOrEmpty);
+        }
+
+        public static async Task<string> GetBearerToken(IAzureAdConfig azureAdConfig, string resourceId)
         {
             var authContext = new AuthenticationContext(azureAdConfig.Authority);
             var credential = new ClientCredential(azureAdConfig.ClientId, azureAdConfig.ClientSecret);
-            var token = await authContext.AcquireTokenAsync(vhServiceConfig.BookingsApiResourceId, credential);
+            var token = await authContext.AcquireTokenAsync(resourceId, credential);
 
             return token.AccessToken;
-        }
-
-        public static async Task<ITestContext> ParseConfigurationIntoTestContext(IConfigurationRoot configRoot)
-        {
-            var azureAdConfig = ConfigurationReader.GetAzureAdConfig(configRoot);
-            var vhServiceConfig = ConfigurationReader.GetVhServiceConfig(configRoot);
-
-            var testContext = new TestContextBase
-            {
-                TargetBrowser = ConfigurationReader.GetTargetBrowser(configRoot),
-                BookingsApiBearerToken = await GetBearerToken(azureAdConfig, vhServiceConfig),
-                BookingsApiBaseUrl = vhServiceConfig.BookingsApiUrl,
-                BaseUrl = ConfigurationReader.GetWebsiteUrl(configRoot),
-                VideoAppUrl = ConfigurationReader.GetVideoAppUrl(configRoot),
-                UserContext = new UserContext
-                {
-                    TestUserSecrets = ConfigurationReader.GetTestUserSecrets(configRoot),
-                    TestUsers = ConfigurationReader.GetTestUsers(configRoot)
-                }
-            };
-
-
-            return testContext;
         }
     }
 }

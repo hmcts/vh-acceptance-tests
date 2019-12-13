@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using AcceptanceTests.Common.Model.Case;
-using AcceptanceTests.Common.Model.Hearing;
+using AdminWebsite.Common.Model.Case;
+using AdminWebsite.Common.Model.Hearing;
 
-namespace AcceptanceTests.Common.Model.Mappings
+namespace AdminWebsite.Common.Model.Mappings
 {
     public class CaseRoleHearingsMapping
     {

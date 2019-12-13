@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <PackOnBuild>true</PackOnBuild>
     <PackageId>VH.AcceptanceTests.Model</PackageId>
-    <PackageVersion>1.0.7</PackageVersion>
+    <PackageVersion>1.0.8</PackageVersion>
     <Authors>Andressa Dantas</Authors>
     <Owners>Video Hearings</Owners>
     <PackageProjectUrl>https://github.com/hmcts/vh-acceptance-tests</PackageProjectUrl>

@@ -1,0 +1,66 @@
+﻿using System;
+using System.Net;
+using AdminWebsite.Common.Api.Clients;
+using AdminWebsite.Common.Api.Requests;
+using AdminWebsite.Common.Api.Uris;
+using FluentAssertions;
+using RestSharp;
+
+namespace AdminWebsite.Common.Api.Hearings
+{
+    public class BookingsApiManager
+    {
+        private readonly string _bookingsApiUrl;
+        private readonly string _bookingsApiBearerToken;
+
+        public BookingsApiManager(string bookingsApiUrl, string bookingsApiBearerToken)
+        {
+            _bookingsApiUrl = bookingsApiUrl;
+            _bookingsApiBearerToken = bookingsApiBearerToken;
+        }
+
+        public IRestResponse CreateHearing(object hearingRequest)
+        {
+            var endpoint = new BookingsApiUriFactory().HearingsEndpoints.BookNewHearing();
+            var request = new RequestBuilder().Post(endpoint, hearingRequest);
+            var client = new ApiClient(_bookingsApiUrl, _bookingsApiBearerToken).GetClient();
+            var response = new RequestExecutor(request).SendToApi(client);
+            response.StatusCode.Should().Be(HttpStatusCode.Created, $"the hearing has been created");
+            return response;
+        }
+
+        public IRestResponse GetHearing(Guid? hearingId)
+        {
+            var endpoint = new BookingsApiUriFactory().HearingsEndpoints.GetHearingDetailsById(hearingId);
+            var request = new RequestBuilder().Get(endpoint);
+            var client = new ApiClient(_bookingsApiUrl, _bookingsApiBearerToken).GetClient();
+            var response = new RequestExecutor(request).SendToApi(client);
+            response.StatusCode.Should().Be(HttpStatusCode.OK, $"the hearing has been found");
+            return response;
+        }
+
+        public IRestResponse GetHearingsForUsername(string username)
+        {
+            var endpoint = new BookingsApiUriFactory().HearingsEndpoints.GetHearingsByUsername(username);
+            var request = new RequestBuilder().Get(endpoint);
+            var client = new ApiClient(_bookingsApiUrl, _bookingsApiBearerToken).GetClient();
+            var response = new RequestExecutor(request).SendToApi(client);
+            response.StatusCode.Should().Be(HttpStatusCode.OK, $"hearings have been found");
+            return response;
+        }
+
+        public void SetSuitabilityAnswers(Guid? hearingId, Guid? participantId, object suitabilityRequest)
+        {
+            if (hearingId == null || participantId == null)
+            {
+                throw new DataMisalignedException("Values cannot be null");
+            }
+
+            var endpoint = new BookingsApiUriFactory().HearingsParticipantsEndpoints.SuitabilityAnswers((Guid)hearingId, (Guid)participantId);
+            var request = new RequestBuilder().Put(endpoint, suitabilityRequest);
+            var client = new ApiClient(_bookingsApiUrl, _bookingsApiBearerToken).GetClient();
+            var response = new RequestExecutor(request).SendToApi(client);
+            response.StatusCode.Should().Be(HttpStatusCode.NoContent, $"Suitability answers have been added.");
+        }
+    }
+}

@@ -1,5 +1,5 @@
-﻿namespace AcceptanceTests.Common.Model.Hearing
-{
+﻿namespace AdminWebsite.Common.Model.Hearing
+{ 
     public enum HearingRole
     {
         ClaimantLip,

@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
-using AcceptanceTests.Common.Model.Hearing;
+using AdminWebsite.Common.Model.Hearing;
 
-namespace AcceptanceTests.Common.Model.Mappings
+namespace AdminWebsite.Common.Model.Mappings
 {
     public class CaseTypeHearingTypes
     {
-        public static List<string> GetCivilMoneyClaimsHearingTypes()
+        public static List<HearingType> GetCivilMoneyClaimsHearingTypes()
         {
-            var list = new List<string> {
+            var list = new List<HearingType> {
                     HearingType.ApplicationToSetJudgmentAside,
-                    HearingType.FirstHearing,
+                    HearingType.FirstApplication,
                     HearingType.DirectionsHearing,
                     HearingType.CaseManagement,
                     HearingType.FinalHearing
@@ -17,11 +17,11 @@ namespace AcceptanceTests.Common.Model.Mappings
             return list;
         }
 
-        public static List<string> GetFinancialRemedyHearingTypes()
+        public static List<HearingType> GetFinancialRemedyHearingTypes()
         {
-            var list = new List<string> {
+            var list = new List<HearingType> {
                     HearingType.FirstDirectionsAppointment,
-                    HearingType.FirstHearing,
+                    HearingType.FirstApplication,
                     HearingType.DirectionsHearing,
                     HearingType.CaseManagement,
                     HearingType.Hearing,
@@ -30,10 +30,10 @@ namespace AcceptanceTests.Common.Model.Mappings
             return list;
         }
 
-        public static List<string> GetTaxHearingTypes()
+        public static List<HearingType> GetTaxHearingTypes()
         {
-            var list = new List<string> {
-                    HearingType.FirstHearing,
+            var list = new List<HearingType> {
+                    HearingType.FirstApplication,
                     HearingType.SubstantiveHearing,
                     HearingType.CaseManagement,
                     HearingType.DirectionsHearing,

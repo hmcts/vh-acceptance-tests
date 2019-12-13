@@ -1,4 +1,4 @@
-﻿namespace AcceptanceTests.Common.Model.Case
+﻿namespace AdminWebsite.Common.Model.Case
 {
     public enum CaseRole
     {
