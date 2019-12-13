@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace AdminWebsite.Common.Configuration.Users
+namespace AcceptanceTests.Common.Configuration.Users
 {
     public class UserAccount
     {

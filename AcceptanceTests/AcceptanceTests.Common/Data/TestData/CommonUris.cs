@@ -1,4 +1,4 @@
-﻿namespace AdminWebsite.Common.Data.TestData
+﻿namespace AcceptanceTests.Common.Data.TestData
 {
     public class CommonUris
     {

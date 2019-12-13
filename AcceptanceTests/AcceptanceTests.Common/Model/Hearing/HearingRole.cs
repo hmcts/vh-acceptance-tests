@@ -1,4 +1,4 @@
-﻿namespace AdminWebsite.Common.Model.Hearing
+﻿namespace AcceptanceTests.Common.Model.Hearing
 { 
     public enum HearingRole
     {

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 
-namespace AdminWebsite.Common.PageObject.Helpers
+namespace AcceptanceTests.Common.PageObject.Helpers
 {
     public static class CommonLocators
     {

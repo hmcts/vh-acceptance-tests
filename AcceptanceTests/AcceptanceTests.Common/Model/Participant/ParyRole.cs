@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AdminWebsite.Common.Model.Participant
+namespace AcceptanceTests.Common.Model.Participant
 {
     public class PartyRole
     {

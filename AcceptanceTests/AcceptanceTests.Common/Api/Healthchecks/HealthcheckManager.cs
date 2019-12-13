@@ -1,10 +1,10 @@
 ﻿using System.Net;
-using AdminWebsite.Common.Api.Clients;
-using AdminWebsite.Common.Api.Requests;
-using AdminWebsite.Common.Api.Uris;
+using AcceptanceTests.Common.Api.Clients;
+using AcceptanceTests.Common.Api.Requests;
+using AcceptanceTests.Common.Api.Uris;
 using FluentAssertions;
 
-namespace AdminWebsite.Common.Api.Healthchecks
+namespace AcceptanceTests.Common.Api.Healthchecks
 {
     public class HealthcheckManager
     {

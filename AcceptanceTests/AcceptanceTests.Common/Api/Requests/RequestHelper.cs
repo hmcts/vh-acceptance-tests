@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace AdminWebsite.Common.Api.Requests
+namespace AcceptanceTests.Common.Api.Requests
 {
     public static class RequestHelper
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace AdminWebsite.Common.Data.Helpers
+namespace AcceptanceTests.Common.Data.Helpers
 {
     public static class GenerateRandom
     {

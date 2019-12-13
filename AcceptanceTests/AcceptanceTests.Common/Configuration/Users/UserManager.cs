@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace AdminWebsite.Common.Configuration.Users
+namespace AcceptanceTests.Common.Configuration.Users
 {
     public class UserManager
     {

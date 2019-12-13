@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Net;
-using AdminWebsite.Common.Api.Clients;
-using AdminWebsite.Common.Api.Requests;
-using AdminWebsite.Common.Api.Uris;
+using AcceptanceTests.Common.Api.Clients;
+using AcceptanceTests.Common.Api.Requests;
+using AcceptanceTests.Common.Api.Uris;
 using FluentAssertions;
 using RestSharp;
 
-namespace AdminWebsite.Common.Api.Hearings
+namespace AcceptanceTests.Common.Api.Hearings
 {
     public class BookingsApiManager
     {

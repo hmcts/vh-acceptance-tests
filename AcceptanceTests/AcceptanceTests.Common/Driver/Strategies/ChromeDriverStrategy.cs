@@ -2,7 +2,7 @@
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
 
-namespace AdminWebsite.Common.Driver.Strategies
+namespace AcceptanceTests.Common.Driver.Strategies
 {
     internal class ChromeDriverStrategy : Drivers
     {

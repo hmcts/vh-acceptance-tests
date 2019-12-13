@@ -1,7 +1,7 @@
-﻿using AdminWebsite.Common.PageObject.Helpers;
+﻿using AcceptanceTests.Common.PageObject.Helpers;
 using OpenQA.Selenium;
 
-namespace AdminWebsite.Common.PageObject.Pages
+namespace AcceptanceTests.Common.PageObject.Pages
 {
     public class CommonPages
     {

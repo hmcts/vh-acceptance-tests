@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Xml.Serialization;
 
-namespace AdminWebsite.Common.Data.Helpers
+namespace AcceptanceTests.Common.Data.Helpers
 {
     public class XmlSerialiser
     {

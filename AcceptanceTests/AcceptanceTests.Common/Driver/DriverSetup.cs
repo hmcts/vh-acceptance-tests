@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using AdminWebsite.Common.Configuration;
-using AdminWebsite.Common.Driver.Strategies;
-using AdminWebsite.Common.Driver.Support;
+using AcceptanceTests.Common.Configuration;
+using AcceptanceTests.Common.Driver.Strategies;
+using AcceptanceTests.Common.Driver.Support;
 using OpenQA.Selenium;
 using TechTalk.SpecFlow;
 
-namespace AdminWebsite.Common.Driver
+namespace AcceptanceTests.Common.Driver
 {
     public class DriverSetup
     {

@@ -1,13 +1,13 @@
 ﻿using System.Linq;
-using AdminWebsite.Common.Driver.Helpers;
-using AdminWebsite.Common.PageObject.Helpers;
+using AcceptanceTests.Common.Driver.Helpers;
+using AcceptanceTests.Common.PageObject.Helpers;
 using FluentAssertions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using Protractor;
 using TechTalk.SpecFlow;
 
-namespace AdminWebsite.Common.Test.Steps
+namespace AcceptanceTests.Common.Test.Steps
 {
     [Binding]
     public class CommonSharedSteps

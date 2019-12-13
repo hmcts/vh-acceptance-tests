@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading;
-using AdminWebsite.Common.Api.Clients;
-using AdminWebsite.Common.Api.Requests;
-using AdminWebsite.Common.Api.Uris;
-using AdminWebsite.Common.Configuration.Users;
+using AcceptanceTests.Common.Api.Clients;
+using AcceptanceTests.Common.Api.Requests;
+using AcceptanceTests.Common.Api.Uris;
+using AcceptanceTests.Common.Configuration.Users;
 using RestSharp;
 
-namespace AdminWebsite.Common.Api.Users
+namespace AcceptanceTests.Common.Api.Users
 {
     public class UserApiManager
     {

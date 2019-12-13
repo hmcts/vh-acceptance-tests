@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace AdminWebsite.Common.Model.Participant
+namespace AcceptanceTests.Common.Model.Participant
 {
     [JsonObject]
     public class Party

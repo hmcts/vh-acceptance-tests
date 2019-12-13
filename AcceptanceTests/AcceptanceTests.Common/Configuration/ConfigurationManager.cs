@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
-namespace AdminWebsite.Common.Configuration
+namespace AcceptanceTests.Common.Configuration
 {
     public class ConfigurationManager
     {

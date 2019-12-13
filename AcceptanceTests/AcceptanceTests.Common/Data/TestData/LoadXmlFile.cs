@@ -1,7 +1,7 @@
 ﻿using System.IO;
-using AdminWebsite.Common.Data.Helpers;
+using AcceptanceTests.Common.Data.Helpers;
 
-namespace AdminWebsite.Common.Data.TestData
+namespace AcceptanceTests.Common.Data.TestData
 {
     public class LoadXmlFile
     {

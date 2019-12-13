@@ -1,4 +1,4 @@
-﻿namespace AdminWebsite.Common.Model.UserRole
+﻿namespace AcceptanceTests.Common.Model.UserRole
 {
     public enum UserRole
     {

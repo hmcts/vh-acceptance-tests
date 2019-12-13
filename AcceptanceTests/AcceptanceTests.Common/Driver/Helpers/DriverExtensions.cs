@@ -6,7 +6,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using Protractor;
 
-namespace AdminWebsite.Common.Driver.Helpers
+namespace AcceptanceTests.Common.Driver.Helpers
 {
     public static class DriverExtension
     {

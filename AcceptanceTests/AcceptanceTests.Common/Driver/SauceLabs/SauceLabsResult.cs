@@ -1,7 +1,7 @@
 ﻿using System;
 using OpenQA.Selenium;
 
-namespace AdminWebsite.Common.Driver.SauceLabs
+namespace AcceptanceTests.Common.Driver.SauceLabs
 {
     public static class SauceLabsResult
     {

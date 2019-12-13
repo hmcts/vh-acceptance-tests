@@ -2,7 +2,7 @@
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Safari;
 
-namespace AdminWebsite.Common.Driver.Strategies
+namespace AcceptanceTests.Common.Driver.Strategies
 {
     internal class SafariDriverStrategy : Drivers
     {

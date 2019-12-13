@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 
-namespace AdminWebsite.Common.Driver.Strategies
+namespace AcceptanceTests.Common.Driver.Strategies
 {
     public abstract class Drivers
     {

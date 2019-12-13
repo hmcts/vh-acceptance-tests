@@ -1,6 +1,6 @@
 ﻿using RestSharp;
 
-namespace AdminWebsite.Common.Api.Requests
+namespace AcceptanceTests.Common.Api.Requests
 {
     public class RequestBuilder
     {

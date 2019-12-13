@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using AdminWebsite.Common.Model.Hearing;
+using AcceptanceTests.Common.Model.Hearing;
 
-namespace AdminWebsite.Common.Model.Mappings
+namespace AcceptanceTests.Common.Model.Mappings
 {
     public class CaseTypeHearingTypes
     {

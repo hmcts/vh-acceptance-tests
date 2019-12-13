@@ -1,4 +1,4 @@
-﻿namespace AdminWebsite.Common.Test.Steps
+﻿namespace AcceptanceTests.Common.Test.Steps
 {
     public interface ISteps
     {

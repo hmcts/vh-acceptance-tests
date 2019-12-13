@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AdminWebsite.Common.Model.Hearing
+namespace AcceptanceTests.Common.Model.Hearing
 {
     public class HearingType
     {

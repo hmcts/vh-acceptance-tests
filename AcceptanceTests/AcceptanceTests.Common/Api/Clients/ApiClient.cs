@@ -1,7 +1,6 @@
-﻿
-using RestSharp;
+﻿using RestSharp;
 
-namespace AdminWebsite.Common.Api.Clients
+namespace AcceptanceTests.Common.Api.Clients
 {
     public class ApiClient
     {

@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 
-namespace AdminWebsite.Common.PageObject.Pages
+namespace AcceptanceTests.Common.PageObject.Pages
 {
     public class LoginPage
     {

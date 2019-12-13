@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
-using AdminWebsite.Common.Configuration.Users;
-using AdminWebsite.Common.Driver.Helpers;
+using AcceptanceTests.Common.Configuration.Users;
+using AcceptanceTests.Common.Driver.Helpers;
 using FluentAssertions;
 using OpenQA.Selenium;
 using Polly;
 using Protractor;
 
-namespace AdminWebsite.Common.Driver.Browser
+namespace AcceptanceTests.Common.Driver.Browser
 {
     public class UserBrowser
     {

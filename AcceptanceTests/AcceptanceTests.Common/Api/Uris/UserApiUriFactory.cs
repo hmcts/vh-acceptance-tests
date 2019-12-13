@@ -1,4 +1,4 @@
-﻿namespace AdminWebsite.Common.Api.Uris
+﻿namespace AcceptanceTests.Common.Api.Uris
 {
     public class UserApiUriFactory
     {

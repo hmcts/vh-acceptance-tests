@@ -1,9 +1,9 @@
-﻿using AdminWebsite.Common.Driver.Helpers;
-using AdminWebsite.Common.PageObject.Pages;
+﻿using AcceptanceTests.Common.Driver.Helpers;
+using AcceptanceTests.Common.PageObject.Pages;
 using FluentAssertions;
 using Protractor;
 
-namespace AdminWebsite.Common.Test.Steps
+namespace AcceptanceTests.Common.Test.Steps
 {
     public sealed class LoginSharedSteps
     {

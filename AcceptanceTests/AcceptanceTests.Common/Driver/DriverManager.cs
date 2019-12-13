@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using AdminWebsite.Common.Driver.Browser;
-using AdminWebsite.Common.Driver.SauceLabs;
-using AdminWebsite.Common.Driver.Support;
+using AcceptanceTests.Common.Driver.Browser;
+using AcceptanceTests.Common.Driver.SauceLabs;
+using AcceptanceTests.Common.Driver.Support;
 using OpenQA.Selenium;
 
-namespace AdminWebsite.Common.Driver
+namespace AcceptanceTests.Common.Driver
 {
     public class DriverManager
     {

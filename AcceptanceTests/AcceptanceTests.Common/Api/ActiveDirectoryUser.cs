@@ -5,7 +5,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Polly;
 
-namespace AdminWebsite.Common.Api
+namespace AcceptanceTests.Common.Api
 {
     public static class ActiveDirectoryUser
     {

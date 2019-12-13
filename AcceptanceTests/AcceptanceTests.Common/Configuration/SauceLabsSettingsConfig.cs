@@ -1,4 +1,4 @@
-﻿namespace AdminWebsite.Common.Configuration
+﻿namespace AcceptanceTests.Common.Configuration
 {
     public class SauceLabsSettingsConfig
     {
