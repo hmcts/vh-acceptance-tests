@@ -6,7 +6,7 @@ trigger:
     include:
     - v*
 pr:
-  - '*'
+  - master
 
 pool:
   name: Azure-VSTS-VS2017
@@ -24,7 +24,7 @@ steps:
   displayName: 'dotnet restore'
   inputs:
     command: restore
-    projects: '**/*.csproj'
+    projects: '**/AcceptanceTests.Common/*.csproj'
     vstsFeed: '3f69a23d-fbc7-4541-afc7-4cccefcad773/e48b2732-376c-4052-ba97-b28783c9bab5'
     verbosityRestore: Minimal
 
@@ -35,13 +35,13 @@ steps:
     zipAfterPublish: false
     modifyOutputPath: false
     publishWebProjects: false
-    projects: '**/*.csproj'
+    projects: '**/AcceptanceTests.Common/*.csproj'
     arguments: '-o $(Build.ArtifactStagingDirectory)\ '
     
 - task: DotNetCoreCLI@2
   displayName: 'dotnet build'
   inputs:
-    projects: '**/*.csproj'
+    projects: '**/AcceptanceTests.Common/*.csproj'
     arguments: '-o $(Build.ArtifactStagingDirectory)\ '   
 
 - task: DotNetCoreCLI@2
