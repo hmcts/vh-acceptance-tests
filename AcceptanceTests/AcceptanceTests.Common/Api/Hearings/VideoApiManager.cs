@@ -10,7 +10,6 @@ namespace AcceptanceTests.Common.Api.Hearings
 {
     public class VideoApiManager
     {
-        private const int _timeout = 60;
         private readonly string _videoApiUrl;
         private readonly string _videoApiBearerToken;
 
@@ -20,13 +19,13 @@ namespace AcceptanceTests.Common.Api.Hearings
             _videoApiBearerToken = videoApiBearerToken;
         }
 
-        public bool PollForConference(Guid? hearingId)
+        public bool PollForConference(Guid? hearingId, int timeout = 60)
         {
             if (hearingId == null)
             {
                 throw new DataMisalignedException("Hearing Id cannot be null");
             }
-            for (var i = 0; i < _timeout; i++)
+            for (var i = 0; i < timeout; i++)
             {
                 var conference = GetConferenceByHearingId((Guid)hearingId);
                 if (conference.StatusCode == HttpStatusCode.OK)
@@ -36,7 +35,7 @@ namespace AcceptanceTests.Common.Api.Hearings
                 Thread.Sleep(TimeSpan.FromSeconds(1));
             }
 
-            throw new DataMisalignedException("Conference was not created.");
+            return false;
         }
 
         public IRestResponse GetConferenceByHearingId(Guid hearingId)
