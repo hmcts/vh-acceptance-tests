@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
@@ -22,12 +22,17 @@ namespace AcceptanceTests.Common.Configuration
             return configRootBuilder.Build();
         }
 
-        public static bool VerifyConfigValuesSet(object o)
+        public static void VerifyConfigValuesSet(object o)
         {
-            return !o.GetType().GetProperties()
-                .Where(pi => pi.PropertyType == typeof(string))
-                .Select(pi => (string)pi.GetValue(o))
-                .Any(string.IsNullOrEmpty);
+            foreach (var pi in o.GetType().GetProperties())
+            {
+                if (pi.PropertyType != typeof(string)) continue;
+                var value = (string)pi.GetValue(o);
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new InvalidDataContractException($"Expected property {pi} is empty or has not been set");
+                }
+            }
         }
 
         public static async Task<string> GetBearerToken(IAzureAdConfig azureAdConfig, string resourceId)
