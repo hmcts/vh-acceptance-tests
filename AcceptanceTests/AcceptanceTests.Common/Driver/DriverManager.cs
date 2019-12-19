@@ -17,14 +17,14 @@ namespace AcceptanceTests.Common.Driver
             return this;
         }
 
-        public TargetBrowser GetTargetBrowser()
+        public TargetBrowser GetTargetBrowser(string browser)
         {
-            return Enum.TryParse(NUnit.Framework.TestContext.Parameters["TargetBrowser"], true, out TargetBrowser targetTargetBrowser) ? targetTargetBrowser : TargetBrowser.Chrome;
+            return Enum.TryParse(browser, true, out TargetBrowser targetTargetBrowser) ? targetTargetBrowser : TargetBrowser.Chrome;
         }
 
-        public TargetDevice GetTargetDevice()
+        public TargetDevice GetTargetDevice(string device)
         {
-            return Enum.TryParse(NUnit.Framework.TestContext.Parameters["TargetDevice"], true, out TargetDevice targetTargetDevice) ? targetTargetDevice : TargetDevice.Desktop;
+            return Enum.TryParse(device, true, out TargetDevice targetTargetDevice) ? targetTargetDevice : TargetDevice.Desktop;
         }
 
         public void KillAnyLocalDriverProcesses(TargetBrowser browser, bool runningWithSauceLabs)
