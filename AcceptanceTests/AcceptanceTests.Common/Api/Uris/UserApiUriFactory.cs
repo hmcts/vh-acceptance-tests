@@ -12,12 +12,11 @@
         public UserEndpoints UserEndpoints { get; set; }
         public AccountEndpoints AccountEndpoints { get; set; }
         public HealthCheckEndpoints HealthCheckEndpoints { get; set; }
-
     }
 
     public class AccountEndpoints
     {
-        private string ApiRoot => "accounts";
+        private static string ApiRoot => "accounts";
         public string AddUserToGroup => $"{ApiRoot}/user/group";
 
         public string GetGroupByName(string groupName)
@@ -38,7 +37,7 @@
 
     public class UserEndpoints
     {
-        private string ApiRoot => "users";
+        private static string ApiRoot => "users";
         public string CreateUser => $"{ApiRoot}";
 
         public string GetUserByAdUserId(string userId)
@@ -51,9 +50,19 @@
             return $"{ApiRoot}/username/{userName}";
         }
 
+        public string DeleteAnAadAccount(string userName)
+        {
+            return $"{ApiRoot}/username/{userName}";
+        }
+
         public string GetUserByEmail(string email)
         {
             return $"{ApiRoot}/email/{email}";
+        }
+
+        public string GetJudges()
+        {
+            return $"{ApiRoot}/judges";
         }
     }
 
