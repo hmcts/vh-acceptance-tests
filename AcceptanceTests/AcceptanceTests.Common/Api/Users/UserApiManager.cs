@@ -50,5 +50,14 @@ namespace AcceptanceTests.Common.Api.Users
             var response = new RequestExecutor(request).SendToApi(client);
             return response;
         }
+
+        public IRestResponse DeleteUserFromAad(string username)
+        {
+            var endpoint = new UserApiUriFactory().UserEndpoints.DeleteAnAadAccount(username);
+            var request = new RequestBuilder().Delete(endpoint);
+            var client = new ApiClient(_userApiUrl, _userApiBearerToken).GetClient();
+            var response = new RequestExecutor(request).SendToApi(client);
+            return response;
+        }
     }
 }
