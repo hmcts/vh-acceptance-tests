@@ -10,8 +10,11 @@ namespace AcceptanceTests.Common.Driver.Strategies
         {
             var edgeOptions = new EdgeOptions() { PlatformName = "Windows 10", BrowserVersion = "latest" };
             edgeOptions.AddAdditionalCapability("dom.webnotifications.enabled", 1);
-            edgeOptions.AddAdditionalCapability("permissions.default.microphone", 1);
-            edgeOptions.AddAdditionalCapability("permissions.default.camera", 1);
+            if (!BlockedCamAndMic)
+            {
+                edgeOptions.AddAdditionalCapability("permissions.default.microphone", 1);
+                edgeOptions.AddAdditionalCapability("permissions.default.camera", 1);
+            }
             edgeOptions.AddAdditionalCapability("avoidProxy", true);
             edgeOptions.AddAdditionalCapability("sauce:options", SauceOptions);
             return new RemoteWebDriver(Uri, edgeOptions);

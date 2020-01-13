@@ -33,10 +33,10 @@ namespace AcceptanceTests.Common.Driver
 
         public IWebDriver GetDriver(string filename)
         {
-            return _sauceLabsSettings.RunningOnSauceLabs() ? InitialiseSauceLabsDriver() : InitialiseLocalDriver(filename, _scenario);
+            return _sauceLabsSettings.RunningOnSauceLabs() ? InitialiseSauceLabsDriver(_scenario) : InitialiseLocalDriver(filename, _scenario);
         }
 
-        private IWebDriver InitialiseSauceLabsDriver()
+        private IWebDriver InitialiseSauceLabsDriver(ScenarioInfo scenario)
         {
             var buildName = Environment.GetEnvironmentVariable("Build_DefinitionName");
             var releaseName = Environment.GetEnvironmentVariable("RELEASE_RELEASENAME");
@@ -62,6 +62,7 @@ namespace AcceptanceTests.Common.Driver
             drivers[_targetBrowser].IdleTimeout = TimeSpan.FromSeconds(SauceLabsIdleTimeoutInSeconds);
             drivers[_targetBrowser].SauceLabsTimeout = TimeSpan.FromSeconds(SauceLabsCommandTimeoutInSeconds);
             drivers[_targetBrowser].Uri = new Uri(_sauceLabsSettings.RemoteServerUrl);
+            drivers[_targetBrowser].BlockedCamAndMic = scenario.Tags.Contains("Blocked");
             return drivers[_targetBrowser].InitialiseForSauceLabs();
         }
 
@@ -73,6 +74,7 @@ namespace AcceptanceTests.Common.Driver
             drivers[_targetBrowser].Filename = filename;
             drivers[_targetBrowser].UseVideoFiles = scenario.Tags.Contains("Video");
             drivers[_targetBrowser].LocalTimeout = TimeSpan.FromSeconds(LocalCommandTimeoutInSeconds);
+            drivers[_targetBrowser].BlockedCamAndMic = scenario.Tags.Contains("Blocked");
             return drivers[_targetBrowser].InitialiseForLocal();
         }
 

@@ -16,6 +16,7 @@ namespace AcceptanceTests.Common.Driver.Strategies
         internal bool UseVideoFiles { get; set; }
         internal string BuildPath { get; set; }
         internal string Filename { get; set; }
+        public bool BlockedCamAndMic { get; set; }
 
         public abstract RemoteWebDriver InitialiseForSauceLabs();
         public abstract IWebDriver InitialiseForLocal();
