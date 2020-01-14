@@ -25,7 +25,6 @@ namespace AcceptanceTests.Common.Api.Hearings
             var request = new RequestBuilder().Post(endpoint, hearingRequest);
             var client = new ApiClient(_bookingsApiUrl, _bookingsApiBearerToken).GetClient();
             var response = new RequestExecutor(request).SendToApi(client);
-            response.StatusCode.Should().Be(HttpStatusCode.Created, $"the hearing has been created");
             return response;
         }
 
@@ -35,7 +34,6 @@ namespace AcceptanceTests.Common.Api.Hearings
             var request = new RequestBuilder().Get(endpoint);
             var client = new ApiClient(_bookingsApiUrl, _bookingsApiBearerToken).GetClient();
             var response = new RequestExecutor(request).SendToApi(client);
-            response.StatusCode.Should().Be(HttpStatusCode.OK, $"the hearing has been found");
             return response;
         }
 
@@ -45,11 +43,10 @@ namespace AcceptanceTests.Common.Api.Hearings
             var request = new RequestBuilder().Get(endpoint);
             var client = new ApiClient(_bookingsApiUrl, _bookingsApiBearerToken).GetClient();
             var response = new RequestExecutor(request).SendToApi(client);
-            response.StatusCode.Should().Be(HttpStatusCode.OK, $"hearings have been found");
             return response;
         }
 
-        public void SetSuitabilityAnswers(Guid? hearingId, Guid? participantId, object suitabilityRequest)
+        public IRestResponse SetSuitabilityAnswers(Guid? hearingId, Guid? participantId, object suitabilityRequest)
         {
             if (hearingId == null || participantId == null)
             {
@@ -62,7 +59,7 @@ namespace AcceptanceTests.Common.Api.Hearings
             var request = new RequestBuilder().Put(endpoint, suitabilityRequest);
             var client = new ApiClient(_bookingsApiUrl, _bookingsApiBearerToken).GetClient();
             var response = new RequestExecutor(request).SendToApi(client);
-            response.StatusCode.Should().Be(HttpStatusCode.NoContent, $"Suitability answers have been added.");
+            return response;
         }
 
         public IRestResponse GetSuitabilityAnswers(string username)
@@ -71,7 +68,6 @@ namespace AcceptanceTests.Common.Api.Hearings
             var request = new RequestBuilder().Get(endpoint);
             var client = new ApiClient(_bookingsApiUrl, _bookingsApiBearerToken).GetClient();
             var response = new RequestExecutor(request).SendToApi(client);
-            response.StatusCode.Should().Be(HttpStatusCode.OK, $"Suitability answers have been found");
             return response;
         }
     }
