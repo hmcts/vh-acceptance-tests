@@ -7,31 +7,31 @@ using OpenQA.Selenium;
 
 namespace AcceptanceTests.Common.Test.Helpers
 {
-    public class VerifyVideoBuilder
+    public class VerifyVideoIsPlayingBuilder
     {
         private static int _maxRetries = 5;
         private static int _delayBetweenPolling = 1;
         private static int _delayForVideoToAppear = 30;
         private readonly UserBrowser _browser;
 
-        public VerifyVideoBuilder(UserBrowser browser)
+        public VerifyVideoIsPlayingBuilder(UserBrowser browser)
         {
             _browser = browser;
         }
 
-        public VerifyVideoBuilder Retries(int retries)
+        public VerifyVideoIsPlayingBuilder Retries(int retries)
         {
             _maxRetries = retries;
             return this;
         }
 
-        public VerifyVideoBuilder DelayBetweenPolling(int delay)
+        public VerifyVideoIsPlayingBuilder DelayBetweenPolling(int delay)
         {
             _delayBetweenPolling = delay;
             return this;
         }
 
-        public VerifyVideoBuilder DelayForVideoElementToAppear(int delay)
+        public VerifyVideoIsPlayingBuilder DelayForVideoElementToAppear(int delay)
         {
             _delayForVideoToAppear = delay;
             return this;

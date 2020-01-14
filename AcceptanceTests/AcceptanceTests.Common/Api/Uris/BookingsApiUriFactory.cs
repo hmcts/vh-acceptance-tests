@@ -87,6 +87,6 @@ namespace AcceptanceTests.Common.Api.Uris
         private static string ApiRoot => "persons";
         public string GetPersonByUsername(string username) => $"{ApiRoot}/username/{username}";
         public string GetPersonByContactEmail(string contactEmail) => $"{ApiRoot}/contactEmail/{contactEmail}";
-
+        public string GetSuitabilityAnswersByEmail(string username) => $"{ApiRoot}/username/{username}/suitability-answers";
     }
 }

@@ -56,11 +56,23 @@ namespace AcceptanceTests.Common.Api.Hearings
                 throw new DataMisalignedException("Values cannot be null");
             }
 
-            var endpoint = new BookingsApiUriFactory().HearingsParticipantsEndpoints.SuitabilityAnswers((Guid)hearingId, (Guid)participantId);
+            var endpoint =
+                new BookingsApiUriFactory().HearingsParticipantsEndpoints.SuitabilityAnswers((Guid) hearingId,
+                    (Guid) participantId);
             var request = new RequestBuilder().Put(endpoint, suitabilityRequest);
             var client = new ApiClient(_bookingsApiUrl, _bookingsApiBearerToken).GetClient();
             var response = new RequestExecutor(request).SendToApi(client);
             response.StatusCode.Should().Be(HttpStatusCode.NoContent, $"Suitability answers have been added.");
+        }
+
+        public IRestResponse GetSuitabilityAnswers(string username)
+        {
+            var endpoint = new BookingsApiUriFactory().PersonEndpoints.GetSuitabilityAnswersByEmail(username);
+            var request = new RequestBuilder().Get(endpoint);
+            var client = new ApiClient(_bookingsApiUrl, _bookingsApiBearerToken).GetClient();
+            var response = new RequestExecutor(request).SendToApi(client);
+            response.StatusCode.Should().Be(HttpStatusCode.OK, $"Suitability answers have been found");
+            return response;
         }
     }
 }
