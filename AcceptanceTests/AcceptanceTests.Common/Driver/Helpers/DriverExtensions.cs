@@ -161,5 +161,19 @@ namespace AcceptanceTests.Common.Driver.Helpers
                 throw new NoSuchElementException($"Dropdown list with locator: '{elementLocator}' was not populated.", ex);
             }
         }
+
+        public static void WaitForPageToLoad(this IWebDriver driver, int timeout = 30)
+        {
+            try
+            {
+                var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeout));
+                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.TagName("router-outlet")));
+            }
+            catch (Exception e)
+            {
+                var url = driver.Url;
+                throw new TimeoutException($"Timed out waiting for page to load, the expected <router-outlet> element did not appear on current url '{url}'", e);
+            }
+        }
     }
 }
