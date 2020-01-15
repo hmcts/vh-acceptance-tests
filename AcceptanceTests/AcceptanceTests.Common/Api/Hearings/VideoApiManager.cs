@@ -45,5 +45,13 @@ namespace AcceptanceTests.Common.Api.Hearings
             var client = new ApiClient(_videoApiUrl, _videoApiBearerToken).GetClient();
             return new RequestExecutor(request).SendToApi(client);
         }
+
+        public IRestResponse GetSelfTestScore(Guid conferenceId, Guid participantId)
+        {
+            var endpoint = new VideoApiUriFactory().ParticipantsEndpoints.GetSelfTestScore(conferenceId, participantId);
+            var request = new RequestBuilder().Get(endpoint);
+            var client = new ApiClient(_videoApiUrl, _videoApiBearerToken).GetClient();
+            return new RequestExecutor(request).SendToApi(client);
+        }
     }
 }
