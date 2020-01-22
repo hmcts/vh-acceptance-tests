@@ -27,7 +27,7 @@ namespace AcceptanceTests.Common.Test.Steps
 
         public void ReSignBackIn()
         {
-            _driver.WaitUntilVisible(LoginPage.ReSignInButton(_username)).Click();
+            _driver.WaitUntilElementClickable(LoginPage.ReSignInButton(_username)).Click();
             EnterPassword(_password);
             ClickSignInButton();
         }
