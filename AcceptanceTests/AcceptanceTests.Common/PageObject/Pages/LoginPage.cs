@@ -1,5 +1,4 @@
-﻿using AcceptanceTests.Common.PageObject.Helpers;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 
 namespace AcceptanceTests.Common.PageObject.Pages
 {
@@ -10,6 +9,6 @@ namespace AcceptanceTests.Common.PageObject.Pages
         public static By Next = By.XPath("//input[contains(@data-bind,'Next') and (@value='Next')]");
         public static By SignIn = By.XPath("//input[contains(@data-bind,'SignIn') and (@value='Sign in')]");
         public static string SignInTitle = "Sign in to your account";
-        public static By ReSignInButton(string username) => CommonLocators.ElementContainingText(username);
+        public static By ReSignInButton(string username) => By.XPath($"//div[contains(text(), '{username}')]");
     }
 }
