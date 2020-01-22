@@ -1,13 +1,15 @@
-﻿using OpenQA.Selenium;
+﻿using AcceptanceTests.Common.PageObject.Helpers;
+using OpenQA.Selenium;
 
 namespace AcceptanceTests.Common.PageObject.Pages
 {
-    public class LoginPage
+    public static class LoginPage
     {
-        public By UsernameTextfield = By.CssSelector("#i0116");
-        public By PasswordField = By.XPath("//input[contains(@data-bind,'password')]");
-        public By Next = By.XPath("//input[contains(@data-bind,'Next') and (@value='Next')]");
-        public By SignIn = By.XPath("//input[contains(@data-bind,'SignIn') and (@value='Sign in')]");
-        public string SignInTitle = "Sign in to your account";
+        public static By UsernameTextfield = By.CssSelector("#i0116");
+        public static By PasswordField = By.XPath("//input[contains(@data-bind,'password')]");
+        public static By Next = By.XPath("//input[contains(@data-bind,'Next') and (@value='Next')]");
+        public static By SignIn = By.XPath("//input[contains(@data-bind,'SignIn') and (@value='Sign in')]");
+        public static string SignInTitle = "Sign in to your account";
+        public static By ReSignInButton(string username) => CommonLocators.ElementContainingText(username);
     }
 }
