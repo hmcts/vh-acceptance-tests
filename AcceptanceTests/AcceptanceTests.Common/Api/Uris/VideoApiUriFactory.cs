@@ -33,8 +33,7 @@ namespace AcceptanceTests.Common.Api.Uris
         public string RemoveParticipantFromConference(Guid conferenceId, Guid participantId) =>
             $"{ApiRoot}/{conferenceId}/participants/{participantId}";
 
-        public string GetSelfTestScore(Guid conferenceId, Guid? participantId) =>
-            $"{ApiRoot}/{conferenceId}/participants/{participantId}/selftestresult";
+        public string GetSelfTestScore(Guid conferenceId, Guid? participantId) => $"{ApiRoot}/{conferenceId}/participants/{participantId}/selftestresult";
     }
 
     public class ConferenceEndpoints

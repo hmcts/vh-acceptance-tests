@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Net;
 using AcceptanceTests.Common.Api.Clients;
 using AcceptanceTests.Common.Api.Requests;
 using AcceptanceTests.Common.Api.Uris;
-using FluentAssertions;
 using RestSharp;
 
 namespace AcceptanceTests.Common.Api.Hearings
@@ -28,7 +26,7 @@ namespace AcceptanceTests.Common.Api.Hearings
             return response;
         }
 
-        public IRestResponse GetHearing(Guid? hearingId)
+        public IRestResponse GetHearing(Guid hearingId)
         {
             var endpoint = new BookingsApiUriFactory().HearingsEndpoints.GetHearingDetailsById(hearingId);
             var request = new RequestBuilder().Get(endpoint);
@@ -46,16 +44,9 @@ namespace AcceptanceTests.Common.Api.Hearings
             return response;
         }
 
-        public IRestResponse SetSuitabilityAnswers(Guid? hearingId, Guid? participantId, object suitabilityRequest)
+        public IRestResponse SetSuitabilityAnswers(Guid hearingId, Guid participantId, object suitabilityRequest)
         {
-            if (hearingId == null || participantId == null)
-            {
-                throw new DataMisalignedException("Values cannot be null");
-            }
-
-            var endpoint =
-                new BookingsApiUriFactory().HearingsParticipantsEndpoints.SuitabilityAnswers((Guid) hearingId,
-                    (Guid) participantId);
+            var endpoint = new BookingsApiUriFactory().HearingsParticipantsEndpoints.SuitabilityAnswers(hearingId, participantId);
             var request = new RequestBuilder().Put(endpoint, suitabilityRequest);
             var client = new ApiClient(_bookingsApiUrl, _bookingsApiBearerToken).GetClient();
             var response = new RequestExecutor(request).SendToApi(client);

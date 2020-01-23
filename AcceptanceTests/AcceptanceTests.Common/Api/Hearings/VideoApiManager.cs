@@ -2,6 +2,7 @@
 using System.Net;
 using System.Threading;
 using AcceptanceTests.Common.Api.Clients;
+using AcceptanceTests.Common.Api.Helpers;
 using AcceptanceTests.Common.Api.Requests;
 using AcceptanceTests.Common.Api.Uris;
 using RestSharp;
@@ -19,23 +20,13 @@ namespace AcceptanceTests.Common.Api.Hearings
             _videoApiBearerToken = videoApiBearerToken;
         }
 
-        public bool PollForConference(Guid? hearingId, int timeout = 60)
+        public IRestResponse CreateConference(object conferenceRequest)
         {
-            if (hearingId == null)
-            {
-                throw new DataMisalignedException("Hearing Id cannot be null");
-            }
-            for (var i = 0; i < timeout; i++)
-            {
-                var conference = GetConferenceByHearingId((Guid)hearingId);
-                if (conference.StatusCode == HttpStatusCode.OK)
-                {
-                    return true;
-                }
-                Thread.Sleep(TimeSpan.FromSeconds(1));
-            }
-
-            return false;
+            var endpoint = new VideoApiUriFactory().ConferenceEndpoints.BookNewConference;
+            var request = new RequestBuilder().Post(endpoint, conferenceRequest);
+            var client = new ApiClient(_videoApiUrl, _videoApiBearerToken).GetClient();
+            var response = new RequestExecutor(request).SendToApi(client);
+            return response;
         }
 
         public IRestResponse GetConferenceByHearingId(Guid hearingId)
@@ -46,12 +37,26 @@ namespace AcceptanceTests.Common.Api.Hearings
             return new RequestExecutor(request).SendToApi(client);
         }
 
+        public bool PollForConferenceExists(Guid hearingId, int timeout = 60)
+        {
+            var endpoint = new VideoApiUriFactory().ConferenceEndpoints.GetConferenceByHearingRefId(hearingId);
+            return new Polling().WithEndpoint(endpoint).Url(_videoApiUrl).Token(_videoApiBearerToken)
+                .UntilStatusIs(HttpStatusCode.OK).PollForExists(timeout);
+        }
+
         public IRestResponse GetSelfTestScore(Guid conferenceId, Guid participantId)
         {
             var endpoint = new VideoApiUriFactory().ParticipantsEndpoints.GetSelfTestScore(conferenceId, participantId);
             var request = new RequestBuilder().Get(endpoint);
             var client = new ApiClient(_videoApiUrl, _videoApiBearerToken).GetClient();
             return new RequestExecutor(request).SendToApi(client);
+        }
+
+        public bool PollForSelfTestScoreExists(Guid conferenceId, Guid participantId, int timeout = 30)
+        {
+            var endpoint = new VideoApiUriFactory().ParticipantsEndpoints.GetSelfTestScore(conferenceId, participantId);
+            return new Polling().WithEndpoint(endpoint).Url(_videoApiUrl).Token(_videoApiBearerToken)
+                .UntilStatusIs(HttpStatusCode.OK).PollForExists(timeout);
         }
     }
 }
