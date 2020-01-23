@@ -26,6 +26,15 @@ namespace AcceptanceTests.Common.Api.Hearings
             return response;
         }
 
+        public IRestResponse ConfirmHearingToCreateConference(Guid hearingId, object updateRequest)
+        {
+            var endpoint = new BookingsApiUriFactory().HearingsEndpoints.UpdateHearingStatus(hearingId);
+            var request = new RequestBuilder().Patch(endpoint, updateRequest);
+            var client = new ApiClient(_bookingsApiUrl, _bookingsApiBearerToken).GetClient();
+            var response = new RequestExecutor(request).SendToApi(client);
+            return response;
+        }
+
         public IRestResponse GetHearing(Guid hearingId)
         {
             var endpoint = new BookingsApiUriFactory().HearingsEndpoints.GetHearingDetailsById(hearingId);
