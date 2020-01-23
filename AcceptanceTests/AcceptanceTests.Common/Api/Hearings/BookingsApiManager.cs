@@ -106,5 +106,23 @@ namespace AcceptanceTests.Common.Api.Hearings
             var response = new RequestExecutor(request).SendToApi(client);
             return response;
         }
+
+        public IRestResponse UpdateParticipantDetails(Guid hearingId, Guid participantId, object updateRequest)
+        {
+            var endpoint = new BookingsApiUriFactory().HearingsParticipantsEndpoints.UpdateParticipantDetails(hearingId, participantId);
+            var request = new RequestBuilder().Put(endpoint, updateRequest);
+            var client = new ApiClient(_bookingsApiUrl, _bookingsApiBearerToken).GetClient();
+            var response = new RequestExecutor(request).SendToApi(client);
+            return response;
+        }
+
+        public IRestResponse RemoveParticipant(Guid hearingId, Guid participantId)
+        {
+            var endpoint = new BookingsApiUriFactory().HearingsParticipantsEndpoints.RemoveParticipantFromHearing(hearingId, participantId);
+            var request = new RequestBuilder().Delete(endpoint);
+            var client = new ApiClient(_bookingsApiUrl, _bookingsApiBearerToken).GetClient();
+            var response = new RequestExecutor(request).SendToApi(client);
+            return response;
+        }
     }
 }
