@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AcceptanceTests.Common.Configuration.Users
@@ -48,6 +49,16 @@ namespace AcceptanceTests.Common.Configuration.Users
         public static List<UserAccount> GetNonClerkParticipantUsers(List<UserAccount> userAccounts)
         {
             return userAccounts.Where(x => x.Role.StartsWith("Individual") || x.Role.StartsWith("Representative")).ToList();
+        }
+
+        public static UserAccount GetIndividualNotInHearing(List<UserAccount> userAccounts, List<string> userLastNamesInTheHearing)
+        {
+            var individualUsers = GetIndividualUsers(userAccounts);
+            foreach (var user in individualUsers.Where(user => !userLastNamesInTheHearing.Any(x => x.ToLower().Equals(user.Lastname.ToLower()))))
+            {
+                return user;
+            }
+            throw new DataMisalignedException("All individual users are assigned in the hearing.");
         }
     }
 }

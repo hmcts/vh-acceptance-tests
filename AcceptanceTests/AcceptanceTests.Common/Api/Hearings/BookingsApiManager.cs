@@ -61,5 +61,41 @@ namespace AcceptanceTests.Common.Api.Hearings
             var response = new RequestExecutor(request).SendToApi(client);
             return response;
         }
+
+        public IRestResponse UpdateHearing(Guid hearingId, object updateRequest)
+        {
+            var endpoint = new BookingsApiUriFactory().HearingsEndpoints.UpdateHearingDetails(hearingId);
+            var request = new RequestBuilder().Put(endpoint, updateRequest);
+            var client = new ApiClient(_bookingsApiUrl, _bookingsApiBearerToken).GetClient();
+            var response = new RequestExecutor(request).SendToApi(client);
+            return response;
+        }
+
+        public IRestResponse UpdateHearingDetails(Guid hearingId, object updateRequest)
+        {
+            var endpoint = new BookingsApiUriFactory().HearingsEndpoints.UpdateHearingStatus(hearingId);
+            var request = new RequestBuilder().Patch(endpoint, updateRequest);
+            var client = new ApiClient(_bookingsApiUrl, _bookingsApiBearerToken).GetClient();
+            var response = new RequestExecutor(request).SendToApi(client);
+            return response;
+        }
+
+        public IRestResponse DeleteHearing(Guid hearingId)
+        {
+            var endpoint = new BookingsApiUriFactory().HearingsEndpoints.RemoveHearing(hearingId);
+            var request = new RequestBuilder().Delete(endpoint);
+            var client = new ApiClient(_bookingsApiUrl, _bookingsApiBearerToken).GetClient();
+            var response = new RequestExecutor(request).SendToApi(client);
+            return response;
+        }
+
+        public IRestResponse AddParticipantsToHearing(Guid hearingId, object participantsRequest)
+        {
+            var endpoint = new BookingsApiUriFactory().HearingsParticipantsEndpoints.AddParticipantsToHearing(hearingId);
+            var request = new RequestBuilder().Post(endpoint, participantsRequest);
+            var client = new ApiClient(_bookingsApiUrl, _bookingsApiBearerToken).GetClient();
+            var response = new RequestExecutor(request).SendToApi(client);
+            return response;
+        }
     }
 }
