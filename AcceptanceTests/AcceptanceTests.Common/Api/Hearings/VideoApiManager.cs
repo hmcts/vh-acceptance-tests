@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net;
-using System.Threading;
 using AcceptanceTests.Common.Api.Clients;
 using AcceptanceTests.Common.Api.Helpers;
 using AcceptanceTests.Common.Api.Requests;
@@ -39,9 +38,14 @@ namespace AcceptanceTests.Common.Api.Hearings
 
         public bool PollForConferenceExists(Guid hearingId, int timeout = 60)
         {
+            return PollForConferenceResponse(hearingId, timeout).StatusCode == HttpStatusCode.OK;
+        }
+
+        public IRestResponse PollForConferenceResponse(Guid hearingId, int timeout = 60)
+        {
             var endpoint = new VideoApiUriFactory().ConferenceEndpoints.GetConferenceByHearingRefId(hearingId);
             return new Polling().WithEndpoint(endpoint).Url(_videoApiUrl).Token(_videoApiBearerToken)
-                .UntilStatusIs(HttpStatusCode.OK).PollForExists(timeout);
+                .UntilStatusIs(HttpStatusCode.OK).Poll(timeout);
         }
 
         public IRestResponse GetSelfTestScore(Guid conferenceId, Guid participantId)
@@ -54,9 +58,14 @@ namespace AcceptanceTests.Common.Api.Hearings
 
         public bool PollForSelfTestScoreExists(Guid conferenceId, Guid participantId, int timeout = 30)
         {
+            return PollForSelfTestScoreResponse(conferenceId, participantId, timeout).StatusCode == HttpStatusCode.OK;
+        }
+
+        public IRestResponse PollForSelfTestScoreResponse(Guid conferenceId, Guid participantId, int timeout = 30)
+        {
             var endpoint = new VideoApiUriFactory().ParticipantsEndpoints.GetSelfTestScore(conferenceId, participantId);
             return new Polling().WithEndpoint(endpoint).Url(_videoApiUrl).Token(_videoApiBearerToken)
-                .UntilStatusIs(HttpStatusCode.OK).PollForExists(timeout);
+                .UntilStatusIs(HttpStatusCode.OK).Poll(timeout);
         }
     }
 }

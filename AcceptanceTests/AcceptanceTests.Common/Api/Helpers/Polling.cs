@@ -58,20 +58,5 @@ namespace AcceptanceTests.Common.Api.Helpers
 
             return null;
         }
-
-        public bool PollForExists(int timeout = 30)
-        {
-            for (var i = 0; i < timeout; i++)
-            {
-                var response = SendTheRequest();
-                if (response.StatusCode == _expected)
-                {
-                    return true;
-                }
-                Thread.Sleep(TimeSpan.FromSeconds(1));
-            }
-
-            return false;
-        }
     }
 }
