@@ -69,7 +69,7 @@ namespace AcceptanceTests.Common.Api.Hearings
                 }
                 Thread.Sleep(TimeSpan.FromSeconds(1));
             }
-            throw new DataException($"Hearing with case name {caseName} not found after {timeout} seconds.");
+            throw new DataException($"Hearing with case name '{caseName}' not found after {timeout} seconds.");
         }
 
         public IRestResponse SetSuitabilityAnswers(Guid hearingId, Guid participantId, object suitabilityRequest)
@@ -133,6 +133,21 @@ namespace AcceptanceTests.Common.Api.Hearings
             var client = new ApiClient(_bookingsApiUrl, _bookingsApiBearerToken).GetClient();
             var response = new RequestExecutor(request).SendToApi(client);
             return response;
+        }
+
+        public IRestResponse PollForParticipantNameUpdated(string username, string updatedDisplayName, int timeout = 60)
+        {
+            for (var i = 0; i < timeout; i++)
+            {
+                var rawResponse = GetHearingsForUsername(username);
+                if (!rawResponse.IsSuccessful) continue;
+                if (rawResponse.Content.ToLower().Contains(updatedDisplayName.ToLower()))
+                {
+                    return rawResponse;
+                }
+                Thread.Sleep(TimeSpan.FromSeconds(1));
+            }
+            throw new DataException($"Participant with updated name '{updatedDisplayName}' not found after {timeout} seconds.");
         }
 
         public IRestResponse RemoveParticipant(Guid hearingId, Guid participantId)
