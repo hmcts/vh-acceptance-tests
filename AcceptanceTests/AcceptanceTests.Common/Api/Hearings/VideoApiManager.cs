@@ -41,6 +41,13 @@ namespace AcceptanceTests.Common.Api.Hearings
             return PollForConferenceResponse(hearingId, timeout).StatusCode == HttpStatusCode.OK;
         }
 
+        public bool PollForConferenceDeleted(Guid hearingId, int timeout = 60)
+        {
+            var endpoint = new VideoApiUriFactory().ConferenceEndpoints.GetConferenceByHearingRefId(hearingId);
+            return new Polling().WithEndpoint(endpoint).Url(_videoApiUrl).Token(_videoApiBearerToken)
+                .UntilStatusIs(HttpStatusCode.NotFound).Poll(timeout).StatusCode == HttpStatusCode.NotFound;
+        }
+
         public IRestResponse PollForConferenceResponse(Guid hearingId, int timeout = 60)
         {
             var endpoint = new VideoApiUriFactory().ConferenceEndpoints.GetConferenceByHearingRefId(hearingId);

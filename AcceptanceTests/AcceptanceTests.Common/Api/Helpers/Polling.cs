@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Net;
 using System.Threading;
 using AcceptanceTests.Common.Api.Clients;
@@ -44,7 +45,7 @@ namespace AcceptanceTests.Common.Api.Helpers
             var client = new ApiClient(_url, _token).GetClient();
             return new RequestExecutor(request).SendToApi(client);
         }
-        public IRestResponse Poll(int timeout = 30)
+        public IRestResponse Poll(int timeout = 60)
         {
             for (var i = 0; i < timeout; i++)
             {
@@ -56,7 +57,7 @@ namespace AcceptanceTests.Common.Api.Helpers
                 Thread.Sleep(TimeSpan.FromSeconds(1));
             }
 
-            return null;
+            throw new DataException($"Expected status {_expected} not reached after {timeout} seconds.");
         }
     }
 }

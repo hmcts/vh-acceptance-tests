@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Data;
+using System.Net;
+using System.Threading;
 using AcceptanceTests.Common.Api.Clients;
+using AcceptanceTests.Common.Api.Helpers;
 using AcceptanceTests.Common.Api.Requests;
 using AcceptanceTests.Common.Api.Uris;
 using RestSharp;
@@ -51,6 +55,21 @@ namespace AcceptanceTests.Common.Api.Hearings
             var client = new ApiClient(_bookingsApiUrl, _bookingsApiBearerToken).GetClient();
             var response = new RequestExecutor(request).SendToApi(client);
             return response;
+        }
+
+        public IRestResponse PollForHearingByUsername(string username, string caseName, int timeout = 60)
+        {
+            for (var i = 0; i < timeout; i++)
+            {
+                var rawResponse = GetHearingsForUsername(username);
+                if (!rawResponse.IsSuccessful) continue;
+                if (rawResponse.Content.ToLower().Contains(caseName.ToLower()))
+                {
+                    return rawResponse;
+                }
+                Thread.Sleep(TimeSpan.FromSeconds(1));
+            }
+            throw new DataException($"Hearing with case name {caseName} not found after {timeout} seconds.");
         }
 
         public IRestResponse SetSuitabilityAnswers(Guid hearingId, Guid participantId, object suitabilityRequest)
