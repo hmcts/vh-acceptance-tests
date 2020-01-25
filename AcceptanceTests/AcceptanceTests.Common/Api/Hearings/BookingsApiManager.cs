@@ -135,7 +135,7 @@ namespace AcceptanceTests.Common.Api.Hearings
             return response;
         }
 
-        public IRestResponse PollForParticipantNameUpdated(string username, string updatedDisplayName, int timeout = 60)
+        public bool PollForParticipantNameUpdated(string username, string updatedDisplayName, int timeout = 60)
         {
             for (var i = 0; i < timeout; i++)
             {
@@ -143,11 +143,12 @@ namespace AcceptanceTests.Common.Api.Hearings
                 if (!rawResponse.IsSuccessful) continue;
                 if (rawResponse.Content.ToLower().Contains(updatedDisplayName.ToLower()))
                 {
-                    return rawResponse;
+                    return true;
                 }
                 Thread.Sleep(TimeSpan.FromSeconds(1));
             }
-            throw new DataException($"Participant with updated name '{updatedDisplayName}' not found after {timeout} seconds.");
+
+            return false;
         }
 
         public IRestResponse RemoveParticipant(Guid hearingId, Guid participantId)
