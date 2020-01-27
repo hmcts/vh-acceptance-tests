@@ -90,5 +90,13 @@ namespace AcceptanceTests.Common.Api.Hearings
             var client = new ApiClient(_videoApiUrl, _videoApiBearerToken).GetClient();
             return new RequestExecutor(request).SendToApi(client);
         }
+
+        public IRestResponse SendEvent(object eventRequest)
+        {
+            var endpoint = new VideoApiUriFactory().VideoEventsEndpoints.Event;
+            var request = new RequestBuilder().Post(endpoint, eventRequest);
+            var client = new ApiClient(_videoApiUrl, _videoApiBearerToken).GetClient();
+            return new RequestExecutor(request).SendToApi(client);
+        }
     }
 }
