@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Data;
-using System.Net;
 using System.Threading;
 using AcceptanceTests.Common.Api.Clients;
-using AcceptanceTests.Common.Api.Helpers;
 using AcceptanceTests.Common.Api.Requests;
 using AcceptanceTests.Common.Api.Uris;
 using RestSharp;

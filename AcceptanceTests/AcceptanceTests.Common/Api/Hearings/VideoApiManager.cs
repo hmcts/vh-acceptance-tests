@@ -74,5 +74,13 @@ namespace AcceptanceTests.Common.Api.Hearings
             return new Polling().WithEndpoint(endpoint).Url(_videoApiUrl).Token(_videoApiBearerToken)
                 .UntilStatusIs(HttpStatusCode.OK).Poll(timeout);
         }
+
+        public IRestResponse RemoveParticipantFromConference(Guid conferenceId, Guid participantId)
+        {
+            var endpoint = new VideoApiUriFactory().ParticipantsEndpoints.RemoveParticipantFromConference(conferenceId, participantId);
+            var request = new RequestBuilder().Delete(endpoint);
+            var client = new ApiClient(_videoApiUrl, _videoApiBearerToken).GetClient();
+            return new RequestExecutor(request).SendToApi(client);
+        }
     }
 }
