@@ -28,6 +28,14 @@ namespace AcceptanceTests.Common.Api.Hearings
             return response;
         }
 
+        public IRestResponse GetConferenceByConferenceId(Guid conferenceId)
+        {
+            var endpoint = new VideoApiUriFactory().ConferenceEndpoints.GetConferenceDetailsById(conferenceId);
+            var request = new RequestBuilder().Get(endpoint);
+            var client = new ApiClient(_videoApiUrl, _videoApiBearerToken).GetClient();
+            return new RequestExecutor(request).SendToApi(client);
+        }
+
         public IRestResponse GetConferenceByHearingId(Guid hearingId)
         {
             var endpoint = new VideoApiUriFactory().ConferenceEndpoints.GetConferenceByHearingRefId(hearingId);
