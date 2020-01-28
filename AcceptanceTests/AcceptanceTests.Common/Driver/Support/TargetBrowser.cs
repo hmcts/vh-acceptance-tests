@@ -6,6 +6,7 @@
         Safari,
         Chrome,
         Edge,
+        EdgeChronium,
         Ie11,
         ChromeMac,
         FirefoxMac

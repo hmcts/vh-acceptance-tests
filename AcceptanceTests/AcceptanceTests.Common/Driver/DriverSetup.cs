@@ -85,6 +85,7 @@ namespace AcceptanceTests.Common.Driver
                 {TargetBrowser.Chrome, new ChromeDriverStrategy()},
                 {TargetBrowser.Firefox, new FirefoxDriverStrategy()},
                 {TargetBrowser.Edge, new EdgeDriverStrategy()},
+                {TargetBrowser.EdgeChronium, new EdgeChroniumDriverStrategy()},
                 {TargetBrowser.Ie11, new InternetExplorerDriverStrategy()},
                 {TargetBrowser.Safari, new SafariDriverStrategy()},
                 {TargetBrowser.ChromeMac, new ChromeMacDriverStrategy()},

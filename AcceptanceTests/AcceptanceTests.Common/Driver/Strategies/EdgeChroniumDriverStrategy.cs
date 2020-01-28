@@ -4,11 +4,11 @@ using OpenQA.Selenium.Remote;
 
 namespace AcceptanceTests.Common.Driver.Strategies
 {
-    internal class EdgeDriverStrategy : Drivers
+    internal class EdgeChroniumDriverStrategy : Drivers
     {
         public override RemoteWebDriver InitialiseForSauceLabs()
         {
-            var edgeOptions = new EdgeOptions() { PlatformName = "Windows 10", BrowserVersion = "18.17763" };
+            var edgeOptions = new EdgeOptions() { PlatformName = "Windows 10", BrowserVersion = "latest" };
             edgeOptions.AddAdditionalCapability("dom.webnotifications.enabled", 1);
             if (!BlockedCamAndMic)
             {
