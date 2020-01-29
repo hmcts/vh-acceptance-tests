@@ -8,12 +8,12 @@ namespace AcceptanceTests.Common.Driver.Strategies
     {
         public override RemoteWebDriver InitialiseForSauceLabs()
         {
-            var edgeOptions = new EdgeOptions() { PlatformName = "Windows 10", BrowserVersion = "18.17763" };
-            edgeOptions.AddAdditionalCapability("dom.webnotifications.enabled", 1);
+            var edgeOptions = new EdgeOptions() { PlatformName = "Windows 10", BrowserVersion = "18.17763" , UnhandledPromptBehavior = UnhandledPromptBehavior.Accept };
+            edgeOptions.AddAdditionalCapability("dom.webnotifications.enabled", true);
             if (!BlockedCamAndMic)
             {
-                edgeOptions.AddAdditionalCapability("permissions.default.microphone", 1);
-                edgeOptions.AddAdditionalCapability("permissions.default.camera", 1);
+                edgeOptions.AddAdditionalCapability("permissions.default.microphone", true);
+                edgeOptions.AddAdditionalCapability("permissions.default.camera", true);
             }
             edgeOptions.AddAdditionalCapability("avoidProxy", true);
             edgeOptions.AddAdditionalCapability("sauce:options", SauceOptions);
