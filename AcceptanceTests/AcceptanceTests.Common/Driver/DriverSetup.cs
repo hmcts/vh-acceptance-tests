@@ -22,7 +22,7 @@ namespace AcceptanceTests.Common.Driver
         private const int SauceLabsCommandTimeoutInSeconds = 60 * 3;
         private const int LocalCommandTimeoutInSeconds = 20;
         private const string SauceLabSeleniumVersion = "3.141.59";
-        private const string SauceLabsMacPlatformVersion = "macOS 10.14";
+        private const string SauceLabsMacPlatformVersion = "macOS 10.15";
 
         public DriverSetup(SauceLabsSettingsConfig sauceLabsSettings, ScenarioInfo scenario, TargetBrowser targetBrowser)
         {
