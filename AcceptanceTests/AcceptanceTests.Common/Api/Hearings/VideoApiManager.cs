@@ -24,8 +24,15 @@ namespace AcceptanceTests.Common.Api.Hearings
             var endpoint = new VideoApiUriFactory().ConferenceEndpoints.BookNewConference;
             var request = new RequestBuilder().Post(endpoint, conferenceRequest);
             var client = new ApiClient(_videoApiUrl, _videoApiBearerToken).GetClient();
-            var response = new RequestExecutor(request).SendToApi(client);
-            return response;
+            return new RequestExecutor(request).SendToApi(client);
+        }
+
+        public IRestResponse RemoveConference(Guid conferenceId)
+        {
+            var endpoint = new VideoApiUriFactory().ConferenceEndpoints.RemoveConference(conferenceId);
+            var request = new RequestBuilder().Get(endpoint);
+            var client = new ApiClient(_videoApiUrl, _videoApiBearerToken).GetClient();
+            return new RequestExecutor(request).SendToApi(client);
         }
 
         public IRestResponse GetConferenceByConferenceId(Guid conferenceId)
@@ -39,6 +46,14 @@ namespace AcceptanceTests.Common.Api.Hearings
         public IRestResponse GetConferenceByHearingId(Guid hearingId)
         {
             var endpoint = new VideoApiUriFactory().ConferenceEndpoints.GetConferenceByHearingRefId(hearingId);
+            var request = new RequestBuilder().Get(endpoint);
+            var client = new ApiClient(_videoApiUrl, _videoApiBearerToken).GetClient();
+            return new RequestExecutor(request).SendToApi(client);
+        }
+
+        public IRestResponse GetConferencesForToday()
+        {
+            var endpoint = new VideoApiUriFactory().ConferenceEndpoints.GetTodaysConferences;
             var request = new RequestBuilder().Get(endpoint);
             var client = new ApiClient(_videoApiUrl, _videoApiBearerToken).GetClient();
             return new RequestExecutor(request).SendToApi(client);
