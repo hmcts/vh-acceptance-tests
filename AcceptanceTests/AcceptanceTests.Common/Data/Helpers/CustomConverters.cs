@@ -6,7 +6,7 @@ namespace AcceptanceTests.Common.Data.Helpers
     {
         public static string ConvertRgbToHex(string rgbCssValue)
         {
-            var numbers = rgbCssValue.Replace("rgba(", "").Replace(")", "").Split(",");
+            var numbers = rgbCssValue.Replace("rgba(", "").Replace("rgb(", "").Replace(")", "").Split(",");
             var r = int.Parse(numbers[0].Trim());
             var g = int.Parse(numbers[1].Trim());
             var b = int.Parse(numbers[2].Trim());
