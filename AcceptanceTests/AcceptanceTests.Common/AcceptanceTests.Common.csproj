@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <PackOnBuild>true</PackOnBuild>
     <PackageId>VH.AcceptanceTests.Common</PackageId>
-    <PackageVersion>1.0.48</PackageVersion>
+    <PackageVersion>1.0.49</PackageVersion>
     <Authors>Nicholas Poxon</Authors>
     <Owners>Video Hearings</Owners>
     <PackageProjectUrl>https://github.com/hmcts/vh-acceptance-tests</PackageProjectUrl>
