@@ -8,31 +8,31 @@ namespace AcceptanceTests.Common.Driver.Strategies
     {
         public override RemoteWebDriver InitialiseForSauceLabs()
         {
-            var edgeOptions = new EdgeOptions() { PlatformName = "Windows 10", BrowserVersion = "18.17763" };
-            edgeOptions.AddAdditionalCapability(CapabilityType.UnexpectedAlertBehavior, "accept");
-            edgeOptions.AddAdditionalCapability(CapabilityType.UnhandledPromptBehavior, UnhandledPromptBehavior.Accept);
+            var browserOptions = new EdgeOptions() { PlatformName = "Windows 10", BrowserVersion = "18.17763" };
+            browserOptions.AddAdditionalCapability(CapabilityType.UnexpectedAlertBehavior, "accept");
+            browserOptions.AddAdditionalCapability(CapabilityType.UnhandledPromptBehavior, UnhandledPromptBehavior.Accept);
 
             if (!BlockedCamAndMic)
             {
-                edgeOptions.AddAdditionalCapability("permissions.default.microphone", true);
-                edgeOptions.AddAdditionalCapability("permissions.default.camera", true);
+                browserOptions.AddAdditionalCapability("permissions.default.microphone", 1);
+                browserOptions.AddAdditionalCapability("permissions.default.camera", 1);
             }
-            edgeOptions.AddAdditionalCapability("avoidProxy", true);
-            edgeOptions.AddAdditionalCapability("sauce:options", SauceOptions);
-            return new RemoteWebDriver(Uri, edgeOptions);
+            browserOptions.AddAdditionalCapability("avoidProxy", true);
+            browserOptions.AddAdditionalCapability("sauce:options", SauceOptions);
+            return new RemoteWebDriver(Uri, browserOptions);
         }
 
         public override IWebDriver InitialiseForLocal()
         {
-            var edgeOptions = new EdgeOptions
+            var browserOptions = new EdgeOptions
             {
                 UnhandledPromptBehavior = UnhandledPromptBehavior.Accept,
                 UseInPrivateBrowsing = true
             };
-            edgeOptions.AddAdditionalCapability(CapabilityType.UnexpectedAlertBehavior, "accept");
-            edgeOptions.AddAdditionalCapability("permissions.default.microphone", true);
-            edgeOptions.AddAdditionalCapability("permissions.default.camera", true);
-            return new EdgeDriver("C:\\Windows\\system32\\", edgeOptions, LocalTimeout);
+            browserOptions.AddAdditionalCapability(CapabilityType.UnexpectedAlertBehavior, "accept");
+            browserOptions.AddAdditionalCapability("permissions.default.microphone", true);
+            browserOptions.AddAdditionalCapability("permissions.default.camera", true);
+            return new EdgeDriver("C:\\Windows\\system32\\", browserOptions, LocalTimeout);
         }
     }
 }

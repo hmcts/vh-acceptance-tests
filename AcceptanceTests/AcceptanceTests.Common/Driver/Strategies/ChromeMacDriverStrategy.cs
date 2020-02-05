@@ -8,7 +8,7 @@ namespace AcceptanceTests.Common.Driver.Strategies
     {
         public override RemoteWebDriver InitialiseForSauceLabs()
         {
-            var chromeOptions = new ChromeOptions
+            var browserOptions = new ChromeOptions
             {
                 BrowserVersion = "latest",
                 PlatformName = MacPlatform,
@@ -18,25 +18,25 @@ namespace AcceptanceTests.Common.Driver.Strategies
 
             if (!BlockedCamAndMic)
             {
-                chromeOptions.AddArgument("use-fake-ui-for-media-stream");
-                chromeOptions.AddArgument("use-fake-device-for-media-stream");
+                browserOptions.AddArgument("use-fake-ui-for-media-stream");
+                browserOptions.AddArgument("use-fake-device-for-media-stream");
             }
-            
-            chromeOptions.AddAdditionalCapability("sauce:options", SauceOptions, true);
 
-            return new RemoteWebDriver(Uri, chromeOptions.ToCapabilities(), SauceLabsTimeout);
+            browserOptions.AddAdditionalCapability("sauce:options", SauceOptions, true);
+
+            return new RemoteWebDriver(Uri, browserOptions.ToCapabilities(), SauceLabsTimeout);
         }
 
         public override IWebDriver InitialiseForLocal()
         {
-            var chromeOptions = new ChromeOptions();
-            chromeOptions.AddArgument("ignore-certificate-errors");
-            if (BlockedCamAndMic) return new ChromeDriver(BuildPath, chromeOptions, LocalTimeout);
-            chromeOptions.AddArgument("use-fake-ui-for-media-stream");
-            chromeOptions.AddArgument("use-fake-device-for-media-stream");
+            var browserOptions = new ChromeOptions();
+            browserOptions.AddArgument("ignore-certificate-errors");
+            if (BlockedCamAndMic) return new ChromeDriver(BuildPath, browserOptions, LocalTimeout);
+            browserOptions.AddArgument("use-fake-ui-for-media-stream");
+            browserOptions.AddArgument("use-fake-device-for-media-stream");
             if (UseVideoFiles)
-                chromeOptions.AddArgument($"use-file-for-fake-video-capture={BuildPath}/Videos/{Filename}");
-            return new ChromeDriver(BuildPath, chromeOptions, LocalTimeout);
+                browserOptions.AddArgument($"use-file-for-fake-video-capture={BuildPath}/Videos/{Filename}");
+            return new ChromeDriver(BuildPath, browserOptions, LocalTimeout);
         }
     }
 }

@@ -83,13 +83,13 @@ namespace AcceptanceTests.Common.Driver
             var drivers = new Dictionary<TargetBrowser, Drivers>
             {
                 {TargetBrowser.Chrome, new ChromeDriverStrategy()},
-                {TargetBrowser.Firefox, new FirefoxDriverStrategy()},
+                {TargetBrowser.ChromeMac, new ChromeMacDriverStrategy()},
                 {TargetBrowser.Edge, new EdgeDriverStrategy()},
                 {TargetBrowser.EdgeChronium, new EdgeChroniumDriverStrategy()},
+                {TargetBrowser.Firefox, new FirefoxDriverStrategy()},
+                {TargetBrowser.FirefoxMac, new FirefoxMacDriverStrategy()},
                 {TargetBrowser.Ie11, new InternetExplorerDriverStrategy()},
-                {TargetBrowser.Safari, new SafariDriverStrategy()},
-                {TargetBrowser.ChromeMac, new ChromeMacDriverStrategy()},
-                {TargetBrowser.FirefoxMac, new FirefoxMacDriverStrategy()}
+                {TargetBrowser.Safari, new SafariDriverStrategy()}
             };
             return drivers;
         }

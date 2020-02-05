@@ -8,26 +8,26 @@ namespace AcceptanceTests.Common.Driver.Strategies
     {
         public override RemoteWebDriver InitialiseForSauceLabs()
         {
-            var edgeOptions = new EdgeOptions() { PlatformName = "Windows 10", BrowserVersion = "latest" };
-            edgeOptions.AddAdditionalCapability("dom.webnotifications.enabled", 1);
+            var browserOptions = new EdgeOptions() { PlatformName = "Windows 10", BrowserVersion = "latest" };
+            browserOptions.AddAdditionalCapability("dom.webnotifications.enabled", 1);
             if (!BlockedCamAndMic)
             {
-                edgeOptions.AddAdditionalCapability("permissions.default.microphone", 1);
-                edgeOptions.AddAdditionalCapability("permissions.default.camera", 1);
+                browserOptions.AddAdditionalCapability("permissions.default.microphone", 1);
+                browserOptions.AddAdditionalCapability("permissions.default.camera", 1);
             }
-            edgeOptions.AddAdditionalCapability("avoidProxy", true);
-            edgeOptions.AddAdditionalCapability("sauce:options", SauceOptions);
-            return new RemoteWebDriver(Uri, edgeOptions);
+            browserOptions.AddAdditionalCapability("avoidProxy", true);
+            browserOptions.AddAdditionalCapability("sauce:options", SauceOptions);
+            return new RemoteWebDriver(Uri, browserOptions);
         }
 
         public override IWebDriver InitialiseForLocal()
         {
-            var edgeOptions = new EdgeOptions
+            var browserOptions = new EdgeOptions
             {
                 UnhandledPromptBehavior = UnhandledPromptBehavior.Accept,
                 UseInPrivateBrowsing = true
             };
-            return new EdgeDriver("C:\\Windows\\system32\\", edgeOptions, LocalTimeout);
+            return new EdgeDriver("C:\\Windows\\system32\\", browserOptions, LocalTimeout);
         }
     }
 }

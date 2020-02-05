@@ -8,23 +8,23 @@ namespace AcceptanceTests.Common.Driver.Strategies
     {
         public override RemoteWebDriver InitialiseForSauceLabs()
         {
-            var safariOptions = new SafariOptions(){
+            var browserOptions = new SafariOptions(){
                 PlatformName = MacPlatform,
-                BrowserVersion = "latest"
+                BrowserVersion = "13.0"
             };
-            safariOptions.AddAdditionalCapability("sauce:options", SauceOptions);
-            return new RemoteWebDriver(Uri, safariOptions);
+            browserOptions.AddAdditionalCapability("sauce:options", SauceOptions);
+            return new RemoteWebDriver(Uri, browserOptions);
         }
 
         public override IWebDriver InitialiseForLocal()
         {
-            var safariOptions = new SafariOptions()
+            var browserOptions = new SafariOptions()
             {
                 PlatformName = MacPlatform,
                 BrowserVersion = "latest",
                 UnhandledPromptBehavior = UnhandledPromptBehavior.Accept
             };
-            return new SafariDriver(BuildPath,safariOptions, LocalTimeout);
+            return new SafariDriver(BuildPath, browserOptions, LocalTimeout);
         }
     }
 }

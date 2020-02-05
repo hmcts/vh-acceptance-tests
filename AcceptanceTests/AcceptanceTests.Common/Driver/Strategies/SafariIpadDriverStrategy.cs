@@ -24,14 +24,14 @@ namespace AcceptanceTests.Common.Driver.Strategies
 
         public override IWebDriver InitialiseForLocal()
         {
-            var options = new SafariOptions();
-            options.AddAdditionalCapability("appiumVersion", "1.15.0");
-            options.AddAdditionalCapability("deviceName", "iPad Pro (9.7 inch) Simulator");
-            options.AddAdditionalCapability("deviceOrientation", "portrait");
-            options.AddAdditionalCapability("platformVersion", "13.0");
-            options.AddAdditionalCapability("platformName", "iOS");
-            options.AddAdditionalCapability("browserName", "Safari");
-            return new AndroidDriver<AppiumWebElement>(options, LocalTimeout);
+            var browserOptions = new SafariOptions();
+            browserOptions.AddAdditionalCapability("appiumVersion", "1.15.0");
+            browserOptions.AddAdditionalCapability("deviceName", "iPad Pro (9.7 inch) Simulator");
+            browserOptions.AddAdditionalCapability("deviceOrientation", "portrait");
+            browserOptions.AddAdditionalCapability("platformVersion", "13.0");
+            browserOptions.AddAdditionalCapability("platformName", "iOS");
+            browserOptions.AddAdditionalCapability("browserName", "Safari");
+            return new AndroidDriver<AppiumWebElement>(browserOptions, LocalTimeout);
         }
     }
 }
