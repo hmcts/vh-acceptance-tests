@@ -13,14 +13,14 @@ namespace AcceptanceTests.Common.Configuration
             _userSecretsId = userSecretsId;
         }
 
-        public IConfigurationRoot BuildConfig(string environment = "")
+        public IConfigurationRoot BuildConfig(string targetEnvironment = "")
         {
             var configRootBuilder = new ConfigurationBuilder()
                 .AddJsonFile($"appsettings.json")
                 .AddJsonFile("useraccounts.json")
                 .AddUserSecrets(_userSecretsId);
-            if (environment != "")
-                configRootBuilder.AddJsonFile($"appsettings.{environment}.json");
+            if (targetEnvironment != string.Empty && targetEnvironment != "")
+                configRootBuilder.AddJsonFile($"appsettings.{targetEnvironment}.json");
             return configRootBuilder.Build();
         }
 
