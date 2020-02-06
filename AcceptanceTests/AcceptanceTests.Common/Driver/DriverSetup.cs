@@ -13,16 +13,16 @@ namespace AcceptanceTests.Common.Driver
 {
     public class DriverSetup
     {
-        private readonly SauceLabsSettingsConfig _sauceLabsSettings;
-        private readonly ScenarioInfo _scenario;
-        private static TargetBrowser _targetBrowser;
         private const string WindowsScreenResolution = "2560x1600";
         private const string MacScreenResolution = "2360x1770";
         private const int SauceLabsIdleTimeoutInSeconds = 60 * 30;
         private const int SauceLabsCommandTimeoutInSeconds = 60 * 3;
         private const int LocalCommandTimeoutInSeconds = 20;
         private const string SauceLabSeleniumVersion = "3.141.59";
-        private const string SauceLabsMacPlatformVersion = "macOS 10.15";
+        private const string SauceLabsMacPlatformVersion = "macOS 10.14";
+        private readonly SauceLabsSettingsConfig _sauceLabsSettings;
+        private readonly ScenarioInfo _scenario;
+        private static TargetBrowser _targetBrowser;
 
         public DriverSetup(SauceLabsSettingsConfig sauceLabsSettings, ScenarioInfo scenario, TargetBrowser targetBrowser)
         {

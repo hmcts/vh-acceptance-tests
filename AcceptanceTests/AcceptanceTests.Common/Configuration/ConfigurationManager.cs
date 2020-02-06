@@ -40,7 +40,6 @@ namespace AcceptanceTests.Common.Configuration
             var authContext = new AuthenticationContext(azureAdConfig.Authority);
             var credential = new ClientCredential(azureAdConfig.ClientId, azureAdConfig.ClientSecret);
             var token = await authContext.AcquireTokenAsync(resourceId, credential);
-
             return token.AccessToken;
         }
     }

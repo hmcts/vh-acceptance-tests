@@ -10,7 +10,7 @@ namespace AcceptanceTests.Common.Driver.Strategies
         {
             var browserOptions = new SafariOptions(){
                 PlatformName = MacPlatform,
-                BrowserVersion = "13.0"
+                BrowserVersion = "12.0"
             };
             browserOptions.AddAdditionalCapability("sauce:options", SauceOptions);
             return new RemoteWebDriver(Uri, browserOptions);
