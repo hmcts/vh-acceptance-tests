@@ -16,9 +16,11 @@ namespace AcceptanceTests.Common.Configuration
         public IConfigurationRoot BuildConfig(string environment = "")
         {
             var configRootBuilder = new ConfigurationBuilder()
-                .AddUserSecrets(_userSecretsId)
-                .AddJsonFile($"appsettings{environment}.json")
-                .AddJsonFile("useraccounts.json");
+                .AddJsonFile($"appsettings.json")
+                .AddJsonFile("useraccounts.json")
+                .AddUserSecrets(_userSecretsId);
+            if (environment != "")
+                configRootBuilder.AddJsonFile($"appsettings{environment}.json");
             return configRootBuilder.Build();
         }
 
