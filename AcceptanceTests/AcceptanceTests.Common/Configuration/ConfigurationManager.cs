@@ -19,7 +19,7 @@ namespace AcceptanceTests.Common.Configuration
                 .AddJsonFile($"appsettings.json")
                 .AddJsonFile("useraccounts.json")
                 .AddUserSecrets(_userSecretsId);
-            if (targetEnvironment != string.Empty && targetEnvironment != "")
+            if (targetEnvironment.Length > 0)
                 configRootBuilder.AddJsonFile($"appsettings.{targetEnvironment}.json");
             return configRootBuilder.Build();
         }
