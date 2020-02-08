@@ -9,14 +9,9 @@ namespace AcceptanceTests.Common.Driver.Strategies
         public override RemoteWebDriver InitialiseForSauceLabs()
         {
             var browserOptions = new EdgeOptions() { PlatformName = "Windows 10", BrowserVersion = "18.17763" };
-            browserOptions.AddAdditionalCapability(CapabilityType.UnexpectedAlertBehavior, "accept");
-            browserOptions.AddAdditionalCapability(CapabilityType.UnhandledPromptBehavior, UnhandledPromptBehavior.Accept);
-
-            if (!BlockedCamAndMic)
-            {
-                browserOptions.AddAdditionalCapability("permissions.default.microphone", 1);
-                browserOptions.AddAdditionalCapability("permissions.default.camera", 1);
-            }
+            browserOptions.AddAdditionalCapability("dom.webnotifications.enabled", 1);
+            browserOptions.AddAdditionalCapability("permissions.default.microphone", 1);
+            browserOptions.AddAdditionalCapability("permissions.default.camera", 1);
             browserOptions.AddAdditionalCapability("avoidProxy", true);
             browserOptions.AddAdditionalCapability("sauce:options", SauceOptions);
             return new RemoteWebDriver(Uri, browserOptions);
@@ -26,12 +21,12 @@ namespace AcceptanceTests.Common.Driver.Strategies
         {
             var browserOptions = new EdgeOptions
             {
-                UnhandledPromptBehavior = UnhandledPromptBehavior.Accept,
                 UseInPrivateBrowsing = true
             };
-            browserOptions.AddAdditionalCapability(CapabilityType.UnexpectedAlertBehavior, "accept");
-            browserOptions.AddAdditionalCapability("permissions.default.microphone", true);
-            browserOptions.AddAdditionalCapability("permissions.default.camera", true);
+            browserOptions.AddAdditionalCapability("dom.webnotifications.enabled", 1);
+            browserOptions.AddAdditionalCapability("permissions.default.microphone", 1);
+            browserOptions.AddAdditionalCapability("permissions.default.camera", 1);
+            browserOptions.AddAdditionalCapability("avoidProxy", true);
             return new EdgeDriver("C:\\Windows\\system32\\", browserOptions, LocalTimeout);
         }
     }
