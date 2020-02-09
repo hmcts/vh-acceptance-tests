@@ -12,7 +12,8 @@ namespace AcceptanceTests.Common.Driver.Strategies
             {
                 PlatformName = "Windows 10", 
                 BrowserVersion = "18.17763" , 
-                UseInPrivateBrowsing = true
+                UseInPrivateBrowsing = true,
+                PageLoadStrategy = PageLoadStrategy.Eager
             };
             browserOptions.AddAdditionalCapability("dom.webnotifications.enabled", 1);
             browserOptions.AddAdditionalCapability("permissions.default.microphone", 1);
@@ -24,7 +25,7 @@ namespace AcceptanceTests.Common.Driver.Strategies
 
         public override IWebDriver InitialiseForLocal()
         {
-            var browserOptions = new EdgeOptions{ UseInPrivateBrowsing = true };
+            var browserOptions = new EdgeOptions{ UseInPrivateBrowsing = true, PageLoadStrategy = PageLoadStrategy.Eager };
             browserOptions.AddAdditionalCapability("dom.webnotifications.enabled", 1);
             browserOptions.AddAdditionalCapability("permissions.default.microphone", 1);
             browserOptions.AddAdditionalCapability("permissions.default.camera", 1);
