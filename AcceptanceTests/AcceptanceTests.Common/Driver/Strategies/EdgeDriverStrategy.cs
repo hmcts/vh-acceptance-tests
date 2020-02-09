@@ -8,7 +8,12 @@ namespace AcceptanceTests.Common.Driver.Strategies
     {
         public override RemoteWebDriver InitialiseForSauceLabs()
         {
-            var browserOptions = new EdgeOptions() { PlatformName = "Windows 10", BrowserVersion = "18.17763" };
+            var browserOptions = new EdgeOptions()
+            {
+                PlatformName = "Windows 10", 
+                BrowserVersion = "18.17763" , 
+                UseInPrivateBrowsing = true
+            };
             browserOptions.AddAdditionalCapability("dom.webnotifications.enabled", 1);
             browserOptions.AddAdditionalCapability("permissions.default.microphone", 1);
             browserOptions.AddAdditionalCapability("permissions.default.camera", 1);
@@ -19,10 +24,7 @@ namespace AcceptanceTests.Common.Driver.Strategies
 
         public override IWebDriver InitialiseForLocal()
         {
-            var browserOptions = new EdgeOptions
-            {
-                UseInPrivateBrowsing = true
-            };
+            var browserOptions = new EdgeOptions{ UseInPrivateBrowsing = true };
             browserOptions.AddAdditionalCapability("dom.webnotifications.enabled", 1);
             browserOptions.AddAdditionalCapability("permissions.default.microphone", 1);
             browserOptions.AddAdditionalCapability("permissions.default.camera", 1);
