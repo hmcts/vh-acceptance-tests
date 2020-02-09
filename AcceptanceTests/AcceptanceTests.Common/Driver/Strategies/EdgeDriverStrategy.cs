@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using System;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Remote;
 
@@ -6,6 +7,8 @@ namespace AcceptanceTests.Common.Driver.Strategies
 {
     internal class EdgeDriverStrategy : Drivers
     {
+        private static readonly TimeSpan EdgeLocalTimeout = TimeSpan.FromSeconds(60);
+
         public override RemoteWebDriver InitialiseForSauceLabs()
         {
             var browserOptions = new EdgeOptions()
@@ -30,7 +33,7 @@ namespace AcceptanceTests.Common.Driver.Strategies
             browserOptions.AddAdditionalCapability("permissions.default.microphone", 1);
             browserOptions.AddAdditionalCapability("permissions.default.camera", 1);
             browserOptions.AddAdditionalCapability("avoidProxy", true);
-            return new EdgeDriver("C:\\Windows\\system32\\", browserOptions, LocalTimeout);
+            return new EdgeDriver("C:\\Windows\\system32\\", browserOptions, EdgeLocalTimeout);
         }
     }
 }
