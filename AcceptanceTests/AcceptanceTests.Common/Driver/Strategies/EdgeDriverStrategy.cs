@@ -19,7 +19,7 @@ namespace AcceptanceTests.Common.Driver.Strategies
             browserOptions.AddAdditionalCapability("permissions.default.camera", 1);
             browserOptions.AddAdditionalCapability("avoidProxy", true);
             browserOptions.AddAdditionalCapability("sauce:options", SauceOptions);
-            return new RemoteWebDriver(Uri, browserOptions);
+            return new RemoteWebDriver(Uri, browserOptions.ToCapabilities(), SauceLabsTimeout);
         }
 
         public override IWebDriver InitialiseForLocal()
