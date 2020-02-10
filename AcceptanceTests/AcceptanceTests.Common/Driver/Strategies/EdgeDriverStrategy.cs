@@ -11,7 +11,7 @@ namespace AcceptanceTests.Common.Driver.Strategies
             var browserOptions = new EdgeOptions()
             {
                 PlatformName = "Windows 10", 
-                BrowserVersion = "18.18363", 
+                BrowserVersion = "18.17763", 
                 UseInPrivateBrowsing = true
             };
             browserOptions.AddAdditionalCapability("dom.webnotifications.enabled", 1);
