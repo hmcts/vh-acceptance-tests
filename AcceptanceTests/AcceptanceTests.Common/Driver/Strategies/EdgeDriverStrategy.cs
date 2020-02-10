@@ -1,5 +1,4 @@
-﻿using System;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Remote;
 
@@ -7,16 +6,13 @@ namespace AcceptanceTests.Common.Driver.Strategies
 {
     internal class EdgeDriverStrategy : Drivers
     {
-        private static readonly TimeSpan EdgeLocalTimeout = TimeSpan.FromSeconds(60);
-
         public override RemoteWebDriver InitialiseForSauceLabs()
         {
             var browserOptions = new EdgeOptions()
             {
                 PlatformName = "Windows 10", 
-                BrowserVersion = "18.17763" , 
-                UseInPrivateBrowsing = true,
-                PageLoadStrategy = PageLoadStrategy.Eager
+                BrowserVersion = "18.18363", 
+                UseInPrivateBrowsing = true
             };
             browserOptions.AddAdditionalCapability("dom.webnotifications.enabled", 1);
             browserOptions.AddAdditionalCapability("permissions.default.microphone", 1);
@@ -28,12 +24,12 @@ namespace AcceptanceTests.Common.Driver.Strategies
 
         public override IWebDriver InitialiseForLocal()
         {
-            var browserOptions = new EdgeOptions{ UseInPrivateBrowsing = true, PageLoadStrategy = PageLoadStrategy.Eager };
+            var browserOptions = new EdgeOptions{ UseInPrivateBrowsing = true };
             browserOptions.AddAdditionalCapability("dom.webnotifications.enabled", 1);
             browserOptions.AddAdditionalCapability("permissions.default.microphone", 1);
             browserOptions.AddAdditionalCapability("permissions.default.camera", 1);
             browserOptions.AddAdditionalCapability("avoidProxy", true);
-            return new EdgeDriver("C:\\Windows\\system32\\", browserOptions, EdgeLocalTimeout);
+            return new EdgeDriver("C:\\Windows\\system32\\", browserOptions, LocalTimeout);
         }
     }
 }
