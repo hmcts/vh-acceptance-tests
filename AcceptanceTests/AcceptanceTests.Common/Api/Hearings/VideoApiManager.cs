@@ -30,7 +30,7 @@ namespace AcceptanceTests.Common.Api.Hearings
         public IRestResponse DeleteConference(Guid conferenceId)
         {
             var endpoint = new VideoApiUriFactory().ConferenceEndpoints.RemoveConference(conferenceId);
-            var request = new RequestBuilder().Get(endpoint);
+            var request = new RequestBuilder().Delete(endpoint);
             var client = new ApiClient(_videoApiUrl, _videoApiBearerToken).GetClient();
             return new RequestExecutor(request).SendToApi(client);
         }
