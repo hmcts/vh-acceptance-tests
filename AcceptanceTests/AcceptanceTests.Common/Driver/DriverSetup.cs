@@ -38,15 +38,16 @@ namespace AcceptanceTests.Common.Driver
 
         private IWebDriver InitialiseSauceLabsDriver(ScenarioInfo scenario)
         {
-            var buildName = Environment.GetEnvironmentVariable("Build_DefinitionName");
+            var releaseDefinitionName = Environment.GetEnvironmentVariable("Release_DefinitionName");
             var releaseName = Environment.GetEnvironmentVariable("RELEASE_RELEASENAME");
-            var shortBuildName = buildName?.Replace("hmcts.vh-", "");
+            var shortReleaseDefinitionName = releaseDefinitionName?.Replace("vh-", "");
+            var attemptNumber = GetAttemptNumber();
             var sauceOptions = new Dictionary<string, object>
             {
                 {"username", _sauceLabsSettings.Username},
                 {"accessKey", _sauceLabsSettings.AccessKey},
                 {"name", _scenario.Title},
-                {"build", $"{shortBuildName} {releaseName} {_targetBrowser}"},
+                {"build", $"{shortReleaseDefinitionName} {releaseName} {_targetBrowser} {attemptNumber}"},
                 {"idleTimeout", SauceLabsIdleTimeoutInSeconds},
                 {"seleniumVersion", SauceLabSeleniumVersion},
                 {
@@ -64,6 +65,13 @@ namespace AcceptanceTests.Common.Driver
             drivers[_targetBrowser].Uri = new Uri(_sauceLabsSettings.RemoteServerUrl);
             drivers[_targetBrowser].BlockedCamAndMic = scenario.Tags.Contains("Blocked");
             return drivers[_targetBrowser].InitialiseForSauceLabs();
+        }
+
+        private static string GetAttemptNumber()
+        {
+            var attemptNumber = Environment.GetEnvironmentVariable("Release_AttemptNumber");
+            if (string.IsNullOrWhiteSpace(attemptNumber)) return string.Empty;
+            return Convert.ToInt32(attemptNumber) > 1 ? attemptNumber : string.Empty;
         }
 
         private static IWebDriver InitialiseLocalDriver(string filename, ScenarioInfo scenario)
