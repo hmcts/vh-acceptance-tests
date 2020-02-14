@@ -14,5 +14,10 @@ namespace AcceptanceTests.Common.Data.Helpers
             var hex = "#" + rgbColour.R.ToString("X2") + rgbColour.G.ToString("X2") + rgbColour.B.ToString("X2");
             return hex.ToLower();
         }
+
+        public static string NullToString(object value)
+        {
+            return value == null ? "" : value.ToString();
+        }
     }
 }
