@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using AcceptanceTests.Common.Configuration.Users;
 using AcceptanceTests.Common.Driver.Helpers;
 using FluentAssertions;
@@ -81,15 +82,20 @@ namespace AcceptanceTests.Common.Driver.Browser
                 .Execute(action);
         }
 
-        public string SwitchTab(string titleOrUrl)
+        public string SwitchTab(string titleOrUrl, int timeout = 10)
         {
-            foreach (var window in Driver.WrappedDriver.WindowHandles)
+            for (var i = 0; i < timeout; i++)
             {
-                var tab = Driver.SwitchTo().Window(window);
-                if (tab.Title.Trim().ToLower().Contains(titleOrUrl.ToLower()) || tab.Url.Trim().ToLower().Contains(titleOrUrl.ToLower()))
+                foreach (var window in Driver.WrappedDriver.WindowHandles)
                 {
-                    return window;
+                    var tab = Driver.SwitchTo().Window(window);
+                    if (tab.Title.Trim().ToLower().Contains(titleOrUrl.ToLower()) || tab.Url.Trim().ToLower().Contains(titleOrUrl.ToLower()))
+                    {
+                        return window;
+                    }
                 }
+
+                Thread.Sleep(TimeSpan.FromSeconds(1));
             }
             throw new ArgumentException($"No windows with title or Url '{titleOrUrl}' were found.");
         }

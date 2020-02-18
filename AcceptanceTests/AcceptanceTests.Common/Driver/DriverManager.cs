@@ -19,12 +19,12 @@ namespace AcceptanceTests.Common.Driver
 
         public TargetBrowser GetTargetBrowser(string browser)
         {
-            return Enum.TryParse(browser, true, out TargetBrowser targetTargetBrowser) ? targetTargetBrowser : TargetBrowser.Chrome;
+            return Enum.TryParse(browser, true, out TargetBrowser targetBrowser) ? targetBrowser : TargetBrowser.Chrome;
         }
 
         public TargetDevice GetTargetDevice(string device)
         {
-            return Enum.TryParse(device, true, out TargetDevice targetTargetDevice) ? targetTargetDevice : TargetDevice.Desktop;
+            return Enum.TryParse(device, true, out TargetDevice targetDevice) ? targetDevice : TargetDevice.Desktop;
         }
 
         public void KillAnyLocalDriverProcesses(TargetBrowser browser, bool runningWithSauceLabs)
