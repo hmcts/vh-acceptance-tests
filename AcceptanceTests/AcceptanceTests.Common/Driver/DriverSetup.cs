@@ -23,14 +23,12 @@ namespace AcceptanceTests.Common.Driver
         private readonly SauceLabsSettingsConfig _sauceLabsSettings;
         private readonly ScenarioInfo _scenario;
         private static TargetBrowser _targetBrowser;
-        private static string _browserVersion;
 
-        public DriverSetup(SauceLabsSettingsConfig sauceLabsSettings, ScenarioInfo scenario, TargetBrowser targetBrowser, string browserVersion = "latest")
+        public DriverSetup(SauceLabsSettingsConfig sauceLabsSettings, ScenarioInfo scenario, TargetBrowser targetBrowser)
         {
             _sauceLabsSettings = sauceLabsSettings;
             _scenario = scenario;
             _targetBrowser = targetBrowser;
-            _browserVersion = browserVersion;
         }
 
         public IWebDriver GetDriver(string filename)
@@ -66,7 +64,6 @@ namespace AcceptanceTests.Common.Driver
             drivers[_targetBrowser].SauceLabsTimeout = TimeSpan.FromSeconds(SauceLabsCommandTimeoutInSeconds);
             drivers[_targetBrowser].SauceOptions = sauceOptions;
             drivers[_targetBrowser].Uri = new Uri(_sauceLabsSettings.RemoteServerUrl);
-            drivers[_targetBrowser].Version = _browserVersion;
             return drivers[_targetBrowser].InitialiseForSauceLabs();
         }
 
@@ -86,7 +83,6 @@ namespace AcceptanceTests.Common.Driver
             drivers[_targetBrowser].LocalTimeout = TimeSpan.FromSeconds(LocalCommandTimeoutInSeconds);
             drivers[_targetBrowser].SauceLabsTimeout = TimeSpan.FromSeconds(SauceLabsCommandTimeoutInSeconds);
             drivers[_targetBrowser].UseVideoFiles = scenario.Tags.Contains("Video");
-            drivers[_targetBrowser].Version = _browserVersion;
             return drivers[_targetBrowser].InitialiseForLocal();
         }
 
