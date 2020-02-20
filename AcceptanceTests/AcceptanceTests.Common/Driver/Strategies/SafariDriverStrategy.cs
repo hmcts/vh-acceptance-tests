@@ -21,7 +21,7 @@ namespace AcceptanceTests.Common.Driver.Strategies
             var browserOptions = new SafariOptions()
             {
                 PlatformName = MacPlatform,
-                BrowserVersion = "latest",
+                BrowserVersion = "13.0",
                 UnhandledPromptBehavior = UnhandledPromptBehavior.Accept
             };
             return new SafariDriver(BuildPath, browserOptions, LocalTimeout);
