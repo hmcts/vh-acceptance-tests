@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using AcceptanceTests.Common.Driver.Browser;
 using AcceptanceTests.Common.Driver.Helpers;
 using AcceptanceTests.Common.PageObject.Helpers;
 using FluentAssertions;
@@ -13,30 +14,24 @@ namespace AcceptanceTests.Common.Test.Steps
     public class CommonSharedSteps
     {
         [When(@"the user clicks the (.*) button")]
-        public void WhenTheUserClicksTheButton(NgWebDriver driver, string label)
+        public void WhenTheUserClicksTheButton(UserBrowser browser, string label)
         {
-            driver.WaitUntilVisible(CommonLocators.ButtonWithInnerText(label))
-                .Displayed.Should().BeTrue();
-
-            driver.WaitUntilVisible(CommonLocators.ButtonWithInnerText(label)).Click();
+            browser.Driver.WaitUntilVisible(CommonLocators.ButtonWithInnerText(label)).Displayed.Should().BeTrue();
+            browser.Click(CommonLocators.ButtonWithInnerText(label));
         }
 
         [When(@"the user selects the (.*) radiobutton")]
-        public void WhenTheUserSelectsTheRadiobutton(NgWebDriver driver, string label)
+        public void WhenTheUserSelectsTheRadiobutton(UserBrowser browser, string label)
         {
-            driver.WaitUntilElementExists(CommonLocators.RadioButtonWithLabel(label)).Click();
-
-            driver.WaitUntilElementExists(CommonLocators.RadioButtonWithLabel(label)).Selected
-                .Should().BeTrue();
+            browser.ClickRadioButton(CommonLocators.RadioButtonWithLabel(label));
+            browser.Driver.WaitUntilElementExists(CommonLocators.RadioButtonWithLabel(label)).Selected.Should().BeTrue();
         }
 
         [When(@"the user clicks the (.*) link")]
-        public void WhenTheUserClicksTheChangeCameraOrMicrophoneLink(NgWebDriver driver, string linkText)
+        public void WhenTheUserClicksTheChangeCameraOrMicrophoneLink(UserBrowser browser, string linkText)
         {
-            driver.WaitUntilVisible(CommonLocators.LinkWithText(linkText)).Displayed
-                .Should().BeTrue();
-
-            driver.WaitUntilVisible(CommonLocators.LinkWithText(linkText)).Click();
+            browser.Driver.WaitUntilVisible(CommonLocators.LinkWithText(linkText)).Displayed.Should().BeTrue();
+            browser.ClickLink(CommonLocators.LinkWithText(linkText));
         }
 
         [When(@"the user selects the (.*) option from the dropdown")]

@@ -129,6 +129,18 @@ namespace AcceptanceTests.Common.Driver.Browser
             Driver.ExecuteScript("arguments[0].click();", Driver.FindElement(element));
         }
 
+        public void ClickLink(By element, int timeout = 20)
+        {
+            Driver.WaitUntilVisible(element, timeout);
+            Driver.ExecuteScript("arguments[0].click();", Driver.FindElement(element));
+        }
+
+        public void ClickRadioButton(By element, int timeout = 20)
+        {
+            Driver.WaitUntilElementExists(element, timeout);
+            Driver.ExecuteScript("arguments[0].click();", Driver.FindElement(element));
+        }
+
         public void Clear(By element)
         {
             Driver.WaitUntilVisible(element);
