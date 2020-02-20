@@ -123,6 +123,12 @@ namespace AcceptanceTests.Common.Driver.Browser
             Driver.ExecuteScript("arguments[0].scrollIntoView(true);", Driver.FindElement(element));
         }
 
+        public void Click(By element, int timeout = 20)
+        {
+            Driver.WaitUntilElementClickable(element, timeout);
+            Driver.ExecuteScript("arguments[0].click();", Driver.FindElement(element));
+        }
+
         public void Clear(By element)
         {
             Driver.WaitUntilVisible(element);
