@@ -78,7 +78,7 @@ namespace AcceptanceTests.Common.Driver
         {
             var drivers = GetDrivers();
             drivers[_targetBrowser].SauceLabsTimeout = TimeSpan.FromSeconds(SauceLabsCommandTimeoutInSeconds);
-            drivers[_targetBrowser].BuildPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            drivers[_targetBrowser].BuildPath = _targetBrowser == TargetBrowser.Safari ? "/usr/bin/safaridriver" : Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             drivers[_targetBrowser].Filename = filename;
             drivers[_targetBrowser].UseVideoFiles = scenario.Tags.Contains("Video");
             drivers[_targetBrowser].LocalTimeout = TimeSpan.FromSeconds(LocalCommandTimeoutInSeconds);
