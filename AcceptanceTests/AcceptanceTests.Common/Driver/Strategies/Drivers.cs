@@ -7,17 +7,17 @@ namespace AcceptanceTests.Common.Driver.Strategies
 {
     public abstract class Drivers
     {
-        internal TimeSpan IdleTimeout { get; set; }
-        internal Dictionary<string, object> SauceOptions { get; set; }
-        internal Uri Uri { get; set; }
-        internal TimeSpan SauceLabsTimeout { get; set; }
-        internal TimeSpan LocalTimeout { get; set; }
-        internal string MacPlatform { get; set; }
-        internal bool UseVideoFiles { get; set; }
+        public bool BlockedCamAndMic { get; set; }
         internal string BuildPath { get; set; }
         internal string Filename { get; set; }
-        public bool BlockedCamAndMic { get; set; }
-
+        internal TimeSpan IdleTimeout { get; set; }
+        internal TimeSpan LocalTimeout { get; set; }
+        internal string MacPlatform { get; set; }
+        internal TimeSpan SauceLabsTimeout { get; set; }
+        internal Dictionary<string, object> SauceOptions { get; set; }
+        internal Uri Uri { get; set; }
+        internal bool UseVideoFiles { get; set; }
+        public string Version { get; set; }
         public abstract RemoteWebDriver InitialiseForSauceLabs();
         public abstract IWebDriver InitialiseForLocal();
     }
