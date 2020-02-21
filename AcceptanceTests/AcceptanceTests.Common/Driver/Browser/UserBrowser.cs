@@ -111,6 +111,12 @@ namespace AcceptanceTests.Common.Driver.Browser
                 Retry(() => Driver.Url.Trim().ToLower().Should().Contain(page.ToLower()), BrowserRetries);
             }
         }
+
+        public void Refresh()
+        {
+            Driver.Navigate().Refresh();
+        }
+
         public void CloseTab()
         {
             Driver.Close();
