@@ -5,6 +5,7 @@ using AcceptanceTests.Common.Configuration.Users;
 using AcceptanceTests.Common.Driver.Helpers;
 using FluentAssertions;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using Polly;
 using Protractor;
 
@@ -162,6 +163,12 @@ namespace AcceptanceTests.Common.Driver.Browser
         public void NavigateBack()
         {
             Driver.Navigate().Back();
+        }
+
+        public void WaitForPageToLoad(int timeout = 20)
+        {
+            new WebDriverWait(Driver, TimeSpan.FromSeconds(timeout)).Until(
+                d => ((IJavaScriptExecutor)d).ExecuteScript("return document.readyState").Equals("complete"));
         }
 
         public void BrowserTearDown()
