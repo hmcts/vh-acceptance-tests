@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using AcceptanceTests.Common.Configuration.Users;
 using AcceptanceTests.Common.Driver.Helpers;
+using AcceptanceTests.Common.Driver.Support;
 using FluentAssertions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
@@ -19,6 +20,7 @@ namespace AcceptanceTests.Common.Driver.Browser
         public NgWebDriver Driver { get; set; }
         private DriverSetup _driver;
         public string LastWindowName { get; set; }
+        public TargetBrowser _targetBrowser;
 
         public UserBrowser(UserAccount user)
         {
@@ -34,6 +36,12 @@ namespace AcceptanceTests.Common.Driver.Browser
         public UserBrowser SetDriver(DriverSetup driver)
         {
             _driver = driver;
+            return this;
+        }
+
+        public UserBrowser SetTargetBrowser(TargetBrowser targetBrowser)
+        {
+            _targetBrowser = targetBrowser;
             return this;
         }
 
@@ -133,7 +141,19 @@ namespace AcceptanceTests.Common.Driver.Browser
         public void Click(By element, int timeout = 20)
         {
             Driver.WaitUntilElementClickable(element, timeout);
-            Driver.ExecuteScript("arguments[0].click();", Driver.FindElement(element));
+            BrowserClick(element);
+        }
+
+        private void BrowserClick(By element)
+        {
+            if (_targetBrowser == TargetBrowser.Firefox)
+            {
+                Driver.WaitUntilVisible(element).Click();
+            }
+            else
+            {
+                Driver.ExecuteScript("arguments[0].click();", Driver.FindElement(element));
+            }
         }
 
         public void ClickLink(By element, int timeout = 20)

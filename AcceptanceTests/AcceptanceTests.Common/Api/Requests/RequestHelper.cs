@@ -7,7 +7,7 @@ namespace AcceptanceTests.Common.Api.Requests
     {
         public static string SerialiseRequestToSnakeCaseJson(object request)
         {
-            DefaultContractResolver contractResolver = new DefaultContractResolver
+            var contractResolver = new DefaultContractResolver
             {
                 NamingStrategy = new SnakeCaseNamingStrategy()
             };
