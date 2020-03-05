@@ -14,9 +14,9 @@ namespace AcceptanceTests.Common.Driver
         private bool _runningOnSauceLabs;
         private static readonly List<string> ProcessesToCheck = new List<string>
         {
-            "chrome",
-            "edge",
-            "firefox",
+            "chromedriver",
+            "edgedriver",
+            "firefoxdriver",
             "gecko",
             "IEDriverServer",
             "microsoftwebdriver",
