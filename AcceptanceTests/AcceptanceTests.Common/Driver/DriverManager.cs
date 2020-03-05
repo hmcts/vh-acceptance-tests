@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using AcceptanceTests.Common.Driver.Browser;
 using AcceptanceTests.Common.Driver.SauceLabs;
 using AcceptanceTests.Common.Driver.Support;
@@ -11,6 +12,16 @@ namespace AcceptanceTests.Common.Driver
     public class DriverManager
     {
         private bool _runningOnSauceLabs;
+        private static readonly List<string> ProcessesToCheck = new List<string>
+        {
+            "chrome",
+            "edge",
+            "firefox",
+            "gecko",
+            "IEDriverServer",
+            "microsoftwebdriver",
+        };
+
         public DriverManager RunningOnSauceLabs(bool runningOnSauceLabs)
         {
             _runningOnSauceLabs = runningOnSauceLabs;
@@ -27,20 +38,20 @@ namespace AcceptanceTests.Common.Driver
             return Enum.TryParse(device, true, out TargetDevice targetDevice) ? targetDevice : TargetDevice.Desktop;
         }
 
-        public void KillAnyLocalDriverProcesses(TargetBrowser browser, bool runningWithSauceLabs)
+        public static void KillAnyLocalDriverProcesses()
         {
-            if (runningWithSauceLabs) return;
-            var driverProcesses = Process.GetProcessesByName(browser == TargetBrowser.Firefox ? "geckodriver" : "ChromeDriver");
-
-            foreach (var driverProcess in driverProcesses)
+            var processes = Process.GetProcesses();
+            foreach (var process in processes)
             {
                 try
                 {
-                    driverProcess.Kill();
+                    var shouldKill = ProcessesToCheck.Any(processName => process.ProcessName.ToLower().Contains(processName));
+                    if (shouldKill)
+                        process.Kill();
                 }
-                catch (Exception ex)
+                catch (Exception e)
                 {
-                    NUnit.Framework.TestContext.WriteLine(ex.Message);
+                    NUnit.Framework.TestContext.WriteLine(e.Message);
                 }
             }
         }
