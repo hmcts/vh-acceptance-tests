@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace AcceptanceTests.Common.Configuration.Users
 {
-    public class UserManager
+    public static class UserManager
     {
         public static UserAccount GetDefaultParticipantUser(List<UserAccount> userAccounts)
         {

@@ -6,39 +6,31 @@ using FluentAssertions;
 
 namespace AcceptanceTests.Common.Api.Healthchecks
 {
-    public class HealthcheckManager
+    public static class HealthcheckManager
     {
-        private readonly string _apiUrl;
-        private readonly string _bearerToken;
-        public HealthcheckManager(string apiUrl, string bearerToken)
+        public static void CheckHealthOfBookingsApi(string apiUrl, string bearerToken)
         {
-            _apiUrl = apiUrl;
-            _bearerToken = bearerToken;
+            var endpoint = BookingsApiUriFactory.BookingsApiHealthCheckEndpoints.HealthCheck;
+            Send(endpoint, "Bookings Api", apiUrl, bearerToken);
         }
 
-        public void CheckHealthOfBookingsApi()
+        public static void CheckHealthOfUserApi(string apiUrl, string bearerToken)
         {
-            var endpoint = new BookingsApiUriFactory().HealthCheckEndpoints.HealthCheck;
-            Send(endpoint, "Bookings Api");
+            var endpoint = UserApiUriFactory.HealthCheckEndpoints.CheckServiceHealth;
+            Send(endpoint, "User Api", apiUrl, bearerToken);
         }
 
-        public void CheckHealthOfUserApi()
+        public static void CheckHealthOfVideoApi(string apiUrl, string bearerToken)
         {
-            var endpoint = new UserApiUriFactory().HealthCheckEndpoints.CheckServiceHealth();
-            Send(endpoint, "User Api");
+            var endpoint = VideoApiUriFactory.VideoApiHealthCheckEndpoints.CheckServiceHealth;
+            Send(endpoint, "Video Api", apiUrl, bearerToken);
         }
 
-        public void CheckHealthOfVideoApi()
+        public static void Send(string endpoint, string apiName, string apiUrl, string bearerToken)
         {
-            var endpoint = new VideoApiUriFactory().HealthCheckEndpoints.CheckServiceHealth();
-            Send(endpoint, "Video Api");
-        }
-
-        public void Send(string endpoint, string apiName)
-        {
-            var request = new RequestBuilder().Get(endpoint);
-            var client = new ApiClient(_apiUrl, _bearerToken).GetClient();
-            var response = new RequestExecutor(request).SendToApi(client);
+            var request = RequestBuilder.Get(endpoint);
+            var client = ApiClient.SetClient(apiUrl, bearerToken);
+            var response = RequestExecutor.SendToApi(request, client);
             response.StatusCode.Should().Be(HttpStatusCode.OK, $"the {apiName} is available");
         }
     }

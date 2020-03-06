@@ -2,38 +2,24 @@
 
 namespace AcceptanceTests.Common.Api.Uris
 {
-    public class VideoWebUriFactory
+    public static class VideoWebUriFactory
     {
-        public VideoWebParticipantsEndpoints ParticipantsEndpoints { get; }
-        public VideoWebCallbackEndpoints CallbackEndpoints { get; }
-        public VideoWebMediaEventEndpoints MediaEventEndpoints { get; }
-
-        public VideoWebUriFactory()
+        public static class VideoWebMediaEventEndpoints
         {
-            ParticipantsEndpoints = new VideoWebParticipantsEndpoints();
-            CallbackEndpoints = new VideoWebCallbackEndpoints();
-            MediaEventEndpoints = new VideoWebMediaEventEndpoints();
+            private const string ApiRoot = "conferences";
+            public static string SelfTestFailureEvents(Guid conferenceId) => $"{ApiRoot}/{conferenceId}/selftestfailureevents";
         }
-    }
 
-    public class VideoWebMediaEventEndpoints
-    {
-        private static string ApiRoot => "conferences";
+        public static class VideoWebParticipantsEndpoints
+        {
+            private const string ApiRoot = "conferences";
+            public static string SelfTestResult(Guid? conferenceId, Guid? participantId) => $"{ApiRoot}/{conferenceId}/participants/{participantId}/selftestresult";
+        }
 
-        public string SelfTestFailureEvents(Guid conferenceId) => $"{ApiRoot}/{conferenceId}/selftestfailureevents";
-    }
-
-    public class VideoWebParticipantsEndpoints
-    {
-        private static string ApiRoot => "conferences";
-
-        public string SelfTestResult(Guid? conferenceId, Guid? participantId) =>
-            $"{ApiRoot}/{conferenceId}/participants/{participantId}/selftestresult";
-    }
-
-    public class VideoWebCallbackEndpoints
-    {
-        private static string ApiRoot => "callback";
-        public string Event => $"{ApiRoot}";
+        public static class VideoWebCallbackEndpoints
+        {
+            private const string ApiRoot = "callback";
+            public static string Event => $"{ApiRoot}";
+        }
     }
 }

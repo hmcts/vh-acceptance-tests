@@ -2,9 +2,9 @@
 
 namespace AcceptanceTests.Common.Test.Steps
 {
-    public class ErrorSharedSteps
+    public static class ErrorSharedSteps
     {
-        public void WhenTheUserAttemptsToNavigateToANonexistentPage(NgWebDriver driver, string baseUrl)
+        public static void WhenTheUserAttemptsToNavigateToANonexistentPage(NgWebDriver driver, string baseUrl)
         {
             driver.Navigate().GoToUrl(AddSlashToUrlIfRequired(baseUrl));
         }

@@ -2,18 +2,11 @@
 
 namespace AcceptanceTests.Common.Api.Requests
 {
-    public class RequestExecutor
+    public static class RequestExecutor
     {
-        private readonly IRestRequest _request;
-
-        public RequestExecutor(IRestRequest request)
+        public static IRestResponse SendToApi(IRestRequest request, RestClient apiClient)
         {
-            _request = request;
-        }
-
-        public IRestResponse SendToApi(RestClient apiClient)
-        {
-            return apiClient.Execute(_request);
+            return apiClient.Execute(request);
         }
     }
 }

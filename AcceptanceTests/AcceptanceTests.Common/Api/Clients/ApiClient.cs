@@ -2,22 +2,13 @@
 
 namespace AcceptanceTests.Common.Api.Clients
 {
-    public class ApiClient
-    {
-        private readonly string _apiUrl;
-        private readonly string _bearerToken;
-
-        public ApiClient(string apiUrl, string bearerToken)
+    public static class ApiClient
+    { 
+        public static RestClient SetClient(string apiUrl, string bearerToken)
         {
-            _apiUrl = apiUrl;
-            _bearerToken = bearerToken;
-        }
-
-        public RestClient GetClient()
-        {
-            var client = new RestClient(_apiUrl);
+            var client = new RestClient(apiUrl);
             client.AddDefaultHeader("Accept", "application/json");
-            client.AddDefaultHeader("Authorization", $"Bearer {_bearerToken}");
+            client.AddDefaultHeader("Authorization", $"Bearer {bearerToken}");
             return client;
         }
     }

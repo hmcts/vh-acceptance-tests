@@ -2,59 +2,39 @@
 
 namespace AcceptanceTests.Common.Api.Uris
 {
-    public class VideoApiUriFactory
+    public static class VideoApiUriFactory
     {
-        public VideoEventsEndpoints VideoEventsEndpoints { get; }
-        public VideoApiParticipantsEndpoints ParticipantsEndpoints { get; }
-        public ConferenceEndpoints ConferenceEndpoints { get; }
-        public VideoApiHealthCheckEndpoints HealthCheckEndpoints { get; set; }
 
-        public VideoApiUriFactory()
+        public static class VideoEventsEndpoints
         {
-            ParticipantsEndpoints = new VideoApiParticipantsEndpoints();
-            ConferenceEndpoints = new ConferenceEndpoints();
-            VideoEventsEndpoints = new VideoEventsEndpoints();
-            HealthCheckEndpoints = new VideoApiHealthCheckEndpoints();
+            private const string ApiRoot = "events";
+            public static string Event => $"{ApiRoot}";
         }
-    }
 
-    public class VideoEventsEndpoints
-    {
-        private static string ApiRoot => "events";
-        public string Event => $"{ApiRoot}";
-    }
-
-    public class VideoApiParticipantsEndpoints
-    {
-        private static string ApiRoot => "conferences";
-
-        public string AddParticipantsToConference(Guid conferenceId) => $"{ApiRoot}/{conferenceId}/participants";
-
-        public string RemoveParticipantFromConference(Guid conferenceId, Guid participantId) =>
-            $"{ApiRoot}/{conferenceId}/participants/{participantId}";
-
-        public string GetSelfTestScore(Guid conferenceId, Guid? participantId) => $"{ApiRoot}/{conferenceId}/participants/{participantId}/selftestresult";
-    }
-
-    public class ConferenceEndpoints
-    {
-        private static string ApiRoot => "conferences";
-        public string BookNewConference => $"{ApiRoot}";
-        public string UpdateConferenceStatus(Guid conferenceId) => $"{ApiRoot}/{conferenceId}";
-        public string GetConferenceDetailsByUsername(string username) => $"{ApiRoot}/?username={username}";
-        public string GetConferenceDetailsById(Guid conferenceId) => $"{ApiRoot}/{conferenceId}";
-        public string GetConferenceByHearingRefId(Guid hearingRefId) => $"{ApiRoot}/hearings/{hearingRefId}";
-        public string RemoveConference(Guid? conferenceId) => $"{ApiRoot}/{conferenceId}";
-        public string GetTodaysConferences => $"{ApiRoot}/today";
-    }
-
-    public class VideoApiHealthCheckEndpoints
-    {
-        private static string ApiRoot => "/healthcheck";
-
-        public string CheckServiceHealth()
+        public static class VideoApiParticipantsEndpoints
         {
-            return $"{ApiRoot}/health";
+            private const string ApiRoot = "conferences";
+            public static string AddParticipantsToConference(Guid conferenceId) => $"{ApiRoot}/{conferenceId}/participants";
+            public static string RemoveParticipantFromConference(Guid conferenceId, Guid participantId) => $"{ApiRoot}/{conferenceId}/participants/{participantId}";
+            public static string GetSelfTestScore(Guid conferenceId, Guid? participantId) => $"{ApiRoot}/{conferenceId}/participants/{participantId}/selftestresult";
+        }
+
+        public static class ConferenceEndpoints
+        {
+            private const string ApiRoot = "conferences";
+            public static string BookNewConference => $"{ApiRoot}";
+            public static string UpdateConferenceStatus(Guid conferenceId) => $"{ApiRoot}/{conferenceId}";
+            public static string GetConferenceDetailsByUsername(string username) => $"{ApiRoot}/?username={username}";
+            public static string GetConferenceDetailsById(Guid conferenceId) => $"{ApiRoot}/{conferenceId}";
+            public static string GetConferenceByHearingRefId(Guid hearingRefId) => $"{ApiRoot}/hearings/{hearingRefId}";
+            public static string RemoveConference(Guid? conferenceId) => $"{ApiRoot}/{conferenceId}";
+            public static string GetTodaysConferences => $"{ApiRoot}/today";
+        }
+
+        public class VideoApiHealthCheckEndpoints
+        {
+            private const string ApiRoot = "/healthcheck";
+            public static string CheckServiceHealth => $"{ApiRoot}/health";
         }
     }
 }

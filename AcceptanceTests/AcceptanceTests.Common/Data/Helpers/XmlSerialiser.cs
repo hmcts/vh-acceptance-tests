@@ -3,9 +3,9 @@ using System.Xml.Serialization;
 
 namespace AcceptanceTests.Common.Data.Helpers
 {
-    public class XmlSerialiser
+    public static class XmlSerialiser
     {
-        public T Deserialize<T>(string input) where T : class
+        public static T Deserialize<T>(string input) where T : class
         {
             var ser = new XmlSerializer(typeof(T));
 
@@ -13,7 +13,7 @@ namespace AcceptanceTests.Common.Data.Helpers
             return (T)ser.Deserialize(sr);
         }
 
-        public string Serialize<T>(T objectToSerialize)
+        public static string Serialize<T>(T objectToSerialize)
         {
             var xmlSerializer = new XmlSerializer(objectToSerialize.GetType());
 

@@ -5,20 +5,14 @@ using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
 namespace AcceptanceTests.Common.Configuration
 {
-    public class ConfigurationManager
+    public static class ConfigurationManager
     {
-        private readonly string _userSecretsId;
-        public ConfigurationManager(string userSecretsId)
-        {
-            _userSecretsId = userSecretsId;
-        }
-
-        public IConfigurationRoot BuildConfig(string targetEnvironment = "")
+        public static IConfigurationRoot BuildConfig(string userSecretsId, string targetEnvironment = "")
         {
             var configRootBuilder = new ConfigurationBuilder()
                 .AddJsonFile($"appsettings.json")
                 .AddJsonFile("useraccounts.json")
-                .AddUserSecrets(_userSecretsId);
+                .AddUserSecrets(userSecretsId);
             if (targetEnvironment.Length > 0)
                 configRootBuilder.AddJsonFile($"appsettings.{targetEnvironment}.json");
             return configRootBuilder.Build();

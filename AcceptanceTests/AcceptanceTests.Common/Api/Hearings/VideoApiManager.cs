@@ -21,42 +21,42 @@ namespace AcceptanceTests.Common.Api.Hearings
 
         public IRestResponse CreateConference(object conferenceRequest)
         {
-            var endpoint = new VideoApiUriFactory().ConferenceEndpoints.BookNewConference;
-            var request = new RequestBuilder().Post(endpoint, conferenceRequest);
-            var client = new ApiClient(_videoApiUrl, _videoApiBearerToken).GetClient();
-            return new RequestExecutor(request).SendToApi(client);
+            var endpoint = VideoApiUriFactory.ConferenceEndpoints.BookNewConference;
+            var request = RequestBuilder.Post(endpoint, conferenceRequest);
+            var client = ApiClient.SetClient(_videoApiUrl, _videoApiBearerToken);
+            return RequestExecutor.SendToApi(request, client);
         }
 
         public IRestResponse DeleteConference(Guid conferenceId)
         {
-            var endpoint = new VideoApiUriFactory().ConferenceEndpoints.RemoveConference(conferenceId);
-            var request = new RequestBuilder().Delete(endpoint);
-            var client = new ApiClient(_videoApiUrl, _videoApiBearerToken).GetClient();
-            return new RequestExecutor(request).SendToApi(client);
+            var endpoint = VideoApiUriFactory.ConferenceEndpoints.RemoveConference(conferenceId);
+            var request = RequestBuilder.Delete(endpoint);
+            var client = ApiClient.SetClient(_videoApiUrl, _videoApiBearerToken);
+            return RequestExecutor.SendToApi(request, client);
         }
 
         public IRestResponse GetConferenceByConferenceId(Guid conferenceId)
         {
-            var endpoint = new VideoApiUriFactory().ConferenceEndpoints.GetConferenceDetailsById(conferenceId);
-            var request = new RequestBuilder().Get(endpoint);
-            var client = new ApiClient(_videoApiUrl, _videoApiBearerToken).GetClient();
-            return new RequestExecutor(request).SendToApi(client);
+            var endpoint = VideoApiUriFactory.ConferenceEndpoints.GetConferenceDetailsById(conferenceId);
+            var request = RequestBuilder.Get(endpoint);
+            var client = ApiClient.SetClient(_videoApiUrl, _videoApiBearerToken);
+            return RequestExecutor.SendToApi(request, client);
         }
 
         public IRestResponse GetConferenceByHearingId(Guid hearingId)
         {
-            var endpoint = new VideoApiUriFactory().ConferenceEndpoints.GetConferenceByHearingRefId(hearingId);
-            var request = new RequestBuilder().Get(endpoint);
-            var client = new ApiClient(_videoApiUrl, _videoApiBearerToken).GetClient();
-            return new RequestExecutor(request).SendToApi(client);
+            var endpoint = VideoApiUriFactory.ConferenceEndpoints.GetConferenceByHearingRefId(hearingId);
+            var request = RequestBuilder.Get(endpoint);
+            var client = ApiClient.SetClient(_videoApiUrl, _videoApiBearerToken);
+            return RequestExecutor.SendToApi(request, client);
         }
 
         public IRestResponse GetConferencesForToday()
         {
-            var endpoint = new VideoApiUriFactory().ConferenceEndpoints.GetTodaysConferences;
-            var request = new RequestBuilder().Get(endpoint);
-            var client = new ApiClient(_videoApiUrl, _videoApiBearerToken).GetClient();
-            return new RequestExecutor(request).SendToApi(client);
+            var endpoint = VideoApiUriFactory.ConferenceEndpoints.GetTodaysConferences;
+            var request = RequestBuilder.Get(endpoint);
+            var client = ApiClient.SetClient(_videoApiUrl, _videoApiBearerToken);
+            return RequestExecutor.SendToApi(request, client);
         }
 
         public bool PollForConferenceExists(Guid hearingId, int timeout = 60)
@@ -66,24 +66,24 @@ namespace AcceptanceTests.Common.Api.Hearings
 
         public bool PollForConferenceDeleted(Guid hearingId, int timeout = 60)
         {
-            var endpoint = new VideoApiUriFactory().ConferenceEndpoints.GetConferenceByHearingRefId(hearingId);
+            var endpoint = VideoApiUriFactory.ConferenceEndpoints.GetConferenceByHearingRefId(hearingId);
             return new Polling().WithEndpoint(endpoint).Url(_videoApiUrl).Token(_videoApiBearerToken)
                 .UntilStatusIs(HttpStatusCode.NotFound).Poll(timeout).StatusCode == HttpStatusCode.NotFound;
         }
 
         public IRestResponse PollForConferenceResponse(Guid hearingId, int timeout = 60)
         {
-            var endpoint = new VideoApiUriFactory().ConferenceEndpoints.GetConferenceByHearingRefId(hearingId);
+            var endpoint = VideoApiUriFactory.ConferenceEndpoints.GetConferenceByHearingRefId(hearingId);
             return new Polling().WithEndpoint(endpoint).Url(_videoApiUrl).Token(_videoApiBearerToken)
                 .UntilStatusIs(HttpStatusCode.OK).Poll(timeout);
         }
 
         public IRestResponse GetSelfTestScore(Guid conferenceId, Guid participantId)
         {
-            var endpoint = new VideoApiUriFactory().ParticipantsEndpoints.GetSelfTestScore(conferenceId, participantId);
-            var request = new RequestBuilder().Get(endpoint);
-            var client = new ApiClient(_videoApiUrl, _videoApiBearerToken).GetClient();
-            return new RequestExecutor(request).SendToApi(client);
+            var endpoint = VideoApiUriFactory.VideoApiParticipantsEndpoints.GetSelfTestScore(conferenceId, participantId);
+            var request = RequestBuilder.Get(endpoint);
+            var client = ApiClient.SetClient(_videoApiUrl, _videoApiBearerToken);
+            return RequestExecutor.SendToApi(request, client);
         }
 
         public bool PollForSelfTestScoreExists(Guid conferenceId, Guid participantId, int timeout = 30)
@@ -93,25 +93,25 @@ namespace AcceptanceTests.Common.Api.Hearings
 
         public IRestResponse PollForSelfTestScoreResponse(Guid conferenceId, Guid participantId, int timeout = 30)
         {
-            var endpoint = new VideoApiUriFactory().ParticipantsEndpoints.GetSelfTestScore(conferenceId, participantId);
+            var endpoint = VideoApiUriFactory.VideoApiParticipantsEndpoints.GetSelfTestScore(conferenceId, participantId);
             return new Polling().WithEndpoint(endpoint).Url(_videoApiUrl).Token(_videoApiBearerToken)
                 .UntilStatusIs(HttpStatusCode.OK).Poll(timeout);
         }
 
         public IRestResponse RemoveParticipantFromConference(Guid conferenceId, Guid participantId)
         {
-            var endpoint = new VideoApiUriFactory().ParticipantsEndpoints.RemoveParticipantFromConference(conferenceId, participantId);
-            var request = new RequestBuilder().Delete(endpoint);
-            var client = new ApiClient(_videoApiUrl, _videoApiBearerToken).GetClient();
-            return new RequestExecutor(request).SendToApi(client);
+            var endpoint = VideoApiUriFactory.VideoApiParticipantsEndpoints.RemoveParticipantFromConference(conferenceId, participantId);
+            var request = RequestBuilder.Delete(endpoint);
+            var client = ApiClient.SetClient(_videoApiUrl, _videoApiBearerToken);
+            return RequestExecutor.SendToApi(request, client);
         }
 
         public IRestResponse SendEvent(object eventRequest)
         {
-            var endpoint = new VideoApiUriFactory().VideoEventsEndpoints.Event;
-            var request = new RequestBuilder().Post(endpoint, eventRequest);
-            var client = new ApiClient(_videoApiUrl, _videoApiBearerToken).GetClient();
-            return new RequestExecutor(request).SendToApi(client);
+            var endpoint = VideoApiUriFactory.VideoEventsEndpoints.Event;
+            var request = RequestBuilder.Post(endpoint, eventRequest);
+            var client = ApiClient.SetClient(_videoApiUrl, _videoApiBearerToken);
+            return RequestExecutor.SendToApi(request, client);
         }
     }
 }

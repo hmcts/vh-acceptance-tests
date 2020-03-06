@@ -18,10 +18,10 @@ namespace AcceptanceTests.Common.Api.Hearings
 
         public IRestResponse SendCallBackEvent(object eventRequest)
         {
-            var endpoint = new VideoWebUriFactory().CallbackEndpoints.Event;
-            var request = new RequestBuilder().Post(endpoint, eventRequest);
-            var client = new ApiClient(_videoWebUrl, _callBackToken).GetClient();
-            return new RequestExecutor(request).SendToApi(client);
+            var endpoint = VideoWebUriFactory.VideoWebCallbackEndpoints.Event;
+            var request = RequestBuilder.Post(endpoint, eventRequest);
+            var client = ApiClient.SetClient(_videoWebUrl, _callBackToken);
+            return RequestExecutor.SendToApi(request, client);
         }
     }
 }

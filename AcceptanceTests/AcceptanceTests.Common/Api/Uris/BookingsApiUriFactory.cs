@@ -2,91 +2,62 @@
 
 namespace AcceptanceTests.Common.Api.Uris
 {
-    public class BookingsApiUriFactory
+    public static class BookingsApiUriFactory
     {
-        public BookingsApiUriFactory()
+        public static class HearingVenueEndpoints
         {
-            HearingVenueEndpoints = new HearingVenueEndpoints();
-            CaseTypesEndpoints = new CaseTypesEndpoints();
-            HearingsEndpoints = new HearingsEndpoints();
-            ParticipantsEndpoints = new ParticipantsEndpoints();
-            PersonEndpoints = new PersonEndpoints();
-            HealthCheckEndpoints = new BookingsApiHealthCheckEndpoints();
-            HearingsParticipantsEndpoints = new HearingsParticipantsEndpoints();
+            private const string ApiRoot = "hearingvenues";
+            public static string GetVenues => $"{ApiRoot}";
         }
 
-        public HearingVenueEndpoints HearingVenueEndpoints { get; set; }
-        public CaseTypesEndpoints CaseTypesEndpoints { get; set; }
-        public HearingsEndpoints HearingsEndpoints { get; set; }
-        public ParticipantsEndpoints ParticipantsEndpoints { get; set; }
-        public PersonEndpoints PersonEndpoints { get; set; }
-        public BookingsApiHealthCheckEndpoints HealthCheckEndpoints { get; set; }
-        public HearingsParticipantsEndpoints HearingsParticipantsEndpoints { get; set; }
-    }
+        public static class BookingsApiHealthCheckEndpoints
+        {
+            private const string ApiRoot = "healthCheck";
+            public static string HealthCheck => $"{ApiRoot}/health";
+        }
 
-    public class HearingVenueEndpoints
-    {
-        private static string ApiRoot => "hearingvenues";
-        public string GetVenues => $"{ApiRoot}";
-    }
+        public static class CaseTypesEndpoints
+        {
+            private const string ApiRoot = "casetypes";
+            public static string GetCaseRolesForCaseType(string caseTypeName) => $"{ApiRoot}/{caseTypeName}/caseroles";
+            public static string GetHearingRolesForCaseRole(string caseTypeName, string caseRoleName) => $"{ApiRoot}/{caseTypeName}/caseroles/{caseRoleName}/hearingroles";
+            public static string GetCaseTypes => $"{ApiRoot}/";
+        }
 
-    public class BookingsApiHealthCheckEndpoints
-    {
-        private static string ApiRoot => "healthCheck";
-        public string HealthCheck => $"{ApiRoot}/health";
-    }
+        public static class HearingsEndpoints
+        {
+            private const string ApiRoot = "hearings";
+            public static string GetHearingsByUsername(string username) => $"{ApiRoot}/?username={username}";
+            public static string GetHearingDetailsById(Guid? hearingId) => $"{ApiRoot}/{hearingId}";
+            public static string BookNewHearing => $"{ApiRoot}";
+            public static string UpdateHearingDetails(Guid hearingId) => $"{ApiRoot}/{hearingId}";
+            public static string UpdateHearingStatus(Guid? hearingId) => $"{ApiRoot}/{hearingId}";
+            public static string RemoveHearing(Guid? hearingId) => $"{ApiRoot}/{hearingId}";
+        }
 
-    public class CaseTypesEndpoints
-    {
-        private static string ApiRoot => "casetypes";
-        public string GetCaseRolesForCaseType(string caseTypeName) => $"{ApiRoot}/{caseTypeName}/caseroles";
-        public string GetHearingRolesForCaseRole(string caseTypeName, string caseRoleName) => $"{ApiRoot}/{caseTypeName}/caseroles/{caseRoleName}/hearingroles";
+        public static class HearingsParticipantsEndpoints
+        {
+            private const string ApiRoot = "hearings";
+            public static string GetAllParticipantsInHearing(Guid hearingId) => $"{ApiRoot}/{hearingId}/participants";
+            public static string GetParticipantInHearing(Guid hearingId, Guid participantId) => $"{ApiRoot}/{hearingId}/participants/{participantId}";
+            public static string AddParticipantsToHearing(Guid hearingId) => $"{ApiRoot}/{hearingId}/participants";
+            public static string UpdateParticipantDetails(Guid hearingId, Guid participantId) => $"{ApiRoot}/{hearingId}/participants/{participantId}";
+            public static string RemoveParticipantFromHearing(Guid hearingId, Guid participantId) => $"{ApiRoot}/{hearingId}/participants/{participantId}";
+            public static string SuitabilityAnswers(Guid hearingId, Guid participantId) => $"{ApiRoot}/{hearingId}/participants/{participantId}/suitability-answers";
+        }
 
-        public string GetCaseTypes() => $"{ApiRoot}/";
-    }
+        public static class ParticipantsEndpoints
+        {
+            private const string ApiRoot = "Participants";
+            public static string GetParticipantsByUsername(string username) => $"/{ApiRoot}/username/{username}";
+        }
 
-    public class HearingsEndpoints
-    {
-        private static string ApiRoot => "hearings";
-        public string GetHearingsByUsername(string username) => $"{ApiRoot}/?username={username}";
-        public string GetHearingDetailsById(Guid? hearingId) => $"{ApiRoot}/{hearingId}";
-        public string BookNewHearing() => $"{ApiRoot}";
-        public string UpdateHearingDetails(Guid hearingId) => $"{ApiRoot}/{hearingId}";
-        public string UpdateHearingStatus(Guid? hearingId) => $"{ApiRoot}/{hearingId}";
-        public string RemoveHearing(Guid? hearingId) => $"{ApiRoot}/{hearingId}";
-    }
-
-    public class HearingsParticipantsEndpoints
-    {
-        private static string ApiRoot => "hearings";
-        public string GetAllParticipantsInHearing(Guid hearingId) => $"{ApiRoot}/{hearingId}/participants";
-
-        public string GetParticipantInHearing(Guid hearingId, Guid participantId) =>
-            $"{ApiRoot}/{hearingId}/participants/{participantId}";
-
-        public string AddParticipantsToHearing(Guid hearingId) => $"{ApiRoot}/{hearingId}/participants";
-
-        public string UpdateParticipantDetails(Guid hearingId, Guid participantId) =>
-            $"{ApiRoot}/{hearingId}/participants/{participantId}";
-
-        public string RemoveParticipantFromHearing(Guid hearingId, Guid participantId) =>
-            $"{ApiRoot}/{hearingId}/participants/{participantId}";
-
-        public string SuitabilityAnswers(Guid hearingId, Guid participantId) =>
-            $"{ApiRoot}/{hearingId}/participants/{participantId}/suitability-answers";
-    }
-
-    public class ParticipantsEndpoints
-    {
-        private static string ApiRoot => "Participants";
-        public string GetParticipantsByUsername(string username) => $"/{ApiRoot}/username/{username}";
-    }
-
-    public class PersonEndpoints
-    {
-        private static string ApiRoot => "persons";
-        public string GetPersonByUsername(string username) => $"{ApiRoot}/username/{username}";
-        public string GetPersonByContactEmail(string contactEmail) => $"{ApiRoot}/contactEmail/{contactEmail}";
-        public string GetSuitabilityAnswersByEmail(string username) => $"{ApiRoot}/username/{username}/suitability-answers";
+        public static class PersonEndpoints
+        {
+            private const string ApiRoot = "persons";
+            public static string GetPersonByUsername(string username) => $"{ApiRoot}/username/{username}";
+            public static string GetPersonByContactEmail(string contactEmail) => $"{ApiRoot}/contactEmail/{contactEmail}";
+            public static string GetSuitabilityAnswersByEmail(string username) => $"{ApiRoot}/username/{username}/suitability-answers";
+        }
     }
 }

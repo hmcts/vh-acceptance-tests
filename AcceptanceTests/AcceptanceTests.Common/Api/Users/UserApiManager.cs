@@ -44,20 +44,18 @@ namespace AcceptanceTests.Common.Api.Users
 
         public IRestResponse GetUser(string email)
         {
-            var endpoint = new UserApiUriFactory().UserEndpoints.GetUserByEmail(email);
-            var request = new RequestBuilder().Get(endpoint);
-            var client = new ApiClient(_userApiUrl, _userApiBearerToken).GetClient();
-            var response = new RequestExecutor(request).SendToApi(client);
-            return response;
+            var endpoint = UserApiUriFactory.UserEndpoints.GetUserByEmail(email);
+            var request = RequestBuilder.Get(endpoint);
+            var client = ApiClient.SetClient(_userApiUrl, _userApiBearerToken);
+            return RequestExecutor.SendToApi(request, client);
         }
 
         public IRestResponse DeleteUserFromAad(string username)
         {
-            var endpoint = new UserApiUriFactory().UserEndpoints.DeleteAnAadAccount(username);
-            var request = new RequestBuilder().Delete(endpoint);
-            var client = new ApiClient(_userApiUrl, _userApiBearerToken).GetClient();
-            var response = new RequestExecutor(request).SendToApi(client);
-            return response;
+            var endpoint = UserApiUriFactory.UserEndpoints.DeleteAnAadAccount(username);
+            var request = RequestBuilder.Delete(endpoint);
+            var client = ApiClient.SetClient(_userApiUrl, _userApiBearerToken);
+            return RequestExecutor.SendToApi(request, client);
         }
     }
 }
