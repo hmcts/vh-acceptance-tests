@@ -3,13 +3,12 @@ using AcceptanceTests.Common.Data.Helpers;
 
 namespace AcceptanceTests.Common.Data.TestData
 {
-    public class LoadXmlFile
+    public static class LoadXmlFile
     {
-        public CommonData SerialiseCommonData(string path = "Data/TestData/CommonData.xml")
+        public static CommonData SerialiseCommonData(string path = "Data/TestData/CommonData.xml")
         {
-            var serialiser = new XmlSerialiser();
             var xmlInputData = File.ReadAllText(path);
-            return serialiser.Deserialize<CommonData>(xmlInputData);
+            return XmlSerialiser.Deserialize<CommonData>(xmlInputData);
         }
     }
 }
