@@ -9,9 +9,8 @@ using OpenQA.Selenium;
 
 namespace AcceptanceTests.Common.Driver
 {
-    public class DriverManager
+    public static class DriverManager
     {
-        private bool _runningOnSauceLabs;
         private static readonly List<string> ProcessesToCheck = new List<string>
         {
             "chromedriver",
@@ -22,18 +21,12 @@ namespace AcceptanceTests.Common.Driver
             "microsoftwebdriver",
         };
 
-        public DriverManager RunningOnSauceLabs(bool runningOnSauceLabs)
-        {
-            _runningOnSauceLabs = runningOnSauceLabs;
-            return this;
-        }
-
-        public TargetBrowser GetTargetBrowser(string browser)
+        public static TargetBrowser GetTargetBrowser(string browser)
         {
             return Enum.TryParse(browser, true, out TargetBrowser targetBrowser) ? targetBrowser : TargetBrowser.Chrome;
         }
 
-        public TargetDevice GetTargetDevice(string device)
+        public static TargetDevice GetTargetDevice(string device)
         {
             return Enum.TryParse(device, true, out TargetDevice targetDevice) ? targetDevice : TargetDevice.Desktop;
         }
@@ -56,13 +49,13 @@ namespace AcceptanceTests.Common.Driver
             }
         }
 
-        public void LogTestResult(IWebDriver driver, bool passed)
+        public static void LogTestResult(bool runningOnSauceLabs, IWebDriver driver, bool passed)
         {
-            if (!_runningOnSauceLabs) return;
+            if (!runningOnSauceLabs) return;
             SauceLabsResult.LogPassed(passed, driver);
         }
 
-        public void TearDownBrowsers(Dictionary<string, UserBrowser> browsers)
+        public static void TearDownBrowsers(Dictionary<string, UserBrowser> browsers)
         {
             foreach (var browser in browsers.Values)
             {
