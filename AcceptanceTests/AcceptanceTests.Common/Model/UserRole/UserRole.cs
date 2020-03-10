@@ -2,10 +2,11 @@
 {
     public enum UserRole
     {
-        Clerk,
         CaseAdmin,
-        VideoHearingsOfficer,
+        Clerk,
+        Individual,
+        Judge,
         Representative,
-        Individual
+        VideoHearingsOfficer
     }
 }

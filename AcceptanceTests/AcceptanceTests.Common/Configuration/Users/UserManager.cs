@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AcceptanceTests.Common.Model.UserRole;
 
 namespace AcceptanceTests.Common.Configuration.Users
 {
@@ -59,6 +60,11 @@ namespace AcceptanceTests.Common.Configuration.Users
                 return user;
             }
             throw new DataMisalignedException("All individual users are assigned in the hearing.");
+        }
+
+        public static UserAccount GetUserFromRole(List<UserAccount> userAccounts, UserRole role)
+        {
+            return userAccounts.First(x => x.Role.ToLower().Equals(role.ToString().ToLower()));
         }
     }
 }
