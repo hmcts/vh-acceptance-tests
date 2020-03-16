@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using AcceptanceTests.Common.Api.Helpers;
 using RestSharp;
 
 namespace AcceptanceTests.Common.Api.Requests

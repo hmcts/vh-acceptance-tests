@@ -3,7 +3,7 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace AcceptanceTests.Common.Api.Requests
+namespace AcceptanceTests.Common.Api.Helpers
 {
     public static class RequestHelper
     {

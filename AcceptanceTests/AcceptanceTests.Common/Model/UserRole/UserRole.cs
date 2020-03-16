@@ -7,6 +7,7 @@
         Individual,
         Judge,
         Representative,
-        VideoHearingsOfficer
+        VideoHearingsOfficer,
+        VHOfficer
     }
 }
