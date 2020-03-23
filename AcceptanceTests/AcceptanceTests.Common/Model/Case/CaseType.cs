@@ -5,20 +5,22 @@ namespace AcceptanceTests.Common.Model.Case
 {
     public class CaseType
     {
+        public int Id { get; }
         public string Name { get; }
 
-        private CaseType(string name)
+        private CaseType(int id, string name)
         {
+            Id = id;
             Name = name;
         }
 
-        public static readonly CaseType CivilMoneyClaims = new CaseType("Civil Money Claims");
-        public static readonly CaseType FinancialRemedy = new CaseType("Financial Remedy");
-        public static readonly CaseType Generic = new CaseType("Generic");
-        public static readonly CaseType ChildrenAct = new CaseType("Children Act");
-        public static readonly CaseType Tax = new CaseType("Tax");
-        public static readonly CaseType FamilyLawAct = new CaseType("Family Law Act");
-        public static readonly CaseType Tribunal = new CaseType("Tribunal");
+        public static readonly CaseType CivilMoneyClaims = new CaseType(1, "Civil Money Claims");
+        public static readonly CaseType FinancialRemedy = new CaseType(2, "Financial Remedy");
+        public static readonly CaseType Generic = new CaseType(3, "Generic");
+        public static readonly CaseType ChildrenAct = new CaseType(4, "Children Act");
+        public static readonly CaseType Tax = new CaseType(5, "Tax");
+        public static readonly CaseType FamilyLawAct = new CaseType(6, "Family Law Act");
+        public static readonly CaseType Tribunal = new CaseType(7, "Tribunal");
 
         public static string ToString(CaseType hearingType)
         {
