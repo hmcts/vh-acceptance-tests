@@ -2,7 +2,7 @@
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Remote;
 
-namespace AcceptanceTests.Common.Driver.Strategies
+namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
 {
     internal class InternetExplorerDriverStrategy : Drivers
     {

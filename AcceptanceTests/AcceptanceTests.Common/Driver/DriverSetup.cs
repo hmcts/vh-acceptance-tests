@@ -5,6 +5,12 @@ using System.Linq;
 using System.Reflection;
 using AcceptanceTests.Common.Configuration;
 using AcceptanceTests.Common.Driver.Strategies;
+using AcceptanceTests.Common.Driver.Strategies.Desktop.Mac;
+using AcceptanceTests.Common.Driver.Strategies.Desktop.Windows;
+using AcceptanceTests.Common.Driver.Strategies.Mobile.Android;
+using AcceptanceTests.Common.Driver.Strategies.Mobile.iOS;
+using AcceptanceTests.Common.Driver.Strategies.Tablet.Android;
+using AcceptanceTests.Common.Driver.Strategies.Tablet.iOS;
 using AcceptanceTests.Common.Driver.Support;
 using OpenQA.Selenium;
 using TechTalk.SpecFlow;
@@ -23,12 +29,14 @@ namespace AcceptanceTests.Common.Driver
         private const string Timezone = "London";
         private readonly SauceLabsSettingsConfig _sauceLabsSettings;
         private readonly ScenarioInfo _scenario;
+        private static TargetDevice _targetDevice;
         private static TargetBrowser _targetBrowser;
 
-        public DriverSetup(SauceLabsSettingsConfig sauceLabsSettings, ScenarioInfo scenario, TargetBrowser targetBrowser)
+        public DriverSetup(SauceLabsSettingsConfig sauceLabsSettings, ScenarioInfo scenario, TargetDevice targetDevice, TargetBrowser targetBrowser)
         {
             _sauceLabsSettings = sauceLabsSettings;
             _scenario = scenario;
+            _targetDevice = targetDevice;
             _targetBrowser = targetBrowser;
         }
 
@@ -48,16 +56,13 @@ namespace AcceptanceTests.Common.Driver
                 {"username", _sauceLabsSettings.Username},
                 {"accessKey", _sauceLabsSettings.AccessKey},
                 {"name", _scenario.Title},
-                {"build", $"{shortReleaseDefinitionName} {releaseName} {_targetBrowser} {attemptNumber}"},
+                {"build", $"{shortReleaseDefinitionName} {releaseName} {_targetDevice} {_targetBrowser} {attemptNumber}"},
                 {"idleTimeout", SauceLabsIdleTimeoutInSeconds},
                 {"seleniumVersion", SauceLabSeleniumVersion},
-                {
-                    "screenResolution", _targetBrowser == TargetBrowser.Safari
-                        ? MacScreenResolution
-                        : WindowsScreenResolution
-                },
                 {"timeZone", Timezone }
             };
+
+            AddScreenResolutionForDesktop(sauceOptions);
 
             var drivers = GetDrivers();
             drivers[_targetBrowser].BlockedCamAndMic = scenario.Tags.Contains("Blocked");
@@ -67,6 +72,15 @@ namespace AcceptanceTests.Common.Driver
             drivers[_targetBrowser].SauceOptions = sauceOptions;
             drivers[_targetBrowser].Uri = new Uri(_sauceLabsSettings.RemoteServerUrl);
             return drivers[_targetBrowser].InitialiseForSauceLabs();
+        }
+
+        private static void AddScreenResolutionForDesktop(IDictionary<string, object> sauceOptions)
+        {
+            if (_targetDevice != TargetDevice.Desktop) return;
+            var resolution = _targetBrowser == TargetBrowser.Safari
+                ? MacScreenResolution
+                : WindowsScreenResolution;
+            sauceOptions.Add("screenResolution", resolution);
         }
 
         private static string GetAttemptNumber()
@@ -90,6 +104,17 @@ namespace AcceptanceTests.Common.Driver
 
         private static Dictionary<TargetBrowser, Drivers> GetDrivers()
         {
+            return _targetDevice switch
+            {
+                TargetDevice.Desktop => GetDesktopDrivers(),
+                TargetDevice.Tablet => GetTabletDrivers(),
+                TargetDevice.Mobile => GetMobileDrivers(),
+                _ => GetDesktopDrivers()
+            };
+        }
+
+        private static Dictionary<TargetBrowser, Drivers> GetDesktopDrivers()
+        {
             var drivers = new Dictionary<TargetBrowser, Drivers>
             {
                 {TargetBrowser.Chrome, new ChromeDriverStrategy()},
@@ -100,6 +125,26 @@ namespace AcceptanceTests.Common.Driver
                 {TargetBrowser.FirefoxMac, new FirefoxMacDriverStrategy()},
                 {TargetBrowser.Ie11, new InternetExplorerDriverStrategy()},
                 {TargetBrowser.Safari, new SafariDriverStrategy()}
+            };
+            return drivers;
+        }
+
+        private static Dictionary<TargetBrowser, Drivers> GetTabletDrivers()
+        {
+            var drivers = new Dictionary<TargetBrowser, Drivers>
+            {
+                {TargetBrowser.Chrome, new ChromeAndroidDriverStrategy()},
+                {TargetBrowser.Safari, new SafariIpadDriverStrategy()}
+            };
+            return drivers;
+        }
+
+        private static Dictionary<TargetBrowser, Drivers> GetMobileDrivers()
+        {
+            var drivers = new Dictionary<TargetBrowser, Drivers>
+            {
+                {TargetBrowser.Chrome, new ChromeAndroidMobileDriverStrategy()},
+                {TargetBrowser.Safari, new SafariIphoneDriverStrategy()}
             };
             return drivers;
         }

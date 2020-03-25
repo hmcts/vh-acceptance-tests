@@ -9,7 +9,9 @@
         EdgeChronium,
         Ie11,
         ChromeMac,
-        FirefoxMac,
+        FirefoxMac, 
+        ChromeAndroid,
+        ChromeIos,
         Default
     }
 }
