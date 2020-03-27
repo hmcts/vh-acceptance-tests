@@ -13,6 +13,7 @@ using AcceptanceTests.Common.Driver.Strategies.Tablet.Android;
 using AcceptanceTests.Common.Driver.Strategies.Tablet.iOS;
 using AcceptanceTests.Common.Driver.Support;
 using OpenQA.Selenium;
+using Protractor;
 using TechTalk.SpecFlow;
 
 namespace AcceptanceTests.Common.Driver
@@ -43,6 +44,12 @@ namespace AcceptanceTests.Common.Driver
         public IWebDriver GetDriver(string filename)
         {
             return _sauceLabsSettings.RunningOnSauceLabs() ? InitialiseSauceLabsDriver(_scenario) : InitialiseLocalDriver(filename, _scenario);
+        }
+
+        public void TeardownDriver(IWebDriver driver)
+        {
+            driver.Close();
+            driver.Dispose();
         }
 
         private IWebDriver InitialiseSauceLabsDriver(ScenarioInfo scenario)
