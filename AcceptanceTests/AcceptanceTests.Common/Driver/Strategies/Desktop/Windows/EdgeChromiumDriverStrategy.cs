@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Remote;
 
 namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
@@ -9,35 +8,28 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
     {
         public override RemoteWebDriver InitialiseForSauceLabs()
         {
-            var options = new EdgeOptions()
+            var capabilities = new DesiredCapabilities(new Dictionary<string, object>()
             {
-                BrowserVersion = "latest",
-                PlatformName = "Windows 10"
-            };
+                { "ms:edgeOptions", new Dictionary<string, object>() {
+                    {  "binary", @"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" },
+                    {  "args", new List<string> { "use-fake-ui-for-media-stream", "use-fake-device-for-media-stream" } }
+                }}
+            });
 
-            var capabilities = new Dictionary<string, object>
-            {
-                ["args"] = new List<string> { "use-fake-ui-for-media-stream", "use-fake-device-for-media-stream" }
-            };
-
-            capabilities.Add("ms:edgeOptions", options.ToCapabilities());
-
-            return new RemoteWebDriver(Uri, new DesiredCapabilities(capabilities), SauceLabsTimeout);
+            return new RemoteWebDriver(Uri, capabilities, SauceLabsTimeout);
         }
 
         public override IWebDriver InitialiseForLocal()
         {
-            var capabilities = new Dictionary<string, object>
+            var capabilities = new DesiredCapabilities(new Dictionary<string, object>()
             {
-                ["args"] = new List<string> { "use-fake-ui-for-media-stream", "use-fake-device-for-media-stream" }
-            };
-
-            capabilities.Add("ms:edgeOptions", new Dictionary<string, object>()
-            {
-                {"binary", @"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"}
+                { "ms:edgeOptions", new Dictionary<string, object>() {
+                    {  "binary", @"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" },
+                    {  "args", new List<string> { "use-fake-ui-for-media-stream", "use-fake-device-for-media-stream" } }
+                }}
             });
 
-            return new RemoteWebDriver(Uri, new DesiredCapabilities(capabilities), LocalTimeout);
+            return new RemoteWebDriver(Uri, capabilities, LocalTimeout);
         }
     }
 }
