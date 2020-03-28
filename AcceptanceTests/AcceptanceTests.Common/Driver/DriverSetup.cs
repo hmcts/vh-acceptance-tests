@@ -47,20 +47,6 @@ namespace AcceptanceTests.Common.Driver
             return _sauceLabsSettings.RunningOnSauceLabs() ? InitialiseSauceLabsDriver(_scenario) : InitialiseLocalDriver(filename, _scenario);
         }
 
-        public void StartEdgeChromiumService()
-        {
-            _edgeService = EdgeDriverService.CreateDefaultService(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"msedgedriver.exe");
-            _edgeService.UseVerboseLogging = true;
-            _edgeService.UseSpecCompliantProtocol = true;
-            _edgeService.Start();
-            
-        }
-
-        public void StopEdgeChromiumService()
-        {
-            _edgeService.Dispose();
-        }
-
         private IWebDriver InitialiseSauceLabsDriver(ScenarioInfo scenario)
         {
             var releaseDefinitionName = Environment.GetEnvironmentVariable("Release_DefinitionName");
@@ -117,7 +103,10 @@ namespace AcceptanceTests.Common.Driver
             drivers[_targetBrowser].UseVideoFiles = scenario.Tags.Contains("Video");
 
             if (_targetBrowser == TargetBrowser.EdgeChromium)
+            {
+                StartLocalEdgeChromiumService();
                 drivers[_targetBrowser].Uri = _edgeService.ServiceUrl;
+            }
 
             return drivers[_targetBrowser].InitialiseForLocal();
         }
@@ -167,6 +156,19 @@ namespace AcceptanceTests.Common.Driver
                 {TargetBrowser.Safari, new SafariIphoneDriverStrategy()}
             };
             return drivers;
+        }
+
+        public static void StartLocalEdgeChromiumService()
+        {
+            _edgeService = EdgeDriverService.CreateDefaultService(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"msedgedriver.exe");
+            _edgeService.UseVerboseLogging = true;
+            _edgeService.UseSpecCompliantProtocol = true;
+            _edgeService.Start();
+        }
+
+        public void StopLocalEdgeChromiumService()
+        {
+            _edgeService.Dispose();
         }
     }
 }

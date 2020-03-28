@@ -60,6 +60,11 @@ namespace AcceptanceTests.Common.Driver.Browser
             Driver.IgnoreSynchronization = true;
         }
 
+        public void StopEdgeChromiumServer()
+        {
+            _driver.StopLocalEdgeChromiumService();
+        }
+
         private void TryMaximizeBrowser()
         {
             try
