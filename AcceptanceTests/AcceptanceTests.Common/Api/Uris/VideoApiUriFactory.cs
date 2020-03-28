@@ -28,7 +28,7 @@ namespace AcceptanceTests.Common.Api.Uris
             public static string GetConferenceDetailsById(Guid conferenceId) => $"{ApiRoot}/{conferenceId}";
             public static string GetConferenceByHearingRefId(Guid hearingRefId) => $"{ApiRoot}/hearings/{hearingRefId}";
             public static string RemoveConference(Guid? conferenceId) => $"{ApiRoot}/{conferenceId}";
-            public static string GetTodaysConferences => $"{ApiRoot}/today";
+            public static string GetTodaysConferences => $"{ApiRoot}/today/vho";
         }
 
         public class VideoApiHealthCheckEndpoints
