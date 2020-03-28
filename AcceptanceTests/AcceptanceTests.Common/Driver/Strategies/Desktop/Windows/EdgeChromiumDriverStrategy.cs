@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Remote;
 
 namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
@@ -8,16 +9,17 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
     {
         public override RemoteWebDriver InitialiseForSauceLabs()
         {
-            var capabilities = new DesiredCapabilities(new Dictionary<string, object>()
+            var browserOptions = new EdgeOptions()
             {
-                { "ms:edgeOptions", new Dictionary<string, object>() {
-                    {  "binary", @"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" },
-                    {  "args", new List<string> { "use-fake-ui-for-media-stream", "use-fake-device-for-media-stream" } },
-                    {  "sauce:options", SauceOptions }
-                }}
-            });
+                PlatformName = "Windows 10",
+                BrowserVersion = "18.17763",
+                UseInPrivateBrowsing = true
+            };
 
-            return new RemoteWebDriver(Uri, capabilities, SauceLabsTimeout);
+            browserOptions.AddAdditionalCapability("args", new List<string> { "use-fake-ui-for-media-stream", "use-fake-device-for-media-stream" });
+            browserOptions.AddAdditionalCapability("sauce:options", SauceOptions);
+
+            return new RemoteWebDriver(Uri, browserOptions.ToCapabilities(), SauceLabsTimeout);
         }
 
         public override IWebDriver InitialiseForLocal()
