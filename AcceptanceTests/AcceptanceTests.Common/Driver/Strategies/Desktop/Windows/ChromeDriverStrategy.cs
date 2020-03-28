@@ -16,11 +16,8 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
                 AcceptInsecureCertificates = true
             };
 
-            if (!BlockedCamAndMic)
-            {
-                browserOptions.AddArgument("use-fake-ui-for-media-stream");
-                browserOptions.AddArgument("use-fake-device-for-media-stream");
-            }
+            browserOptions.AddArgument("use-fake-ui-for-media-stream");
+            browserOptions.AddArgument("use-fake-device-for-media-stream");
             browserOptions.AddAdditionalCapability("sauce:options", SauceOptions, true);
 
             return new RemoteWebDriver(Uri, browserOptions.ToCapabilities(), SauceLabsTimeout);
@@ -30,8 +27,6 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
         {
             var browserOptions = new ChromeOptions();
             browserOptions.AddArgument("ignore-certificate-errors");
-
-            if (BlockedCamAndMic) return new ChromeDriver(BuildPath, browserOptions, LocalTimeout);
             browserOptions.AddArgument("use-fake-ui-for-media-stream");
             browserOptions.AddArgument("use-fake-device-for-media-stream");
 

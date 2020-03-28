@@ -46,12 +46,6 @@ namespace AcceptanceTests.Common.Driver
             return _sauceLabsSettings.RunningOnSauceLabs() ? InitialiseSauceLabsDriver(_scenario) : InitialiseLocalDriver(filename, _scenario);
         }
 
-        public void TeardownDriver(IWebDriver driver)
-        {
-            driver.Close();
-            driver.Dispose();
-        }
-
         private IWebDriver InitialiseSauceLabsDriver(ScenarioInfo scenario)
         {
             var releaseDefinitionName = Environment.GetEnvironmentVariable("Release_DefinitionName");
@@ -127,7 +121,7 @@ namespace AcceptanceTests.Common.Driver
                 {TargetBrowser.Chrome, new ChromeDriverStrategy()},
                 {TargetBrowser.ChromeMac, new ChromeMacDriverStrategy()},
                 {TargetBrowser.Edge, new EdgeDriverStrategy()},
-                {TargetBrowser.EdgeChronium, new EdgeChroniumDriverStrategy()},
+                {TargetBrowser.EdgeChromium, new EdgeChromiumDriverStrategy()},
                 {TargetBrowser.Firefox, new FirefoxDriverStrategy()},
                 {TargetBrowser.FirefoxMac, new FirefoxMacDriverStrategy()},
                 {TargetBrowser.Ie11, new InternetExplorerDriverStrategy()},
