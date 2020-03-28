@@ -34,7 +34,7 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
 
             capabilities.Add("ms:edgeOptions", new Dictionary<string, object>()
             {
-                {"binary", @"C:\Program Files (x86)\Microsoft\Edge Dev\Application\msedge.exe"}
+                {"binary", @"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"}
             });
 
             return new RemoteWebDriver(Uri, new DesiredCapabilities(capabilities), LocalTimeout);
