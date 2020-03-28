@@ -13,7 +13,7 @@ using AcceptanceTests.Common.Driver.Strategies.Tablet.Android;
 using AcceptanceTests.Common.Driver.Strategies.Tablet.iOS;
 using AcceptanceTests.Common.Driver.Support;
 using OpenQA.Selenium;
-using Protractor;
+using OpenQA.Selenium.Edge;
 using TechTalk.SpecFlow;
 
 namespace AcceptanceTests.Common.Driver
@@ -32,6 +32,7 @@ namespace AcceptanceTests.Common.Driver
         private readonly ScenarioInfo _scenario;
         private static TargetDevice _targetDevice;
         private static TargetBrowser _targetBrowser;
+        private static EdgeDriverService _edgeService;
 
         public DriverSetup(SauceLabsSettingsConfig sauceLabsSettings, ScenarioInfo scenario, TargetDevice targetDevice, TargetBrowser targetBrowser)
         {
@@ -44,6 +45,20 @@ namespace AcceptanceTests.Common.Driver
         public IWebDriver GetDriver(string filename)
         {
             return _sauceLabsSettings.RunningOnSauceLabs() ? InitialiseSauceLabsDriver(_scenario) : InitialiseLocalDriver(filename, _scenario);
+        }
+
+        public void StartEdgeChromiumService()
+        {
+            _edgeService = EdgeDriverService.CreateDefaultService(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"msedgedriver.exe");
+            _edgeService.UseVerboseLogging = true;
+            _edgeService.UseSpecCompliantProtocol = true;
+            _edgeService.Start();
+            
+        }
+
+        public void StopEdgeChromiumService()
+        {
+            _edgeService.Dispose();
         }
 
         private IWebDriver InitialiseSauceLabsDriver(ScenarioInfo scenario)
@@ -100,6 +115,10 @@ namespace AcceptanceTests.Common.Driver
             drivers[_targetBrowser].LocalTimeout = TimeSpan.FromSeconds(LocalCommandTimeoutInSeconds);
             drivers[_targetBrowser].SauceLabsTimeout = TimeSpan.FromSeconds(SauceLabsCommandTimeoutInSeconds);
             drivers[_targetBrowser].UseVideoFiles = scenario.Tags.Contains("Video");
+
+            if (_targetBrowser == TargetBrowser.EdgeChromium)
+                drivers[_targetBrowser].Uri = _edgeService.ServiceUrl;
+
             return drivers[_targetBrowser].InitialiseForLocal();
         }
 

@@ -27,19 +27,17 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
 
         public override IWebDriver InitialiseForLocal()
         {
-            var options = new EdgeOptions()
-            {
-                BrowserVersion = "latest",
-                PlatformName = "Windows 10"
-            };
-
             var capabilities = new Dictionary<string, object>
             {
                 ["args"] = new List<string> { "use-fake-ui-for-media-stream", "use-fake-device-for-media-stream" }
             };
 
-            capabilities.Add("ms:edgeOptions", options.ToCapabilities());
-            return new EdgeDriver("C:\\Windows\\system32\\", options, LocalTimeout);
+            capabilities.Add("ms:edgeOptions", new Dictionary<string, object>()
+            {
+                {"binary", @"C:\Program Files (x86)\Microsoft\Edge Dev\Application\msedge.exe"}
+            });
+
+            return new RemoteWebDriver(Uri, new DesiredCapabilities(capabilities), LocalTimeout);
         }
     }
 }
