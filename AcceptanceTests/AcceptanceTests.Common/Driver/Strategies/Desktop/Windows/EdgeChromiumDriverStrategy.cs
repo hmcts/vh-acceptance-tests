@@ -12,7 +12,7 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
             var browserOptions = new EdgeOptions()
             {
                 PlatformName = "Windows 10",
-                BrowserVersion = "18.17763",
+                BrowserVersion = "latest",
                 UseInPrivateBrowsing = true
             };
 
