@@ -228,9 +228,13 @@ namespace AcceptanceTests.Common.Api
             processStartInfo.Environment["CONFIGURATION"] = Configuration;
 
             var process = Process.Start(processStartInfo);
-
+            
             process.WaitForExit();
-            process.ExitCode.Should().Be(0);
+
+            if(process.ExitCode != 0)
+            {
+                throw new Exception($"Error running cmd {processStartInfo.FileName} {processStartInfo.ArgumentList} {processStartInfo.WorkingDirectory}");
+            }
         }
 
         private static async Task<bool> WaitForService()
