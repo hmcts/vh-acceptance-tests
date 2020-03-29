@@ -193,6 +193,7 @@ namespace AcceptanceTests.Common.Api
 
             throw new Exception($"Unable to resolve api key from {configFile}");
         }
+
         private static void Build()
         {
             var processStartInfo = CreateProcess("dotnet", $"publish --configuration {Configuration}", $"{WorkingDirectory}\\{ZapConfiguration.SolutionFolderName}");
@@ -206,6 +207,7 @@ namespace AcceptanceTests.Common.Api
 
             RunProcess(processStartInfo);
         }
+
         private static ProcessStartInfo CreateProcess(string fileName, string arguments, string workingDirectory = null)
         {
             return new ProcessStartInfo
@@ -233,7 +235,7 @@ namespace AcceptanceTests.Common.Api
 
             if(process.ExitCode != 0)
             {
-                throw new Exception($"Error running cmd {processStartInfo.FileName} {processStartInfo.ArgumentList} {processStartInfo.WorkingDirectory}");
+                throw new Exception($"Error running cmd {processStartInfo.FileName} {processStartInfo.Arguments} {processStartInfo.WorkingDirectory}");
             }
         }
 
