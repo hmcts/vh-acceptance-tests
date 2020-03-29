@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using AcceptanceTests.Common.Api.Clients;
 using AcceptanceTests.Common.Api.Helpers;
@@ -51,9 +52,27 @@ namespace AcceptanceTests.Common.Api.Hearings
             return RequestExecutor.SendToApi(request, client);
         }
 
-        public IRestResponse GetConferencesForToday()
+        public IRestResponse GetConferencesForTodayJudge(string username)
         {
-            var endpoint = VideoApiUriFactory.ConferenceEndpoints.GetTodaysConferences;
+            var endpoint = VideoApiUriFactory.ConferenceEndpoints.GetTodaysConferencesForJudge;
+            var parameters = new Dictionary<string, string> {{"username", username}};
+            var request = RequestBuilder.Get(endpoint, parameters);
+            var client = ApiClient.SetClient(_videoApiUrl, _videoApiBearerToken);
+            return RequestExecutor.SendToApi(request, client);
+        }
+
+        public IRestResponse GetConferencesForTodayIndividual(string username)
+        {
+            var endpoint = VideoApiUriFactory.ConferenceEndpoints.GetTodaysConferencesForIndividual;
+            var parameters = new Dictionary<string, string> { { "username", username } };
+            var request = RequestBuilder.Get(endpoint, parameters);
+            var client = ApiClient.SetClient(_videoApiUrl, _videoApiBearerToken);
+            return RequestExecutor.SendToApi(request, client);
+        }
+
+        public IRestResponse GetConferencesForTodayVho()
+        {
+            var endpoint = VideoApiUriFactory.ConferenceEndpoints.GetTodaysConferencesForVho;
             var request = RequestBuilder.Get(endpoint);
             var client = ApiClient.SetClient(_videoApiUrl, _videoApiBearerToken);
             return RequestExecutor.SendToApi(request, client);
