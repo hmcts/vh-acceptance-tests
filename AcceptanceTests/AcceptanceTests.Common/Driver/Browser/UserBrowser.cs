@@ -57,6 +57,7 @@ namespace AcceptanceTests.Common.Driver.Browser
             var driver = _driver.GetDriver(_videoFileName);
             Driver = new NgWebDriver(driver);
             TryMaximizeBrowser();
+            Driver.IgnoreSynchronization = true;
         }
 
         public void StopEdgeChromiumServer()
