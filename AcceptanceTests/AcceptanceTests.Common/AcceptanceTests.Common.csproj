@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <PackOnBuild>true</PackOnBuild>
     <PackageId>VH.AcceptanceTests.Common</PackageId>
-    <PackageVersion>1.0.112</PackageVersion>
+    <PackageVersion>1.0.113</PackageVersion>
     <Authors>Nicholas Poxon</Authors>
     <Owners>Video Hearings</Owners>
     <PackageProjectUrl>https://github.com/hmcts/vh-acceptance-tests</PackageProjectUrl>
@@ -32,6 +32,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="OWASPZAPDotNetAPI" Version="2.8.0" />
     <PackageReference Include="Polly" Version="7.2.0" />
     <PackageReference Include="Protractor.Net.Standard.Latest.Selenium" Version="0.12.1" />
     <PackageReference Include="RestSharp" Version="106.10.1" />
