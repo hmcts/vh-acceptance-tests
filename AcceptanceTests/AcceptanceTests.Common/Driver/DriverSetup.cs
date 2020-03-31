@@ -168,7 +168,7 @@ namespace AcceptanceTests.Common.Driver
 
         public void StopLocalEdgeChromiumService()
         {
-            _edgeService.Dispose();
+            _edgeService?.Dispose();
         }
     }
 }
