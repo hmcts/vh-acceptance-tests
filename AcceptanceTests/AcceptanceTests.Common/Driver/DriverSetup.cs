@@ -27,7 +27,7 @@ namespace AcceptanceTests.Common.Driver
         private const int LocalCommandTimeoutInSeconds = 20;
         private const string SauceLabSeleniumVersion = "3.141.59";
         private const string SauceLabsMacPlatformVersion = "macOS 10.15";
-        private const string Timezone = "Greenwich";
+        private const string Timezone = "London";
         private readonly SauceLabsSettingsConfig _sauceLabsSettings;
         private readonly ScenarioInfo _scenario;
         private static TargetDevice _targetDevice;
