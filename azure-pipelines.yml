@@ -2,25 +2,17 @@ trigger:
   branches:
     include:
     - master
-  tags:
-    include:
-    - v*
 pr:
   - master
 
 pool:
-  name: Azure-VSTS-VS2017
+  vmImage: ubuntu-16.04
+
+container: mcr.microsoft.com/dotnet/core/sdk:3.1
 
 steps:
 - task: gittools.gitversion.gitversion-task.GitVersion@5
   displayName: GitVersion
-  inputs:
-    additionalArguments: /updateassemblyinfo AcceptanceTests/AcceptanceTests.Common/AssemblyInfo.cs /ensureassemblyinfo
-
-- task: UseDotNet@2
-  displayName: 'Install latest dotnet'
-  inputs:
-    version: 3.1.102
 
 - task: DotNetCoreCLI@2
   displayName: 'dotnet restore'
@@ -38,7 +30,8 @@ steps:
     modifyOutputPath: false
     publishWebProjects: false
     projects: '**/AcceptanceTests.Common/*.csproj'
-    arguments: '-o $(Build.ArtifactStagingDirectory)\ '
+    arguments: '-o $(Build.ArtifactStagingDirectory)\ --configuration release /p:Version="$($gitversion.NuGetVersion)"'
+    versioningScheme: byBuildNumber
 
 - task: DotNetCoreCLI@2
   displayName: 'dotnet push'
@@ -46,3 +39,4 @@ steps:
   inputs:
     command: push
     publishVstsFeed: '3f69a23d-fbc7-4541-afc7-4cccefcad773/e48b2732-376c-4052-ba97-b28783c9bab5'
+    versioningScheme: byBuildNumber
