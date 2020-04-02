@@ -5,11 +5,16 @@ trigger:
 pr:
   - master
 
+resources:
+  containers:
+  - container: dotnetsdk
+    image: sspublicsbox.azurecr.io/vh/dotnet:3.1.102
+    endpoint: sspublicsbox
+
 pool:
   vmImage: ubuntu-16.04
 
-container: mcr.microsoft.com/dotnet/core/sdk:3.1
-
+container: dotnetsdk
 steps:
 - task: gittools.gitversion.gitversion-task.GitVersion@5
   displayName: GitVersion
