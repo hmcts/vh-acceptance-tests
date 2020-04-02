@@ -14,6 +14,8 @@ pool:
 steps:
 - task: gittools.gitversion.gitversion-task.GitVersion@5
   displayName: GitVersion
+  inputs:
+    additionalArguments: /updateassemblyinfo AcceptanceTests/AcceptanceTests.Common/AssemblyInfo.cs /ensureassemblyinfo
 
 - task: UseDotNet@2
   displayName: 'Install latest dotnet'
@@ -37,12 +39,6 @@ steps:
     publishWebProjects: false
     projects: '**/AcceptanceTests.Common/*.csproj'
     arguments: '-o $(Build.ArtifactStagingDirectory)\ '
-    
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet build'
-  inputs:
-    projects: '**/AcceptanceTests.Common/*.csproj'
-    arguments: '-o $(Build.ArtifactStagingDirectory)\ '   
 
 - task: DotNetCoreCLI@2
   displayName: 'dotnet push'
