@@ -2,28 +2,26 @@ trigger:
   branches:
     include:
     - master
-  tags:
-    include:
-    - v*
 pr:
   - master
 
+resources:
+  containers:
+  - container: dotnetsdk
+    image: sspublicsbox.azurecr.io/vh/dotnet:3.1.102
+    endpoint: sspublicsbox
+
 pool:
-  name: Azure-VSTS-VS2017
+  vmImage: ubuntu-16.04
+
+container: dotnetsdk
 
 steps:
 - task: gittools.gitversion.gitversion-task.GitVersion@5
   displayName: GitVersion
-  inputs:
-    additionalArguments: /updateassemblyinfo AcceptanceTests/AcceptanceTests.Common/AssemblyInfo.cs /ensureassemblyinfo
-
-- task: UseDotNet@2
-  displayName: 'Install latest dotnet'
-  inputs:
-    version: 3.1.102
 
 - task: DotNetCoreCLI@2
-  displayName: 'dotnet restore'
+  displayName: Restore Dependencies
   inputs:
     command: restore
     projects: '**/AcceptanceTests.Common/*.csproj'
@@ -31,18 +29,16 @@ steps:
     verbosityRestore: Minimal
 
 - task: DotNetCoreCLI@2
-  displayName: 'dotnet publish'
+  displayName: Create NuGet Package
   inputs:
-    command: publish
-    zipAfterPublish: false
-    modifyOutputPath: false
-    publishWebProjects: false
     projects: '**/AcceptanceTests.Common/*.csproj'
-    arguments: '-o $(Build.ArtifactStagingDirectory)\ '
+    arguments: '--configuration release /p:Version="$(GitVersion.NuGetVersion)" /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)"'
+    versioningScheme: byBuildNumber
 
 - task: DotNetCoreCLI@2
-  displayName: 'dotnet push'
-  condition: and(always(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  displayName: Push Package to VH NuGet Repo
   inputs:
     command: push
+    searchPatternPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
     publishVstsFeed: '3f69a23d-fbc7-4541-afc7-4cccefcad773/e48b2732-376c-4052-ba97-b28783c9bab5'
+    versioningScheme: byBuildNumber
