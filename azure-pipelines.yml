@@ -35,7 +35,7 @@ steps:
     modifyOutputPath: false
     publishWebProjects: false
     projects: '**/AcceptanceTests.Common/*.csproj'
-    arguments: '-o $(Build.ArtifactStagingDirectory)\ --configuration release /p:Version="$($gitversion.NuGetVersion)"'
+    arguments: '-o $(Build.ArtifactStagingDirectory)\ --configuration release /p:Version="$(GitVersion.NuGetVersion)"'
     versioningScheme: byBuildNumber
 
 - task: DotNetCoreCLI@2
