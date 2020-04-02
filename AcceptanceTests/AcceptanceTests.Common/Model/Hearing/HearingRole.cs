@@ -3,7 +3,7 @@
     public enum HearingRole
     {
         ClaimantLip,
-        Solicitor,
+        Representative,
         DefendantLip,
         RespondentLip,
         ApplicantLip
