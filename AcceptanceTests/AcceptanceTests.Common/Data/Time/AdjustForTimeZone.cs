@@ -1,0 +1,28 @@
+﻿using System;
+using AcceptanceTests.Common.Driver.Support;
+
+namespace AcceptanceTests.Common.Data.Time
+{
+    public class TimeZone
+    {
+        private readonly bool _runningOnSauceLabs;
+        private readonly TargetBrowser _browser;
+        public TimeZone(bool runningOnSaucelabs, TargetBrowser browser)
+        {
+            _runningOnSauceLabs = runningOnSaucelabs;
+            _browser = browser;
+        }
+
+        public DateTime Adjust(DateTime dateTime)
+        {
+            if (!_runningOnSauceLabs) return dateTime.ToLocalTime();
+            if (_browser == TargetBrowser.Safari ||
+                _browser == TargetBrowser.ChromeMac ||
+                _browser == TargetBrowser.FirefoxMac)
+            {
+                return dateTime.ToUniversalTime().AddHours(1);
+            }
+            return dateTime.ToUniversalTime();
+        }
+    }
+}
