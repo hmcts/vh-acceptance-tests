@@ -7,13 +7,14 @@ namespace AcceptanceTests.Common.Configuration
 {
     public static class ConfigurationManager
     {
-        public static IConfigurationRoot BuildConfig(string userSecretsId, string targetEnvironment = "")
+        public static IConfigurationRoot BuildConfig(string userSecretsId, string targetEnvironment = "", bool runOnSaucelabsFromLocal = false)
         {
             var configRootBuilder = new ConfigurationBuilder()
                 .AddJsonFile($"appsettings.json")
                 .AddJsonFile("useraccounts.json", true)
-                .AddJsonFile("saucelabs.json", true)
                 .AddUserSecrets(userSecretsId);
+            if (runOnSaucelabsFromLocal)
+                configRootBuilder.AddJsonFile("saucelabs.json");
             if (targetEnvironment.Length > 0)
                 configRootBuilder.AddJsonFile($"appsettings.{targetEnvironment}.json");
             return configRootBuilder.Build();
