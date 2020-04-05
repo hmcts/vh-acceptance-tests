@@ -8,6 +8,14 @@
         Edge,
         EdgeChromium,
         Ie11,
+        MacChrome,
+        MacFirefox,
+        AndroidMobileChrome,
+        iOSMobileChrome,
+        iOSMobileSafari,
+        AndroidTabletChrome,
+        iOSTabletChrome,
+        iOSTabletSafari,
         Samsung,
         Default
     }

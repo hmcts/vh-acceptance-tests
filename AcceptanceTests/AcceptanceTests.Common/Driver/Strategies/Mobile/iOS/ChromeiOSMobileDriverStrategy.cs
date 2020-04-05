@@ -6,7 +6,7 @@ using OpenQA.Selenium.Safari;
 
 namespace AcceptanceTests.Common.Driver.Strategies.Mobile.iOS
 {
-    internal class ChromeIphoneDriverStrategy : Drivers
+    internal class ChromeiOSMobileDriverStrategy : Drivers
     {
         public override RemoteWebDriver InitialiseForSauceLabs()
         {
