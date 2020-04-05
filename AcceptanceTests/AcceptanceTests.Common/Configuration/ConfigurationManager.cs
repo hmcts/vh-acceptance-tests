@@ -12,6 +12,7 @@ namespace AcceptanceTests.Common.Configuration
             var configRootBuilder = new ConfigurationBuilder()
                 .AddJsonFile($"appsettings.json")
                 .AddJsonFile("useraccounts.json", true)
+                .AddJsonFile("saucelabs.json", true)
                 .AddUserSecrets(userSecretsId);
             if (targetEnvironment.Length > 0)
                 configRootBuilder.AddJsonFile($"appsettings.{targetEnvironment}.json");

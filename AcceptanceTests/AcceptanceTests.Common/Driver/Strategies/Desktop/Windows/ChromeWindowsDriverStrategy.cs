@@ -4,7 +4,7 @@ using OpenQA.Selenium.Remote;
 
 namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
 {
-    internal class ChromeDriverStrategy : Drivers
+    internal class ChromeWindowsDriverStrategy : Drivers
     {
         public override RemoteWebDriver InitialiseForSauceLabs()
         {

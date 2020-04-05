@@ -4,7 +4,7 @@ using OpenQA.Selenium.Remote;
 
 namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
 {
-    internal class FirefoxDriverStrategy : Drivers
+    internal class FirefoxWindowsDriverStrategy : Drivers
     {
         public override RemoteWebDriver InitialiseForSauceLabs()
         {

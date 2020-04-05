@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Remote;
 
 namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
 {
-    internal class EdgeChromiumDriverStrategy : Drivers
+    internal class EdgeChromiumWindowsDriverStrategy : Drivers
     {
         [System.Obsolete]
         public override RemoteWebDriver InitialiseForSauceLabs()

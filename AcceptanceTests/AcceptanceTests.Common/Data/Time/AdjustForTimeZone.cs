@@ -6,23 +6,17 @@ namespace AcceptanceTests.Common.Data.Time
     public class TimeZone
     {
         private readonly bool _runningOnSauceLabs;
-        private readonly TargetBrowser _browser;
-        public TimeZone(bool runningOnSaucelabs, TargetBrowser browser)
+        private readonly TargetOS _targetOS;
+        public TimeZone(bool runningOnSaucelabs, TargetOS targetOS)
         {
             _runningOnSauceLabs = runningOnSaucelabs;
-            _browser = browser;
+            _targetOS = targetOS;
         }
 
         public DateTime Adjust(DateTime dateTime)
         {
             if (!_runningOnSauceLabs) return dateTime.ToLocalTime();
-            if (_browser == TargetBrowser.Safari ||
-                _browser == TargetBrowser.ChromeMac ||
-                _browser == TargetBrowser.FirefoxMac)
-            {
-                return dateTime.ToUniversalTime().AddHours(1);
-            }
-            return dateTime.ToUniversalTime();
+            return _targetOS == TargetOS.macOS ? dateTime.ToUniversalTime().AddHours(1) : dateTime.ToUniversalTime();
         }
     }
 }

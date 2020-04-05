@@ -8,10 +8,7 @@
         Edge,
         EdgeChromium,
         Ie11,
-        ChromeMac,
-        FirefoxMac, 
-        ChromeAndroid,
-        ChromeIos,
+        Samsung,
         Default
     }
 }
