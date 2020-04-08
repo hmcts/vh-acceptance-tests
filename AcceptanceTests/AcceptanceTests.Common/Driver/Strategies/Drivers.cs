@@ -12,6 +12,7 @@ namespace AcceptanceTests.Common.Driver.Strategies
         internal string Filename { get; set; }
         internal TimeSpan IdleTimeout { get; set; }
         internal TimeSpan LocalTimeout { get; set; }
+        internal bool LoggingEnabled { get; set; }
         internal string MacPlatform { get; set; }
         internal TimeSpan SauceLabsTimeout { get; set; }
         internal Dictionary<string, object> SauceOptions { get; set; }

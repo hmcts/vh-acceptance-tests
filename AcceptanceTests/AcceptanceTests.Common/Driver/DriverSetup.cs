@@ -69,6 +69,7 @@ namespace AcceptanceTests.Common.Driver
 
             var drivers = GetDrivers();
             drivers[_targetBrowser].BlockedCamAndMic = scenario.Tags.Contains("Blocked");
+            drivers[_targetBrowser].LoggingEnabled = scenario.Tags.Contains("LoggingEnabled");
             drivers[_targetBrowser].IdleTimeout = TimeSpan.FromSeconds(SauceLabsIdleTimeoutInSeconds);
             drivers[_targetBrowser].MacPlatform = SauceLabsMacPlatformVersion;
             drivers[_targetBrowser].SauceLabsTimeout = TimeSpan.FromSeconds(SauceLabsCommandTimeoutInSeconds);
@@ -97,6 +98,7 @@ namespace AcceptanceTests.Common.Driver
         {
             var drivers = GetDrivers();
             drivers[_targetBrowser].BlockedCamAndMic = scenario.Tags.Contains("Blocked");
+            drivers[_targetBrowser].LoggingEnabled = scenario.Tags.Contains("LoggingEnabled");
             drivers[_targetBrowser].BuildPath = _targetBrowser == TargetBrowser.Safari ? "/usr/bin/" : Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             drivers[_targetBrowser].Filename = filename;
             drivers[_targetBrowser].LocalTimeout = TimeSpan.FromSeconds(LocalCommandTimeoutInSeconds);

@@ -16,11 +16,9 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
                 { "browserVersion", "latest" },
                 { "ms:inPrivate", true },
                 { "ms:edgeOptions", new Dictionary<string, object>() {
-                    {  "args", new List<string> { "use-fake-ui-for-media-stream", "use-fake-device-for-media-stream" } }
-                }},
+                    { "args", new List<string> { "use-fake-ui-for-media-stream", "use-fake-device-for-media-stream", "log-level=1" } }}},
                 { "sauce:options", SauceOptions}
             });
-
             return new RemoteWebDriver(Uri, capabilities, SauceLabsTimeout);
         }
 
@@ -31,7 +29,7 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
             {
                 { "ms:edgeOptions", new Dictionary<string, object>() {
                     {  "binary", @"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" },
-                    {  "args", new List<string> { "use-fake-ui-for-media-stream", "use-fake-device-for-media-stream" } }
+                    {  "args", new List<string> { "use-fake-ui-for-media-stream", "use-fake-device-for-media-stream", "log-level=1" } }
                 }}
             });
 

@@ -8,25 +8,29 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
     {
         public override RemoteWebDriver InitialiseForSauceLabs()
         {
-            var browserOptions = new FirefoxOptions { PlatformName = "Windows 10", BrowserVersion = "latest", AcceptInsecureCertificates = true };
-            if (!BlockedCamAndMic)
-            {
-                browserOptions.SetPreference("media.navigator.streams.fake", true);
-                browserOptions.SetPreference("media.navigator.permission.disabled", true);
-            }
-            browserOptions.AddAdditionalCapability("sauce:options", SauceOptions, true);
-            return new RemoteWebDriver(Uri, browserOptions);
+            var options = new FirefoxOptions { PlatformName = "Windows 10", BrowserVersion = "latest", AcceptInsecureCertificates = true };
+
+            if (LoggingEnabled)
+                options.SetLoggingPreference(LogType.Browser, LogLevel.Info);
+            
+            options.SetPreference("media.navigator.streams.fake", true);
+            options.SetPreference("media.navigator.permission.disabled", true);
+            options.AddAdditionalCapability("sauce:options", SauceOptions, true);
+            return new RemoteWebDriver(Uri, options);
         }
 
         public override IWebDriver InitialiseForLocal()
         {
             var geckoService = FirefoxDriverService.CreateDefaultService(BuildPath);
             geckoService.Host = "::1";
-            var browserOptions = new FirefoxOptions(){ AcceptInsecureCertificates = true };
-            if (BlockedCamAndMic) return new FirefoxDriver(geckoService, browserOptions, LocalTimeout);
-            browserOptions.SetPreference("media.navigator.streams.fake", true);
-            browserOptions.SetPreference("media.navigator.permission.disabled", true);
-            return new FirefoxDriver(geckoService, browserOptions, LocalTimeout);
+            var options = new FirefoxOptions(){ AcceptInsecureCertificates = true };
+
+            if (LoggingEnabled)
+                options.SetLoggingPreference(LogType.Browser, LogLevel.Info);
+
+            options.SetPreference("media.navigator.streams.fake", true);
+            options.SetPreference("media.navigator.permission.disabled", true);
+            return new FirefoxDriver(geckoService, options, LocalTimeout);
         }
     }
 }
