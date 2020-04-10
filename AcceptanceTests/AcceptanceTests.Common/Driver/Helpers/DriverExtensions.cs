@@ -79,12 +79,28 @@ namespace AcceptanceTests.Common.Driver.Helpers
             try
             {
                 var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeout));
-                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.TextToBePresentInElementValue(elementLocator, ""));
+                wait.Until(TextEmptyInElementValue(elementLocator));
             }
             catch (NoSuchElementException ex)
             {
                 throw new NoSuchElementException($"Element with locator: '{elementLocator}' was not found in current context page.", ex);
             }
+        }
+
+        public static Func<IWebDriver, bool> TextEmptyInElementValue(By locator)
+        {
+            return driver =>
+            {
+                try
+                {
+                    var attribute = driver.FindElement(locator).GetAttribute("value");
+                    return attribute != null && attribute.Equals("");
+                }
+                catch
+                {
+                    return false;
+                }
+            };
         }
 
         public static Func<IWebDriver, bool> TextToBePresentInElementValue(By locator, string text)
@@ -94,7 +110,7 @@ namespace AcceptanceTests.Common.Driver.Helpers
                try
                {
                    var attribute = driver.FindElement(locator).GetAttribute("value");
-                   return !string.IsNullOrEmpty(attribute) && attribute.Trim().Contains(text);
+                   return !string.IsNullOrEmpty(attribute) && attribute.Trim().Equals(text);
                }
                catch
                {
