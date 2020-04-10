@@ -67,7 +67,7 @@ namespace AcceptanceTests.Common.Driver.Helpers
             try
             {
                 var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeout));
-                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.TextToBePresentInElementLocated(elementLocator, text));
+                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.TextToBePresentInElementValue(elementLocator, text));
             }
             catch (NoSuchElementException ex)
             {
