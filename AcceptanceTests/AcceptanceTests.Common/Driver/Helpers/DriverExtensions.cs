@@ -62,16 +62,16 @@ namespace AcceptanceTests.Common.Driver.Helpers
         }
 
 
-        public static void WaitUntilTextPresent(this IWebDriver driver, IWebElement element, string text, int timeout = 20)
+        public static void WaitUntilTextPresent(this IWebDriver driver, By elementLocator, string text, int timeout = 20)
         {
             try
             {
                 var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeout));
-                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.TextToBePresentInElement(element, text));
+                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.TextToBePresentInElementLocated(elementLocator, text));
             }
             catch (NoSuchElementException ex)
             {
-                throw new NoSuchElementException($"Element with tag name: '{element.TagName}' was not found in current context page with text {text}.", ex);
+                throw new NoSuchElementException($"Element with locator: '{elementLocator}' was not found in current context page with text {text}.", ex);
             }
         }
 
