@@ -61,18 +61,46 @@ namespace AcceptanceTests.Common.Driver.Helpers
             }
         }
 
-
         public static void WaitUntilTextPresent(this IWebDriver driver, By elementLocator, string text, int timeout = 20)
         {
             try
             {
                 var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeout));
-                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.TextToBePresentInElementValue(elementLocator, text));
+                wait.Until(TextToBePresentInElementValue(elementLocator, text));
             }
             catch (NoSuchElementException ex)
             {
                 throw new NoSuchElementException($"Element with locator: '{elementLocator}' was not found in current context page with text {text}.", ex);
             }
+        }
+
+        public static void WaitUntilTextEmpty(this IWebDriver driver, By elementLocator, int timeout = 20)
+        {
+            try
+            {
+                var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeout));
+                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.TextToBePresentInElementValue(elementLocator, ""));
+            }
+            catch (NoSuchElementException ex)
+            {
+                throw new NoSuchElementException($"Element with locator: '{elementLocator}' was not found in current context page.", ex);
+            }
+        }
+
+        public static Func<IWebDriver, bool> TextToBePresentInElementValue(By locator, string text)
+        {
+            return driver =>
+            {
+               try
+               {
+                   var attribute = driver.FindElement(locator).GetAttribute("value");
+                   return !string.IsNullOrEmpty(attribute) && attribute.Trim().Contains(text);
+               }
+               catch
+               {
+                   return false;
+               }
+            };
         }
 
         public static IWebElement WaitUntilElementExists(this IWebDriver driver, By elementLocator, int timeout = 20)

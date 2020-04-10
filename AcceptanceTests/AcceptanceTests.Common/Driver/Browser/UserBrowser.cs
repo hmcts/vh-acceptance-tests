@@ -183,7 +183,7 @@ namespace AcceptanceTests.Common.Driver.Browser
         {
             Driver.WaitUntilVisible(element);
             Driver.ExecuteScript("arguments[0].value = '';", Driver.FindElement(element));
-            Driver.WaitUntilTextPresent(element, "");
+            Driver.WaitUntilTextEmpty(element);
         }
 
         public void NavigateBack()
