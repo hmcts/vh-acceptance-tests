@@ -25,7 +25,7 @@ namespace AcceptanceTests.Common.Data.Time
             return dateTime.ToUniversalTime();
         }
 
-        public DateTime AdjustForCreateHearingVideoWeb(DateTime dateTime)
+        public DateTime AdjustForVideoWeb(DateTime dateTime)
         {
             return !_runningOnSauceLabs ? dateTime.ToLocalTime() : dateTime.ToUniversalTime();
         }
