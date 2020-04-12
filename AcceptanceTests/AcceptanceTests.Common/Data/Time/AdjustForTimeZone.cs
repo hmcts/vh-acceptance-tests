@@ -7,12 +7,10 @@ namespace AcceptanceTests.Common.Data.Time
     {
         private readonly bool _runningOnSauceLabs;
         private readonly TargetBrowser _browser;
-        private readonly bool _isVideoWeb;
-        public TimeZone(bool runningOnSaucelabs, TargetBrowser browser, bool isVideoWeb = false)
+        public TimeZone(bool runningOnSaucelabs, TargetBrowser browser)
         {
             _runningOnSauceLabs = runningOnSaucelabs;
             _browser = browser;
-            _isVideoWeb = isVideoWeb;
         }
 
         public DateTime Adjust(DateTime dateTime)
@@ -22,9 +20,14 @@ namespace AcceptanceTests.Common.Data.Time
                 _browser == TargetBrowser.MacChrome ||
                 _browser == TargetBrowser.MacFirefox)
             {
-                return _isVideoWeb ? dateTime.ToUniversalTime() : dateTime.ToUniversalTime().AddHours(1);
+                return dateTime.ToUniversalTime().AddHours(1);
             }
             return dateTime.ToUniversalTime();
+        }
+
+        public DateTime AdjustForCreateHearingVideoWeb(DateTime dateTime)
+        {
+            return !_runningOnSauceLabs ? dateTime.ToLocalTime() : dateTime.ToUniversalTime();
         }
     }
 }
