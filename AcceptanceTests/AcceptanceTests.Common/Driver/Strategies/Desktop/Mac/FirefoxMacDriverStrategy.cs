@@ -11,7 +11,10 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Mac
             var browserOptions = new FirefoxOptions { PlatformName = MacPlatform, BrowserVersion = "latest", AcceptInsecureCertificates = true };
             browserOptions.SetPreference("media.navigator.streams.fake", true);
             browserOptions.SetPreference("media.navigator.permission.disabled", true);
-            SauceOptions.Add("extendedDebugging", true);
+
+            if (LoggingEnabled)
+                SauceOptions.Add("extendedDebugging", true);
+
             browserOptions.AddAdditionalCapability("sauce:options", SauceOptions, true);
             return new RemoteWebDriver(Uri, browserOptions);
         }

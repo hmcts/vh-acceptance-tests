@@ -16,10 +16,8 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
                 AcceptInsecureCertificates = true
             };
 
-            SauceOptions.Add("extendedDebugging", true);
-
             if (LoggingEnabled)
-                options.SetLoggingPreference(LogType.Browser, LogLevel.Info);
+                SauceOptions.Add("extendedDebugging", true);
 
             options.AddArgument("use-fake-ui-for-media-stream");
             options.AddArgument("use-fake-device-for-media-stream");

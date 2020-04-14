@@ -34,11 +34,13 @@ namespace AcceptanceTests.Common.Driver
         private static TargetBrowser _targetBrowser;
         private static TargetDevice _targetDevice;
         private static EdgeDriverService _edgeService;
+        private readonly bool _enableLogging;
 
         public DriverSetup(SauceLabsSettingsConfig sauceLabsSettings, ScenarioInfo scenario, DriverOptions driverOptions)
         {
             _sauceLabsSettings = sauceLabsSettings;
             _scenario = scenario;
+            _enableLogging = driverOptions.EnableLogging;
             _targetBrowser = driverOptions.TargetBrowser;
             _targetDevice = driverOptions.TargetDevice;
         }
@@ -69,7 +71,7 @@ namespace AcceptanceTests.Common.Driver
 
             var drivers = GetDrivers();
             drivers[_targetBrowser].BlockedCamAndMic = scenario.Tags.Contains("Blocked");
-            drivers[_targetBrowser].LoggingEnabled = scenario.Tags.Contains("LoggingEnabled");
+            drivers[_targetBrowser].LoggingEnabled = _enableLogging;
             drivers[_targetBrowser].IdleTimeout = TimeSpan.FromSeconds(SauceLabsIdleTimeoutInSeconds);
             drivers[_targetBrowser].MacPlatform = SauceLabsMacPlatformVersion;
             drivers[_targetBrowser].SauceLabsTimeout = TimeSpan.FromSeconds(SauceLabsCommandTimeoutInSeconds);

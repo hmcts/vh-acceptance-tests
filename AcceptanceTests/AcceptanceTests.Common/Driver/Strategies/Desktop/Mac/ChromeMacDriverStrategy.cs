@@ -8,7 +8,7 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Mac
     {
         public override RemoteWebDriver InitialiseForSauceLabs()
         {
-            var browserOptions = new ChromeOptions
+            var options = new ChromeOptions
             {
                 BrowserVersion = "latest",
                 PlatformName = MacPlatform,
@@ -16,12 +16,14 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Mac
                 AcceptInsecureCertificates = true
             };
 
-            SauceOptions.Add("extendedDebugging", true);
-            browserOptions.AddArgument("use-fake-ui-for-media-stream");
-            browserOptions.AddArgument("use-fake-device-for-media-stream");
-            browserOptions.AddAdditionalCapability("sauce:options", SauceOptions, true);
+            if (LoggingEnabled)
+                SauceOptions.Add("extendedDebugging", true);
 
-            return new RemoteWebDriver(Uri, browserOptions.ToCapabilities(), SauceLabsTimeout);
+            options.AddArgument("use-fake-ui-for-media-stream");
+            options.AddArgument("use-fake-device-for-media-stream");
+            options.AddAdditionalCapability("sauce:options", SauceOptions, true);
+
+            return new RemoteWebDriver(Uri, options.ToCapabilities(), SauceLabsTimeout);
         }
 
         public override IWebDriver InitialiseForLocal()
