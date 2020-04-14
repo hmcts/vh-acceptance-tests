@@ -15,8 +15,8 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Mac
                 UseSpecCompliantProtocol = true,
                 AcceptInsecureCertificates = true
             };
-            SauceOptions.Add("extendedDebugging", true);
 
+            SauceOptions.Add("extendedDebugging", true);
             browserOptions.AddArgument("use-fake-ui-for-media-stream");
             browserOptions.AddArgument("use-fake-device-for-media-stream");
             browserOptions.AddAdditionalCapability("sauce:options", SauceOptions, true);

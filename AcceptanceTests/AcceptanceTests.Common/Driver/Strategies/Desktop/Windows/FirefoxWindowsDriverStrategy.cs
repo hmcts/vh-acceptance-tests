@@ -9,10 +9,7 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
         public override RemoteWebDriver InitialiseForSauceLabs()
         {
             var options = new FirefoxOptions { PlatformName = "Windows 10", BrowserVersion = "latest", AcceptInsecureCertificates = true };
-
-            if (LoggingEnabled)
-                options.SetLoggingPreference(LogType.Browser, LogLevel.Info);
-            
+            SauceOptions.Add("extendedDebugging", true);
             options.SetPreference("media.navigator.streams.fake", true);
             options.SetPreference("media.navigator.permission.disabled", true);
             options.AddAdditionalCapability("sauce:options", SauceOptions, true);
