@@ -9,11 +9,8 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Mac
         public override RemoteWebDriver InitialiseForSauceLabs()
         {
             var browserOptions = new FirefoxOptions { PlatformName = MacPlatform, BrowserVersion = "latest", AcceptInsecureCertificates = true };
-            if (!BlockedCamAndMic)
-            {
-                browserOptions.SetPreference("media.navigator.streams.fake", true);
-                browserOptions.SetPreference("media.navigator.permission.disabled", true);
-            }
+            browserOptions.SetPreference("media.navigator.streams.fake", true);
+            browserOptions.SetPreference("media.navigator.permission.disabled", true);
             SauceOptions.Add("extendedDebugging", true);
             browserOptions.AddAdditionalCapability("sauce:options", SauceOptions, true);
             return new RemoteWebDriver(Uri, browserOptions);
@@ -24,7 +21,6 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Mac
             var geckoService = FirefoxDriverService.CreateDefaultService(BuildPath);
             geckoService.Host = "::1";
             var browserOptions = new FirefoxOptions();
-            if (BlockedCamAndMic) return new FirefoxDriver(geckoService, browserOptions, LocalTimeout);
             browserOptions.SetPreference("media.navigator.streams.fake", true);
             browserOptions.SetPreference("media.navigator.permission.disabled", true);
             return new FirefoxDriver(geckoService, browserOptions, LocalTimeout);
