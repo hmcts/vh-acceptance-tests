@@ -12,6 +12,10 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
             SauceOptions.Add("extendedDebugging", true);
             options.SetPreference("media.navigator.streams.fake", true);
             options.SetPreference("media.navigator.permission.disabled", true);
+            options.SetPreference("devtools.chrome.enabled", true);
+            options.SetPreference("devtools.debugger.prompt - connection", false);
+            options.SetPreference("devtools.debugger.remote - enabled", true);
+            options.AddArgument("start-debugger-server: 9222");
             options.AddAdditionalCapability("sauce:options", SauceOptions, true);
             return new RemoteWebDriver(Uri, options);
         }
