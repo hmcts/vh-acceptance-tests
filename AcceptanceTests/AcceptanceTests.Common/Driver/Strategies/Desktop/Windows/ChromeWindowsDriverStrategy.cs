@@ -16,6 +16,8 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
                 AcceptInsecureCertificates = true
             };
 
+            SauceOptions.Add("extendedDebugging", true);
+
             if (LoggingEnabled)
                 options.SetLoggingPreference(LogType.Browser, LogLevel.Info);
 
