@@ -18,6 +18,7 @@ namespace AcceptanceTests.Common.Driver.Strategies
         internal Dictionary<string, object> SauceOptions { get; set; }
         internal Uri Uri { get; set; }
         internal bool UseVideoFiles { get; set; }
+        internal Proxy Proxy { get; set; }
         public abstract RemoteWebDriver InitialiseForSauceLabs();
         public abstract IWebDriver InitialiseForLocal();
     }

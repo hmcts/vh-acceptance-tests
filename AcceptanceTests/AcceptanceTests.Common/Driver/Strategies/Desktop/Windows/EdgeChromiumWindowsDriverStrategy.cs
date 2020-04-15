@@ -25,11 +25,19 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
         [System.Obsolete]
         public override IWebDriver InitialiseForLocal()
         {
+            var argsList = new List<string> { "use-fake-ui-for-media-stream", "use-fake-device-for-media-stream", "log-level=1" };
+
+            if (Proxy?.HttpProxy != null)
+            {
+                argsList.Add($"--proxy-server={Proxy.HttpProxy}");
+                argsList.Add("--proxy-bypass-list=<-loopback>");
+            }
+
             var capabilities = new DesiredCapabilities(new Dictionary<string, object>()
             {
                 { "ms:edgeOptions", new Dictionary<string, object>() {
                     {  "binary", @"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" },
-                    {  "args", new List<string> { "use-fake-ui-for-media-stream", "use-fake-device-for-media-stream", "log-level=1" } }
+                    {  "args", argsList }
                 }}
             });
 

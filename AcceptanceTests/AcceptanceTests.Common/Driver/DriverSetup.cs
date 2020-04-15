@@ -31,23 +31,25 @@ namespace AcceptanceTests.Common.Driver
         private const string Timezone = "London";
         private readonly SauceLabsSettingsConfig _sauceLabsSettings;
         private readonly ScenarioInfo _scenario;
+        private readonly Proxy _proxy;
         private static TargetBrowser _targetBrowser;
         private static TargetDevice _targetDevice;
         private static EdgeDriverService _edgeService;
         private readonly bool _enableLogging;
 
-        public DriverSetup(SauceLabsSettingsConfig sauceLabsSettings, ScenarioInfo scenario, DriverOptions driverOptions)
+        public DriverSetup(SauceLabsSettingsConfig sauceLabsSettings, ScenarioInfo scenario, DriverOptions driverOptions, Proxy proxy = null)
         {
             _sauceLabsSettings = sauceLabsSettings;
             _scenario = scenario;
             _enableLogging = driverOptions.EnableLogging;
             _targetBrowser = driverOptions.TargetBrowser;
             _targetDevice = driverOptions.TargetDevice;
+            _proxy = proxy;
         }
 
         public IWebDriver GetDriver(string filename)
         {
-            return _sauceLabsSettings.RunningOnSauceLabs() ? InitialiseSauceLabsDriver(_scenario) : InitialiseLocalDriver(filename, _scenario);
+            return _sauceLabsSettings.RunningOnSauceLabs() ? InitialiseSauceLabsDriver(_scenario) : InitialiseLocalDriver(filename, _scenario, _proxy);
         }
 
         private IWebDriver InitialiseSauceLabsDriver(ScenarioInfo scenario)
@@ -96,7 +98,7 @@ namespace AcceptanceTests.Common.Driver
             return Convert.ToInt32(attemptNumber) > 1 ? attemptNumber : string.Empty;
         }
 
-        private static IWebDriver InitialiseLocalDriver(string filename, ScenarioInfo scenario)
+        private static IWebDriver InitialiseLocalDriver(string filename, ScenarioInfo scenario, Proxy proxy)
         {
             var drivers = GetDrivers();
             drivers[_targetBrowser].BlockedCamAndMic = scenario.Tags.Contains("Blocked");
@@ -106,6 +108,7 @@ namespace AcceptanceTests.Common.Driver
             drivers[_targetBrowser].LocalTimeout = TimeSpan.FromSeconds(LocalCommandTimeoutInSeconds);
             drivers[_targetBrowser].SauceLabsTimeout = TimeSpan.FromSeconds(SauceLabsCommandTimeoutInSeconds);
             drivers[_targetBrowser].UseVideoFiles = scenario.Tags.Contains("Video");
+            drivers[_targetBrowser].Proxy = proxy;
 
             if (_targetBrowser == TargetBrowser.EdgeChromium)
             {
