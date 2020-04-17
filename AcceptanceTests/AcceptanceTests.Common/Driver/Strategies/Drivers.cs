@@ -19,6 +19,8 @@ namespace AcceptanceTests.Common.Driver.Strategies
         internal Uri Uri { get; set; }
         internal bool UseVideoFiles { get; set; }
         internal Proxy Proxy { get; set; }
+
+        internal const string ProxyByPassList = "proxy-bypass-list=<-loopback>";
         public abstract RemoteWebDriver InitialiseForSauceLabs();
         public abstract IWebDriver InitialiseForLocal();
     }

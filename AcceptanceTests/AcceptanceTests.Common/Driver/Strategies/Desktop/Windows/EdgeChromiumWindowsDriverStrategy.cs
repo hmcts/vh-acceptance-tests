@@ -29,8 +29,8 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
 
             if (Proxy?.HttpProxy != null)
             {
-                argsList.Add($"--proxy-server={Proxy.HttpProxy}");
-                argsList.Add("--proxy-bypass-list=<-loopback>");
+                argsList.Add($"proxy-server={Proxy.HttpProxy}");
+                argsList.Add(ProxyByPassList);
             }
 
             var capabilities = new DesiredCapabilities(new Dictionary<string, object>()

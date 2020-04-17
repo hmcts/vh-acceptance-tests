@@ -28,7 +28,7 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
             if (Proxy?.HttpProxy != null)
             {
                 options.Proxy = Proxy;
-                options.AddArgument("--proxy-bypass-list=<-loopback>");
+                options.AddArgument(ProxyByPassList);
             }
 
             if (LoggingEnabled)
