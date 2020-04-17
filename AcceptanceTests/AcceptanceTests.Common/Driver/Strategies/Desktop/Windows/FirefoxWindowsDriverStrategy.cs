@@ -25,6 +25,12 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
             geckoService.Host = "::1";
             var options = new FirefoxOptions(){ AcceptInsecureCertificates = true };
 
+            if (Proxy?.HttpProxy != null)
+            {
+                options.Proxy = Proxy;
+                options.AddArgument(ProxyByPassList);
+            }
+
             if (LoggingEnabled)
                 options.SetLoggingPreference(LogType.Browser, LogLevel.Info);
 

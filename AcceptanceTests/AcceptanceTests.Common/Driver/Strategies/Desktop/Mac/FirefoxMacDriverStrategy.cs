@@ -26,6 +26,13 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Mac
             var browserOptions = new FirefoxOptions();
             browserOptions.SetPreference("media.navigator.streams.fake", true);
             browserOptions.SetPreference("media.navigator.permission.disabled", true);
+
+            if (Proxy?.HttpProxy != null)
+            {
+                browserOptions.Proxy = Proxy;
+                browserOptions.AddArgument(ProxyByPassList);
+            }
+
             return new FirefoxDriver(geckoService, browserOptions, LocalTimeout);
         }
     }
