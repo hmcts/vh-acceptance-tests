@@ -24,7 +24,7 @@ namespace AcceptanceTests.Common.Driver
         private const string WindowsScreenResolution = "2560x1600";
         private const string MacScreenResolution = "2360x1770";
         private const int SauceLabsIdleTimeoutInSeconds = 60 * 30;
-        private const int SauceLabsCommandTimeoutInSeconds = 60 * 3;
+        private const int SauceLabsCommandTimeoutInSeconds = 60 * 5;
         private const int LocalCommandTimeoutInSeconds = 20;
         private const string SauceLabSeleniumVersion = "3.141.59";
         private const string SauceLabsMacPlatformVersion = "macOS 10.15";
