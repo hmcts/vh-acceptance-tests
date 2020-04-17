@@ -33,6 +33,12 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
             options.AddArgument("use-fake-ui-for-media-stream");
             options.AddArgument("use-fake-device-for-media-stream");
 
+            if (Proxy?.HttpProxy != null)
+            {
+                options.Proxy = Proxy;
+                options.AddArgument(ProxyByPassList);
+            }
+
             if (LoggingEnabled)
                 options.SetLoggingPreference(LogType.Browser, LogLevel.Info);
 
