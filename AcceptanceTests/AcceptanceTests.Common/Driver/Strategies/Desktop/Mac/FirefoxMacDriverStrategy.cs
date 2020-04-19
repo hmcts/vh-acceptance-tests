@@ -8,7 +8,7 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Mac
     {
         public override RemoteWebDriver InitialiseForSauceLabs()
         {
-            var browserOptions = new FirefoxOptions { PlatformName = MacPlatform, BrowserVersion = "latest", AcceptInsecureCertificates = true };
+            var browserOptions = new FirefoxOptions { PlatformName = MacPlatform, BrowserVersion =BrowserVersions.FirefoxMac, AcceptInsecureCertificates = true };
             browserOptions.SetPreference("media.navigator.streams.fake", true);
             browserOptions.SetPreference("media.navigator.permission.disabled", true);
 

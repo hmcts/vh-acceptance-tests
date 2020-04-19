@@ -13,7 +13,7 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
             {
                 { "browserName", "MicrosoftEdge" },
                 { "platformName", "Windows 10" },
-                { "browserVersion", "latest" },
+                { "browserVersion", BrowserVersions.EdgeChromium },
                 { "ms:inPrivate", true },
                 { "ms:edgeOptions", new Dictionary<string, object>() {
                     { "args", new List<string> { "use-fake-ui-for-media-stream", "use-fake-device-for-media-stream", "log-level=1" } }}},

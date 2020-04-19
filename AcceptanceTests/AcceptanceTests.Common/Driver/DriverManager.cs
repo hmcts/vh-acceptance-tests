@@ -11,16 +11,6 @@ namespace AcceptanceTests.Common.Driver
 {
     public static class DriverManager
     {
-        private static readonly List<string> ProcessesToCheck = new List<string>
-        {
-            "chromedriver",
-            "edgedriver",
-            "firefoxdriver",
-            "gecko",
-            "IEDriverServer",
-            "microsoftwebdriver",
-        };
-
         public static TargetBrowser GetTargetBrowser(string browser)
         {
             return Enum.TryParse(browser, true, out TargetBrowser targetBrowser) ? targetBrowser : TargetBrowser.Chrome;
@@ -38,7 +28,7 @@ namespace AcceptanceTests.Common.Driver
             {
                 try
                 {
-                    var shouldKill = ProcessesToCheck.Any(processName => process.ProcessName.ToLower().Contains(processName));
+                    var shouldKill = DriverProcesses.ProcessNames.Any(processName => process.ProcessName.ToLower().Contains(processName));
                     if (shouldKill)
                         process.Kill();
                 }

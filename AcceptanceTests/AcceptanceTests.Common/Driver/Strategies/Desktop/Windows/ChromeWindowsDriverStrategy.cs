@@ -10,7 +10,7 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
         {
             var options = new ChromeOptions
             {
-                BrowserVersion = "latest",
+                BrowserVersion = BrowserVersions.Chrome,
                 PlatformName = "Windows 10",
                 UseSpecCompliantProtocol = true,
                 AcceptInsecureCertificates = true

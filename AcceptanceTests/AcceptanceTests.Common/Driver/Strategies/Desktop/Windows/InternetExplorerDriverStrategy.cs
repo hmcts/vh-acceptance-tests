@@ -8,7 +8,11 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
     {
         public override RemoteWebDriver InitialiseForSauceLabs()
         {
-            var browserOptions = new InternetExplorerOptions() { PlatformName = "Windows 10", BrowserVersion = "latest" };
+            var browserOptions = new InternetExplorerOptions()
+            {
+                PlatformName = "Windows 10", 
+                BrowserVersion = BrowserVersions.InternetExplorer
+            };
             browserOptions.AddAdditionalCapability("sauce:options", SauceOptions, true);
             return new RemoteWebDriver(Uri, browserOptions);
         }

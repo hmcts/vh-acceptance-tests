@@ -10,7 +10,7 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Mac
         {
             var options = new ChromeOptions
             {
-                BrowserVersion = "latest",
+                BrowserVersion = BrowserVersions.ChromeMac,
                 PlatformName = MacPlatform,
                 UseSpecCompliantProtocol = true,
                 AcceptInsecureCertificates = true

@@ -21,27 +21,19 @@ namespace AcceptanceTests.Common.Driver
 {
     public class DriverSetup
     {
-        private const string WindowsScreenResolution = "2560x1600";
-        private const string MacScreenResolution = "2360x1770";
-        private const int SauceLabsIdleTimeoutInSeconds = 60 * 30;
-        private const int SauceLabsCommandTimeoutInSeconds = 60 * 5;
-        private const int LocalCommandTimeoutInSeconds = 20;
-        private const string SauceLabSeleniumVersion = "3.141.59";
-        private const string SauceLabsMacPlatformVersion = "macOS 10.15";
-        private const string Timezone = "London";
         private readonly SauceLabsSettingsConfig _sauceLabsSettings;
         private readonly ScenarioInfo _scenario;
         private readonly Proxy _proxy;
+        private static DriverOptions _driverOptions;
         private static TargetBrowser _targetBrowser;
         private static TargetDevice _targetDevice;
         private static EdgeDriverService _edgeService;
-        private readonly bool _enableLogging;
 
         public DriverSetup(SauceLabsSettingsConfig sauceLabsSettings, ScenarioInfo scenario, DriverOptions driverOptions, Proxy proxy = null)
         {
             _sauceLabsSettings = sauceLabsSettings;
             _scenario = scenario;
-            _enableLogging = driverOptions.EnableLogging;
+            _driverOptions = driverOptions; 
             _targetBrowser = driverOptions.TargetBrowser;
             _targetDevice = driverOptions.TargetDevice;
             _proxy = proxy;
@@ -64,30 +56,31 @@ namespace AcceptanceTests.Common.Driver
                 {"accessKey", _sauceLabsSettings.AccessKey},
                 {"name", _scenario.Title},
                 {"build", $"{shortReleaseDefinitionName} {releaseName} {_targetDevice} {_targetBrowser} {attemptNumber}"},
-                {"idleTimeout", SauceLabsIdleTimeoutInSeconds},
-                {"seleniumVersion", SauceLabSeleniumVersion},
-                {"timeZone", Timezone }
+                {"idleTimeout", _driverOptions.SauceLabsIdleTimeoutInSeconds},
+                {"seleniumVersion", _driverOptions.SeleniumVersion},
+                {"timeZone", _driverOptions.Timezone }
             };
 
-            AddScreenResolutionForDesktop(sauceOptions);
+            AddScreenResolutionForDesktop(sauceOptions, _driverOptions);
 
             var drivers = GetDrivers();
             drivers[_targetBrowser].BlockedCamAndMic = scenario.Tags.Contains("Blocked");
-            drivers[_targetBrowser].LoggingEnabled = _enableLogging;
-            drivers[_targetBrowser].IdleTimeout = TimeSpan.FromSeconds(SauceLabsIdleTimeoutInSeconds);
-            drivers[_targetBrowser].MacPlatform = SauceLabsMacPlatformVersion;
-            drivers[_targetBrowser].SauceLabsTimeout = TimeSpan.FromSeconds(SauceLabsCommandTimeoutInSeconds);
+            drivers[_targetBrowser].BrowserVersions = _driverOptions.BrowserVersions;
+            drivers[_targetBrowser].LoggingEnabled = _driverOptions.EnableLogging;
+            drivers[_targetBrowser].IdleTimeout = TimeSpan.FromSeconds(_driverOptions.SauceLabsIdleTimeoutInSeconds);
+            drivers[_targetBrowser].MacPlatform = _driverOptions.MacPlatformVersion;
+            drivers[_targetBrowser].SauceLabsTimeout = TimeSpan.FromSeconds(_driverOptions.SauceLabsCommandTimeoutInSeconds);
             drivers[_targetBrowser].SauceOptions = sauceOptions;
             drivers[_targetBrowser].Uri = new Uri(_sauceLabsSettings.RemoteServerUrl);
             return drivers[_targetBrowser].InitialiseForSauceLabs();
         }
 
-        private static void AddScreenResolutionForDesktop(IDictionary<string, object> sauceOptions)
+        private static void AddScreenResolutionForDesktop(IDictionary<string, object> sauceOptions, DriverOptions driverOptions)
         {
             if (_targetDevice != TargetDevice.Desktop) return;
             var resolution = _targetBrowser == TargetBrowser.Safari
-                ? MacScreenResolution
-                : WindowsScreenResolution;
+                ? driverOptions.MacScreenResolution
+                : driverOptions.WindowsScreenResolution;
             sauceOptions.Add("screenResolution", resolution);
         }
 
@@ -105,8 +98,8 @@ namespace AcceptanceTests.Common.Driver
             drivers[_targetBrowser].LoggingEnabled = scenario.Tags.Contains("LoggingEnabled");
             drivers[_targetBrowser].BuildPath = _targetBrowser == TargetBrowser.Safari ? "/usr/bin/" : Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             drivers[_targetBrowser].Filename = filename;
-            drivers[_targetBrowser].LocalTimeout = TimeSpan.FromSeconds(LocalCommandTimeoutInSeconds);
-            drivers[_targetBrowser].SauceLabsTimeout = TimeSpan.FromSeconds(SauceLabsCommandTimeoutInSeconds);
+            drivers[_targetBrowser].LocalTimeout = TimeSpan.FromSeconds(_driverOptions.LocalCommandTimeoutInSeconds);
+            drivers[_targetBrowser].SauceLabsTimeout = TimeSpan.FromSeconds(_driverOptions.SauceLabsCommandTimeoutInSeconds);
             drivers[_targetBrowser].UseVideoFiles = scenario.Tags.Contains("Video");
             drivers[_targetBrowser].Proxy = proxy;
 
