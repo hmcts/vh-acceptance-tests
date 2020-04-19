@@ -1,15 +1,15 @@
-﻿using AcceptanceTests.Common.Configuration;
-using FluentAssertions;
+﻿using AcceptanceTests.Common.Api.Clients;
+using AcceptanceTests.Common.Configuration;
 using Microsoft.Extensions.Configuration;
-using OWASPZAPDotNetAPI;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Xml;
+using static AcceptanceTests.Common.Api.Clients.ZapApi;
 
 namespace AcceptanceTests.Common.Api
 {
@@ -32,8 +32,7 @@ namespace AcceptanceTests.Common.Api
                                                             .GetSection("ZapConfiguration")
                                                             .Get<ZapConfiguration>();
 
-
-        private static readonly ClientApi Api = new ClientApi(ZapConfiguration.ApiAddress, ZapConfiguration.ApiPort, GetApiKey(ZapConfiguration.ApiConfigPath));
+        private static readonly ZapApi ZapApi = new ZapApi(ZapConfiguration);
 
         public static IWebProxy WebProxy => (ZapConfiguration.ZapScan || ZapConfiguration.SetUpProxy) ? new WebProxy($"http://{ZapConfiguration.ApiAddress}:{ZapConfiguration.ApiPort}", false) : null;
 
@@ -58,10 +57,10 @@ namespace AcceptanceTests.Common.Api
             }
             else
             {
-                Api.pscan.setEnabled("true");
-                Api.pscan.enableAllScanners();
-                Api.core.setMode("attack");
-                Api.ascan.enableAllScanners("");
+                ZapApi.EnablePassiveScan(true);
+                ZapApi.EnableAllPassiveScanners();
+                ZapApi.SetMode("attack");
+                ZapApi.EnableAllActiveScanners("");
             }
 
             var started = WaitForService().Result;
@@ -79,19 +78,12 @@ namespace AcceptanceTests.Common.Api
             if (!setToken)
             {
                 var ruleDescription = "Auth";
-                var replacers = (ApiResponseList)Api.replacer.rules();
-                if (replacers != null && replacers.List.Count > 0)
+                var replacers = ZapApi.GetRules();
+                if (replacers != null && replacers.Rules.Any(r => r.Description == ruleDescription))
                 {
-                    foreach (var replacer in replacers.List)
-                    {
-                        if (((ApiResponseSet)replacer).Dictionary["description"] == ruleDescription)
-                        {
-                            Api.replacer.removeRule(ruleDescription);
-                            break;
-                        }
-                    }
+                    ZapApi.RemoveRule(ruleDescription);                     
                 }
-                Api.replacer.addRule(ruleDescription, "true", "REQ_HEADER", "false", "Authorization", $"Bearer {bearerToken}", "");
+                ZapApi.AddRule(ruleDescription, "Authorization", bearerToken);
 
                 setToken = true;
             }
@@ -133,7 +125,7 @@ namespace AcceptanceTests.Common.Api
         {
             try
             {
-                PollScanStatus(Api.spider.scan(target, "", "true", "", ""), "spider");
+                PollScanStatus(target, ScanType.Spider);
             }
             catch (Exception e)
             {
@@ -144,8 +136,8 @@ namespace AcceptanceTests.Common.Api
         private static void ActiveScan(string url)
         {
             try
-            {
-                PollScanStatus(Api.ascan.scan(url, "true", "", "", "", "", ""), "active");
+            { 
+                PollScanStatus(url, ScanType.Active);
             }
             catch (Exception e)
             {
@@ -153,16 +145,16 @@ namespace AcceptanceTests.Common.Api
             }
         }
 
-        private static void PollScanStatus(IApiResponse response, string type)
+        private static void PollScanStatus(string url, ScanType scan)
         {
-            var scanid = ((ApiResponseElement)response).Value;
+            var scanid = ZapApi.Scan(scan, url);
 
             int progress;
             while (true)
             {
                 Thread.Sleep(2000);
-                var resp = (ApiResponseElement)(type == "spider" ? Api.spider.status(scanid) : Api.ascan.status(scanid));
-                progress = Convert.ToInt32(resp.Value);
+                var value = ZapApi.ScanStatus(scan,scanid);
+                progress = Convert.ToInt32(value);
                 if (progress >= 100)
                 {
                     break;
@@ -175,23 +167,10 @@ namespace AcceptanceTests.Common.Api
             while (true)
             {
                 Thread.Sleep(1000);
-                var response = (ApiResponseElement)Api.pscan.recordsToScan();
-                if (response != null && response.Value == "0")
+                var value = ZapApi.RecordsToScan();
+                if (!string.IsNullOrEmpty(value) && value == "0")
                     break;
             }
-        }
-
-        private static string GetApiKey(string configFile)
-        {
-            var doc = new XmlDocument();
-            doc.Load(configFile);
-
-            var node = doc.GetElementsByTagName("key");
-
-            if (node.Count > 0 && node[0] != null)
-                return node[0].InnerText;
-
-            throw new Exception($"Unable to resolve api key from {configFile}");
         }
 
         private static void Build()
@@ -287,14 +266,13 @@ namespace AcceptanceTests.Common.Api
 
         private static void WriteHtmlReport(string reportFileName)
         {
-            File.WriteAllBytes(reportFileName + ".html", Api.core.htmlreport());
+            File.WriteAllBytes(reportFileName + ".html", ZapApi.HtmlReport());
         }
 
         private static void WriteXmlReport(string reportFileName)
         {
-            File.WriteAllBytes(reportFileName + ".xml", Api.core.xmlreport());
+            File.WriteAllBytes(reportFileName + ".xml", ZapApi.XmlReport());
         }
-
 
     }
 }
