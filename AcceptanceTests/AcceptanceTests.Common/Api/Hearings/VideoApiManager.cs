@@ -132,5 +132,13 @@ namespace AcceptanceTests.Common.Api.Hearings
             var client = ApiClient.SetClient(_videoApiUrl, _videoApiBearerToken);
             return RequestExecutor.SendToApi(request, client);
         }
+
+        public IRestResponse GetTasks(Guid conferenceId)
+        {
+            var endpoint = VideoApiUriFactory.TasksEndpoints.GetTasks(conferenceId);
+            var request = RequestBuilder.Get(endpoint);
+            var client = ApiClient.SetClient(_videoApiUrl, _videoApiBearerToken);
+            return RequestExecutor.SendToApi(request, client);
+        }
     }
 }

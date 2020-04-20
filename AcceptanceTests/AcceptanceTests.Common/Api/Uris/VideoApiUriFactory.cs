@@ -34,6 +34,12 @@ namespace AcceptanceTests.Common.Api.Uris
 
         }
 
+        public static class TasksEndpoints
+        {
+            private const string ApiRoot = "conferences";
+            public static string GetTasks(Guid conferenceId) => $"{ApiRoot}/{conferenceId}/tasks";
+        }
+
         public class VideoApiHealthCheckEndpoints
         {
             private const string ApiRoot = "/healthcheck";
