@@ -32,7 +32,7 @@ steps:
   inputs:
     command: restore
     projects: '**/AcceptanceTests.Common/*.csproj'
-    vstsFeed: ${{ parameters.vstsFeed }}
+    vstsFeed: '${{ parameters.vstsFeed }}'
     verbosityRestore: Minimal
 
 - task: DotNetCoreCLI@2
