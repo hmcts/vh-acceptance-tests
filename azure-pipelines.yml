@@ -1,3 +1,8 @@
+parameters:
+- name: vstsFeed
+  type: string
+  default: 3f69a23d-fbc7-4541-afc7-4cccefcad773/e48b2732-376c-4052-ba97-b28783c9bab5
+
 trigger:
   branches:
     include:
@@ -27,7 +32,7 @@ steps:
   inputs:
     command: restore
     projects: '**/AcceptanceTests.Common/*.csproj'
-    vstsFeed: '3f69a23d-fbc7-4541-afc7-4cccefcad773/e48b2732-376c-4052-ba97-b28783c9bab5'
+    vstsFeed: ${{ parameters.vstsFeed }}
     verbosityRestore: Minimal
 
 - task: DotNetCoreCLI@2
