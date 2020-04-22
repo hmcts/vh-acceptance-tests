@@ -24,7 +24,7 @@ namespace AcceptanceTests.Common.Api
 
         private static readonly TimeSpan TestTimeout = TimeSpan.FromSeconds(60);
 
-        private static HttpClientHandler httpClientHandler => new HttpClientHandler { Proxy = WebProxy };
+        private static HttpClientHandler HttpClientHandler => new HttpClientHandler { Proxy = WebProxy };
 
         private static ZapConfiguration ZapConfiguration => new ConfigurationBuilder()
                                                             .AddJsonFile("appsettings.json")
@@ -59,8 +59,8 @@ namespace AcceptanceTests.Common.Api
             {
                 ZapApi.EnablePassiveScan(true);
                 ZapApi.EnableAllPassiveScanners();
-                ZapApi.SetMode("attack");
-                ZapApi.EnableAllActiveScanners("");
+                ZapApi.SetMode();
+                ZapApi.EnableAllActiveScanners();
             }
 
             var started = WaitForService().Result;
@@ -104,7 +104,7 @@ namespace AcceptanceTests.Common.Api
 
                 if (!string.IsNullOrEmpty(reportFileName))
                 {
-                    reportFileName = $"{reportFileName}-Tests-Security-{DateTime.Now.ToString("dd-MMM-yyyy-hh-mm-ss")}";
+                    reportFileName = $"{reportFileName}-Tests-Security-{DateTime.Now:dd-MMM-yyyy-hh-mm-ss}";
                     WriteHtmlReport(reportFileName);
                     WriteXmlReport(reportFileName);
                 }
@@ -222,20 +222,16 @@ namespace AcceptanceTests.Common.Api
         {
             var testServiceUrl = $"https://{ZapConfiguration.ServiceName}/swagger/index.html";
 
-            using (var client = new HttpClient(httpClientHandler))
-            {
-                return await PollApi(client, testServiceUrl);
-            }
+            using var client = new HttpClient(HttpClientHandler);
+            return await PollApi(client, testServiceUrl);
         }
 
         private static async Task<bool> WaitForZap()
         {
             var zapUrl = $"http://{ZapConfiguration.ApiAddress}:{ZapConfiguration.ApiPort}";
 
-            using (var client = new HttpClient())
-            {
-                return await PollApi(client, zapUrl);
-            }
+            using var client = new HttpClient();
+            return await PollApi(client, zapUrl);
         }
 
         private static async Task<bool> PollApi(HttpClient client, string url)

@@ -42,8 +42,6 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
             if (LoggingEnabled)
                 options.SetLoggingPreference(LogType.Browser, LogLevel.Info);
 
-            if (UseVideoFiles)
-                options.AddArgument($"use-file-for-fake-video-capture={BuildPath}/Videos/{Filename}");
             return new ChromeDriver(BuildPath, options, LocalTimeout);
         }
     }

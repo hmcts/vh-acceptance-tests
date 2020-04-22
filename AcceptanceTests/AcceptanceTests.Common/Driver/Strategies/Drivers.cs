@@ -11,7 +11,6 @@ namespace AcceptanceTests.Common.Driver.Strategies
         public bool BlockedCamAndMic { get; set; }
         public BrowserVersions BrowserVersions { get; set; }
         internal string BuildPath { get; set; }
-        internal string Filename { get; set; }
         internal TimeSpan IdleTimeout { get; set; }
         internal TimeSpan LocalTimeout { get; set; }
         internal bool LoggingEnabled { get; set; }

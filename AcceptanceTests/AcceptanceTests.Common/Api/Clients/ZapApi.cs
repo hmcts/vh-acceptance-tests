@@ -13,23 +13,22 @@ namespace AcceptanceTests.Common.Api.Clients
 {
     public class ZapApi
     {
-        private RestClient client;
-        private readonly string HtmlReportUrl = "/OTHER/core/other/htmlreport/";
-        private readonly string XmlReportUrl = "/OTHER/core/other/xmlreport/";
-        private readonly string FetchRulesUrl = "/JSON/replacer/view/rules/";
-        private readonly string RemoveRuleUrl = "/JSON/replacer/action/removeRule/";
-        private readonly string AddRuleUrl = "/JSON/replacer/action/addRule/";
-        private readonly string RecordsToScanUrl = "/JSON/pscan/view/recordsToScan/";
-        private readonly string SpiderScanStatusUrl = "/JSON/spider/view/status/";
-        private readonly string ActiveScanStatusUrl = "/JSON/ascan/view/status/";
-        private readonly string ActiveScanUrl = "/JSON/ascan/action/scan/";
-        private readonly string SpiderScanUrl = "/JSON/spider/action/scan/";
-        private readonly string EnablePassiveScanUrl = "/JSON/pscan/action/setEnabled/";
-        private readonly string EnableAllScannerPassiveUrl = "/JSON/pscan/action/enableAllScanners/";
-        private readonly string EnableAllScannerActiveUrl = "/JSON/ascan/action/enableAllScanners/";
-        private readonly string SetModeUrl = "/JSON/core/action/setMode/";
-        private readonly string ResultOk = "{\"Result\":\"OK\"}";
-        private string _apiKey;
+        private readonly RestClient client;
+        private const string HtmlReportUrl = "/OTHER/core/other/htmlreport/";
+        private const string XmlReportUrl = "/OTHER/core/other/xmlreport/";
+        private const string FetchRulesUrl = "/JSON/replacer/view/rules/";
+        private const string RemoveRuleUrl = "/JSON/replacer/action/removeRule/";
+        private const string AddRuleUrl = "/JSON/replacer/action/addRule/";
+        private const string RecordsToScanUrl = "/JSON/pscan/view/recordsToScan/";
+        private const string SpiderScanStatusUrl = "/JSON/spider/view/status/";
+        private const string ActiveScanStatusUrl = "/JSON/ascan/view/status/";
+        private const string ActiveScanUrl = "/JSON/ascan/action/scan/";
+        private const string SpiderScanUrl = "/JSON/spider/action/scan/";
+        private const string EnablePassiveScanUrl = "/JSON/pscan/action/setEnabled/";
+        private const string EnableAllScannerPassiveUrl = "/JSON/pscan/action/enableAllScanners/";
+        private const string EnableAllScannerActiveUrl = "/JSON/ascan/action/enableAllScanners/";
+        private const string ResultOk = "{\"Result\":\"OK\"}";
+        private readonly string _apiKey;
         public enum ScanType
         {
             Spider,
@@ -96,15 +95,13 @@ namespace AcceptanceTests.Common.Api.Clients
             return JsonConvert.DeserializeObject<ZapReplacerRuleResponse>(GetResponse(FetchRulesUrl));
         }
 
-        public bool SetMode(string mode)
+        public bool SetMode()
         {
-            var parameters = $"&mode={mode}";
             return GetResponse(EnableAllScannerActiveUrl, string.Empty).Contains(ResultOk);
         }
 
-        public bool EnableAllActiveScanners(string scanPolicyName)
+        public bool EnableAllActiveScanners()
         {
-            var parameters = $"&scanPolicyName={scanPolicyName}";
             return GetResponse(EnableAllScannerActiveUrl, string.Empty).Contains(ResultOk);
         }
 

@@ -37,11 +37,8 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Mac
                 browserOptions.AddArgument(ProxyByPassList);
             }
 
-            if (BlockedCamAndMic) return new ChromeDriver(BuildPath, browserOptions, LocalTimeout);
             browserOptions.AddArgument("use-fake-ui-for-media-stream");
             browserOptions.AddArgument("use-fake-device-for-media-stream");
-            if (UseVideoFiles)
-                browserOptions.AddArgument($"use-file-for-fake-video-capture={BuildPath}/Videos/{Filename}");
             return new ChromeDriver(BuildPath, browserOptions, LocalTimeout);
         }
     }

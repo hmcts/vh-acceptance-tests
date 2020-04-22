@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Threading;
-using AcceptanceTests.Common.Configuration.Users;
 using AcceptanceTests.Common.Driver.Helpers;
 using AcceptanceTests.Common.Driver.Support;
 using FluentAssertions;
@@ -15,17 +14,11 @@ namespace AcceptanceTests.Common.Driver.Browser
     public class UserBrowser
     {
         private const int BrowserRetries = 2;
-        private string _videoFileName;
         private string _baseUrl;
         public NgWebDriver Driver { get; set; }
         private DriverSetup _driver;
         public string LastWindowName { get; set; }
         public TargetBrowser _targetBrowser;
-
-        public UserBrowser(UserAccount user)
-        {
-            SetFileName(user);
-        }
 
         public UserBrowser SetBaseUrl(string baseUrl)
         {
@@ -45,16 +38,9 @@ namespace AcceptanceTests.Common.Driver.Browser
             return this;
         }
 
-        private void SetFileName(UserAccount user)
-        {
-            _videoFileName = user.Role.Equals("Judge") || user.Role.Equals("Clerk") || user.Role.Equals("Video Hearings Officer")
-                ? "clerk.y4m"
-                : $"{user.Lastname.ToLower()}.y4m";
-        }
-
         public void LaunchBrowser()
         {
-            var driver = _driver.GetDriver(_videoFileName);
+            var driver = _driver.GetDriver();
             Driver = new NgWebDriver(driver);
             TryMaximizeBrowser();
             Driver.IgnoreSynchronization = true;

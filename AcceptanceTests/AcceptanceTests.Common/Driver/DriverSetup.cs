@@ -39,9 +39,9 @@ namespace AcceptanceTests.Common.Driver
             _proxy = proxy;
         }
 
-        public IWebDriver GetDriver(string filename)
+        public IWebDriver GetDriver()
         {
-            return _sauceLabsSettings.RunningOnSauceLabs() ? InitialiseSauceLabsDriver(_scenario) : InitialiseLocalDriver(filename, _scenario, _proxy);
+            return _sauceLabsSettings.RunningOnSauceLabs() ? InitialiseSauceLabsDriver(_scenario) : InitialiseLocalDriver(_scenario, _proxy);
         }
 
         private IWebDriver InitialiseSauceLabsDriver(ScenarioInfo scenario)
@@ -62,6 +62,7 @@ namespace AcceptanceTests.Common.Driver
             };
 
             AddScreenResolutionForDesktop(sauceOptions, _driverOptions);
+            SetBrowserVersion(_targetBrowser, _driverOptions.BrowserVersion);
 
             var drivers = GetDrivers();
             drivers[_targetBrowser].BlockedCamAndMic = scenario.Tags.Contains("Blocked");
@@ -84,6 +85,19 @@ namespace AcceptanceTests.Common.Driver
             sauceOptions.Add("screenResolution", resolution);
         }
 
+        private static void SetBrowserVersion(TargetBrowser targetBrowser, string browserVersion)
+        {
+            _driverOptions.BrowserVersions = new BrowserVersions();
+            _ = (targetBrowser switch
+            {
+                TargetBrowser.Firefox => _driverOptions.BrowserVersions.Firefox = browserVersion,
+                TargetBrowser.Chrome => _driverOptions.BrowserVersions.Chrome = browserVersion,
+                TargetBrowser.EdgeChromium => _driverOptions.BrowserVersions.EdgeChromium = browserVersion,
+                TargetBrowser.MacChrome => _driverOptions.BrowserVersions.ChromeMac = browserVersion,
+                TargetBrowser.MacFirefox => _driverOptions.BrowserVersions.FirefoxMac = browserVersion
+            });
+        }
+
         private static string GetAttemptNumber()
         {
             var attemptNumber = Environment.GetEnvironmentVariable("Release_AttemptNumber");
@@ -91,13 +105,12 @@ namespace AcceptanceTests.Common.Driver
             return Convert.ToInt32(attemptNumber) > 1 ? attemptNumber : string.Empty;
         }
 
-        private static IWebDriver InitialiseLocalDriver(string filename, ScenarioInfo scenario, Proxy proxy)
+        private static IWebDriver InitialiseLocalDriver(ScenarioInfo scenario, Proxy proxy)
         {
             var drivers = GetDrivers();
             drivers[_targetBrowser].BlockedCamAndMic = scenario.Tags.Contains("Blocked");
             drivers[_targetBrowser].LoggingEnabled = scenario.Tags.Contains("LoggingEnabled");
             drivers[_targetBrowser].BuildPath = _targetBrowser == TargetBrowser.Safari ? "/usr/bin/" : Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            drivers[_targetBrowser].Filename = filename;
             drivers[_targetBrowser].LocalTimeout = TimeSpan.FromSeconds(_driverOptions.LocalCommandTimeoutInSeconds);
             drivers[_targetBrowser].SauceLabsTimeout = TimeSpan.FromSeconds(_driverOptions.SauceLabsCommandTimeoutInSeconds);
             drivers[_targetBrowser].UseVideoFiles = scenario.Tags.Contains("Video");
