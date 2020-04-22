@@ -2,6 +2,7 @@
 {
     public class DriverOptions
     {
+        public string BrowserVersion { get; set; }
         public BrowserVersions BrowserVersions { get; set; }
         public int LocalCommandTimeoutInSeconds { get; set; } = 20;
         public bool EnableLogging { get; set; }
