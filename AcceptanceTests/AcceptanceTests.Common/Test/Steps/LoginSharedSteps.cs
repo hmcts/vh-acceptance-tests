@@ -42,8 +42,6 @@ namespace AcceptanceTests.Common.Test.Steps
 
         private void EnterPassword(string password)
         {
-            var maskedPassword = new string('*', (password ?? string.Empty).Length);
-            NUnit.Framework.TestContext.WriteLine($"Using password {maskedPassword}");
             _browser.Driver.WaitUntilVisible(LoginPage.PasswordField).Clear();
             _browser.Driver.WaitUntilVisible(LoginPage.PasswordField).SendKeys(password);
         }

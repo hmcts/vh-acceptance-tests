@@ -84,7 +84,6 @@ namespace AcceptanceTests.Common.Driver.Browser
                 throw new InvalidOperationException("BaseUrl has not been set");
             }
 
-            NUnit.Framework.TestContext.WriteLine($"Navigating to {_baseUrl}{url}");
             Driver.WrappedDriver.Navigate().GoToUrl($"{_baseUrl}{url}");
         }
 
