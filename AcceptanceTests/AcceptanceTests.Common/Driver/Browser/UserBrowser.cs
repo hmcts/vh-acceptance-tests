@@ -146,6 +146,18 @@ namespace AcceptanceTests.Common.Driver.Browser
             }
         }
 
+        public bool IsDisplayed(By element)
+        {
+            try
+            {
+                return Driver.FindElement(element).Displayed;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public void ClickLink(By element, int timeout = 20)
         {
             Driver.WaitUntilVisible(element, timeout);
