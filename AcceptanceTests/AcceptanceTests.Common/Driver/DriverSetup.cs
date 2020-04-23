@@ -94,7 +94,19 @@ namespace AcceptanceTests.Common.Driver
                 TargetBrowser.Chrome => _driverOptions.BrowserVersions.Chrome = browserVersion,
                 TargetBrowser.EdgeChromium => _driverOptions.BrowserVersions.EdgeChromium = browserVersion,
                 TargetBrowser.MacChrome => _driverOptions.BrowserVersions.ChromeMac = browserVersion,
-                TargetBrowser.MacFirefox => _driverOptions.BrowserVersions.FirefoxMac = browserVersion
+                TargetBrowser.MacFirefox => _driverOptions.BrowserVersions.FirefoxMac = browserVersion,
+                TargetBrowser.Safari => _driverOptions.BrowserVersions.Safari,
+                TargetBrowser.Ie11 => _driverOptions.BrowserVersions.InternetExplorer = browserVersion,
+                TargetBrowser.Edge => _driverOptions.BrowserVersions.Edge = browserVersion,
+                TargetBrowser.AndroidMobileChrome => _driverOptions.BrowserVersions.AndroidMobileChrome,
+                TargetBrowser.iOSMobileChrome => _driverOptions.BrowserVersions.iOSMobileChrome,
+                TargetBrowser.iOSMobileSafari => _driverOptions.BrowserVersions.iOSMobileSafari,
+                TargetBrowser.AndroidTabletChrome => _driverOptions.BrowserVersions.AndroidTabletChrome,
+                TargetBrowser.iOSTabletChrome => _driverOptions.BrowserVersions.iOSTabletChrome,
+                TargetBrowser.iOSTabletSafari => _driverOptions.BrowserVersions.iOSTabletSafari,
+                TargetBrowser.Samsung => _driverOptions.BrowserVersions.Samsung,
+                TargetBrowser.Default => _driverOptions.BrowserVersions.Chrome,
+                _ => _driverOptions.BrowserVersions.Chrome
             });
         }
 

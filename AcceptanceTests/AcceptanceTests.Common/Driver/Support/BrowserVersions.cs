@@ -10,5 +10,12 @@
         public string FirefoxMac { get; set; } = "latest";
         public string InternetExplorer { get; set; } = "latest";
         public string Safari { get; set; } = "13.0";
+        public string AndroidMobileChrome { get; set; } = "latest";
+        public string AndroidTabletChrome { get; set; } = "latest";
+        public string iOSMobileChrome { get; set; } = "latest";
+        public string iOSMobileSafari { get; set; } = "latest";
+        public string iOSTabletChrome { get; set; } = "latest";
+        public string iOSTabletSafari { get; set; } = "latest";
+        public string Samsung { get; set; } = "latest";
     }
 }
