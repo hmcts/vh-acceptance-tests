@@ -46,16 +46,16 @@ namespace AcceptanceTests.Common.Driver
 
         private IWebDriver InitialiseSauceLabsDriver(ScenarioInfo scenario)
         {
-            var releaseDefinitionName = Environment.GetEnvironmentVariable("Release_DefinitionName");
+            var releaseDefinitionName = GetReleaseDefinition();
             var releaseName = Environment.GetEnvironmentVariable("RELEASE_RELEASENAME");
-            var shortReleaseDefinitionName = releaseDefinitionName?.Replace("vh-", "");
             var attemptNumber = GetAttemptNumber();
+            var build = $"{releaseDefinitionName} {releaseName} {_targetDevice} {_targetBrowser} {_driverOptions.BrowserVersion} {attemptNumber}";
             var sauceOptions = new Dictionary<string, object>
             {
                 {"username", _sauceLabsSettings.Username},
                 {"accessKey", _sauceLabsSettings.AccessKey},
                 {"name", _scenario.Title},
-                {"build", $"{shortReleaseDefinitionName} {releaseName} {_targetDevice} {_targetBrowser} {attemptNumber}"},
+                {"build", build},
                 {"idleTimeout", _driverOptions.SauceLabsIdleTimeoutInSeconds},
                 {"seleniumVersion", _driverOptions.SeleniumVersion},
                 {"timeZone", _driverOptions.Timezone }
@@ -74,6 +74,11 @@ namespace AcceptanceTests.Common.Driver
             drivers[_targetBrowser].SauceOptions = sauceOptions;
             drivers[_targetBrowser].Uri = new Uri(_sauceLabsSettings.RemoteServerUrl);
             return drivers[_targetBrowser].InitialiseForSauceLabs();
+        }
+
+        private static string GetReleaseDefinition()
+        {
+            return Environment.GetEnvironmentVariable("Release_DefinitionName")?.Replace("vh-", "") ?? $"{DateTime.Today.ToShortDateString().Replace("/",".")}";
         }
 
         private static void AddScreenResolutionForDesktop(IDictionary<string, object> sauceOptions, DriverOptions driverOptions)
