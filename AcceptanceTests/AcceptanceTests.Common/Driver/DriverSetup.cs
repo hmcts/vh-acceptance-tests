@@ -80,7 +80,7 @@ namespace AcceptanceTests.Common.Driver
 
         private static string GetReleaseDefinition()
         {
-            var definition = Environment.GetEnvironmentVariable("Release_DefinitionName")?.Replace("vh-", "") ?? $"{DateTime.Today.ToShortDateString().Replace("/", ".")}";
+            var definition = Environment.GetEnvironmentVariable("Release_DefinitionName")?.Replace("vh-", "") ?? $"{DateTime.Today:dd.MM.yy}";
             return definition.ToCamelCase(new CultureInfo("en-GB", false));
         }
 
