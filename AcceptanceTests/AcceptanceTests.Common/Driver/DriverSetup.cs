@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -14,6 +15,7 @@ using AcceptanceTests.Common.Driver.Strategies.Tablet.iOS;
 using AcceptanceTests.Common.Driver.Support;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Edge;
+using RestSharp.Extensions;
 using TechTalk.SpecFlow;
 using DriverOptions = AcceptanceTests.Common.Driver.Support.DriverOptions;
 
@@ -78,7 +80,8 @@ namespace AcceptanceTests.Common.Driver
 
         private static string GetReleaseDefinition()
         {
-            return Environment.GetEnvironmentVariable("Release_DefinitionName")?.Replace("vh-", "") ?? $"{DateTime.Today.ToShortDateString().Replace("/",".")}";
+            var definition = Environment.GetEnvironmentVariable("Release_DefinitionName")?.Replace("vh-", "") ?? $"{DateTime.Today.ToShortDateString().Replace("/", ".")}";
+            return definition.ToCamelCase(new CultureInfo("en-GB", false));
         }
 
         private static void AddScreenResolutionForDesktop(IDictionary<string, object> sauceOptions, DriverOptions driverOptions)
