@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using AcceptanceTests.Common.Configuration;
 using AcceptanceTests.Common.Driver.Strategies;
@@ -16,7 +15,6 @@ using AcceptanceTests.Common.Driver.Support;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Edge;
 using RestSharp.Extensions;
-using TechTalk.SpecFlow;
 using DriverOptions = AcceptanceTests.Common.Driver.Support.DriverOptions;
 
 namespace AcceptanceTests.Common.Driver
@@ -24,55 +22,54 @@ namespace AcceptanceTests.Common.Driver
     public class DriverSetup
     {
         private readonly SauceLabsSettingsConfig _sauceLabsSettings;
-        private readonly ScenarioInfo _scenario;
         private readonly Proxy _proxy;
         private static DriverOptions _driverOptions;
+        private static SauceLabsOptions _sauceLabsOptions;
         private static TargetBrowser _targetBrowser;
         private static TargetDevice _targetDevice;
         private static EdgeDriverService _edgeService;
 
-        public DriverSetup(SauceLabsSettingsConfig sauceLabsSettings, ScenarioInfo scenario, DriverOptions driverOptions, Proxy proxy = null)
+        public DriverSetup(SauceLabsSettingsConfig sauceLabsSettings, DriverOptions driverOptions, SauceLabsOptions sauceLabsOptions, Proxy proxy = null)
         {
             _sauceLabsSettings = sauceLabsSettings;
-            _scenario = scenario;
             _driverOptions = driverOptions; 
             _targetBrowser = driverOptions.TargetBrowser;
             _targetDevice = driverOptions.TargetDevice;
+            _sauceLabsOptions = sauceLabsOptions;
             _proxy = proxy;
         }
 
         public IWebDriver GetDriver()
         {
-            return _sauceLabsSettings.RunningOnSauceLabs() ? InitialiseSauceLabsDriver(_scenario) : InitialiseLocalDriver(_scenario, _proxy);
+            return _sauceLabsSettings.RunningOnSauceLabs() ? InitialiseSauceLabsDriver() : InitialiseLocalDriver(_proxy);
         }
 
-        private IWebDriver InitialiseSauceLabsDriver(ScenarioInfo scenario)
+        private IWebDriver InitialiseSauceLabsDriver()
         {
             var releaseDefinitionName = GetReleaseDefinition();
             var releaseName = Environment.GetEnvironmentVariable("RELEASE_RELEASENAME");
             var attemptNumber = GetAttemptNumber();
-            var build = $"{releaseDefinitionName} {releaseName} {_targetDevice} {_targetBrowser} {_driverOptions.BrowserVersion} {attemptNumber}";
+            var build = $"{releaseDefinitionName} {releaseName} {_targetDevice} {_targetBrowser} {_sauceLabsOptions.BrowserVersion} {attemptNumber}";
             var sauceOptions = new Dictionary<string, object>
             {
                 {"username", _sauceLabsSettings.Username},
                 {"accessKey", _sauceLabsSettings.AccessKey},
-                {"name", _scenario.Title},
+                {"name", _sauceLabsOptions.Title},
                 {"build", build},
-                {"commandTimeout", _driverOptions.SauceLabsCommandTimeoutInSeconds},
-                {"idleTimeout", _driverOptions.SauceLabsIdleTimeoutInSeconds},
-                {"maxDuration", _driverOptions.SauceLabsMaxDurationInSeconds},
-                {"seleniumVersion", _driverOptions.SeleniumVersion},
-                {"timeZone", _driverOptions.Timezone }
+                {"commandTimeout", _sauceLabsOptions.CommandTimeoutInSeconds},
+                {"idleTimeout", _sauceLabsOptions.IdleTimeoutInSeconds},
+                {"maxDuration", _sauceLabsOptions.MaxDurationInSeconds},
+                {"seleniumVersion", _sauceLabsOptions.SeleniumVersion},
+                {"timeZone", _sauceLabsOptions.Timezone }
             };
 
-            AddScreenResolutionForDesktop(sauceOptions, _driverOptions);
-            SetBrowserVersion(_targetBrowser, _driverOptions.BrowserVersion);
+            AddScreenResolutionForDesktop(sauceOptions, _sauceLabsOptions);
+            SetBrowserVersion(_targetBrowser, _sauceLabsOptions.BrowserVersion);
 
             var drivers = GetDrivers();
-            drivers[_targetBrowser].BlockedCamAndMic = scenario.Tags.Contains("Blocked");
-            drivers[_targetBrowser].BrowserVersions = _driverOptions.BrowserVersions;
-            drivers[_targetBrowser].LoggingEnabled = _driverOptions.EnableLogging;
-            drivers[_targetBrowser].MacPlatform = _driverOptions.MacPlatformVersion;
+            drivers[_targetBrowser].BrowserVersions = _sauceLabsOptions.BrowserVersions;
+            drivers[_targetBrowser].LoggingEnabled = _sauceLabsOptions.EnableLogging;
+            drivers[_targetBrowser].MacPlatform = _sauceLabsOptions.MacPlatformVersion;
             drivers[_targetBrowser].SauceOptions = sauceOptions;
             drivers[_targetBrowser].Uri = new Uri(_sauceLabsSettings.RemoteServerUrl);
             return drivers[_targetBrowser].InitialiseForSauceLabs();
@@ -84,37 +81,37 @@ namespace AcceptanceTests.Common.Driver
             return definition.ToCamelCase(new CultureInfo("en-GB", false));
         }
 
-        private static void AddScreenResolutionForDesktop(IDictionary<string, object> sauceOptions, DriverOptions driverOptions)
+        private static void AddScreenResolutionForDesktop(IDictionary<string, object> sauceOptions, SauceLabsOptions sauceLabsOptions)
         {
             if (_targetDevice != TargetDevice.Desktop) return;
             var resolution = _targetBrowser == TargetBrowser.Safari
-                ? driverOptions.MacScreenResolution
-                : driverOptions.WindowsScreenResolution;
+                ? sauceLabsOptions.MacScreenResolution
+                : sauceLabsOptions.WindowsScreenResolution;
             sauceOptions.Add("screenResolution", resolution);
         }
 
         private static void SetBrowserVersion(TargetBrowser targetBrowser, string browserVersion)
         {
-            _driverOptions.BrowserVersions = new BrowserVersions();
+            _sauceLabsOptions.BrowserVersions = new BrowserVersions();
             _ = (targetBrowser switch
             {
-                TargetBrowser.Firefox => _driverOptions.BrowserVersions.Firefox = browserVersion,
-                TargetBrowser.Chrome => _driverOptions.BrowserVersions.Chrome = browserVersion,
-                TargetBrowser.EdgeChromium => _driverOptions.BrowserVersions.EdgeChromium = browserVersion,
-                TargetBrowser.MacChrome => _driverOptions.BrowserVersions.ChromeMac = browserVersion,
-                TargetBrowser.MacFirefox => _driverOptions.BrowserVersions.FirefoxMac = browserVersion,
-                TargetBrowser.Safari => _driverOptions.BrowserVersions.Safari,
-                TargetBrowser.Ie11 => _driverOptions.BrowserVersions.InternetExplorer = browserVersion,
-                TargetBrowser.Edge => _driverOptions.BrowserVersions.Edge = browserVersion,
-                TargetBrowser.AndroidMobileChrome => _driverOptions.BrowserVersions.AndroidMobileChrome,
-                TargetBrowser.iOSMobileChrome => _driverOptions.BrowserVersions.iOSMobileChrome,
-                TargetBrowser.iOSMobileSafari => _driverOptions.BrowserVersions.iOSMobileSafari,
-                TargetBrowser.AndroidTabletChrome => _driverOptions.BrowserVersions.AndroidTabletChrome,
-                TargetBrowser.iOSTabletChrome => _driverOptions.BrowserVersions.iOSTabletChrome,
-                TargetBrowser.iOSTabletSafari => _driverOptions.BrowserVersions.iOSTabletSafari,
-                TargetBrowser.Samsung => _driverOptions.BrowserVersions.Samsung,
-                TargetBrowser.Default => _driverOptions.BrowserVersions.Chrome,
-                _ => _driverOptions.BrowserVersions.Chrome
+                TargetBrowser.Firefox => _sauceLabsOptions.BrowserVersions.Firefox = browserVersion,
+                TargetBrowser.Chrome => _sauceLabsOptions.BrowserVersions.Chrome = browserVersion,
+                TargetBrowser.EdgeChromium => _sauceLabsOptions.BrowserVersions.EdgeChromium = browserVersion,
+                TargetBrowser.MacChrome => _sauceLabsOptions.BrowserVersions.ChromeMac = browserVersion,
+                TargetBrowser.MacFirefox => _sauceLabsOptions.BrowserVersions.FirefoxMac = browserVersion,
+                TargetBrowser.Safari => _sauceLabsOptions.BrowserVersions.Safari,
+                TargetBrowser.Ie11 => _sauceLabsOptions.BrowserVersions.InternetExplorer = browserVersion,
+                TargetBrowser.Edge => _sauceLabsOptions.BrowserVersions.Edge = browserVersion,
+                TargetBrowser.AndroidMobileChrome => _sauceLabsOptions.BrowserVersions.AndroidMobileChrome,
+                TargetBrowser.iOSMobileChrome => _sauceLabsOptions.BrowserVersions.iOSMobileChrome,
+                TargetBrowser.iOSMobileSafari => _sauceLabsOptions.BrowserVersions.iOSMobileSafari,
+                TargetBrowser.AndroidTabletChrome => _sauceLabsOptions.BrowserVersions.AndroidTabletChrome,
+                TargetBrowser.iOSTabletChrome => _sauceLabsOptions.BrowserVersions.iOSTabletChrome,
+                TargetBrowser.iOSTabletSafari => _sauceLabsOptions.BrowserVersions.iOSTabletSafari,
+                TargetBrowser.Samsung => _sauceLabsOptions.BrowserVersions.Samsung,
+                TargetBrowser.Default => _sauceLabsOptions.BrowserVersions.Chrome,
+                _ => _sauceLabsOptions.BrowserVersions.Chrome
             });
         }
 
@@ -125,14 +122,12 @@ namespace AcceptanceTests.Common.Driver
             return Convert.ToInt32(attemptNumber) > 1 ? attemptNumber : string.Empty;
         }
 
-        private static IWebDriver InitialiseLocalDriver(ScenarioInfo scenario, Proxy proxy)
+        private static IWebDriver InitialiseLocalDriver(Proxy proxy)
         {
             var drivers = GetDrivers();
-            drivers[_targetBrowser].BlockedCamAndMic = scenario.Tags.Contains("Blocked");
-            drivers[_targetBrowser].LoggingEnabled = scenario.Tags.Contains("LoggingEnabled");
+            drivers[_targetBrowser].LoggingEnabled = false;
             drivers[_targetBrowser].BuildPath = _targetBrowser == TargetBrowser.Safari ? "/usr/bin/" : Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             drivers[_targetBrowser].LocalTimeout = TimeSpan.FromSeconds(_driverOptions.LocalCommandTimeoutInSeconds);
-            drivers[_targetBrowser].UseVideoFiles = scenario.Tags.Contains("Video");
             drivers[_targetBrowser].Proxy = proxy;
 
             if (_targetBrowser == TargetBrowser.EdgeChromium)
