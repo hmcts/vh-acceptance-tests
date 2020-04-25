@@ -58,7 +58,9 @@ namespace AcceptanceTests.Common.Driver
                 {"accessKey", _sauceLabsSettings.AccessKey},
                 {"name", _scenario.Title},
                 {"build", build},
+                {"commandTimeout", _driverOptions.SauceLabsCommandTimeoutInSeconds},
                 {"idleTimeout", _driverOptions.SauceLabsIdleTimeoutInSeconds},
+                {"maxDuration", _driverOptions.SauceLabsMaxDurationInSeconds},
                 {"seleniumVersion", _driverOptions.SeleniumVersion},
                 {"timeZone", _driverOptions.Timezone }
             };
@@ -70,9 +72,7 @@ namespace AcceptanceTests.Common.Driver
             drivers[_targetBrowser].BlockedCamAndMic = scenario.Tags.Contains("Blocked");
             drivers[_targetBrowser].BrowserVersions = _driverOptions.BrowserVersions;
             drivers[_targetBrowser].LoggingEnabled = _driverOptions.EnableLogging;
-            drivers[_targetBrowser].IdleTimeout = TimeSpan.FromSeconds(_driverOptions.SauceLabsIdleTimeoutInSeconds);
             drivers[_targetBrowser].MacPlatform = _driverOptions.MacPlatformVersion;
-            drivers[_targetBrowser].SauceLabsTimeout = TimeSpan.FromSeconds(_driverOptions.SauceLabsCommandTimeoutInSeconds);
             drivers[_targetBrowser].SauceOptions = sauceOptions;
             drivers[_targetBrowser].Uri = new Uri(_sauceLabsSettings.RemoteServerUrl);
             return drivers[_targetBrowser].InitialiseForSauceLabs();
@@ -80,7 +80,7 @@ namespace AcceptanceTests.Common.Driver
 
         private static string GetReleaseDefinition()
         {
-            var definition = Environment.GetEnvironmentVariable("Release_DefinitionName")?.Replace("vh-", "") ?? $"{DateTime.Today:dd.MM.yy}";
+            var definition = Environment.GetEnvironmentVariable("Release_DefinitionName")?.Replace("vh-", "") ?? $"{DateTime.Today:dd.MM.yyyy}";
             return definition.ToCamelCase(new CultureInfo("en-GB", false));
         }
 
@@ -132,7 +132,6 @@ namespace AcceptanceTests.Common.Driver
             drivers[_targetBrowser].LoggingEnabled = scenario.Tags.Contains("LoggingEnabled");
             drivers[_targetBrowser].BuildPath = _targetBrowser == TargetBrowser.Safari ? "/usr/bin/" : Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             drivers[_targetBrowser].LocalTimeout = TimeSpan.FromSeconds(_driverOptions.LocalCommandTimeoutInSeconds);
-            drivers[_targetBrowser].SauceLabsTimeout = TimeSpan.FromSeconds(_driverOptions.SauceLabsCommandTimeoutInSeconds);
             drivers[_targetBrowser].UseVideoFiles = scenario.Tags.Contains("Video");
             drivers[_targetBrowser].Proxy = proxy;
 

@@ -14,7 +14,7 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Mac
             };
 
             if (LoggingEnabled)
-                options.SetLoggingPreference(LogType.Browser, LogLevel.Info);
+                SauceOptions.Add("extendedDebugging", true);
 
             options.AddAdditionalCapability("sauce:options", SauceOptions);
             return new RemoteWebDriver(Uri, options);

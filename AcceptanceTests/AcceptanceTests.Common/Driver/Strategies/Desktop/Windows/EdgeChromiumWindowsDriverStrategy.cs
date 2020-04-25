@@ -19,7 +19,7 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
                     { "args", new List<string> { "use-fake-ui-for-media-stream", "use-fake-device-for-media-stream", "log-level=1" } }}},
                 { "sauce:options", SauceOptions}
             });
-            return new RemoteWebDriver(Uri, capabilities, SauceLabsTimeout);
+            return new RemoteWebDriver(Uri, capabilities);
         }
 
         [System.Obsolete]

@@ -23,7 +23,7 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Mac
             options.AddArgument("use-fake-device-for-media-stream");
             options.AddAdditionalCapability("sauce:options", SauceOptions, true);
 
-            return new RemoteWebDriver(Uri, options.ToCapabilities(), SauceLabsTimeout);
+            return new RemoteWebDriver(Uri, options.ToCapabilities());
         }
 
         public override IWebDriver InitialiseForLocal()

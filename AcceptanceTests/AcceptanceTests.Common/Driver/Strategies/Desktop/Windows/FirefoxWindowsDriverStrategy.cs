@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using System.Collections.Generic;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Remote;
 
@@ -14,10 +15,16 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
                 BrowserVersion = BrowserVersions.Firefox, 
                 AcceptInsecureCertificates = true
             };
-            
+
             if (LoggingEnabled)
+            {
                 SauceOptions.Add("extendedDebugging", true);
-            
+                options.SetPreference("devtools.chrome.enabled", true);
+                options.SetPreference("devtools.debugger.prompt-connection", true);
+                options.SetPreference("devtools.debugger.remote-enabled", true);
+                options.AddArgument(new Dictionary<string, string> { { "-start-debugger-server", "9222" } }.ToString());
+            }
+
             options.SetPreference("media.navigator.streams.fake", true);
             options.SetPreference("media.navigator.permission.disabled", true);
             options.AddAdditionalCapability("sauce:options", SauceOptions, true);
