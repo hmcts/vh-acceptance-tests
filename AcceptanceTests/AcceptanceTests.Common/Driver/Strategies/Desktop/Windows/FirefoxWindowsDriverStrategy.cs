@@ -22,7 +22,7 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
                 options.SetPreference("devtools.chrome.enabled", true);
                 options.SetPreference("devtools.debugger.prompt-connection", true);
                 options.SetPreference("devtools.debugger.remote-enabled", true);
-                options.AddArguments("-start-debugger-server,9222");
+                options.AddArguments("-start-debugger-server","9222");
             }
 
             options.SetPreference("media.navigator.streams.fake", true);
