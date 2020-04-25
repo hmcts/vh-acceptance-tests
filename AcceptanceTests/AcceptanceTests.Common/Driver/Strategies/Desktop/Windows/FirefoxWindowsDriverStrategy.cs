@@ -20,7 +20,7 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
             {
                 SauceOptions.Add("extendedDebugging", true);
                 options.SetPreference("devtools.chrome.enabled", true);
-                options.SetPreference("devtools.debugger.prompt-connection", true);
+                options.SetPreference("devtools.debugger.prompt-connection", false);
                 options.SetPreference("devtools.debugger.remote-enabled", true);
             }
 
