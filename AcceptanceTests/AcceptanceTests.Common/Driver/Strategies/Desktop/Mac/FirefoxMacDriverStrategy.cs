@@ -19,10 +19,7 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Mac
 
             options.SetPreference("media.navigator.streams.fake", true);
             options.SetPreference("media.navigator.permission.disabled", true);
-            options.SetPreference("media.autoplay.allow-extension-background-pages", true);
-            options.SetPreference("media.autoplay.block-event.enabled", false);
-            options.SetPreference("media.autoplay.block-webaudio", false);
-
+            options.SetPreference("media.autoplay.default", 0);
             options.AddAdditionalCapability("sauce:options", SauceOptions, true);
             return new RemoteWebDriver(Uri, options);
         }
