@@ -8,15 +8,23 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Mac
     {
         public override RemoteWebDriver InitialiseForSauceLabs()
         {
-            var browserOptions = new FirefoxOptions { PlatformName = MacPlatform, BrowserVersion =BrowserVersions.FirefoxMac, AcceptInsecureCertificates = true };
-            browserOptions.SetPreference("media.navigator.streams.fake", true);
-            browserOptions.SetPreference("media.navigator.permission.disabled", true);
-
+            var options = new FirefoxOptions { PlatformName = MacPlatform, BrowserVersion =BrowserVersions.FirefoxMac, AcceptInsecureCertificates = true };
             if (LoggingEnabled)
+            {
                 SauceOptions.Add("extendedDebugging", true);
+                options.SetPreference("devtools.chrome.enabled", true);
+                options.SetPreference("devtools.debugger.prompt-connection", false);
+                options.SetPreference("devtools.debugger.remote-enabled", true);
+            }
 
-            browserOptions.AddAdditionalCapability("sauce:options", SauceOptions, true);
-            return new RemoteWebDriver(Uri, browserOptions);
+            options.SetPreference("media.navigator.streams.fake", true);
+            options.SetPreference("media.navigator.permission.disabled", true);
+            options.SetPreference("media.autoplay.allow-extension-background-pages", true);
+            options.SetPreference("media.autoplay.block-event.enabled", false);
+            options.SetPreference("media.autoplay.block-webaudio", false);
+
+            options.AddAdditionalCapability("sauce:options", SauceOptions, true);
+            return new RemoteWebDriver(Uri, options);
         }
 
         public override IWebDriver InitialiseForLocal()
