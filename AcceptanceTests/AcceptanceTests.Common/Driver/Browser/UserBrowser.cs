@@ -127,6 +127,11 @@ namespace AcceptanceTests.Common.Driver.Browser
             Driver.ExecuteScript("arguments[0].scrollIntoView(true);", Driver.FindElement(element));
         }
 
+        public void ScrollToTheTopOfThePage()
+        {
+            ScrollTo(By.TagName("header"));
+        }
+
         public void Click(By element, int timeout = 20)
         {
             Driver.WaitUntilElementClickable(element, timeout);
