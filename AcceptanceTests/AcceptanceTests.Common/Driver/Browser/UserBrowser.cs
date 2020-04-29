@@ -124,7 +124,6 @@ namespace AcceptanceTests.Common.Driver.Browser
 
         public void ScrollTo(By element)
         {
-            Driver.WaitUntilVisible(element);
             Driver.ExecuteScript("arguments[0].scrollIntoView(true);", Driver.FindElement(element));
         }
 
