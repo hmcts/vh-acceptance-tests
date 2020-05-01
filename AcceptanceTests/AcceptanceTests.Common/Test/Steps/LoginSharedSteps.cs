@@ -1,4 +1,6 @@
-﻿using AcceptanceTests.Common.Driver.Browser;
+﻿using System;
+using System.Threading;
+using AcceptanceTests.Common.Driver.Browser;
 using AcceptanceTests.Common.Driver.Helpers;
 using AcceptanceTests.Common.PageObject.Pages;
 using FluentAssertions;
@@ -63,7 +65,7 @@ namespace AcceptanceTests.Common.Test.Steps
         {
             _browser.Driver.WaitUntilVisible(LoginPage.CurrentPassword).Clear();
             _browser.Driver.WaitUntilVisible(LoginPage.CurrentPassword).SendKeys(oldPassword);
-            _browser.Driver.WaitUntilVisible(LoginPage.CurrentPassword).Clear();
+            _browser.Driver.WaitUntilVisible(LoginPage.NewPassword).Clear();
             _browser.Driver.WaitUntilVisible(LoginPage.NewPassword).SendKeys(newPassword);
             _browser.Driver.WaitUntilVisible(LoginPage.CurrentPassword).Clear();
             _browser.Driver.WaitUntilVisible(LoginPage.ConfirmNewPassword).SendKeys(newPassword); 
