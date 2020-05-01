@@ -10,5 +10,9 @@ namespace AcceptanceTests.Common.PageObject.Pages
         public static By SignIn = By.XPath("//input[contains(@data-bind,'SignIn') and (@value='Sign in')]");
         public static string SignInTitle = "Sign in to your account";
         public static By ReSignInButton(string username) => By.XPath($"//div[contains(text(), '{username}')]");
+        public static By CurrentPassword = By.Id("currentPassword");
+        public static By NewPassword = By.Id("newPassword");
+        public static By ConfirmNewPassword = By.Id("confirmNewPassword");
+        public static By SignInButtonAfterPasswordChange = By.Id("idSIButton9");
     }
 }

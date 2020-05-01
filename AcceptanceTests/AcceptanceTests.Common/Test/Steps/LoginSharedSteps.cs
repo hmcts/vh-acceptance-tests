@@ -58,5 +58,16 @@ namespace AcceptanceTests.Common.Test.Steps
         {
             _browser.Driver.WaitUntilVisible(CommonPages.SignOutLink).Displayed.Should().BeTrue();
         }
+
+        public void ChangeThePassword(string oldPassword, string newPassword)
+        {
+            _browser.Driver.WaitUntilVisible(LoginPage.CurrentPassword).Clear();
+            _browser.Driver.WaitUntilVisible(LoginPage.CurrentPassword).SendKeys(oldPassword);
+            _browser.Driver.WaitUntilVisible(LoginPage.CurrentPassword).Clear();
+            _browser.Driver.WaitUntilVisible(LoginPage.NewPassword).SendKeys(newPassword);
+            _browser.Driver.WaitUntilVisible(LoginPage.CurrentPassword).Clear();
+            _browser.Driver.WaitUntilVisible(LoginPage.ConfirmNewPassword).SendKeys(newPassword); 
+            _browser.Click(LoginPage.SignInButtonAfterPasswordChange);
+        }
     }
 }
