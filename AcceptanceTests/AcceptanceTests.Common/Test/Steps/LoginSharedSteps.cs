@@ -64,12 +64,19 @@ namespace AcceptanceTests.Common.Test.Steps
         public void ChangeThePassword(string oldPassword, string newPassword)
         {
             _browser.Driver.WaitUntilVisible(LoginPage.CurrentPassword).Clear();
+            Pause();
             _browser.Driver.WaitUntilVisible(LoginPage.CurrentPassword).SendKeys(oldPassword);
+            Pause();
             _browser.Driver.WaitUntilVisible(LoginPage.NewPassword).Clear();
             _browser.Driver.WaitUntilVisible(LoginPage.NewPassword).SendKeys(newPassword);
             _browser.Driver.WaitUntilVisible(LoginPage.CurrentPassword).Clear();
             _browser.Driver.WaitUntilVisible(LoginPage.ConfirmNewPassword).SendKeys(newPassword); 
             _browser.Click(LoginPage.SignInButtonAfterPasswordChange);
+        }
+
+        private void Pause()
+        {
+            Thread.Sleep(TimeSpan.FromSeconds(1));
         }
     }
 }
