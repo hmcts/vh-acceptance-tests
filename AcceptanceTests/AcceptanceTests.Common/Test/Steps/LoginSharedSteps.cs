@@ -67,15 +67,9 @@ namespace AcceptanceTests.Common.Test.Steps
             _browser.Driver.WaitUntilVisible(LoginPage.CurrentPassword).SendKeys(oldPassword);
             _browser.Driver.WaitUntilVisible(LoginPage.NewPassword).Clear();
             _browser.Driver.WaitUntilVisible(LoginPage.NewPassword).SendKeys(newPassword);
-            _browser.Driver.WaitUntilVisible(LoginPage.CurrentPassword).Clear();
+            _browser.Driver.WaitUntilVisible(LoginPage.ConfirmNewPassword).Clear();
             _browser.Driver.WaitUntilVisible(LoginPage.ConfirmNewPassword).SendKeys(newPassword); 
-            Pause();
             _browser.Click(LoginPage.SignInButtonAfterPasswordChange);
-        }
-
-        private static void Pause()
-        {
-            Thread.Sleep(TimeSpan.FromSeconds(1));
         }
     }
 }
