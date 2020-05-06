@@ -31,7 +31,7 @@ namespace AcceptanceTests.Common.Api.Healthchecks
             var request = RequestBuilder.Get(endpoint);
             var client = ApiClient.SetClient(apiUrl, bearerToken, webProxy);
             var response = RequestExecutor.SendToApi(request, client);
-            response.StatusCode.Should().Be(HttpStatusCode.OK, $"the {apiName} is available");
+            response.StatusCode.Should().Be(HttpStatusCode.OK, $"the {apiName} is available, but healthcheck failed with '{response.StatusCode}' and error message '{response.ErrorMessage}'");
         }
     }
 }
