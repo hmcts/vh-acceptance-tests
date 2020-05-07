@@ -25,7 +25,7 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Mac
             var options = new SafariOptions()
             {
                 PlatformName = MacPlatform,
-                BrowserVersion = "13.0.5",
+                BrowserVersion = "13.1",
                 UnhandledPromptBehavior = UnhandledPromptBehavior.Accept
             };
 

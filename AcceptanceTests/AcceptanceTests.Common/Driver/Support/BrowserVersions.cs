@@ -9,7 +9,7 @@
         public string Firefox { get; set; } = "latest";
         public string FirefoxMac { get; set; } = "latest";
         public string InternetExplorer { get; set; } = "latest";
-        public string Safari { get; set; } = "13.0";
+        public string Safari { get; set; } = "latest";
         public string AndroidMobileChrome { get; set; } = "latest";
         public string AndroidTabletChrome { get; set; } = "latest";
         public string iOSMobileChrome { get; set; } = "latest";
