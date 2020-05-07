@@ -100,7 +100,7 @@ namespace AcceptanceTests.Common.Driver
                 TargetBrowser.EdgeChromium => _sauceLabsOptions.BrowserVersions.EdgeChromium = browserVersion,
                 TargetBrowser.MacChrome => _sauceLabsOptions.BrowserVersions.ChromeMac = browserVersion,
                 TargetBrowser.MacFirefox => _sauceLabsOptions.BrowserVersions.FirefoxMac = browserVersion,
-                TargetBrowser.Safari => _sauceLabsOptions.BrowserVersions.Safari,
+                TargetBrowser.Safari => _sauceLabsOptions.BrowserVersions.Safari = browserVersion,
                 TargetBrowser.Ie11 => _sauceLabsOptions.BrowserVersions.InternetExplorer = browserVersion,
                 TargetBrowser.Edge => _sauceLabsOptions.BrowserVersions.Edge = browserVersion,
                 TargetBrowser.AndroidMobileChrome => _sauceLabsOptions.BrowserVersions.AndroidMobileChrome,

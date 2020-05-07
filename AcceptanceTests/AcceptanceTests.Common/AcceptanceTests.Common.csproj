@@ -29,7 +29,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Polly" Version="7.2.0" />
+    <PackageReference Include="Polly" Version="7.2.1" />
     <PackageReference Include="Protractor" Version="0.13.0" />
     <PackageReference Include="RestSharp" Version="106.10.1" />
     <PackageReference Include="Selenium.Support" Version="3.141.0" />
