@@ -124,12 +124,12 @@ namespace AcceptanceTests.Common.Api.Hearings
             return RequestExecutor.SendToApi(request, client);
         }
 
-        public IRestResponse GetHearingsByCaseType(CaseType[] caseTypes, int limit)
+        public IRestResponse GetHearingsByCaseType(int[] caseTypesIds, int limit)
         {
             var endpoint = BookingsApiUriFactory.HearingsEndpoints.GetHearingsByCaseType();
             var queryParameters = new Dictionary<string, string>
             {
-                {"types", caseTypes.ToString()},
+                {"types", caseTypesIds.ToString()},
                 {"limit", limit.ToString()}
             };
             var request = RequestBuilder.Get(endpoint, queryParameters);
