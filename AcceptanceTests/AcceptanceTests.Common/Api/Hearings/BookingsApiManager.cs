@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Threading;
 using AcceptanceTests.Common.Api.Clients;
 using AcceptanceTests.Common.Api.Requests;
 using AcceptanceTests.Common.Api.Uris;
+using AcceptanceTests.Common.Model.Case;
 using RestSharp;
 
 namespace AcceptanceTests.Common.Api.Hearings
@@ -118,6 +120,19 @@ namespace AcceptanceTests.Common.Api.Hearings
         {
             var endpoint = BookingsApiUriFactory.HearingsParticipantsEndpoints.UpdateParticipantDetails(hearingId, participantId);
             var request = RequestBuilder.Put(endpoint, updateRequest);
+            var client = ApiClient.SetClient(_bookingsApiUrl, _bookingsApiBearerToken);
+            return RequestExecutor.SendToApi(request, client);
+        }
+
+        public IRestResponse GetHearingsByCaseType(CaseType[] caseTypes, int limit)
+        {
+            var endpoint = BookingsApiUriFactory.HearingsEndpoints.GetHearingsByCaseType();
+            var queryParameters = new Dictionary<string, string>
+            {
+                {"types", caseTypes.ToString()},
+                {"limit", limit.ToString()}
+            };
+            var request = RequestBuilder.Get(endpoint, queryParameters);
             var client = ApiClient.SetClient(_bookingsApiUrl, _bookingsApiBearerToken);
             return RequestExecutor.SendToApi(request, client);
         }

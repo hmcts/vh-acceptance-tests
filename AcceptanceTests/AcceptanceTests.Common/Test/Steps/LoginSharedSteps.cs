@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading;
-using AcceptanceTests.Common.Driver.Browser;
+﻿using AcceptanceTests.Common.Driver.Browser;
 using AcceptanceTests.Common.Driver.Helpers;
 using AcceptanceTests.Common.PageObject.Pages;
 using FluentAssertions;
