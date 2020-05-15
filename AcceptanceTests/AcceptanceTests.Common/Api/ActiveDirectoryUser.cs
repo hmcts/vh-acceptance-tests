@@ -15,14 +15,14 @@ namespace AcceptanceTests.Common.Api
         {
             var url = $@"{ApiBaseUrl}{tenantId}/users/{user}";
             await SendGraphApiRequest(HttpMethod.Delete, url, token);
-            Console.WriteLine($"Deleted user: {user}");
+            NUnit.Framework.TestContext.WriteLine($"Deleted user: {user}");
         }
 
         private static async Task<string> SendGraphApiRequest(HttpMethod method, string url, string token)
         {
             var policy = Policy.HandleResult<HttpResponseMessage>(r => r.StatusCode == HttpStatusCode.NotFound)
                 .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
-                    (msg, time) => { Console.WriteLine($"Received {msg.Result.StatusCode} for {method} {url}"); });
+                    (msg, time) => { NUnit.Framework.TestContext.WriteLine($"Received {msg.Result.StatusCode} for {method} {url}"); });
 
             var result = await policy.ExecuteAsync(async () =>
             {
