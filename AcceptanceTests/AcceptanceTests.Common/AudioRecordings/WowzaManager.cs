@@ -9,7 +9,6 @@ namespace AcceptanceTests.Common.AudioRecordings
 {
     public class WowzaManager
     {
-        private const string TestAudioFileDirectoryName = "TestAudioFiles";
         private string _storageAccountName;
         private string _storageAccountKey;
         private string _storageContainerName;
@@ -36,7 +35,7 @@ namespace AcceptanceTests.Common.AudioRecordings
         public WowzaManager CreateBlobClient(Guid hearingId)
         {
             var containerClient = CreateContainerClient();
-            _blobClient = containerClient.GetBlobClient($"{TestAudioFileDirectoryName}/{hearingId}.mp4");
+            _blobClient = containerClient.GetBlobClient($"{hearingId}.mp4");
             return this;
         }
 
