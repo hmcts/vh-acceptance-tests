@@ -17,5 +17,14 @@ namespace AcceptanceTests.Common.AudioRecordings
             File.Move($"{originalFile}", newFileName);
             return newFileName;
         }
+
+        public static void RemoveLocalAudioFile(string filename)
+        {
+            if (!File.Exists(filename))
+            {
+                throw new FileNotFoundException($"Unable to find audio file with path : {filename}");
+            }
+            File.Delete(filename);
+        }
     }
 }
