@@ -34,7 +34,6 @@ namespace AcceptanceTests.Common.Api.Uris
             public static string UpdateHearingStatus(Guid? hearingId) => $"{ApiRoot}/{hearingId}";
             public static string RemoveHearing(Guid? hearingId) => $"{ApiRoot}/{hearingId}";
             public static string GetHearingsByAnyCaseType(int limit = 100) => $"{ApiRoot}/types?limit={limit}";
-            public static string GetHearingsByCaseNumber => $"{ApiRoot}/audiorecording/casenumber";
         }
 
         public static class HearingsParticipantsEndpoints
