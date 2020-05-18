@@ -11,5 +11,6 @@ namespace AcceptanceTests.Common.Configuration
         public bool SetUpProxy { get; set; }
         public string ServiceName { get; set; }
         public string SolutionFolderName { get; set; }
+        public bool SkipPublish { get; set; }
     }
 }

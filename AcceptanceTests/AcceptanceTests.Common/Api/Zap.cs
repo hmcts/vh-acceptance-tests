@@ -46,7 +46,11 @@ namespace AcceptanceTests.Common.Api
         {
             if (!ZapConfiguration.ZapScan) return;
 
-            Build();
+            if(!ZapConfiguration.SkipPublish)
+            {
+                Build();
+            }
+
             StartContainers();
 
             var zapStarted = WaitForZap().Result;
