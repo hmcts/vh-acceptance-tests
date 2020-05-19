@@ -11,6 +11,12 @@ namespace AcceptanceTests.Common.Api.Uris
             public static string Event => $"{ApiRoot}";
         }
 
+        public static class AudioRecordingEndpoints
+        {
+            private const string ApiRoot = "conferences";
+            public static string GetAudioRecordingLink(Guid hearingId) => $"{ApiRoot}/audio/{hearingId}";
+        }
+
         public static class VideoApiParticipantsEndpoints
         {
             private const string ApiRoot = "conferences";
