@@ -33,6 +33,9 @@ namespace AcceptanceTests.Common.Driver.Strategies.Desktop.Windows
             options.AddArgument("use-fake-ui-for-media-stream");
             options.AddArgument("use-fake-device-for-media-stream");
 
+            if(HeadlessMode)
+                options.AddArgument("--headless");
+
             if (Proxy?.HttpProxy != null)
             {
                 options.Proxy = Proxy;

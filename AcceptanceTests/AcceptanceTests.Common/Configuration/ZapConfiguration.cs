@@ -12,5 +12,6 @@ namespace AcceptanceTests.Common.Configuration
         public string ServiceName { get; set; }
         public string SolutionFolderName { get; set; }
         public bool SkipPublish { get; set; }
+        public bool HeadlessMode { get; set; }
     }
 }

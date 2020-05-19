@@ -5,5 +5,6 @@
         public int LocalCommandTimeoutInSeconds { get; set; } = 20;
         public TargetBrowser TargetBrowser { get; set; }
         public TargetDevice TargetDevice { get; set; }
+        public bool HeadlessMode { get; set; }
     }
 }

@@ -22,7 +22,7 @@ namespace AcceptanceTests.Common.Driver
     public class DriverSetup
     {
         private readonly SauceLabsSettingsConfig _sauceLabsSettings;
-        private readonly Proxy _proxy;
+        private static Proxy _proxy;
         private static DriverOptions _driverOptions;
         private static SauceLabsOptions _sauceLabsOptions;
         private static TargetBrowser _targetBrowser;
@@ -41,7 +41,7 @@ namespace AcceptanceTests.Common.Driver
 
         public IWebDriver GetDriver()
         {
-            return _sauceLabsSettings.RunningOnSauceLabs() ? InitialiseSauceLabsDriver() : InitialiseLocalDriver(_proxy);
+            return _sauceLabsSettings.RunningOnSauceLabs() ? InitialiseSauceLabsDriver() : InitialiseLocalDriver();
         }
 
         private IWebDriver InitialiseSauceLabsDriver()
@@ -122,13 +122,14 @@ namespace AcceptanceTests.Common.Driver
             return Convert.ToInt32(attemptNumber) > 1 ? attemptNumber : string.Empty;
         }
 
-        private static IWebDriver InitialiseLocalDriver(Proxy proxy)
+        private static IWebDriver InitialiseLocalDriver()
         {
             var drivers = GetDrivers();
             drivers[_targetBrowser].LoggingEnabled = false;
             drivers[_targetBrowser].BuildPath = _targetBrowser == TargetBrowser.Safari ? "/usr/bin/" : Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             drivers[_targetBrowser].LocalTimeout = TimeSpan.FromSeconds(_driverOptions.LocalCommandTimeoutInSeconds);
-            drivers[_targetBrowser].Proxy = proxy;
+            drivers[_targetBrowser].Proxy = _proxy; 
+            drivers[_targetBrowser].HeadlessMode = _driverOptions.HeadlessMode;
 
             if (_targetBrowser == TargetBrowser.EdgeChromium)
             {

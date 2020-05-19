@@ -15,6 +15,7 @@ namespace AcceptanceTests.Common.Driver.Strategies
         internal string MacPlatform { get; set; }
         internal Proxy Proxy { get; set; }
         internal const string ProxyByPassList = "proxy-bypass-list=<-loopback>";
+        internal bool HeadlessMode { get; set; }
         internal Dictionary<string, object> SauceOptions { get; set; }
         internal Uri Uri { get; set; }
         public abstract RemoteWebDriver InitialiseForSauceLabs();
