@@ -8,10 +8,10 @@ namespace AcceptanceTests.Common.AudioRecordings
     {
         public static string CreateNewAudioFile(string originalFileName, Guid hearingId, string path = "TestAudioFiles")
         {
-            var originalFile = $"{path}\\{originalFileName}";
+            var originalFile = $"{GetAssemblyDirectory()}\\{path}\\{originalFileName}";
             if (!File.Exists(originalFile))
             {
-                throw new FileNotFoundException($"Unable to find audio file with path : {Assembly.GetExecutingAssembly().Location}\\{originalFile}. ");
+                throw new FileNotFoundException($"Unable to find audio file with path : {originalFile}. ");
             }
 
             var newFileName = $"{path}\\{hearingId}.mp4";
@@ -21,11 +21,20 @@ namespace AcceptanceTests.Common.AudioRecordings
 
         public static void RemoveLocalAudioFile(string filename)
         {
-            if (!File.Exists(filename))
+            var fileAndDirectory = $"{GetAssemblyDirectory()}\\{filename}";
+            if (!File.Exists(fileAndDirectory))
             {
-                throw new FileNotFoundException($"Unable to find audio file with path : {Assembly.GetExecutingAssembly().Location}\\{filename}");
+                throw new FileNotFoundException($"Unable to find audio file with path : {fileAndDirectory}");
             }
-            File.Delete(filename);
+            File.Delete(fileAndDirectory);
+        }
+
+        public static string GetAssemblyDirectory()
+        {
+            var codeBase = Assembly.GetExecutingAssembly().CodeBase;
+            var uri = new UriBuilder(codeBase);
+            var path = Uri.UnescapeDataString(uri.Path);
+            return Path.GetDirectoryName(path);
         }
     }
 }
