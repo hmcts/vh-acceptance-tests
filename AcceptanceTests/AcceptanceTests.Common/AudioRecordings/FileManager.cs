@@ -24,13 +24,13 @@ namespace AcceptanceTests.Common.AudioRecordings
 
             var fileWithExtension = $"{hearingId}.mp4";
             var newFilePath = Path.Join(path, fileWithExtension);
-            File.Move(originalFilePath, newFilePath);
+            File.Copy(originalFilePath, newFilePath, true);
             return newFilePath;
         }
 
-        public static void RemoveLocalAudioFile(string filename)
+        public static void RemoveLocalAudioFile(string filepath)
         {
-            var fileAndDirectory = Path.Join(GetAssemblyDirectory(), filename);
+            var fileAndDirectory = Path.Join(GetAssemblyDirectory(), filepath);
             if (!File.Exists(fileAndDirectory))
             {
                 throw new FileNotFoundException($"Unable to find audio file with path : {fileAndDirectory}");
