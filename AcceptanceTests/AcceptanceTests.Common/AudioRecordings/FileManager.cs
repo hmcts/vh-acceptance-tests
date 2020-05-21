@@ -23,7 +23,7 @@ namespace AcceptanceTests.Common.AudioRecordings
             }
 
             var fileWithExtension = $"{hearingId}.mp4";
-            var newFilePath = Path.Join(path, fileWithExtension);
+            var newFilePath = Path.Join(GetAssemblyDirectory(), path, fileWithExtension);
             File.Copy(originalFilePath, newFilePath, true);
             return newFilePath;
         }
