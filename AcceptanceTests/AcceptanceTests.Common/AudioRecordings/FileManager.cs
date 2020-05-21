@@ -30,12 +30,11 @@ namespace AcceptanceTests.Common.AudioRecordings
 
         public static void RemoveLocalAudioFile(string filepath)
         {
-            var fileAndDirectory = Path.Join(GetAssemblyDirectory(), filepath);
-            if (!File.Exists(fileAndDirectory))
+            if (!File.Exists(filepath))
             {
-                throw new FileNotFoundException($"Unable to find audio file with path : {fileAndDirectory}");
+                throw new FileNotFoundException($"Unable to find audio file with path : {filepath}");
             }
-            File.Delete(fileAndDirectory);
+            File.Delete(filepath);
         }
     }
 }
