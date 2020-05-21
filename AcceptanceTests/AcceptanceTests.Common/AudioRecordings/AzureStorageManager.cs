@@ -7,32 +7,32 @@ using NUnit.Framework;
 
 namespace AcceptanceTests.Common.AudioRecordings
 {
-    public class WowzaManager
+    public class AzureStorageManager
     {
         private string _storageAccountName;
         private string _storageAccountKey;
         private string _storageContainerName;
         private BlobClient _blobClient;
 
-        public WowzaManager SetStorageAccountName(string storageAccountName)
+        public AzureStorageManager SetStorageAccountName(string storageAccountName)
         {
             _storageAccountName = storageAccountName;
             return this;
         }
 
-        public WowzaManager SetStorageAccountKey(string storageAccountKey)
+        public AzureStorageManager SetStorageAccountKey(string storageAccountKey)
         {
             _storageAccountKey = storageAccountKey;
             return this;
         }
 
-        public WowzaManager SetStorageContainerName(string storageContainerName)
+        public AzureStorageManager SetStorageContainerName(string storageContainerName)
         {
             _storageContainerName = storageContainerName;
             return this;
         }
 
-        public WowzaManager CreateBlobClient(Guid hearingId)
+        public AzureStorageManager CreateBlobClient(Guid hearingId)
         {
             var containerClient = CreateContainerClient();
             _blobClient = containerClient.GetBlobClient($"{hearingId}.mp4");
