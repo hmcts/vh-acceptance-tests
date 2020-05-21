@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
+using AcceptanceTests.Common.AudioRecordings;
 using AcceptanceTests.Common.Configuration;
 using AcceptanceTests.Common.Driver.Strategies;
 using AcceptanceTests.Common.Driver.Strategies.Desktop.Mac;
@@ -126,7 +127,7 @@ namespace AcceptanceTests.Common.Driver
         {
             var drivers = GetDrivers();
             drivers[_targetBrowser].LoggingEnabled = false;
-            drivers[_targetBrowser].BuildPath = _targetBrowser == TargetBrowser.Safari ? "/usr/bin/" : Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            drivers[_targetBrowser].BuildPath = FileManager.GetAssemblyDirectory();
             drivers[_targetBrowser].LocalTimeout = TimeSpan.FromSeconds(_driverOptions.LocalCommandTimeoutInSeconds);
             drivers[_targetBrowser].Proxy = _proxy; 
             drivers[_targetBrowser].HeadlessMode = _driverOptions.HeadlessMode;
