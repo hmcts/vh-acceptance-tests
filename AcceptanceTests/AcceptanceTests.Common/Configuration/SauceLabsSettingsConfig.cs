@@ -6,7 +6,7 @@
         public string AccessKey { get; set; }
         public string MobileAccessKey { get; set; }
         public string RemoteServerUrl { get; set; }
-        public string RemoteMobileServerUrl { get; set; }
+        public string RemoteRealDeviceServerUrl { get; set; }
 
         public bool RunningOnSauceLabs()
         {
@@ -17,7 +17,7 @@
             RemoteServerUrl = $"http://{Username}:{AccessKey}{serverUrl}";
         }
 
-        public void SetRemoteServerUrlForMobile(string serverUrl)
+        public void SetRemoteServerUrlForRealDevices(string serverUrl)
         {
             RemoteServerUrl = $"http://{Username}:{MobileAccessKey}{serverUrl}";
         }

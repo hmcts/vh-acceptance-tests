@@ -1,28 +1,22 @@
 ﻿using System;
-using AcceptanceTests.Common.Driver.Support;
+using AcceptanceTests.Common.Driver.Enums;
 
 namespace AcceptanceTests.Common.Data.Time
 {
     public class TimeZone
     {
         private readonly bool _runningOnSauceLabs;
-        private readonly TargetBrowser _browser;
-        public TimeZone(bool runningOnSaucelabs, TargetBrowser browser)
+        private readonly TargetOS _targetOS;
+        public TimeZone(bool runningOnSaucelabs, TargetOS targetOS)
         {
             _runningOnSauceLabs = runningOnSaucelabs;
-            _browser = browser;
+            _targetOS = targetOS;
         }
 
         public DateTime Adjust(DateTime dateTime)
         {
             if (!_runningOnSauceLabs) return dateTime.ToLocalTime();
-            if (_browser == TargetBrowser.Safari ||
-                _browser == TargetBrowser.MacChrome ||
-                _browser == TargetBrowser.MacFirefox)
-            {
-                return dateTime.ToUniversalTime().AddHours(1);
-            }
-            return dateTime.ToUniversalTime();
+            return _targetOS == TargetOS.MacOs ? dateTime.ToUniversalTime().AddHours(1) : dateTime.ToUniversalTime();
         }
 
         public DateTime AdjustForVideoWeb(DateTime dateTime)

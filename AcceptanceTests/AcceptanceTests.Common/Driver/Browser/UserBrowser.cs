@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Threading;
+using AcceptanceTests.Common.Driver.Drivers;
+using AcceptanceTests.Common.Driver.Enums;
 using AcceptanceTests.Common.Driver.Helpers;
 using AcceptanceTests.Common.Driver.Support;
 using FluentAssertions;
@@ -19,6 +21,7 @@ namespace AcceptanceTests.Common.Driver.Browser
         private DriverSetup _driver;
         public string LastWindowName { get; set; }
         public TargetBrowser _targetBrowser;
+        private TargetDevice _targetDevice;
 
         public UserBrowser SetBaseUrl(string baseUrl)
         {
@@ -32,6 +35,12 @@ namespace AcceptanceTests.Common.Driver.Browser
             return this;
         }
 
+        public UserBrowser SetTargetDevice(TargetDevice targetDevice)
+        {
+            _targetDevice = targetDevice;
+            return this;
+        }
+
         public UserBrowser SetTargetBrowser(TargetBrowser targetBrowser)
         {
             _targetBrowser = targetBrowser;
@@ -41,14 +50,12 @@ namespace AcceptanceTests.Common.Driver.Browser
         public void LaunchBrowser()
         {
             var driver = _driver.GetDriver();
-            Driver = new NgWebDriver(driver);
-            TryMaximizeBrowser();
-            Driver.IgnoreSynchronization = true;
-        }
+            Driver = new NgWebDriver(driver) {IgnoreSynchronization = true};
 
-        public void StopEdgeChromiumServer()
-        {
-            _driver.StopLocalEdgeChromiumService();
+            if (_targetDevice == TargetDevice.Desktop)
+            {
+                TryMaximizeBrowser();
+            }
         }
 
         private void TryMaximizeBrowser()
@@ -202,6 +209,7 @@ namespace AcceptanceTests.Common.Driver.Browser
         {
             Driver?.Quit();
             Driver?.Dispose();
+            _driver?.StopServices();
         }
     }
 }
