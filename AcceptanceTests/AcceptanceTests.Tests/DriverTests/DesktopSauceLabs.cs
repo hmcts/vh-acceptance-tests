@@ -55,7 +55,6 @@ namespace AcceptanceTests.Tests.DriverTests
         {
             return new DriverOptions
             {
-                TargetBrowserVersion = "latest",
                 TargetDevice = TargetDevice.Desktop,
                 TargetOS = targetOS,
                 TargetBrowser = targetBrowser

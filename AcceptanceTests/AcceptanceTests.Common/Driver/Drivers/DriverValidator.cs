@@ -28,7 +28,6 @@ namespace AcceptanceTests.Common.Driver.Drivers
             {
                 options.TargetOS.ToString().Should().BeOneOf(TargetOS.Windows.ToString(), TargetOS.MacOs.ToString());
                 options.TargetBrowser.Should().NotBeNull();
-                options.TargetBrowserVersion.Should().NotBeNull();
             }
         }
 
