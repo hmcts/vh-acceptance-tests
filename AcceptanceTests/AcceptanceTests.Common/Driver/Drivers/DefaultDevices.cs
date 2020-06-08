@@ -7,19 +7,19 @@ namespace AcceptanceTests.Common.Driver.Drivers
 {
     public static class DefaultDevices
     {
-        public static string GetAppiumVersion(TargetDevice targetDevice, TargetOS targetOS)
+        public static string GetAppiumVersion(TargetDevice targetDevice, TargetOS targetOS, bool runningOnSauceLabs)
         {
-            return GetDevice(targetDevice, targetOS).AppiumVersion;
+            return runningOnSauceLabs ? GetSauceLabsDevice(targetDevice, targetOS).AppiumVersion : GetLocalDevice(targetDevice, targetOS).AppiumVersion;
         }
 
-        public static string GetPlatformVersion(TargetDevice targetDevice, TargetOS targetOS)
+        public static string GetPlatformVersion(TargetDevice targetDevice, TargetOS targetOS, bool runningOnSauceLabs)
         {
-            return GetDevice(targetDevice, targetOS).PlatformVersion;
+            return runningOnSauceLabs ? GetSauceLabsDevice(targetDevice, targetOS).PlatformVersion : GetLocalDevice(targetDevice, targetOS).PlatformVersion;
         }
 
-        public static string GetTargetDeviceName(TargetDevice targetDevice, TargetOS targetOS)
+        public static string GetTargetDeviceName(TargetDevice targetDevice, TargetOS targetOS, bool runningOnSauceLabs)
         {
-            return GetDevice(targetDevice, targetOS).DeviceName;
+            return runningOnSauceLabs ? GetSauceLabsDevice(targetDevice, targetOS).DeviceName : GetLocalDevice(targetDevice, targetOS).DeviceName;
         }
 
         public static bool IsMobileOrTablet(TargetDevice targetDevice)
@@ -32,7 +32,20 @@ namespace AcceptanceTests.Common.Driver.Drivers
             return deviceName.IsNullOrEmpty();
         }
 
-        private static SauceLabsDevice GetDevice(TargetDevice targetDevice, TargetOS targetOS)
+        private static Device GetLocalDevice(TargetDevice targetDevice, TargetOS targetOS)
+        {
+            return targetDevice switch
+            {
+                TargetDevice.Mobile when targetOS == TargetOS.Android => LocalDevices.AndroidMobiles().First(),
+                TargetDevice.Mobile when targetOS == TargetOS.iOS => LocalDevices.IOSMobiles().First(),
+                TargetDevice.Tablet when targetOS == TargetOS.Android => LocalDevices.AndroidTablets().First(),
+                TargetDevice.Tablet when targetOS == TargetOS.iOS => LocalDevices.IOSTablets().First(),
+                _ => throw new InvalidDataException(
+                    $"No device exists with OS '{targetOS}' and Device '{targetDevice}'")
+            };
+        }
+
+        private static Device GetSauceLabsDevice(TargetDevice targetDevice, TargetOS targetOS)
         {
             return targetDevice switch
             {

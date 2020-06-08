@@ -33,7 +33,7 @@ namespace AcceptanceTests.Common.Driver.Drivers.Mobile.iOS
             options.AddAdditionalCapability(MobileCapabilityType.PlatformName, "iOS");
             options.AddAdditionalCapability(MobileCapabilityType.BrowserName, "Safari");
             options.AddAdditionalCapability(MobileCapabilityType.Orientation, Orientation.ToString());
-            options.AddAdditionalCapability(MobileCapabilityType.PlatformVersion, "13.5");
+            options.AddAdditionalCapability(MobileCapabilityType.PlatformVersion, PlatformVersion);
             options.AddAdditionalCapability(MobileCapabilityType.FullReset, true);
             return new RemoteWebDriver(Uri, options.ToCapabilities(), LocalTimeout);
         }

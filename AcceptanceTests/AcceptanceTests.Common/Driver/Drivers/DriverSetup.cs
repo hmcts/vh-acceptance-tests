@@ -31,13 +31,13 @@ namespace AcceptanceTests.Common.Driver.Drivers
             return _sauceLabsSettings.RunningOnSauceLabs() ? InitialiseSauceLabsDriver() : InitialiseLocalDriver();
         }
 
-        private static void SetDefaultSauceLabsSettings()
+        private void SetDefaultSauceLabsSettings()
         {
             if (!DefaultDevices.IsMobileOrTablet(_driverOptions.TargetDevice) ||
                 !DefaultDevices.DeviceNameHasNotBeenSet(_driverOptions.TargetDeviceName)) return;
-            _sauceLabsOptions.AppiumVersion = DefaultDevices.GetAppiumVersion(_driverOptions.TargetDevice, _driverOptions.TargetOS);
-            _sauceLabsOptions.PlatformVersion = DefaultDevices.GetPlatformVersion(_driverOptions.TargetDevice, _driverOptions.TargetOS);
-            _driverOptions.TargetDeviceName = DefaultDevices.GetTargetDeviceName(_driverOptions.TargetDevice, _driverOptions.TargetOS);
+            _sauceLabsOptions.AppiumVersion = DefaultDevices.GetAppiumVersion(_driverOptions.TargetDevice, _driverOptions.TargetOS, _sauceLabsSettings.RunningOnSauceLabs());
+            _sauceLabsOptions.PlatformVersion = DefaultDevices.GetPlatformVersion(_driverOptions.TargetDevice, _driverOptions.TargetOS, _sauceLabsSettings.RunningOnSauceLabs());
+            _driverOptions.TargetDeviceName = DefaultDevices.GetTargetDeviceName(_driverOptions.TargetDevice, _driverOptions.TargetOS, _sauceLabsSettings.RunningOnSauceLabs());
         }
 
         private static void ValidateDriverOptions(DriverOptions options)

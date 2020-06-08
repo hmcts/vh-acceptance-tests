@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices;
 using AcceptanceTests.Common.Driver.Browser;
 using AcceptanceTests.Common.Driver.Enums;
 using AcceptanceTests.Common.Driver.Exceptions;

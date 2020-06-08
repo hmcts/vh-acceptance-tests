@@ -1,6 +1,6 @@
 ﻿namespace AcceptanceTests.Common.Driver.Drivers
 {
-    public class SauceLabsDevice
+    public class Device
     {
         public string AppiumVersion { get; set; }
         public string DeviceName { get; set; }

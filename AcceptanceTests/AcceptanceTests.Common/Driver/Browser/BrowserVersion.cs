@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using AcceptanceTests.Common.Driver.Drivers;
 using AcceptanceTests.Common.Driver.Enums;
+using Castle.Core.Internal;
 
 namespace AcceptanceTests.Common.Driver.Browser
 {
@@ -20,6 +21,11 @@ namespace AcceptanceTests.Common.Driver.Browser
                 browserVersion.ToLower().Equals("beta"))
             {
                 throw new SettingsPropertyWrongTypeException("'Beta' version is not available on Sauce Labs for Safari");
+            }
+
+            if (browserVersion.IsNullOrEmpty())
+            {
+                return "Latest";
             }
 
             return browserVersion;
