@@ -4,6 +4,7 @@
     {
         public string AndroidDeviceName { get; set; }
         public string IOSDeviceName { get; set; }
+        public string RemoteServer { get; set; }
         public string SauceLabsAccessKey { get; set; }
         public string SauceLabsUsername { get; set; }
         public string ServerUrl { get; set; }

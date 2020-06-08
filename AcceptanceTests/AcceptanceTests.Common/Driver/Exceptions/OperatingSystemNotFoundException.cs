@@ -1,7 +1,7 @@
 ﻿using System;
 using AcceptanceTests.Common.Driver.Enums;
 
-namespace AcceptanceTests.Common.Exceptions
+namespace AcceptanceTests.Common.Driver.Exceptions
 {
     [Serializable]
     public class OperatingSystemNotFoundException : Exception

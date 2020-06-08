@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AcceptanceTests.Common.Driver.Helpers
+namespace AcceptanceTests.Common.Driver.Enums
 {
     internal static class DriverProcesses
     {

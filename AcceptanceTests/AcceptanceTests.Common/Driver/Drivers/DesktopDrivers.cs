@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
-using AcceptanceTests.Common.Driver.Configuration;
 using AcceptanceTests.Common.Driver.Drivers.Desktop.Mac;
 using AcceptanceTests.Common.Driver.Drivers.Desktop.Windows;
 using AcceptanceTests.Common.Driver.Enums;
-using AcceptanceTests.Common.Driver.Support;
 
 namespace AcceptanceTests.Common.Driver.Drivers
 {

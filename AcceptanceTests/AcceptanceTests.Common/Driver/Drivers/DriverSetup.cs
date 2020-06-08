@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using AcceptanceTests.Common.AudioRecordings;
 using AcceptanceTests.Common.Configuration;
-using AcceptanceTests.Common.Driver.Configuration;
 using AcceptanceTests.Common.Driver.Drivers.Services;
 using AcceptanceTests.Common.Driver.Enums;
-using AcceptanceTests.Common.Driver.Support;
 using Castle.Core.Internal;
 using OpenQA.Selenium;
-using DriverOptions = AcceptanceTests.Common.Driver.Configuration.DriverOptions;
+using DriverOptions = AcceptanceTests.Common.Driver.Drivers.DriverOptions;
 
 namespace AcceptanceTests.Common.Driver.Drivers
 {

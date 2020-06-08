@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
-using AcceptanceTests.Common.Driver.Configuration;
 using AcceptanceTests.Common.Driver.Drivers.Mobile.Android;
 using AcceptanceTests.Common.Driver.Drivers.Mobile.iOS;
 using AcceptanceTests.Common.Driver.Enums;
-using AcceptanceTests.Common.Driver.Support;
 
 namespace AcceptanceTests.Common.Driver.Drivers
 {

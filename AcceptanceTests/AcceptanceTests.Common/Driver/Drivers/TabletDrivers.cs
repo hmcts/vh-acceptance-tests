@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using AcceptanceTests.Common.Driver.Configuration;
 using AcceptanceTests.Common.Driver.Drivers.Tablet.Android;
 using AcceptanceTests.Common.Driver.Drivers.Tablet.iOS;
 using AcceptanceTests.Common.Driver.Enums;

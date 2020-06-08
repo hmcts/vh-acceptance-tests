@@ -1,4 +1,4 @@
-﻿namespace AcceptanceTests.Common.Driver.Support
+﻿namespace AcceptanceTests.Common.Driver.Enums
 {
     public enum TargetDevice
     {

@@ -1,5 +1,5 @@
 ﻿using System.Configuration;
-using AcceptanceTests.Common.Driver.Configuration;
+using AcceptanceTests.Common.Driver.Drivers;
 using AcceptanceTests.Common.Driver.Enums;
 
 namespace AcceptanceTests.Common.Driver.Browser

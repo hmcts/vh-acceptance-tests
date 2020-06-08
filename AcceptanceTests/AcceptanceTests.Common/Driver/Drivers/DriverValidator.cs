@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using AcceptanceTests.Common.Driver.Configuration;
 using AcceptanceTests.Common.Driver.Enums;
-using AcceptanceTests.Common.Driver.Support;
 using FluentAssertions;
 
 namespace AcceptanceTests.Common.Driver.Drivers
