@@ -12,7 +12,7 @@ namespace AcceptanceTests.Tests.DriverTests
 {
     public class TabletLocal
     {
-        private NugetTestsConfiguration _config;
+        private TestConfiguration _config;
         private UserBrowser _browser;
 
         [SetUp]
@@ -29,7 +29,7 @@ namespace AcceptanceTests.Tests.DriverTests
                 TargetDevice = TargetDevice.Tablet,
                 TargetOS = TargetOS.iOS,
                 TargetBrowser = TargetBrowser.Safari,
-                TargetDeviceName = _config.IOSDeviceName,
+                TargetDeviceName = _config.IOSTabletDeviceName,
                 TargetDeviceOrientation = TargetDeviceOrientation.LANDSCAPE
             };
 
@@ -50,7 +50,7 @@ namespace AcceptanceTests.Tests.DriverTests
                 TargetDevice = TargetDevice.Tablet,
                 TargetOS = TargetOS.Android,
                 TargetBrowser = TargetBrowser.Chrome,
-                TargetDeviceName = _config.AndroidDeviceName,
+                TargetDeviceName = _config.AndroidTabletDeviceName,
                 TargetDeviceOrientation = TargetDeviceOrientation.PORTRAIT
             };
 

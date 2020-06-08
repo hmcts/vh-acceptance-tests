@@ -1,8 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
-using OpenQA.Selenium.Appium.iOS;
+using OpenQA.Selenium.Appium.Enums;
 using OpenQA.Selenium.Remote;
-using OpenQA.Selenium.Safari;
 
 namespace AcceptanceTests.Common.Driver.Drivers.Mobile.iOS
 {
@@ -10,26 +9,33 @@ namespace AcceptanceTests.Common.Driver.Drivers.Mobile.iOS
     {
         public override RemoteWebDriver InitialiseForSauceLabs()
         {
-            var options = new SafariOptions();
-            options.AddAdditionalCapability("appiumVersion", "1.16.0");
-            options.AddAdditionalCapability("deviceName", "iPhone 11 Pro Simulator");
-            options.AddAdditionalCapability("deviceOrientation", "portrait");
-            options.AddAdditionalCapability("platformVersion", "13.2");
-            options.AddAdditionalCapability("platformName", "iOS");
-            options.AddAdditionalCapability("browserName", "Safari");
-            return new RemoteWebDriver(Uri, options);
+            var options = new AppiumOptions();
+            options.AddAdditionalCapability(MobileCapabilityType.AppiumVersion, AppiumVersion);
+            options.AddAdditionalCapability(MobileCapabilityType.Orientation, Orientation.ToString());
+            options.AddAdditionalCapability(MobileCapabilityType.PlatformVersion, PlatformVersion);
+            options.AddAdditionalCapability(MobileCapabilityType.DeviceName, DeviceName);
+            options.AddAdditionalCapability(MobileCapabilityType.PlatformName, "iOS");
+            options.AddAdditionalCapability(MobileCapabilityType.BrowserName, "safari");
+            options.AddAdditionalCapability("autoAcceptAlerts", true);
+
+            foreach (var (key, value) in SauceOptions)
+            {
+                options.AddAdditionalCapability(key, value);
+            }
+
+            return new RemoteWebDriver(Uri, options.ToCapabilities());
         }
 
         public override IWebDriver InitialiseForLocal()
         {
-            var options = new SafariOptions();
-            options.AddAdditionalCapability("appiumVersion", "1.16.0");
-            options.AddAdditionalCapability("deviceName", "iPhone 11 Pro Simulator");
-            options.AddAdditionalCapability("deviceOrientation", "portrait");
-            options.AddAdditionalCapability("platformVersion", "13.2");
-            options.AddAdditionalCapability("platformName", "iOS");
-            options.AddAdditionalCapability("browserName", "Safari");
-            return new IOSDriver<AppiumWebElement>(options, LocalTimeout);
+            var options = new AppiumOptions();
+            options.AddAdditionalCapability(MobileCapabilityType.DeviceName, DeviceName);
+            options.AddAdditionalCapability(MobileCapabilityType.PlatformName, "iOS");
+            options.AddAdditionalCapability(MobileCapabilityType.BrowserName, "Safari");
+            options.AddAdditionalCapability(MobileCapabilityType.Orientation, Orientation.ToString());
+            options.AddAdditionalCapability(MobileCapabilityType.PlatformVersion, "13.5");
+            options.AddAdditionalCapability(MobileCapabilityType.FullReset, true);
+            return new RemoteWebDriver(Uri, options.ToCapabilities(), LocalTimeout);
         }
     }
 }

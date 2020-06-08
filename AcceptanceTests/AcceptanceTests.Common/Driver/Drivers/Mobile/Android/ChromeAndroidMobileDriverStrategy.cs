@@ -1,7 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
-using OpenQA.Selenium.Appium.Android;
-using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Appium.Enums;
 using OpenQA.Selenium.Remote;
 
 namespace AcceptanceTests.Common.Driver.Drivers.Mobile.Android
@@ -10,26 +9,33 @@ namespace AcceptanceTests.Common.Driver.Drivers.Mobile.Android
     {
         public override RemoteWebDriver InitialiseForSauceLabs()
         {
-            var options = new ChromeOptions();
-            options.AddAdditionalCapability("appiumVersion", "1.9.1");
-            options.AddAdditionalCapability("deviceName", "Samsung Galaxy S9 Plus FHD GoogleAPI Emulator");
-            options.AddAdditionalCapability("deviceOrientation", "portrait");
-            options.AddAdditionalCapability("browserName", "Chrome");
-            options.AddAdditionalCapability("platformVersion", "8.1");
-            options.AddAdditionalCapability("platformName", "Android");
-            return new RemoteWebDriver(Uri, options);
+            var options = new AppiumOptions();
+            options.AddAdditionalCapability(MobileCapabilityType.DeviceName, DeviceName);
+            options.AddAdditionalCapability(MobileCapabilityType.PlatformName, "Android");
+            options.AddAdditionalCapability(MobileCapabilityType.BrowserName, "Chrome");
+            options.AddAdditionalCapability(MobileCapabilityType.AppiumVersion, AppiumVersion);
+            options.AddAdditionalCapability(MobileCapabilityType.Orientation, Orientation.ToString());
+            options.AddAdditionalCapability(MobileCapabilityType.PlatformVersion, PlatformVersion);
+
+            foreach (var (key, value) in SauceOptions)
+            {
+                options.AddAdditionalCapability(key, value);
+            }
+
+            return new RemoteWebDriver(Uri, options.ToCapabilities());
         }
 
         public override IWebDriver InitialiseForLocal()
         {
-            var options = new ChromeOptions();
-            options.AddAdditionalCapability("appiumVersion", "1.9.1");
-            options.AddAdditionalCapability("deviceName", "Samsung Galaxy S9 Plus FHD GoogleAPI Emulator");
-            options.AddAdditionalCapability("deviceOrientation", "portrait");
-            options.AddAdditionalCapability("browserName", "Chrome");
-            options.AddAdditionalCapability("platformVersion", "8.1");
-            options.AddAdditionalCapability("platformName", "Android");
-            return new AndroidDriver<AppiumWebElement>(options, LocalTimeout);
+            var chromePath = $"{BuildPath}/chromedriver";
+            var options = new AppiumOptions();
+            options.AddAdditionalCapability("avd", DeviceName);
+            options.AddAdditionalCapability(MobileCapabilityType.PlatformName, "Android");
+            options.AddAdditionalCapability(MobileCapabilityType.DeviceName, DeviceName);
+            options.AddAdditionalCapability(MobileCapabilityType.Orientation, Orientation.ToString());
+            options.AddAdditionalCapability(MobileCapabilityType.BrowserName, "Chrome");
+            options.AddAdditionalCapability(AndroidMobileCapabilityType.ChromedriverExecutable, chromePath);
+            return new RemoteWebDriver(Uri, options.ToCapabilities(), LocalTimeout);
         }
     }
 }

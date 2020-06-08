@@ -4,9 +4,7 @@ using AcceptanceTests.Common.AudioRecordings;
 using AcceptanceTests.Common.Configuration;
 using AcceptanceTests.Common.Driver.Drivers.Services;
 using AcceptanceTests.Common.Driver.Enums;
-using Castle.Core.Internal;
 using OpenQA.Selenium;
-using DriverOptions = AcceptanceTests.Common.Driver.Drivers.DriverOptions;
 
 namespace AcceptanceTests.Common.Driver.Drivers
 {
@@ -35,10 +33,11 @@ namespace AcceptanceTests.Common.Driver.Drivers
 
         private static void SetDefaultSauceLabsSettings()
         {
-            if (_driverOptions.TargetDeviceName.IsNullOrEmpty())
-            {
-                _driverOptions.TargetDeviceName = _driverOptions.TargetOS == TargetOS.Android ? "Google Pixel C GoogleAPI Emulator" : "iPad Pro (11 inch) Simulator";
-            }
+            if (!DefaultDevices.IsMobileOrTablet(_driverOptions.TargetDevice) ||
+                !DefaultDevices.DeviceNameHasNotBeenSet(_driverOptions.TargetDeviceName)) return;
+            _sauceLabsOptions.AppiumVersion = DefaultDevices.GetAppiumVersion(_driverOptions.TargetDevice, _driverOptions.TargetOS);
+            _sauceLabsOptions.PlatformVersion = DefaultDevices.GetPlatformVersion(_driverOptions.TargetDevice, _driverOptions.TargetOS);
+            _driverOptions.TargetDeviceName = DefaultDevices.GetTargetDeviceName(_driverOptions.TargetDevice, _driverOptions.TargetOS);
         }
 
         private static void ValidateDriverOptions(DriverOptions options)
@@ -50,15 +49,13 @@ namespace AcceptanceTests.Common.Driver.Drivers
         {
             var sauceOptions = new SauceLabsOptionsBuilder(_driverOptions, _sauceLabsOptions, _sauceLabsSettings).Build();
             var drivers = GetDrivers();
-            drivers[_driverOptions.TargetBrowser].AndroidAppiumVersion = _sauceLabsOptions.AndroidAppiumVersion;
-            drivers[_driverOptions.TargetBrowser].AndroidPlatformVersion = _sauceLabsOptions.AndroidPlatformVersion;
+            drivers[_driverOptions.TargetBrowser].AppiumVersion = _sauceLabsOptions.AppiumVersion;
             drivers[_driverOptions.TargetBrowser].BrowserVersion = _sauceLabsOptions.BrowserVersion;
             drivers[_driverOptions.TargetBrowser].DeviceName = _driverOptions.TargetDeviceName;
-            drivers[_driverOptions.TargetBrowser].IOSAppiumVersion = _sauceLabsOptions.IOSAppiumVersion;
-            drivers[_driverOptions.TargetBrowser].IOSPlatformVersion = _sauceLabsOptions.IOSPlatformVersion;
             drivers[_driverOptions.TargetBrowser].LoggingEnabled = _sauceLabsOptions.EnableLogging;
             drivers[_driverOptions.TargetBrowser].MacPlatform = _sauceLabsOptions.MacPlatformVersion;
             drivers[_driverOptions.TargetBrowser].Orientation = _driverOptions.TargetDeviceOrientation;
+            drivers[_driverOptions.TargetBrowser].PlatformVersion = _sauceLabsOptions.PlatformVersion;
             drivers[_driverOptions.TargetBrowser].SauceOptions = sauceOptions;
             drivers[_driverOptions.TargetBrowser].Uri = new Uri(_sauceLabsSettings.RemoteServerUrl);
             return drivers[_driverOptions.TargetBrowser].InitialiseForSauceLabs();

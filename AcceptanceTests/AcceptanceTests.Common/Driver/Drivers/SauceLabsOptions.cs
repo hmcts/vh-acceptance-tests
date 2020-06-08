@@ -2,20 +2,19 @@
 {
     public class SauceLabsOptions
     {
-        public string AndroidAppiumVersion { get; set; } = "1.9.1";
-        public string AndroidPlatformVersion { get; set; } = "8.1";
+        public string AppiumVersion { get; set; } = "1.17.1";
         public string BrowserVersion { get; set; } = "latest";
         public int CommandTimeoutInSeconds { get; set; } = 60 * 3;
         public bool EnableLogging { get; set; }
         public int IdleTimeoutInSeconds { get; set; } = 60 * 7;
-        public string IOSAppiumVersion { get; set; } = "1.17.1";
-        public string IOSPlatformVersion { get; set; } = "13.2";
         public string MacPlatformVersion { get; set; } = "macOS 10.15";
         public string MacScreenResolution = "2360x1770";
         public int MaxDurationInSeconds { get; set; } = 60 * 10;
+        public string PlatformVersion { get; set; } = "13.2";
         public string SeleniumVersion = "3.141.59";
         public string Timezone = "London";
         public string Name { get; set; }
+
         public string WindowsScreenResolution = "2560x1600";
     }
 }

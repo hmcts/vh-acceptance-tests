@@ -10,9 +10,9 @@ namespace AcceptanceTests.Common.Driver.Drivers.Tablet.iOS
         public override RemoteWebDriver InitialiseForSauceLabs()
         {
             var options = new AppiumOptions();
-            options.AddAdditionalCapability(MobileCapabilityType.AppiumVersion, IOSAppiumVersion);
+            options.AddAdditionalCapability(MobileCapabilityType.AppiumVersion, AppiumVersion);
             options.AddAdditionalCapability(MobileCapabilityType.Orientation, Orientation.ToString());
-            options.AddAdditionalCapability(MobileCapabilityType.PlatformVersion, IOSPlatformVersion);
+            options.AddAdditionalCapability(MobileCapabilityType.PlatformVersion, PlatformVersion);
             options.AddAdditionalCapability(MobileCapabilityType.DeviceName, DeviceName);
             options.AddAdditionalCapability(MobileCapabilityType.PlatformName, "iOS");
             options.AddAdditionalCapability(MobileCapabilityType.BrowserName, "safari");

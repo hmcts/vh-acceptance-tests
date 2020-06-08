@@ -12,7 +12,7 @@ namespace AcceptanceTests.Tests.DriverTests
 {
     public class DesktopLocal
     {
-        private NugetTestsConfiguration _config;
+        private TestConfiguration _config;
         private UserBrowser _browser;
 
         [SetUp]

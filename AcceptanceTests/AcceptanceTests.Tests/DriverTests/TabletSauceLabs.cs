@@ -12,7 +12,7 @@ namespace AcceptanceTests.Tests.DriverTests
 {
     public class TabletSauceLabs
     {
-        private NugetTestsConfiguration _config;
+        private TestConfiguration _config;
         private UserBrowser _browser;
         private SauceLabsSettingsConfig _sauceLabsSettings;
 

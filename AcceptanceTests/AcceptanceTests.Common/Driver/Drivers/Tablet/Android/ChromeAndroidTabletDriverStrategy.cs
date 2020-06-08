@@ -13,9 +13,9 @@ namespace AcceptanceTests.Common.Driver.Drivers.Tablet.Android
             options.AddAdditionalCapability(MobileCapabilityType.DeviceName, DeviceName);
             options.AddAdditionalCapability(MobileCapabilityType.PlatformName, "Android");
             options.AddAdditionalCapability(MobileCapabilityType.BrowserName, "Chrome");
-            options.AddAdditionalCapability(MobileCapabilityType.AppiumVersion, AndroidAppiumVersion);
+            options.AddAdditionalCapability(MobileCapabilityType.AppiumVersion, AppiumVersion);
             options.AddAdditionalCapability(MobileCapabilityType.Orientation, Orientation.ToString());
-            options.AddAdditionalCapability(MobileCapabilityType.PlatformVersion, AndroidPlatformVersion);
+            options.AddAdditionalCapability(MobileCapabilityType.PlatformVersion, PlatformVersion);
 
             foreach (var (key, value) in SauceOptions)
             {

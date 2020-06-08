@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using AcceptanceTests.Common.Configuration;
 using AcceptanceTests.Common.Driver.Browser;
@@ -10,7 +10,7 @@ using NUnit.Framework;
 
 namespace AcceptanceTests.Tests.DriverTests
 {
-    public class DesktopSauceLabs
+    public class MobileSauceLabs
     {
         private TestConfiguration _config;
         private UserBrowser _browser;
@@ -37,7 +37,7 @@ namespace AcceptanceTests.Tests.DriverTests
         {
             return new SauceLabsOptions()
             {
-                Name = $"Driver Tests - Desktop"
+                Name = $"Driver Tests - Mobiles"
             };
         }
 
@@ -45,76 +45,33 @@ namespace AcceptanceTests.Tests.DriverTests
         {
             return new UserBrowser()
                 .SetBaseUrl(_config.Url)
-                .SetTargetDevice(TargetDevice.Desktop)
+                .SetTargetDevice(TargetDevice.Mobile)
                 .SetTargetBrowser(targetBrowser)
                 .SetDriver(new DriverSetup(GetSauceLabsSettings(), GetDriverOptions(targetOS, targetBrowser), GetSauceLabsOptions()));
         }
-
 
         private static DriverOptions GetDriverOptions(TargetOS targetOS, TargetBrowser targetBrowser)
         {
             return new DriverOptions
             {
-                TargetBrowserVersion = "latest",
-                TargetDevice = TargetDevice.Desktop,
+                TargetDevice = TargetDevice.Mobile,
                 TargetOS = targetOS,
-                TargetBrowser = targetBrowser
+                TargetBrowser = targetBrowser,
+                TargetDeviceOrientation = TargetDeviceOrientation.PORTRAIT
             };
         }
 
         [Test]
-        public void Win_Chrome()
+        public void IOS_Mobile()
         {
-            _browser = GetBrowser(TargetOS.Windows, TargetBrowser.Chrome);
+            _browser = GetBrowser(TargetOS.iOS, TargetBrowser.Safari);
             RunTest();
         }
 
         [Test]
-        public void Win_Edge()
+        public void Android_Mobile()
         {
-            _browser = GetBrowser(TargetOS.Windows, TargetBrowser.Edge);
-            RunTest();
-        }
-
-        [Test]
-        public void Win_EdgeChromium()
-        {
-            _browser = GetBrowser(TargetOS.Windows, TargetBrowser.EdgeChromium);
-            RunTest();
-        }
-
-        [Test]
-        public void Win_Firefox()
-        {
-            _browser = GetBrowser(TargetOS.Windows, TargetBrowser.Firefox);
-            RunTest();
-        }
-
-        [Test]
-        public void Win_IE11()
-        {
-            _browser = GetBrowser(TargetOS.Windows, TargetBrowser.Ie11);
-            RunIETest();
-        }
-
-        [Test]
-        public void MacOS_Chrome()
-        {
-            _browser = GetBrowser(TargetOS.MacOs, TargetBrowser.Chrome);
-            RunTest();
-        }
-
-        [Test]
-        public void MacOS_Firefox()
-        {
-            _browser = GetBrowser(TargetOS.MacOs, TargetBrowser.Firefox);
-            RunTest();
-        }
-
-        [Test]
-        public void MacOS_Safari()
-        {
-            _browser = GetBrowser(TargetOS.MacOs, TargetBrowser.Safari);
+            _browser = GetBrowser(TargetOS.Android, TargetBrowser.Chrome);
             RunTest();
         }
 
@@ -124,14 +81,6 @@ namespace AcceptanceTests.Tests.DriverTests
             _browser.NavigateToPage(_config.Url);
             Thread.Sleep(TimeSpan.FromSeconds(4));
             _browser.Driver.Title.Should().Contain("Sign in to your account");
-        }
-
-        private void RunIETest()
-        {
-            _browser.LaunchBrowser();
-            _browser.NavigateToPage(_config.Url);
-            Thread.Sleep(TimeSpan.FromSeconds(4));
-            _browser.Driver.Title.Should().Contain("Video Hearings");
         }
 
         [TearDown]
