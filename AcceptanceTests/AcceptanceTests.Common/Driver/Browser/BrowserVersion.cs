@@ -25,7 +25,7 @@ namespace AcceptanceTests.Common.Driver.Browser
 
             if (browserVersion.IsNullOrEmpty())
             {
-                return "Latest";
+                return "latest";
             }
 
             return browserVersion;
