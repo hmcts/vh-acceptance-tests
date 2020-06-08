@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using AcceptanceTests.Common.Driver.Browser;
 using AcceptanceTests.Common.Driver.Enums;
 using AcceptanceTests.Common.Driver.Exceptions;
 using AcceptanceTests.Common.Driver.Helpers;
+using Castle.Core.Internal;
 using OpenQA.Selenium;
 
 namespace AcceptanceTests.Common.Driver.Drivers
@@ -24,6 +26,11 @@ namespace AcceptanceTests.Common.Driver.Drivers
 
         public static TargetOS GetTargetOS(string os)
         {
+            if (os.IsNullOrEmpty())
+            {
+                return DetectOS.GetCurrentOS();
+            }
+
             try
             {
                 return Enum.Parse<TargetOS>(os, true);
