@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using FluentAssertions;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
 namespace AcceptanceTests.Tests.Helpers
@@ -13,6 +14,8 @@ namespace AcceptanceTests.Tests.Helpers
 
             var configBuilder = configRootBuilder.Build();
             var config = Options.Create(configBuilder.GetSection("TestsConfiguration").Get<TestConfiguration>()).Value;
+            config.SauceLabsAccessKey.Should().NotBeNullOrEmpty();
+            config.SauceLabsUsername.Should().NotBeNullOrEmpty();
             config.RemoteServer = $"http://{config.SauceLabsUsername}:{config.SauceLabsAccessKey}{config.ServerUrl}";
             return config;
         }

@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using AcceptanceTests.Common.Driver.Enums;
 using Castle.Core.Internal;
+using FluentAssertions;
 
 namespace AcceptanceTests.Common.Driver.Settings
 {
@@ -14,6 +15,11 @@ namespace AcceptanceTests.Common.Driver.Settings
             {
                 return DefaultEdgeVersion;
             }
+            
+            if (browserVersion.IsNullOrEmpty())
+            {
+                return "latest";
+            }
 
             if (options.TargetOS == TargetOS.MacOs &&
                 options.TargetBrowser == TargetBrowser.Safari &&
@@ -22,10 +28,7 @@ namespace AcceptanceTests.Common.Driver.Settings
                 throw new SettingsPropertyWrongTypeException("'Beta' version is not available on Sauce Labs for Safari");
             }
 
-            if (browserVersion.IsNullOrEmpty())
-            {
-                return "latest";
-            }
+            browserVersion.ToLower().Should().ContainAny(".", "latest", "beta", "dev");
 
             return browserVersion;
         }

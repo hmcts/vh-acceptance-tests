@@ -35,7 +35,7 @@ namespace AcceptanceTests.Common.Driver.Drivers.Mobile.Android
             options.AddAdditionalCapability(MobileCapabilityType.Orientation, Orientation.ToString());
             options.AddAdditionalCapability(MobileCapabilityType.BrowserName, "Chrome");
             options.AddAdditionalCapability(AndroidMobileCapabilityType.ChromedriverExecutable, chromePath);
-            return new RemoteWebDriver(Uri, options.ToCapabilities(), LocalTimeout);
+            return new RemoteWebDriver(Uri, options.ToCapabilities(), LocalAppiumTimeout);
         }
     }
 }

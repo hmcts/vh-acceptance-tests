@@ -42,7 +42,7 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Windows
                 }}
             });
             #pragma warning restore 618
-            return new RemoteWebDriver(Uri, capabilities, LocalTimeout);
+            return new RemoteWebDriver(Uri, capabilities, LocalDesktopTimeout);
         }
     }
 }

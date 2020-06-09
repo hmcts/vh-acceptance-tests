@@ -47,7 +47,7 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Windows
 
             options.SetPreference("media.navigator.streams.fake", true);
             options.SetPreference("media.navigator.permission.disabled", true);
-            return new FirefoxDriver(geckoService, options, LocalTimeout);
+            return new FirefoxDriver(geckoService, options, LocalDesktopTimeout);
         }
     }
 }

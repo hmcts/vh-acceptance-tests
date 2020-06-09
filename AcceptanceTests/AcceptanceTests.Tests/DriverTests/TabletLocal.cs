@@ -52,7 +52,7 @@ namespace AcceptanceTests.Tests.DriverTests
                 TargetOS = TargetOS.Android,
                 TargetBrowser = TargetBrowser.Chrome,
                 TargetDeviceName = _config.AndroidTabletDeviceName,
-                TargetDeviceOrientation = TargetDeviceOrientation.PORTRAIT
+                TargetDeviceOrientation = TargetDeviceOrientation.LANDSCAPE
             };
 
             _browser = new UserBrowser()

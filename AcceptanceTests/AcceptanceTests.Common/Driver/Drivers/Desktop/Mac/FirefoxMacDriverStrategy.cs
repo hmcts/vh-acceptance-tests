@@ -38,7 +38,7 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Mac
                 browserOptions.AddArgument(ProxyByPassList);
             }
 
-            return new FirefoxDriver(geckoService, browserOptions, LocalTimeout);
+            return new FirefoxDriver(geckoService, browserOptions, LocalDesktopTimeout);
         }
     }
 }

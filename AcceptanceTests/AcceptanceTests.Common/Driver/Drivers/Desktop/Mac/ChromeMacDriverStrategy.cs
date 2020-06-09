@@ -39,7 +39,7 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Mac
 
             browserOptions.AddArgument("use-fake-ui-for-media-stream");
             browserOptions.AddArgument("use-fake-device-for-media-stream");
-            return new ChromeDriver(BuildPath, browserOptions, LocalTimeout);
+            return new ChromeDriver(BuildPath, browserOptions, LocalDesktopTimeout);
         }
     }
 }

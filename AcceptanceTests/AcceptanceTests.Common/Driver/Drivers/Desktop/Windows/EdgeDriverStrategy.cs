@@ -29,7 +29,7 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Windows
             browserOptions.AddAdditionalCapability("permissions.default.microphone", 1);
             browserOptions.AddAdditionalCapability("permissions.default.camera", 1);
             browserOptions.AddAdditionalCapability("avoidProxy", true);
-            return new EdgeDriver("C:\\Windows\\system32\\", browserOptions, LocalTimeout);
+            return new EdgeDriver("C:\\Windows\\system32\\", browserOptions, LocalDesktopTimeout);
         }
     }
 }

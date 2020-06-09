@@ -22,10 +22,10 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Windows
             var browserOptions = new InternetExplorerOptions
             {
                 IgnoreZoomLevel = true,
-                BrowserAttachTimeout = LocalTimeout,
+                BrowserAttachTimeout = LocalDesktopTimeout,
                 IntroduceInstabilityByIgnoringProtectedModeSettings = true
             };
-            return new InternetExplorerDriver(BuildPath, browserOptions, LocalTimeout);
+            return new InternetExplorerDriver(BuildPath, browserOptions, LocalDesktopTimeout);
         }
     }
 }

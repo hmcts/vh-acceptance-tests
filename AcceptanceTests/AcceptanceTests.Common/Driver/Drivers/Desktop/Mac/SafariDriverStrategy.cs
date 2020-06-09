@@ -25,14 +25,15 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Mac
             var options = new SafariOptions()
             {
                 PlatformName = MacPlatform,
-                BrowserVersion = "13.1",
+                BrowserVersion = "13.1.1",
                 UnhandledPromptBehavior = UnhandledPromptBehavior.Accept
             };
-
+            
             if (LoggingEnabled)
                 options.SetLoggingPreference(LogType.Browser, LogLevel.Info);
 
-            return new SafariDriver(BuildPath, options, LocalTimeout);
+            const string driverDirectoryForMacOs = "/usr/bin/";
+            return new SafariDriver(driverDirectoryForMacOs, options, LocalDesktopTimeout);
         }
     }
 }

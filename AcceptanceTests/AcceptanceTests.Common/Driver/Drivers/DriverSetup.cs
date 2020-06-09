@@ -72,8 +72,10 @@ namespace AcceptanceTests.Common.Driver.Drivers
             drivers[_driverOptions.TargetBrowser].BuildPath = FileManager.GetAssemblyDirectory();
             drivers[_driverOptions.TargetBrowser].DeviceName = _driverOptions.TargetDeviceName;
             drivers[_driverOptions.TargetBrowser].HeadlessMode = _driverOptions.HeadlessMode;
-            drivers[_driverOptions.TargetBrowser].LocalTimeout = TimeSpan.FromSeconds(_driverOptions.LocalCommandTimeoutInSeconds);
+            drivers[_driverOptions.TargetBrowser].LocalDesktopTimeout = TimeSpan.FromSeconds(_driverOptions.LocalCommandTimeoutInSeconds);
+            drivers[_driverOptions.TargetBrowser].LocalAppiumTimeout = TimeSpan.FromSeconds(_driverOptions.LocalAppiumCommandTimeoutInSeconds);
             drivers[_driverOptions.TargetBrowser].LoggingEnabled = false;
+            drivers[_driverOptions.TargetBrowser].PlatformVersion = _driverOptions.PlatformVersion;
             drivers[_driverOptions.TargetBrowser].Proxy = _proxy;
             StartLocalServices(drivers);
             return drivers[_driverOptions.TargetBrowser].InitialiseForLocal();

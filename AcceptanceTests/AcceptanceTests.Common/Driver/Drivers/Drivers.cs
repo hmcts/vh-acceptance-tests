@@ -12,7 +12,8 @@ namespace AcceptanceTests.Common.Driver.Drivers
         internal string BrowserVersion { get; set; }
         internal string BuildPath { get; set; }
         internal string DeviceName { get; set; }
-        internal TimeSpan LocalTimeout { get; set; }
+        public TimeSpan LocalAppiumTimeout { get; set; }
+        internal TimeSpan LocalDesktopTimeout { get; set; }
         internal bool LoggingEnabled { get; set; }
         internal string MacPlatform { get; set; }
         internal TargetDeviceOrientation Orientation { get; set; }
@@ -22,7 +23,6 @@ namespace AcceptanceTests.Common.Driver.Drivers
         internal bool HeadlessMode { get; set; }
         internal Dictionary<string, object> SauceOptions { get; set; }
         internal Uri Uri { get; set; }
-
         public abstract RemoteWebDriver InitialiseForSauceLabs();
         public abstract IWebDriver InitialiseForLocal();
     }

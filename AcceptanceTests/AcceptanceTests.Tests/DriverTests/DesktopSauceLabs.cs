@@ -58,7 +58,8 @@ namespace AcceptanceTests.Tests.DriverTests
             {
                 TargetDevice = TargetDevice.Desktop,
                 TargetOS = targetOS,
-                TargetBrowser = targetBrowser
+                TargetBrowser = targetBrowser,
+                TargetBrowserVersion = "Latest"
             };
         }
 

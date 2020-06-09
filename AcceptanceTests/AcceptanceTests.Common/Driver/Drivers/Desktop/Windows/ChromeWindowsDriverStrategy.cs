@@ -45,7 +45,7 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Windows
             if (LoggingEnabled)
                 options.SetLoggingPreference(LogType.Browser, LogLevel.Info);
 
-            return new ChromeDriver(BuildPath, options, LocalTimeout);
+            return new ChromeDriver(BuildPath, options, LocalDesktopTimeout);
         }
     }
 }
