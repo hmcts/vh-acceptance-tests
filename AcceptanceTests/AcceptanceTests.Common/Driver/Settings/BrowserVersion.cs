@@ -1,9 +1,8 @@
 ﻿using System.Configuration;
-using AcceptanceTests.Common.Driver.Drivers;
 using AcceptanceTests.Common.Driver.Enums;
 using Castle.Core.Internal;
 
-namespace AcceptanceTests.Common.Driver.Browser
+namespace AcceptanceTests.Common.Driver.Settings
 {
     public static class BrowserVersion
     {

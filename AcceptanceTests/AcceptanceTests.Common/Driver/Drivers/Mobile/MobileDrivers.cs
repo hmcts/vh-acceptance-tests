@@ -2,8 +2,9 @@
 using AcceptanceTests.Common.Driver.Drivers.Mobile.Android;
 using AcceptanceTests.Common.Driver.Drivers.Mobile.iOS;
 using AcceptanceTests.Common.Driver.Enums;
+using AcceptanceTests.Common.Driver.Settings;
 
-namespace AcceptanceTests.Common.Driver.Drivers
+namespace AcceptanceTests.Common.Driver.Drivers.Mobile
 {
     internal class MobileDrivers : IDrivers
     {

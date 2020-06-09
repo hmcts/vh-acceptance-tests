@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using AcceptanceTests.Common.Driver.Browser;
 using AcceptanceTests.Common.Driver.Enums;
 using AcceptanceTests.Common.Driver.Exceptions;
 using AcceptanceTests.Common.Driver.Helpers;
+using AcceptanceTests.Common.Driver.Settings;
 using Castle.Core.Internal;
 using OpenQA.Selenium;
 

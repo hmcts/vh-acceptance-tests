@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Threading;
-using AcceptanceTests.Common.Driver.Drivers;
 using AcceptanceTests.Common.Driver.Enums;
 using AcceptanceTests.Common.Driver.Helpers;
 using FluentAssertions;
@@ -10,7 +9,7 @@ using OpenQA.Selenium.Support.UI;
 using Polly;
 using Protractor;
 
-namespace AcceptanceTests.Common.Driver.Browser
+namespace AcceptanceTests.Common.Driver.Drivers
 {
     public class UserBrowser
     {

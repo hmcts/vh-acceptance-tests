@@ -2,8 +2,9 @@
 using AcceptanceTests.Common.Driver.Drivers.Desktop.Mac;
 using AcceptanceTests.Common.Driver.Drivers.Desktop.Windows;
 using AcceptanceTests.Common.Driver.Enums;
+using AcceptanceTests.Common.Driver.Settings;
 
-namespace AcceptanceTests.Common.Driver.Drivers
+namespace AcceptanceTests.Common.Driver.Drivers.Desktop
 {
     internal class DesktopDrivers : IDrivers
     {

@@ -2,7 +2,7 @@
 using AcceptanceTests.Common.Driver.Enums;
 using AcceptanceTests.Common.Driver.Exceptions;
 
-namespace AcceptanceTests.Common.Driver.Drivers
+namespace AcceptanceTests.Common.Driver.Settings
 {
     public static class DetectOS
     {

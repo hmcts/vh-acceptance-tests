@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using AcceptanceTests.Common.Driver.Enums;
 
-namespace AcceptanceTests.Common.Driver.Drivers
+namespace AcceptanceTests.Common.Driver.Settings
 {
-    public static class SauceLabsDevices
+    public static class LocalDevices
     {
         public static List<Device> AndroidMobiles()
         {
@@ -10,9 +11,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
             {
                 new Device()
                 {
-                    AppiumVersion = "1.9.1",
-                    DeviceName = "Google Pixel 3a GoogleAPI Emulator",
-                    PlatformVersion = "10.0"
+                    DeviceName = "Google_Pixel_3a_GoogleAPI_Emulator",
                 }
             };
         }
@@ -23,9 +22,8 @@ namespace AcceptanceTests.Common.Driver.Drivers
             {
                 new Device()
                 {
-                    AppiumVersion = "1.17.1",
-                    DeviceName = "iPhone 11 Pro Simulator",
-                    PlatformVersion = "13.2"
+                    DeviceName = "iPhone 11 Pro",
+                    PlatformVersion = "13.5"
                 }
             };
         }
@@ -36,9 +34,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
             {
                 new Device()
                 {
-                    AppiumVersion = "1.9.1",
-                    DeviceName = "Google Pixel C GoogleAPI Emulator",
-                    PlatformVersion = "8.1"
+                    DeviceName = "Pixel_C_API_R",
                 }
             };
         }
@@ -49,9 +45,8 @@ namespace AcceptanceTests.Common.Driver.Drivers
             {
                 new Device()
                 {
-                    AppiumVersion = "1.17.1",
-                    DeviceName = "iPad Pro (11 inch) Simulator",
-                    PlatformVersion = "13.2"
+                    DeviceName = "iPad Pro (11-inch) (2nd generation)",
+                    PlatformVersion = "13.5"
                 }
             };
         }

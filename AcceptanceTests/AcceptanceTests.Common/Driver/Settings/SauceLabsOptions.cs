@@ -1,4 +1,4 @@
-﻿namespace AcceptanceTests.Common.Driver.Drivers
+﻿namespace AcceptanceTests.Common.Driver.Settings
 {
     public class SauceLabsOptions
     {
@@ -10,11 +10,9 @@
         public string MacPlatformVersion { get; set; } = "macOS 10.15";
         public string MacScreenResolution = "2360x1770";
         public int MaxDurationInSeconds { get; set; } = 60 * 10;
-        public string PlatformVersion { get; set; } = "13.2";
         public string SeleniumVersion = "3.141.59";
         public string Timezone = "London";
         public string Name { get; set; }
-
         public string WindowsScreenResolution = "2560x1600";
     }
 }

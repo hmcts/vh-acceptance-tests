@@ -1,4 +1,4 @@
-﻿namespace AcceptanceTests.Common.Driver.Drivers
+﻿namespace AcceptanceTests.Common.Driver.Enums
 {
     public class Device
     {

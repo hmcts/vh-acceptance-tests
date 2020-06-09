@@ -3,7 +3,7 @@ using System.Linq;
 using AcceptanceTests.Common.Driver.Enums;
 using Castle.Core.Internal;
 
-namespace AcceptanceTests.Common.Driver.Drivers
+namespace AcceptanceTests.Common.Driver.Settings
 {
     public static class DefaultDevices
     {

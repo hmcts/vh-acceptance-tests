@@ -2,8 +2,9 @@
 using AcceptanceTests.Common.Driver.Drivers.Tablet.Android;
 using AcceptanceTests.Common.Driver.Drivers.Tablet.iOS;
 using AcceptanceTests.Common.Driver.Enums;
+using AcceptanceTests.Common.Driver.Settings;
 
-namespace AcceptanceTests.Common.Driver.Drivers
+namespace AcceptanceTests.Common.Driver.Drivers.Tablet
 {
     internal class TabletDrivers : IDrivers
     {

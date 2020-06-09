@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using AcceptanceTests.Common.Driver.Enums;
+using AcceptanceTests.Common.Driver.Settings;
 
 namespace AcceptanceTests.Common.Driver.Drivers
 {

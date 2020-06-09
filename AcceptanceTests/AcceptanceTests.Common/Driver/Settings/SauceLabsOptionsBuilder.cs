@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Globalization;
 using AcceptanceTests.Common.Configuration;
-using AcceptanceTests.Common.Driver.Browser;
+using AcceptanceTests.Common.Driver.Drivers;
 using AcceptanceTests.Common.Driver.Enums;
 using RestSharp.Extensions;
 
-namespace AcceptanceTests.Common.Driver.Drivers
+namespace AcceptanceTests.Common.Driver.Settings
 {
     public class SauceLabsOptionsBuilder
     {
