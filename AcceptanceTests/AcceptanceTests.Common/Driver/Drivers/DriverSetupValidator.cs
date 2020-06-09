@@ -59,12 +59,13 @@ namespace AcceptanceTests.Common.Driver.Drivers
                 options.TargetBrowser.Should().NotBeNull();
                 options.TargetDeviceName.Should().NotBeNullOrEmpty();
                 options.TargetDeviceOrientation.Should().NotBeNull();
+                VerifyPlatformVersion(options.PlatformVersion, options.TargetOS);
             }
 
             internal override void ValidateSauceLabsOptions(SauceLabsOptions options)
             {
                 GeneralSettingsAreSet(options);
-                AppiumSettingsAreSet(options);
+                options.AppiumVersion.Should().NotBeNullOrEmpty();
             }
         }
 
@@ -76,12 +77,13 @@ namespace AcceptanceTests.Common.Driver.Drivers
                 options.TargetBrowser.Should().NotBeNull();
                 options.TargetDeviceName.Should().NotBeNullOrEmpty();
                 options.TargetDeviceOrientation.Should().NotBeNull();
+                VerifyPlatformVersion(options.PlatformVersion, options.TargetOS);
             }
 
             internal override void ValidateSauceLabsOptions(SauceLabsOptions options)
             {
                 GeneralSettingsAreSet(options);
-                AppiumSettingsAreSet(options);
+                options.AppiumVersion.Should().NotBeNullOrEmpty();
             }
         }
 
@@ -94,10 +96,12 @@ namespace AcceptanceTests.Common.Driver.Drivers
             options.Timezone.Should().NotBeNullOrEmpty();
         }
 
-        private static void AppiumSettingsAreSet(SauceLabsOptions options)
+        private static void VerifyPlatformVersion(string platformVersion, TargetOS targetOS)
         {
-            options.AppiumVersion.Should().NotBeNullOrEmpty();
-            options.PlatformVersion.Should().NotBeNullOrEmpty();
+            if (targetOS == TargetOS.iOS)
+            { 
+                platformVersion.Should().NotBeNullOrEmpty();
+            }
         }
     }
 }
