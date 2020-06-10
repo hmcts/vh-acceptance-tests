@@ -19,6 +19,7 @@ namespace AcceptanceTests.Common.PageObject.Pages
         public static By NotRegisteredErrorMessage = CommonLocators.ElementContainingText(NotRegisteredError);
         public static By IsThisAMistakeErrorMessage = CommonLocators.ElementContainingText(IsThisAMistakeError);
         public static By UnsupportedBrowserTitle = By.Id("unsupported");
+        public static By UnsupportedDeviceTitle = By.Id("unsupportedDevice");
         public static By UnsupportedBrowserText = CommonLocators.ElementContainingText(UnsupportedBrowser);
     }
 }
