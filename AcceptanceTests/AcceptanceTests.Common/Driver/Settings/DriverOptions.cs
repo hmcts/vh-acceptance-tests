@@ -9,6 +9,7 @@ namespace AcceptanceTests.Common.Driver.Settings
         public int LocalAppiumCommandTimeoutInSeconds { get; set; } = 60;
         public int LocalCommandTimeoutInSeconds { get; set; } = 20;
         public string PlatformVersion { get; set; } = "13.2";
+        public bool ResetDeviceBetweenTests { get; set; } = false;
         public TargetBrowser TargetBrowser { get; set; }
         public string TargetBrowserVersion { get; set; }
         public TargetDevice TargetDevice { get; set; }

@@ -12,7 +12,8 @@ namespace AcceptanceTests.Common.Driver.Drivers
         internal string BrowserVersion { get; set; }
         internal string BuildPath { get; set; }
         internal string DeviceName { get; set; }
-        public TimeSpan LocalAppiumTimeout { get; set; }
+        internal bool HeadlessMode { get; set; }
+        internal TimeSpan LocalAppiumTimeout { get; set; }
         internal TimeSpan LocalDesktopTimeout { get; set; }
         internal bool LoggingEnabled { get; set; }
         internal string MacPlatform { get; set; }
@@ -20,7 +21,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
         internal string PlatformVersion { get; set; }
         internal Proxy Proxy { get; set; }
         internal const string ProxyByPassList = "proxy-bypass-list=<-loopback>";
-        internal bool HeadlessMode { get; set; }
+        internal bool ResetDeviceBetweenTests { get; set; }
         internal Dictionary<string, object> SauceOptions { get; set; }
         internal Uri Uri { get; set; }
         public abstract RemoteWebDriver InitialiseForSauceLabs();

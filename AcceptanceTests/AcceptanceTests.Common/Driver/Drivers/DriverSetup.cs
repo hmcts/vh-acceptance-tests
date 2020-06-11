@@ -77,6 +77,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
             drivers[_driverOptions.TargetBrowser].LoggingEnabled = false;
             drivers[_driverOptions.TargetBrowser].PlatformVersion = _driverOptions.PlatformVersion;
             drivers[_driverOptions.TargetBrowser].Proxy = _proxy;
+            drivers[_driverOptions.TargetBrowser].ResetDeviceBetweenTests = _driverOptions.ResetDeviceBetweenTests;
             StartLocalServices(drivers);
             return drivers[_driverOptions.TargetBrowser].InitialiseForLocal();
         }

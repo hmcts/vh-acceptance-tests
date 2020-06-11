@@ -34,7 +34,13 @@ namespace AcceptanceTests.Common.Driver.Drivers.Tablet.iOS
             options.AddAdditionalCapability(MobileCapabilityType.BrowserName, "Safari");
             options.AddAdditionalCapability(MobileCapabilityType.Orientation, Orientation.ToString());
             options.AddAdditionalCapability(MobileCapabilityType.PlatformVersion, PlatformVersion);
-            options.AddAdditionalCapability(MobileCapabilityType.FullReset, true);
+
+            if (ResetDeviceBetweenTests)
+            {
+                LocalAppiumTimeout *= 4;
+                options.AddAdditionalCapability(MobileCapabilityType.FullReset, true);
+            }
+            
             return new RemoteWebDriver(Uri, options.ToCapabilities(), LocalAppiumTimeout);
         }
     }
