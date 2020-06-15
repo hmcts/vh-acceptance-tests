@@ -6,7 +6,7 @@ namespace AcceptanceTests.Common.Driver.Settings
     {
         public TargetDeviceOrientation TargetDeviceOrientation { get; set; }
         public bool HeadlessMode { get; set; } = false;
-        public int LocalAppiumCommandTimeoutInSeconds { get; set; } = 60;
+        public int LocalAppiumCommandTimeoutInSeconds { get; set; } = 20;
         public int LocalCommandTimeoutInSeconds { get; set; } = 20;
         public string PlatformVersion { get; set; } = "13.2";
         public bool RealDevice { get; set; } = true;
