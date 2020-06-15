@@ -35,6 +35,7 @@ namespace AcceptanceTests.Common.Test.Steps
 
         private void EnterUsername(string username)
         {
+            _browser.Driver.WaitUntilVisible(LoginPage.LoginHeader).Click();
             _browser.Driver.WaitUntilVisible(LoginPage.UsernameTextfield).Clear();
             _browser.Driver.WaitUntilVisible(LoginPage.UsernameTextfield).SendKeys(username);
         }
