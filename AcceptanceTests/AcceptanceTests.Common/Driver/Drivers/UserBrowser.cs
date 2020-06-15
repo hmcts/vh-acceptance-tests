@@ -139,7 +139,10 @@ namespace AcceptanceTests.Common.Driver.Drivers
 
         public void Click(By element, int timeout = 20)
         {
-            Driver.WaitUntilElementClickable(element, timeout);
+            if (_targetDevice != TargetDevice.Tablet)
+            {
+                Driver.WaitUntilElementClickable(element, timeout);
+            }
             BrowserClick(element);
         }
 
