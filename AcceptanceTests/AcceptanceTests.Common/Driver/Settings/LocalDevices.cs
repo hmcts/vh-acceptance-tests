@@ -39,7 +39,7 @@ namespace AcceptanceTests.Common.Driver.Settings
             };
         }
 
-        public static List<Device> IOSTablets()
+        public static List<Device> IOSSimulatorTablets()
         {
             return new List<Device>
             {
@@ -50,5 +50,19 @@ namespace AcceptanceTests.Common.Driver.Settings
                 }
             };
         }
+
+        public static List<Device> IOSRealTablets()
+        {
+            return new List<Device>
+            {
+                new Device()
+                {
+                    DeviceName = "Nick's iPad",
+                    PlatformVersion = "13.5",
+                    UUID = "00008027-0013588C0A87002E"
+                }
+            };
+        }
+
     }
 }

@@ -22,6 +22,11 @@ namespace AcceptanceTests.Common.Driver.Settings
             return runningOnSauceLabs ? GetSauceLabsDevice(targetDevice, targetOS).DeviceName : GetLocalDevice(targetDevice, targetOS).DeviceName;
         }
 
+        public static string GetUUID()
+        {
+            return LocalDevices.IOSRealTablets().First().UUID;
+        }
+
         public static bool IsMobileOrTablet(TargetDevice targetDevice)
         {
             return targetDevice == TargetDevice.Mobile || targetDevice == TargetDevice.Tablet;
@@ -32,14 +37,14 @@ namespace AcceptanceTests.Common.Driver.Settings
             return deviceName.IsNullOrEmpty();
         }
 
-        private static Device GetLocalDevice(TargetDevice targetDevice, TargetOS targetOS)
+        private static Device GetLocalDevice(TargetDevice targetDevice, TargetOS targetOS, bool realDevice = true)
         {
             return targetDevice switch
             {
                 TargetDevice.Mobile when targetOS == TargetOS.Android => LocalDevices.AndroidMobiles().First(),
                 TargetDevice.Mobile when targetOS == TargetOS.iOS => LocalDevices.IOSMobiles().First(),
                 TargetDevice.Tablet when targetOS == TargetOS.Android => LocalDevices.AndroidTablets().First(),
-                TargetDevice.Tablet when targetOS == TargetOS.iOS => LocalDevices.IOSTablets().First(),
+                TargetDevice.Tablet when targetOS == TargetOS.iOS => realDevice ? LocalDevices.IOSRealTablets().First() : LocalDevices.IOSSimulatorTablets().First(),
                 _ => throw new InvalidDataException(
                     $"No device exists with OS '{targetOS}' and Device '{targetDevice}'")
             };

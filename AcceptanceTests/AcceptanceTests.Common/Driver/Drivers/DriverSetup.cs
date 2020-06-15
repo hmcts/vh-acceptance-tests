@@ -39,7 +39,13 @@ namespace AcceptanceTests.Common.Driver.Drivers
             if (!DefaultDevices.IsMobileOrTablet(_driverOptions.TargetDevice)) return;
             _sauceLabsOptions.AppiumVersion = DefaultDevices.GetAppiumVersion(_driverOptions.TargetDevice, _driverOptions.TargetOS, runningOnSauceLabs);
             _driverOptions.PlatformVersion = DefaultDevices.GetPlatformVersion(_driverOptions.TargetDevice, _driverOptions.TargetOS, runningOnSauceLabs);
-            
+            _driverOptions.TargetDeviceOrientation = TargetDeviceOrientation.PORTRAIT;
+
+            if (_driverOptions.RealDevice && _driverOptions.UUID == null)
+            {
+                _driverOptions.UUID = DefaultDevices.GetUUID();
+            }
+
             if(DefaultDevices.DeviceNameHasNotBeenSet(_driverOptions.TargetDeviceName)) 
                 _driverOptions.TargetDeviceName = DefaultDevices.GetTargetDeviceName(_driverOptions.TargetDevice, _driverOptions.TargetOS, runningOnSauceLabs);
         }
@@ -77,6 +83,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
             drivers[_driverOptions.TargetBrowser].LoggingEnabled = false;
             drivers[_driverOptions.TargetBrowser].PlatformVersion = _driverOptions.PlatformVersion;
             drivers[_driverOptions.TargetBrowser].Proxy = _proxy;
+            drivers[_driverOptions.TargetBrowser].RealDevice = _driverOptions.RealDevice;
             drivers[_driverOptions.TargetBrowser].ResetDeviceBetweenTests = _driverOptions.ResetDeviceBetweenTests;
             StartLocalServices(drivers);
             return drivers[_driverOptions.TargetBrowser].InitialiseForLocal();

@@ -23,10 +23,31 @@ namespace AcceptanceTests.Tests.DriverTests
         }
 
         [Test]
-        public void IOS_Tablet()
+        public void IOS_Tablet_Real_Device()
         {
             var driverOptions = new DriverOptions
             {
+                TargetDevice = TargetDevice.Tablet,
+                TargetOS = TargetOS.iOS,
+                TargetBrowser = TargetBrowser.Safari,
+                TargetDeviceOrientation = TargetDeviceOrientation.LANDSCAPE
+            };
+
+            _browser = new UserBrowser()
+                .SetBaseUrl(_config.Url)
+                .SetTargetDevice(TargetDevice.Tablet)
+                .SetTargetBrowser(TargetBrowser.Safari)
+                .SetDriver(new DriverSetup(new SauceLabsSettingsConfig(), driverOptions, new SauceLabsOptions()));
+
+            RunTest();
+        }
+
+        [Test]
+        public void IOS_Tablet_Simulator()
+        {
+            var driverOptions = new DriverOptions
+            {
+                RealDevice = false,
                 TargetDevice = TargetDevice.Tablet,
                 TargetOS = TargetOS.iOS,
                 TargetBrowser = TargetBrowser.Safari,

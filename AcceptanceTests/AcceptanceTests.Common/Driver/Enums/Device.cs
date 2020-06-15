@@ -5,5 +5,6 @@
         public string AppiumVersion { get; set; }
         public string DeviceName { get; set; }
         public string PlatformVersion { get; set; }
+        public string UUID { get; set; }
     }
 }
