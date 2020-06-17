@@ -7,19 +7,19 @@ namespace AcceptanceTests.Common.Driver.Settings
 {
     public static class DefaultDevices
     {
-        public static string GetAppiumVersion(TargetDevice targetDevice, TargetOS targetOS, bool runningOnSauceLabs)
+        public static string GetAppiumVersion(TargetDevice targetDevice, TargetOS targetOS, bool runningOnSauceLabs, bool realDevice)
         {
-            return runningOnSauceLabs ? GetSauceLabsDevice(targetDevice, targetOS).AppiumVersion : GetLocalDevice(targetDevice, targetOS).AppiumVersion;
+            return runningOnSauceLabs ? GetSauceLabsDevice(targetDevice, targetOS, realDevice).AppiumVersion : GetLocalDevice(targetDevice, targetOS, realDevice).AppiumVersion;
         }
 
-        public static string GetPlatformVersion(TargetDevice targetDevice, TargetOS targetOS, bool runningOnSauceLabs)
+        public static string GetPlatformVersion(TargetDevice targetDevice, TargetOS targetOS, bool runningOnSauceLabs, bool realDevice)
         {
-            return runningOnSauceLabs ? GetSauceLabsDevice(targetDevice, targetOS).PlatformVersion : GetLocalDevice(targetDevice, targetOS).PlatformVersion;
+            return runningOnSauceLabs ? GetSauceLabsDevice(targetDevice, targetOS, realDevice).PlatformVersion : GetLocalDevice(targetDevice, targetOS, realDevice).PlatformVersion;
         }
 
-        public static string GetTargetDeviceName(TargetDevice targetDevice, TargetOS targetOS, bool runningOnSauceLabs)
+        public static string GetTargetDeviceName(TargetDevice targetDevice, TargetOS targetOS, bool runningOnSauceLabs, bool realDevice)
         {
-            return runningOnSauceLabs ? GetSauceLabsDevice(targetDevice, targetOS).DeviceName : GetLocalDevice(targetDevice, targetOS).DeviceName;
+            return runningOnSauceLabs ? GetSauceLabsDevice(targetDevice, targetOS, realDevice).DeviceName : GetLocalDevice(targetDevice, targetOS, realDevice).DeviceName;
         }
 
         public static string GetUUID()
@@ -37,7 +37,7 @@ namespace AcceptanceTests.Common.Driver.Settings
             return deviceName.IsNullOrEmpty();
         }
 
-        private static Device GetLocalDevice(TargetDevice targetDevice, TargetOS targetOS, bool realDevice = true)
+        private static Device GetLocalDevice(TargetDevice targetDevice, TargetOS targetOS, bool realDevice)
         {
             return targetDevice switch
             {
@@ -50,14 +50,14 @@ namespace AcceptanceTests.Common.Driver.Settings
             };
         }
 
-        private static Device GetSauceLabsDevice(TargetDevice targetDevice, TargetOS targetOS)
+        private static Device GetSauceLabsDevice(TargetDevice targetDevice, TargetOS targetOS, bool realDevice)
         {
             return targetDevice switch
             {
                 TargetDevice.Mobile when targetOS == TargetOS.Android => SauceLabsDevices.AndroidMobiles().First(),
                 TargetDevice.Mobile when targetOS == TargetOS.iOS => SauceLabsDevices.IOSMobiles().First(),
                 TargetDevice.Tablet when targetOS == TargetOS.Android => SauceLabsDevices.AndroidTablets().First(),
-                TargetDevice.Tablet when targetOS == TargetOS.iOS => SauceLabsDevices.IOSTablets().First(),
+                TargetDevice.Tablet when targetOS == TargetOS.iOS => realDevice ? SauceLabsDevices.IOSRealTablets().First() : SauceLabsDevices.IOSSimulatorTablets().First(),
                 _ => throw new InvalidDataException(
                     $"No device exists with OS '{targetOS}' and Device '{targetDevice}'")
             };

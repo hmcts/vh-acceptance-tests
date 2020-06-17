@@ -4,9 +4,9 @@
     {
         public string Username { get; set; }
         public string AccessKey { get; set; }
-        public string MobileAccessKey { get; set; }
+        public string RealDeviceApiKey { get; set; }
+        public string RemoteRealDeviceServerUrl { get; set; } = "https://eu1.appium.testobject.com/wd/hub";
         public string RemoteServerUrl { get; set; }
-        public string RemoteRealDeviceServerUrl { get; set; }
 
         public bool RunningOnSauceLabs()
         {
@@ -15,11 +15,6 @@
         public void SetRemoteServerUrlForDesktop(string serverUrl)
         {
             RemoteServerUrl = $"http://{Username}:{AccessKey}{serverUrl}";
-        }
-
-        public void SetRemoteServerUrlForRealDevices(string serverUrl)
-        {
-            RemoteServerUrl = $"http://{Username}:{MobileAccessKey}{serverUrl}";
         }
     }
 }

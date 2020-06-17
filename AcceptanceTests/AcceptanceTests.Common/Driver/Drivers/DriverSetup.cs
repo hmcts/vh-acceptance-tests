@@ -37,8 +37,8 @@ namespace AcceptanceTests.Common.Driver.Drivers
         private static void SetDefaultSettings(bool runningOnSauceLabs)
         {
             if (!DefaultDevices.IsMobileOrTablet(_driverOptions.TargetDevice)) return;
-            _sauceLabsOptions.AppiumVersion = DefaultDevices.GetAppiumVersion(_driverOptions.TargetDevice, _driverOptions.TargetOS, runningOnSauceLabs);
-            _driverOptions.PlatformVersion = DefaultDevices.GetPlatformVersion(_driverOptions.TargetDevice, _driverOptions.TargetOS, runningOnSauceLabs);
+            _sauceLabsOptions.AppiumVersion = DefaultDevices.GetAppiumVersion(_driverOptions.TargetDevice, _driverOptions.TargetOS, runningOnSauceLabs, _driverOptions.RealDevice);
+            _driverOptions.PlatformVersion = DefaultDevices.GetPlatformVersion(_driverOptions.TargetDevice, _driverOptions.TargetOS, runningOnSauceLabs, _driverOptions.RealDevice);
             _driverOptions.TargetDeviceOrientation = TargetDeviceOrientation.PORTRAIT;
 
             if (_driverOptions.RealDevice && _driverOptions.UUID == null)
@@ -47,7 +47,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
             }
 
             if(DefaultDevices.DeviceNameHasNotBeenSet(_driverOptions.TargetDeviceName)) 
-                _driverOptions.TargetDeviceName = DefaultDevices.GetTargetDeviceName(_driverOptions.TargetDevice, _driverOptions.TargetOS, runningOnSauceLabs);
+                _driverOptions.TargetDeviceName = DefaultDevices.GetTargetDeviceName(_driverOptions.TargetDevice, _driverOptions.TargetOS, runningOnSauceLabs, _driverOptions.RealDevice);
         }
 
         private IWebDriver InitialiseSauceLabsDriver()
@@ -65,6 +65,9 @@ namespace AcceptanceTests.Common.Driver.Drivers
             drivers[_driverOptions.TargetBrowser].MacPlatform = _sauceLabsOptions.MacPlatformVersion;
             drivers[_driverOptions.TargetBrowser].Orientation = _driverOptions.TargetDeviceOrientation;
             drivers[_driverOptions.TargetBrowser].PlatformVersion = _driverOptions.PlatformVersion;
+            drivers[_driverOptions.TargetBrowser].RealDevice = _driverOptions.RealDevice;
+            drivers[_driverOptions.TargetBrowser].RealDeviceApiKey = _sauceLabsSettings.RealDeviceApiKey;
+            drivers[_driverOptions.TargetBrowser].RealDeviceServerUrl = _sauceLabsSettings.RemoteRealDeviceServerUrl;
             drivers[_driverOptions.TargetBrowser].SauceOptions = sauceOptions;
             drivers[_driverOptions.TargetBrowser].Uri = new Uri(_sauceLabsSettings.RemoteServerUrl);
             return drivers[_driverOptions.TargetBrowser].InitialiseForSauceLabs();

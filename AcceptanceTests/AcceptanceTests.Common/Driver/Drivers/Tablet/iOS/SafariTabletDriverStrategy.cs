@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using System;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Enums;
 using OpenQA.Selenium.Remote;
@@ -9,6 +10,13 @@ namespace AcceptanceTests.Common.Driver.Drivers.Tablet.iOS
     internal class SafariTabletDriverStrategy : Drivers
     {
         public override RemoteWebDriver InitialiseForSauceLabs()
+        {
+            return RealDevice
+                ? new RemoteWebDriver(new Uri(RealDeviceServerUrl), ConfigureSauceLabsRealDevice())
+                : new RemoteWebDriver(Uri, ConfigureSauceLabsSimulator());
+        }
+
+        private AppiumOptions ConfigureSauceLabsSimulator()
         {
             var options = new AppiumOptions();
             options.AddAdditionalCapability(MobileCapabilityType.AppiumVersion, AppiumVersion);
@@ -25,7 +33,28 @@ namespace AcceptanceTests.Common.Driver.Drivers.Tablet.iOS
                 options.AddAdditionalCapability(key, value);
             }
 
-            return new RemoteWebDriver(Uri, options.ToCapabilities());
+            return options;
+        }
+
+        private SafariOptions ConfigureSauceLabsRealDevice()
+        {
+            var options = new SafariOptions();
+            options.AddAdditionalCapability(MobileCapabilityType.AppiumVersion, AppiumVersion);
+            options.AddAdditionalCapability(MobileCapabilityType.PlatformName, "iOS");
+            options.AddAdditionalCapability(MobileCapabilityType.DeviceName, "iPad.*");
+            options.AddAdditionalCapability(MobileCapabilityType.PlatformVersion, PlatformVersion);
+            options.AddAdditionalCapability("testobject_api_key", RealDeviceApiKey);
+            options.AddAdditionalCapability("tabletOnly", true);
+            options.AddAdditionalCapability("autoGrantPermissions", true);
+            options.AddAdditionalCapability(IOSMobileCapabilityType.AutoAcceptAlerts, true);
+            options.AddAdditionalCapability(MobileCapabilityType.BrowserName, "Safari");
+
+            foreach (var (key, value) in SauceOptions)
+            {
+                options.AddAdditionalCapability(key, value);
+            }
+
+            return options;
         }
 
         public override IWebDriver InitialiseForLocal()
@@ -59,9 +88,9 @@ namespace AcceptanceTests.Common.Driver.Drivers.Tablet.iOS
             options.AddAdditionalCapability(MobileCapabilityType.Orientation, "LANDSCAPE");
             options.AddAdditionalCapability(MobileCapabilityType.PlatformName, "iOS");
             options.AddAdditionalCapability(MobileCapabilityType.BrowserName, "Safari");
-            options.AddAdditionalCapability(MobileCapabilityType.PlatformVersion, "13.5");
+            options.AddAdditionalCapability(MobileCapabilityType.PlatformVersion, PlatformVersion);
             options.AddAdditionalCapability("safari:deviceType", "iPad");
-            options.AddAdditionalCapability(MobileCapabilityType.DeviceName, "Nick's iPad");
+            options.AddAdditionalCapability(MobileCapabilityType.DeviceName, DeviceName);
             options.AddAdditionalCapability(MobileCapabilityType.Udid, UUID);
             options.AddAdditionalCapability(MobileCapabilityType.FullReset, false);
             return options;

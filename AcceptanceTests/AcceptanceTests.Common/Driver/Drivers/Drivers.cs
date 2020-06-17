@@ -23,6 +23,8 @@ namespace AcceptanceTests.Common.Driver.Drivers
         internal const string ProxyByPassList = "proxy-bypass-list=<-loopback>";
         internal bool ResetDeviceBetweenTests { get; set; }
         internal bool RealDevice { get; set; }
+        internal string RealDeviceApiKey { get; set; }
+        internal string RealDeviceServerUrl { get; set; }
         internal Dictionary<string, object> SauceOptions { get; set; }
         internal Uri Uri { get; set; }
         internal string UUID { get; set; }

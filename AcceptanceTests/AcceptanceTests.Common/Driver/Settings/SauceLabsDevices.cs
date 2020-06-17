@@ -44,7 +44,7 @@ namespace AcceptanceTests.Common.Driver.Settings
             };
         }
 
-        public static List<Device> IOSTablets()
+        public static List<Device> IOSSimulatorTablets()
         {
             return new List<Device>
             {
@@ -53,6 +53,19 @@ namespace AcceptanceTests.Common.Driver.Settings
                     AppiumVersion = "1.17.1",
                     DeviceName = "iPad Pro (11 inch) Simulator",
                     PlatformVersion = "13.2"
+                }
+            };
+        }
+
+        public static List<Device> IOSRealTablets()
+        {
+            return new List<Device>
+            {
+                new Device()
+                {
+                    AppiumVersion = "1.17.1",
+                    DeviceName = "iPad.*",
+                    PlatformVersion = "13.5"
                 }
             };
         }

@@ -1,7 +1,6 @@
 using System;
 using System.Threading;
 using AcceptanceTests.Common.Configuration;
-using AcceptanceTests.Common.Driver;
 using AcceptanceTests.Common.Driver.Drivers;
 using AcceptanceTests.Common.Driver.Enums;
 using AcceptanceTests.Common.Driver.Settings;
@@ -29,6 +28,7 @@ namespace AcceptanceTests.Tests.DriverTests
             {
                 Username = _config.SauceLabsUsername,
                 AccessKey = _config.SauceLabsAccessKey,
+                RealDeviceApiKey = _config.SauceLabsRealDeviceApiKey,
                 RemoteServerUrl = _config.RemoteServer
             };
             return _sauceLabsSettings;
@@ -43,10 +43,32 @@ namespace AcceptanceTests.Tests.DriverTests
         }
 
         [Test]
-        public void IOS_Tablet()
+        public void IOS_Tablet_Real_Device()
         {
             var driverOptions = new DriverOptions
             {
+                RealDevice = true,
+                TargetDevice = TargetDevice.Tablet,
+                TargetOS = TargetOS.iOS,
+                TargetBrowser = TargetBrowser.Safari,
+                TargetDeviceOrientation = TargetDeviceOrientation.PORTRAIT
+            };
+
+            _browser = new UserBrowser()
+                .SetBaseUrl(_config.Url)
+                .SetTargetDevice(TargetDevice.Tablet)
+                .SetTargetBrowser(TargetBrowser.Safari)
+                .SetDriver(new DriverSetup(GetSauceLabsSettings(), driverOptions, GetSauceLabsOptions()));
+
+            RunTest();
+        }
+
+        [Test]
+        public void IOS_Tablet_Simulator()
+        {
+            var driverOptions = new DriverOptions
+            {
+                RealDevice = false,
                 TargetDevice = TargetDevice.Tablet,
                 TargetOS = TargetOS.iOS,
                 TargetBrowser = TargetBrowser.Safari,
@@ -63,7 +85,7 @@ namespace AcceptanceTests.Tests.DriverTests
         }
 
         [Test]
-        public void Android_Tablet()
+        public void Android_Tablet_Simulator()
         {
             var driverOptions = new DriverOptions
             {
