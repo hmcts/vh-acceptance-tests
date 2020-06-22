@@ -10,6 +10,7 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Windows
         {
             #pragma warning disable 618
             var capabilities = new DesiredCapabilities(new Dictionary<string, object>()
+            #pragma warning restore 618
             {
                 { "browserName", "MicrosoftEdge" },
                 { "platformName", "Windows 10" },
@@ -19,7 +20,6 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Windows
                     { "args", new List<string> { "use-fake-ui-for-media-stream", "use-fake-device-for-media-stream", "log-level=1" } }}},
                 { "sauce:options", SauceOptions}
             });
-            #pragma warning restore 618
             return new RemoteWebDriver(Uri, capabilities);
         }
 
@@ -35,13 +35,14 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Windows
 
             #pragma warning disable 618
             var capabilities = new DesiredCapabilities(new Dictionary<string, object>()
+            #pragma warning restore 618
             {
                 { "ms:edgeOptions", new Dictionary<string, object>() {
                     {  "binary", @"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" },
                     {  "args", argsList }
                 }}
             });
-            #pragma warning restore 618
+
             return new RemoteWebDriver(Uri, capabilities, LocalDesktopTimeout);
         }
     }
