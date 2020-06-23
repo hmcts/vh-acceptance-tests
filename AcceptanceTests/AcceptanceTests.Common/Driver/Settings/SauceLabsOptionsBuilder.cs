@@ -22,10 +22,11 @@ namespace AcceptanceTests.Common.Driver.Settings
 
         public Dictionary<string, object> Build()
         {
-            var releaseDefinitionName = GetReleaseDefinition();
-            var releaseName = Environment.GetEnvironmentVariable("RELEASE_RELEASENAME");
+            var buildDefinition = GetBuildDefinition();
+            var gitVersionNumber = Environment.GetEnvironmentVariable("GITVERSION_FULLSEMVER");
             var attemptNumber = GetAttemptNumber();
-            var build = $"{releaseDefinitionName} {releaseName} {_driverOptions.TargetDevice} {_driverOptions.TargetBrowser} {_sauceLabsOptions.BrowserVersion} {attemptNumber}";
+            _sauceLabsOptions.BrowserVersion = BrowserVersion.GetBrowserVersion(_sauceLabsOptions.BrowserVersion, _driverOptions);
+            var build = $"{buildDefinition} {gitVersionNumber} {_driverOptions.TargetDevice} {_driverOptions.TargetBrowser} {_sauceLabsOptions.BrowserVersion} {attemptNumber}";
             var sauceOptions = new Dictionary<string, object>
             {
                 {"username", _sauceLabsSettings.Username},
@@ -40,14 +41,13 @@ namespace AcceptanceTests.Common.Driver.Settings
             };
 
             AddScreenResolutionForDesktop(sauceOptions, _sauceLabsOptions);
-            _sauceLabsOptions.BrowserVersion = BrowserVersion.GetBrowserVersion(_sauceLabsOptions.BrowserVersion, _driverOptions);
             return sauceOptions;
         }
 
-        private static string GetReleaseDefinition()
+        private static string GetBuildDefinition()
         {
-            var definition = Environment.GetEnvironmentVariable("Release_DefinitionName")?.Replace("vh-", "") ?? $"{DateTime.Today:dd.MM.yyyy}";
-            return definition.ToCamelCase(new CultureInfo("en-GB", false));
+            var definition = Environment.GetEnvironmentVariable("Build_DefinitionName")?.Replace("hmcts.vh-", "").Replace("-", " ").Replace("cd", "") ?? $"{DateTime.Today:dd.MM.yyyy}";
+            return definition.ToPascalCase(new CultureInfo("en-GB", false));
         }
 
         private void AddScreenResolutionForDesktop(IDictionary<string, object> sauceOptions, SauceLabsOptions sauceLabsOptions)
