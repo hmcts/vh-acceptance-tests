@@ -46,7 +46,7 @@ namespace AcceptanceTests.Common.Driver.Settings
 
         private static string GetBuildDefinition()
         {
-            var definition = Environment.GetEnvironmentVariable("Build_DefinitionName")?.Replace("hmcts.vh-", "").Replace("-", " ").Replace("cd", "") ?? $"{DateTime.Today:dd.MM.yyyy}";
+            var definition = Environment.GetEnvironmentVariable("BUILD_DEFINITIONNAME")?.Replace("hmcts.vh-", "").Replace("-", " ").Replace("cd", "") ?? $"{DateTime.Today:dd.MM.yyyy}";
             return definition.ToPascalCase(new CultureInfo("en-GB", false));
         }
 
