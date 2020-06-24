@@ -26,7 +26,7 @@ namespace AcceptanceTests.Common.Driver.Settings
             var gitVersionNumber = Environment.GetEnvironmentVariable("GITVERSION_FULLSEMVER");
             var attemptNumber = GetAttemptNumber();
             _sauceLabsOptions.BrowserVersion = BrowserVersion.GetBrowserVersion(_sauceLabsOptions.BrowserVersion, _driverOptions);
-            var build = $"{buildDefinition} {gitVersionNumber} {_driverOptions.TargetDevice} {_driverOptions.TargetBrowser} {_sauceLabsOptions.BrowserVersion} {attemptNumber}";
+            var build = $"{buildDefinition} {gitVersionNumber} {_driverOptions.TargetDevice} {_driverOptions.TargetOS} {_driverOptions.TargetBrowser} {_sauceLabsOptions.BrowserVersion} {attemptNumber}";
             var sauceOptions = new Dictionary<string, object>
             {
                 {"username", _sauceLabsSettings.Username},
