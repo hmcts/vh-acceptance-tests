@@ -22,11 +22,9 @@ namespace AcceptanceTests.Common.Driver.Settings
 
         public Dictionary<string, object> Build()
         {
-            var buildDefinition = GetBuildDefinition();
-            var gitVersionNumber = Environment.GetEnvironmentVariable("GITVERSION_FULLSEMVER");
             var attemptNumber = GetAttemptNumber();
             _sauceLabsOptions.BrowserVersion = BrowserVersion.GetBrowserVersion(_sauceLabsOptions.BrowserVersion, _driverOptions);
-            var build = $"{buildDefinition} : {gitVersionNumber} : {_driverOptions.TargetDevice} : {_driverOptions.TargetOS} : {_driverOptions.TargetBrowser} : {_sauceLabsOptions.BrowserVersion.ToPascalCase(new CultureInfo("en-GB", false))}{attemptNumber}";
+            var build = $"{GetBuildDefinition()}{GetGitVersionNumber()} : {_driverOptions.TargetDevice} : {_driverOptions.TargetOS} : {_driverOptions.TargetBrowser} : {_sauceLabsOptions.BrowserVersion.ToPascalCase(new CultureInfo("en-GB", false))}{attemptNumber}";
             var sauceOptions = new Dictionary<string, object>
             {
                 {"username", _sauceLabsSettings.Username},
@@ -48,6 +46,12 @@ namespace AcceptanceTests.Common.Driver.Settings
         {
             var definition = Environment.GetEnvironmentVariable("BUILD_DEFINITIONNAME")?.Replace("hmcts.vh-", "").Replace("-", " ").Replace("cd", "") ?? $"{DateTime.Today:dd.MM.yyyy}";
             return definition.ToPascalCase(new CultureInfo("en-GB", false));
+        }
+
+        private static string GetGitVersionNumber()
+        {
+            var gitVersionNumber = Environment.GetEnvironmentVariable("GITVERSION_FULLSEMVER");
+            return gitVersionNumber != string.Empty ? $" : {gitVersionNumber}" : string.Empty;
         }
 
         private void AddScreenResolutionForDesktop(IDictionary<string, object> sauceOptions, SauceLabsOptions sauceLabsOptions)
