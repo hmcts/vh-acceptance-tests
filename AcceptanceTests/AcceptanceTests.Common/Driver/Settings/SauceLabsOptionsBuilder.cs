@@ -26,7 +26,7 @@ namespace AcceptanceTests.Common.Driver.Settings
             var gitVersionNumber = Environment.GetEnvironmentVariable("GITVERSION_FULLSEMVER");
             var attemptNumber = GetAttemptNumber();
             _sauceLabsOptions.BrowserVersion = BrowserVersion.GetBrowserVersion(_sauceLabsOptions.BrowserVersion, _driverOptions);
-            var build = $"{buildDefinition} {gitVersionNumber} {_driverOptions.TargetDevice} {_driverOptions.TargetOS} {_driverOptions.TargetBrowser} {_sauceLabsOptions.BrowserVersion} {attemptNumber}";
+            var build = $"{buildDefinition} : {gitVersionNumber} : {_driverOptions.TargetDevice} : {_driverOptions.TargetOS} : {_driverOptions.TargetBrowser} : {_sauceLabsOptions.BrowserVersion.ToPascalCase(new CultureInfo("en-GB", false))}{attemptNumber}";
             var sauceOptions = new Dictionary<string, object>
             {
                 {"username", _sauceLabsSettings.Username},
@@ -63,7 +63,7 @@ namespace AcceptanceTests.Common.Driver.Settings
         {
             var attemptNumber = Environment.GetEnvironmentVariable("Release_AttemptNumber");
             if (string.IsNullOrWhiteSpace(attemptNumber)) return string.Empty;
-            return Convert.ToInt32(attemptNumber) > 1 ? attemptNumber : string.Empty;
+            return Convert.ToInt32(attemptNumber) > 1 ? $" : Attempt {attemptNumber}" : string.Empty;
         }
     }
 }
