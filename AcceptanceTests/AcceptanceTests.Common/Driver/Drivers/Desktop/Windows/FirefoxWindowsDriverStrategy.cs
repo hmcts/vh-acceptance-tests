@@ -21,6 +21,7 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Windows
                 options.SetPreference("devtools.chrome.enabled", true);
                 options.SetPreference("devtools.debugger.prompt-connection", false);
                 options.SetPreference("devtools.debugger.remote-enabled", true);
+                options.AddArgument("--start-debugger-server");
             }
 
             options.SetPreference("media.navigator.streams.fake", true);
