@@ -51,7 +51,7 @@ namespace AcceptanceTests.Common.Driver.Settings
         private static string GetGitVersionNumber()
         {
             var gitVersionNumber = Environment.GetEnvironmentVariable("GITVERSION_FULLSEMVER");
-            return gitVersionNumber != string.Empty ? $" : {gitVersionNumber}" : string.Empty;
+            return !string.IsNullOrEmpty(gitVersionNumber) ? $" : {gitVersionNumber}" : string.Empty;
         }
 
         private void AddScreenResolutionForDesktop(IDictionary<string, object> sauceOptions, SauceLabsOptions sauceLabsOptions)
