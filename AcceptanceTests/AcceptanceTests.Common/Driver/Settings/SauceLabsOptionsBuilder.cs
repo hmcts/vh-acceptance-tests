@@ -45,13 +45,14 @@ namespace AcceptanceTests.Common.Driver.Settings
         private static string GetBuildDefinition()
         {
             var definition = Environment.GetEnvironmentVariable("BUILD_DEFINITIONNAME")?
+                                 .ToLower()
                                  .Replace("hmcts.vh-", "")
                                  .Replace("-", " ")
                                  .Replace("cd", "")
-                                 .Replace("WebNightly", " Web Nightly")
-                                 .Replace("Web", " Web")
+                                 .Replace("webnightly", " Web Nightly")
+                                 .Replace("web", " Web")
                              ?? $"{DateTime.Today:dd.MM.yyyy}";
-            return definition.ToPascalCase(new CultureInfo("en-GB", false));
+            return new CultureInfo("en-GB", false).TextInfo.ToTitleCase(definition);
         }
 
         private static string GetGitVersionNumber()
