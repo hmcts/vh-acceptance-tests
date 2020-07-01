@@ -24,7 +24,7 @@ namespace AcceptanceTests.Common.Driver.Settings
         {
             var attemptNumber = GetAttemptNumber();
             _sauceLabsOptions.BrowserVersion = BrowserVersion.GetBrowserVersion(_sauceLabsOptions.BrowserVersion, _driverOptions);
-            var build = $"{GetBuildDefinition()}{GetGitVersionNumber()} [ {_driverOptions.TargetDevice} | {_driverOptions.TargetOS} | {_driverOptions.TargetBrowser} | {_sauceLabsOptions.BrowserVersion.ToPascalCase(new CultureInfo("en-GB", false))} ] {attemptNumber}";
+            var build = $"{GetBuildDefinition()}{GetGitVersionNumber()}     [ {_driverOptions.TargetDevice} | {_driverOptions.TargetOS} | {_driverOptions.TargetBrowser} | {_sauceLabsOptions.BrowserVersion.ToPascalCase(new CultureInfo("en-GB", false))} ] {attemptNumber}";
             var sauceOptions = new Dictionary<string, object>
             {
                 {"username", _sauceLabsSettings.Username},
@@ -58,7 +58,7 @@ namespace AcceptanceTests.Common.Driver.Settings
         private static string GetGitVersionNumber()
         {
             var gitVersionNumber = Environment.GetEnvironmentVariable("GITVERSION_FULLSEMVER");
-            return !string.IsNullOrEmpty(gitVersionNumber) ? $" : {gitVersionNumber}" : string.Empty;
+            return !string.IsNullOrEmpty(gitVersionNumber) ? $" | {gitVersionNumber}" : string.Empty;
         }
 
         private void AddScreenResolutionForDesktop(IDictionary<string, object> sauceOptions, SauceLabsOptions sauceLabsOptions)
