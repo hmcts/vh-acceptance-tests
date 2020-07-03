@@ -62,6 +62,16 @@ namespace AcceptanceTests.Common.Configuration.Users
             throw new DataMisalignedException("All individual users are assigned in the hearing.");
         }
 
+        public static UserAccount GetObserverUser(List<UserAccount> userAccounts)
+        {
+            return userAccounts.First(x => x.Lastname.StartsWith("Observer"));
+        }
+
+        public static UserAccount GetPanelMemberUser(List<UserAccount> userAccounts)
+        {
+            return userAccounts.First(x => x.Lastname.StartsWith("PanelMember"));
+        }
+
         public static UserAccount GetUserFromRole(List<UserAccount> userAccounts, UserRole role)
         {
             return userAccounts.First(x => x.Role.ToLower().Equals(role.ToString().ToLower()));
