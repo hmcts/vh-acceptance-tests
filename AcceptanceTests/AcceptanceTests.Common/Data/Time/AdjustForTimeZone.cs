@@ -23,5 +23,11 @@ namespace AcceptanceTests.Common.Data.Time
         {
             return !_runningOnSauceLabs ? dateTime.ToLocalTime() : dateTime.ToUniversalTime();
         }
+
+        public DateTime AdjustAdminWeb(DateTime dateTime)
+        {
+            if (!_runningOnSauceLabs) return dateTime.ToLocalTime();
+            return _targetOS == TargetOS.MacOs ? dateTime.ToUniversalTime().AddHours(2) : dateTime.ToUniversalTime();
+        }
     }
 }
