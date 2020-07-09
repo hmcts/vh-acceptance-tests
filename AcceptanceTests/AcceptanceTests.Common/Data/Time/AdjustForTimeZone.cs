@@ -26,8 +26,8 @@ namespace AcceptanceTests.Common.Data.Time
 
         public DateTime AdjustAdminWeb(DateTime dateTime)
         {
-            if (!_runningOnSauceLabs) return dateTime.ToLocalTime();
-            return _targetOS == TargetOS.MacOs ? dateTime.Add(OffsetUkToUtcIncludingDaylightSaving()) : dateTime.ToUniversalTime();
+            if (!_runningOnSauceLabs) return dateTime;
+            return _targetOS == TargetOS.MacOs ? dateTime.Add(OffsetUkToUtcIncludingDaylightSaving()) : dateTime;
         }
 
         public TimeSpan OffsetUkToUtcIncludingDaylightSaving()
