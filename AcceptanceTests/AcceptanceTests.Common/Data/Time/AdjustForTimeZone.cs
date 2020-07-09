@@ -27,7 +27,14 @@ namespace AcceptanceTests.Common.Data.Time
         public DateTime AdjustAdminWeb(DateTime dateTime)
         {
             if (!_runningOnSauceLabs) return dateTime.ToLocalTime();
-            return _targetOS == TargetOS.MacOs ? dateTime.ToUniversalTime().AddHours(2) : dateTime.ToUniversalTime();
+            return _targetOS == TargetOS.MacOs ? dateTime.Add(OffsetUkToUtcIncludingDaylightSaving()) : dateTime.ToUniversalTime();
+        }
+
+        public TimeSpan OffsetUkToUtcIncludingDaylightSaving()
+        {
+            var utcTime = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified);
+            var ukTime = TimeZoneInfo.ConvertTime(utcTime, TimeZoneInfo.Utc, TimeZoneInfo.FindSystemTimeZoneById("GMT Standard Time"));
+            return utcTime - ukTime;
         }
     }
 }
