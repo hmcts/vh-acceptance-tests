@@ -19,7 +19,7 @@ namespace AcceptanceTests.Common.Data.Time
             return _targetOS == TargetOS.MacOs ? dateTime.ToUniversalTime().AddHours(1) : dateTime.ToUniversalTime();
         }
 
-        public DateTime AdjustForVideoWeb(DateTime dateTime)
+        public DateTime AdjustAnyOS(DateTime dateTime)
         {
             return !_runningOnSauceLabs ? dateTime.ToLocalTime() : dateTime.ToUniversalTime();
         }
