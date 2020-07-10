@@ -148,8 +148,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
 
         private void BrowserClick(By element)
         {
-            if (_targetBrowser == TargetBrowser.Firefox ||
-                _targetDevice == TargetDevice.Tablet)
+            if (_targetDevice == TargetDevice.Tablet)
             {
                 Driver.WaitUntilVisible(element).Click();
             }
