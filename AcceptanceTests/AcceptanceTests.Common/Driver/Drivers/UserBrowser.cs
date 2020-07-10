@@ -112,7 +112,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
             }
             else
             {
-                Retry(() => Driver.Url.Trim().ToLower().Should().Contain(page.ToLower()), BrowserRetries);
+                Driver.Url.Trim().ToLower().Should().Contain(page.Trim().ToLower());
             }
         }
 
