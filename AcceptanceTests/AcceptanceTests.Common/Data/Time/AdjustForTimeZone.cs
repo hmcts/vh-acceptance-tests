@@ -1,5 +1,6 @@
 ﻿using System;
 using AcceptanceTests.Common.Driver.Enums;
+using TimeZoneConverter;
 
 namespace AcceptanceTests.Common.Data.Time
 {
@@ -30,10 +31,11 @@ namespace AcceptanceTests.Common.Data.Time
             return _targetOS == TargetOS.MacOs ? dateTime.Add(OffsetUkToUtcIncludingDaylightSaving()) : dateTime;
         }
 
-        public TimeSpan OffsetUkToUtcIncludingDaylightSaving()
+        private static TimeSpan OffsetUkToUtcIncludingDaylightSaving()
         {
             var utcTime = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified);
-            var ukTime = TimeZoneInfo.ConvertTime(utcTime, TimeZoneInfo.Utc, TimeZoneInfo.FindSystemTimeZoneById("GMT Standard Time"));
+            var ukTimeInfo = TZConvert.GetTimeZoneInfo("GMT Standard Time");
+            var ukTime = TimeZoneInfo.ConvertTime(utcTime, TimeZoneInfo.Utc, ukTimeInfo);
             return utcTime - ukTime;
         }
     }
