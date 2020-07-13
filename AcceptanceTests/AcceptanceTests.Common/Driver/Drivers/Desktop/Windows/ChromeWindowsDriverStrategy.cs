@@ -21,6 +21,7 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Windows
 
             options.AddArgument("use-fake-ui-for-media-stream");
             options.AddArgument("use-fake-device-for-media-stream");
+            options.AddArgument("no-sandbox");
             options.AddAdditionalCapability("sauce:options", SauceOptions, true);
 
             return new RemoteWebDriver(Uri, options.ToCapabilities());

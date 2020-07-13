@@ -9,14 +9,13 @@
   <ItemGroup>
     <PackageReference Include="Appium.WebDriver" Version="4.1.1" />
     <PackageReference Include="nunit" Version="3.12.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.16.1">
+    <PackageReference Include="NUnit3TestAdapter" Version="3.17.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
-    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="83.0.4103.3900" />
-    <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.26.0.1" />
-    <PackageReference Include="Selenium.WebDriver.IEDriver" Version="3.150.1" />
+    <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.26.0.3" />
+    <PackageReference Include="Selenium.WebDriver.IEDriver" Version="3.150.1.1" />
     <PackageReference Include="Selenium.WebDriver.MicrosoftDriver" Version="17.17134.0" />
   </ItemGroup>
 
