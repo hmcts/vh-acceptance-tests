@@ -25,7 +25,7 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Windows
 
             options.SetPreference("media.navigator.streams.fake", true);
             options.SetPreference("media.navigator.permission.disabled", true);
-            options.SetPreference("media.autoplay.default", 0);
+            //options.SetPreference("media.autoplay.default", 0);
             options.AddAdditionalCapability("sauce:options", SauceOptions, true);
             return new RemoteWebDriver(Uri, options);
         }
