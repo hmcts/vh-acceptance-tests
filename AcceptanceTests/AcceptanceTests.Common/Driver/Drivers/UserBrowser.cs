@@ -13,7 +13,8 @@ namespace AcceptanceTests.Common.Driver.Drivers
 {
     public class UserBrowser
     {
-        private const int BrowserRetries = 2;
+        // 4 retries ^2 will execute after 2 seconds, then 4, 8 then finally 16 (30 seconds total)
+        private const int BrowserRetries = 4; 
         private string _baseUrl;
         public NgWebDriver Driver { get; set; }
         private DriverSetup _driver;
@@ -75,14 +76,16 @@ namespace AcceptanceTests.Common.Driver.Drivers
                 throw new InvalidOperationException("BaseUrl has not been set");
             }
 
-            Driver.WrappedDriver.Navigate().GoToUrl($"{_baseUrl}{url}");
+            Retry(() => Driver.WrappedDriver.Navigate().GoToUrl($"{_baseUrl}{url}"));
         }
 
         public void Retry(Action action, int times = BrowserRetries)
         {
             Policy
                 .Handle<Exception>()
-                .WaitAndRetry(times, retryAttempt => TimeSpan.FromSeconds(Math.Pow(5, retryAttempt)))
+                .WaitAndRetry(times, retryAttempt => 
+                    TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
+                    (exception, timeSpan, context) => { NUnit.Framework.TestContext.WriteLine($"Encountered error '{exception.Message}' after {timeSpan.Seconds} seconds. Retrying..."); })
                 .Execute(action);
         }
 
