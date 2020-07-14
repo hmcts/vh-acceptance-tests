@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading;
-using AcceptanceTests.Common.Driver;
 using AcceptanceTests.Common.Driver.Drivers;
 using AcceptanceTests.Common.Driver.Helpers;
 using FluentAssertions;
