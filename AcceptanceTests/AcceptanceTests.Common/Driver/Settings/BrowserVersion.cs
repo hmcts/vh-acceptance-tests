@@ -9,28 +9,28 @@ namespace AcceptanceTests.Common.Driver.Settings
     {
         private const string DefaultEdgeVersion = "18.17763";
 
-        public static string GetBrowserVersion(string browserVersion, DriverOptions options)
+        public static string SetBrowserVersion(DriverOptions options)
         {
             if (options.TargetBrowser == TargetBrowser.Edge)
             {
                 return DefaultEdgeVersion;
             }
             
-            if (browserVersion.IsNullOrEmpty())
+            if (options.TargetBrowserVersion.IsNullOrEmpty())
             {
                 return "latest";
             }
 
             if (options.TargetOS == TargetOS.MacOs &&
                 options.TargetBrowser == TargetBrowser.Safari &&
-                browserVersion.ToLower().Equals("beta"))
+                options.TargetBrowserVersion.ToLower().Equals("beta"))
             {
                 throw new SettingsPropertyWrongTypeException("'Beta' version is not available on Sauce Labs for Safari");
             }
 
-            browserVersion.ToLower().Should().ContainAny(".", "latest", "beta", "dev");
+            options.TargetBrowserVersion.ToLower().Should().ContainAny(".", "latest", "beta", "dev");
 
-            return browserVersion;
+            return options.TargetBrowserVersion;
         }
     }
 }

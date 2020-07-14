@@ -46,7 +46,6 @@ namespace AcceptanceTests.Common.Driver.Drivers
             internal override void ValidateSauceLabsOptions(SauceLabsOptions options)
             {
                 GeneralSettingsAreSet(options);
-                options.BrowserVersion.Should().NotBeNull();
                 options.SeleniumVersion.Should().NotBeNull();
             }
         }

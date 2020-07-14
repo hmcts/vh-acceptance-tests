@@ -59,7 +59,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
 
             var drivers = GetDrivers();
             drivers[_driverOptions.TargetBrowser].AppiumVersion = _sauceLabsOptions.AppiumVersion;
-            drivers[_driverOptions.TargetBrowser].BrowserVersion = _sauceLabsOptions.BrowserVersion;
+            drivers[_driverOptions.TargetBrowser].BrowserVersion = _driverOptions.TargetBrowserVersion;
             drivers[_driverOptions.TargetBrowser].DeviceName = _driverOptions.TargetDeviceName;
             drivers[_driverOptions.TargetBrowser].LoggingEnabled = _sauceLabsOptions.EnableLogging;
             drivers[_driverOptions.TargetBrowser].MacPlatform = _sauceLabsOptions.MacPlatformVersion;

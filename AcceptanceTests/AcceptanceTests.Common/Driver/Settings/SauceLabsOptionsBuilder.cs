@@ -23,8 +23,8 @@ namespace AcceptanceTests.Common.Driver.Settings
         public Dictionary<string, object> Build()
         {
             var attemptNumber = GetAttemptNumber();
-            _sauceLabsOptions.BrowserVersion = BrowserVersion.GetBrowserVersion(_sauceLabsOptions.BrowserVersion, _driverOptions);
-            var build = $"{GetBuildDefinition()}{GetGitVersionNumber()}     [ {_driverOptions.TargetDevice} | {_driverOptions.TargetOS} | {_driverOptions.TargetBrowser} | {_sauceLabsOptions.BrowserVersion.ToPascalCase(new CultureInfo("en-GB", false))} ] {attemptNumber}";
+            _driverOptions.TargetBrowserVersion = BrowserVersion.SetBrowserVersion(_driverOptions);
+            var build = $"{GetBuildDefinition()}{GetGitVersionNumber()}     [ {_driverOptions.TargetDevice} | {_driverOptions.TargetOS} | {_driverOptions.TargetBrowser} | {_driverOptions.TargetBrowserVersion.ToPascalCase(new CultureInfo("en-GB", false))} ] {attemptNumber}";
             var sauceOptions = new Dictionary<string, object>
             {
                 {"username", _sauceLabsSettings.Username},
