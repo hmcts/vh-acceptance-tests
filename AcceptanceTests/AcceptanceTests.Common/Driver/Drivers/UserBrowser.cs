@@ -77,18 +77,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
                 throw new InvalidOperationException("BaseUrl has not been set");
             }
 
-            for (var i = 0; i < BrowserRetries; i++)
-            {
-                try
-                {
-                    Driver.WrappedDriver.Navigate().GoToUrl($"{_baseUrl}{url}");
-                }
-                catch (WebDriverException exception)
-                {
-                    NUnit.Framework.TestContext.WriteLine($"Encountered error '{exception.Message}' whilst navigating to the URL. Retrying...");
-                    Thread.Sleep(TimeSpan.FromSeconds(5));
-                }
-            }
+            Driver.Navigate().GoToUrl($"{_baseUrl}{url}");
         }
 
         public void Retry(Action action, int times = ActionRetries)
