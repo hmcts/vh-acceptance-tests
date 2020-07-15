@@ -30,7 +30,12 @@ namespace AcceptanceTests.Common.Driver.Settings
 
             options.TargetBrowserVersion.ToLower().Should().ContainAny(".", "latest", "beta", "dev");
 
-            return options.TargetBrowserVersion.ToLower();
+            return BrowserVersionMustBeLowerCaseForSauceLabs(options.TargetBrowserVersion);
+        }
+
+        private static string BrowserVersionMustBeLowerCaseForSauceLabs(string version)
+        {
+            return version.ToLower();
         }
     }
 }
