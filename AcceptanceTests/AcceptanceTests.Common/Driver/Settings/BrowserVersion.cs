@@ -30,7 +30,7 @@ namespace AcceptanceTests.Common.Driver.Settings
 
             options.TargetBrowserVersion.ToLower().Should().ContainAny(".", "latest", "beta", "dev");
 
-            return options.TargetBrowserVersion;
+            return options.TargetBrowserVersion.ToLower();
         }
     }
 }
