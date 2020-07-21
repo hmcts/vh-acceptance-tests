@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20200716104746_Initial.cs" />
+    <Compile Remove="Migrations\20200716104746_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200716123138_ChangedIdToGuid.cs" />
+    <Compile Remove="Migrations\20200716123138_ChangedIdToGuid.Designer.cs" />
+    <Compile Remove="Migrations\20200716134935_Initial.cs" />
+    <Compile Remove="Migrations\20200716134935_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200716153050_Added_Application.cs" />
+    <Compile Remove="Migrations\20200716153050_Added_Application.Designer.cs" />
+    <Compile Remove="Migrations\20200719110010_Initial.cs" />
+    <Compile Remove="Migrations\20200719110010_Initial.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AcceptanceTests.TestAPI.Common\AcceptanceTests.TestAPI.Common.csproj" />
+    <ProjectReference Include="..\AcceptanceTests.TestAPI.Domain\AcceptanceTests.TestAPI.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

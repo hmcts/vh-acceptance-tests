@@ -3,9 +3,8 @@
     "",
     "\\AcceptanceTests",
     "\\AcceptanceTests\\AcceptanceTests.Common",
-    "\\AcceptanceTests\\AcceptanceTests.Driver",
-    "\\AcceptanceTests\\AcceptanceTests.Driver\\Capabilities"
+    "\\AcceptanceTests\\AcceptanceTests.TestAPI"
   ],
-  "SelectedNode": "\\AcceptanceTests\\AcceptanceTests.Common",
+  "SelectedNode": "\\AcceptanceTests\\AcceptanceTests.TestAPI\\Extentions",
   "PreviewInSolutionExplorer": false
 }

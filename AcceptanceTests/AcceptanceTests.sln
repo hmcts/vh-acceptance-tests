@@ -4,7 +4,23 @@ VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcceptanceTests.Common", "AcceptanceTests.Common\AcceptanceTests.Common.csproj", "{F250E99E-4725-4E9D-8EF9-1C309F248313}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcceptanceTests.Tests", "AcceptanceTests.Tests\AcceptanceTests.Tests.csproj", "{22D079F7-44E8-4881-8DA1-734A5348DEC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcceptanceTests.TestAPI.Contract", "AcceptanceTests.TestAPI.Contract\AcceptanceTests.TestAPI.Contract.csproj", "{EDD0EA1C-BED9-4FE8-A25D-F49CC8D8283E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcceptanceTests.TestAPI.Domain", "AcceptanceTests.TestAPI.Domain\AcceptanceTests.TestAPI.Domain.csproj", "{9101D413-BBA9-4ED7-88EC-FB37E0F65F16}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcceptanceTests.TestAPI.DAL", "AcceptanceTests.TestAPI.DAL\AcceptanceTests.TestAPI.DAL.csproj", "{6C5A1AEE-D1B5-4512-A9D0-C5F30EFFE843}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcceptanceTests.TestAPI", "AcceptanceTests.TestAPI\AcceptanceTests.TestAPI.csproj", "{D0D774E2-6DDB-4962-9C5A-053D9668E6F9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{CBC8FC20-ED4C-4BD6-93DA-435CD8801456}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcceptanceTests.TestAPI.Common", "AcceptanceTests.TestAPI.Common\AcceptanceTests.TestAPI.Common.csproj", "{E2FE5A06-7002-42D9-90C8-FF175257ADC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcceptanceTests.TestAPI.IntegrationTests", "AcceptanceTests.TestAPI.IntegrationTests\AcceptanceTests.TestAPI.IntegrationTests.csproj", "{BB6E926F-3E7E-45BD-BABA-2257F46AF774}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcceptanceTests.DriverTests", "AcceptanceTests.Common.DriverTests\AcceptanceTests.DriverTests.csproj", "{6879EACB-E5CF-41C9-9328-0C399972F912}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcceptanceTests.TestAPI.UnitTests", "AcceptanceTests.TestAPI.UnitTests\AcceptanceTests.TestAPI.UnitTests.csproj", "{509FFF5B-E695-477D-803A-59244D2E6522}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,13 +32,46 @@ Global
 		{F250E99E-4725-4E9D-8EF9-1C309F248313}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F250E99E-4725-4E9D-8EF9-1C309F248313}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F250E99E-4725-4E9D-8EF9-1C309F248313}.Release|Any CPU.Build.0 = Release|Any CPU
-		{22D079F7-44E8-4881-8DA1-734A5348DEC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{22D079F7-44E8-4881-8DA1-734A5348DEC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{22D079F7-44E8-4881-8DA1-734A5348DEC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{22D079F7-44E8-4881-8DA1-734A5348DEC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDD0EA1C-BED9-4FE8-A25D-F49CC8D8283E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDD0EA1C-BED9-4FE8-A25D-F49CC8D8283E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDD0EA1C-BED9-4FE8-A25D-F49CC8D8283E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDD0EA1C-BED9-4FE8-A25D-F49CC8D8283E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9101D413-BBA9-4ED7-88EC-FB37E0F65F16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9101D413-BBA9-4ED7-88EC-FB37E0F65F16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9101D413-BBA9-4ED7-88EC-FB37E0F65F16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9101D413-BBA9-4ED7-88EC-FB37E0F65F16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C5A1AEE-D1B5-4512-A9D0-C5F30EFFE843}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C5A1AEE-D1B5-4512-A9D0-C5F30EFFE843}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C5A1AEE-D1B5-4512-A9D0-C5F30EFFE843}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C5A1AEE-D1B5-4512-A9D0-C5F30EFFE843}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0D774E2-6DDB-4962-9C5A-053D9668E6F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0D774E2-6DDB-4962-9C5A-053D9668E6F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0D774E2-6DDB-4962-9C5A-053D9668E6F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0D774E2-6DDB-4962-9C5A-053D9668E6F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2FE5A06-7002-42D9-90C8-FF175257ADC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2FE5A06-7002-42D9-90C8-FF175257ADC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2FE5A06-7002-42D9-90C8-FF175257ADC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2FE5A06-7002-42D9-90C8-FF175257ADC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB6E926F-3E7E-45BD-BABA-2257F46AF774}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB6E926F-3E7E-45BD-BABA-2257F46AF774}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB6E926F-3E7E-45BD-BABA-2257F46AF774}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB6E926F-3E7E-45BD-BABA-2257F46AF774}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6879EACB-E5CF-41C9-9328-0C399972F912}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6879EACB-E5CF-41C9-9328-0C399972F912}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6879EACB-E5CF-41C9-9328-0C399972F912}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6879EACB-E5CF-41C9-9328-0C399972F912}.Release|Any CPU.Build.0 = Release|Any CPU
+		{509FFF5B-E695-477D-803A-59244D2E6522}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{509FFF5B-E695-477D-803A-59244D2E6522}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{509FFF5B-E695-477D-803A-59244D2E6522}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{509FFF5B-E695-477D-803A-59244D2E6522}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BB6E926F-3E7E-45BD-BABA-2257F46AF774} = {CBC8FC20-ED4C-4BD6-93DA-435CD8801456}
+		{6879EACB-E5CF-41C9-9328-0C399972F912} = {CBC8FC20-ED4C-4BD6-93DA-435CD8801456}
+		{509FFF5B-E695-477D-803A-59244D2E6522} = {CBC8FC20-ED4C-4BD6-93DA-435CD8801456}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {475C9922-6F24-47D2-A3E5-3FA73B73A011}
