@@ -1,4 +1,4 @@
-﻿namespace AcceptanceTests.TestAPI.Configuration
+﻿namespace AcceptanceTests.TestAPI.Common.Configuration
 {
     public class AzureAdConfiguration
     {

@@ -5,7 +5,7 @@ using AcceptanceTests.TestAPI.Mappings;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace AcceptanceTests.UnitTests.Mappings
+namespace AcceptanceTests.TestAPI.UnitTests.Mappings
 {
     public class AllocationToDetailsResponseMapperTests
     {
@@ -14,13 +14,13 @@ namespace AcceptanceTests.UnitTests.Mappings
         {
             var user = new UserBuilder("made_up_email_stem_for_test", 1)
                 .WithUserType(UserType.Individual)
-                .ForApplication(Application.AdminWeb)
-                .Build();
+                .ForApplication(Application.TestApi)
+                .BuildUser();
 
             var allocation = new Allocation(user);
 
             var response = AllocationToDetailsResponseMapper.MapToResponse(allocation);
-            response.Should().BeEquivalentTo(allocation);
+            response.Should().BeEquivalentTo(allocation, options => options.Excluding(x => x.User));
         }
     }
 }

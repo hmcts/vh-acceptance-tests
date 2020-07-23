@@ -20,8 +20,8 @@ namespace AcceptanceTests.TestAPI.DAL.Commands
         public CreateNewUserCommand(string username, string contactEmail, string firstName, string lastName, 
             string displayName, int number, UserType userType, Application application)
         {
-            Username = username.ToLower();
-            ContactEmail = contactEmail.ToLower();
+            Username = username;
+            ContactEmail = contactEmail;
             FirstName = firstName;
             LastName = lastName;
             DisplayName = displayName;

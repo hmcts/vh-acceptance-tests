@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.5" />
     <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="5.2.8" />
   </ItemGroup>
@@ -12,6 +13,10 @@
   <ItemGroup>
     <ProjectReference Include="..\AcceptanceTests.TestAPI.Contract\AcceptanceTests.TestAPI.Contract.csproj" />
     <ProjectReference Include="..\AcceptanceTests.TestAPI.Domain\AcceptanceTests.TestAPI.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Helpers\" />
   </ItemGroup>
 
 </Project>

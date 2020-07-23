@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AcceptanceTests.TestAPI.Common.Builders;
 using AcceptanceTests.TestAPI.DAL.Commands.Core;
+using AcceptanceTests.TestAPI.DAL.Helpers;
 using AcceptanceTests.TestAPI.DAL.Queries;
 using AcceptanceTests.TestAPI.DAL.Queries.Core;
 using AcceptanceTests.TestAPI.Domain;
@@ -20,8 +21,9 @@ namespace AcceptanceTests.TestAPI.DAL.Commands
         /// </summary>
         /// <param name="userType">Type of user to allocate (e.g. Judge)</param>
         /// <param name="application">Application to assign to (e.g. VideoWeb)</param>
+        /// <param name="expiresInMinutes">Gives an expiry time in minutes. Default is 10 minutes</param>
         /// <returns>An allocated user</returns>
-        Task<User> AllocateToService(UserType userType, Application application);
+        Task<User> AllocateToService(UserType userType, Application application, int expiresInMinutes = 10);
     }
 
     public class AllocationService : IAllocationService
@@ -37,7 +39,7 @@ namespace AcceptanceTests.TestAPI.DAL.Commands
             _logger = logger;
         }
 
-        public async Task<User> AllocateToService(UserType userType, Application application)
+        public async Task<User> AllocateToService(UserType userType, Application application, int expiresInMinutes)
         {
             var users = await GetAllUsersByUserTypeAndApplication(userType, application);
             _logger.LogDebug($"Found {users.Count} users of type '{userType}' and application '{application}'");
@@ -55,7 +57,10 @@ namespace AcceptanceTests.TestAPI.DAL.Commands
             {
                 _logger.LogDebug($"All {users.Count} users were already allocated");
 
-                var userId = await CreateNewUser(userType, application, IterateUserNumber(users));
+                var number = await IterateUserNumber(userType, application);
+                _logger.LogDebug($"Iterated user number to {number}");
+
+                var userId = await CreateNewUser(userType, application, number);
                 _logger.LogDebug($"A new user with Id {userId} has been created");
 
                 await CreateNewAllocation(userId);
@@ -64,7 +69,7 @@ namespace AcceptanceTests.TestAPI.DAL.Commands
                 user = await GetUserById(userId);
             }
 
-            await AllocateUser(user.Id);
+            await AllocateUser(user.Id, expiresInMinutes);
             _logger.LogDebug($"User with username '{user.Username}' has been allocated");
 
             return user;
@@ -96,7 +101,7 @@ namespace AcceptanceTests.TestAPI.DAL.Commands
 
         private async Task CreateNewAllocation(Guid userId)
         {
-            var createNewAllocationCommand = new CreateNewAllocationCommand(userId); 
+            var createNewAllocationCommand = new CreateNewAllocationByUserIdCommand(userId); 
             await _commandHandler.Handle(createNewAllocationCommand);
         }
 
@@ -120,9 +125,10 @@ namespace AcceptanceTests.TestAPI.DAL.Commands
             return null;
         }
 
-        private static int IterateUserNumber(IEnumerable<User> users)
+        private async Task<int> IterateUserNumber(UserType userType, Application application)
         {
-            return users.Select(user => user.Number).ToList().Max() + 1;
+            var getHighestNumberQuery = new GetNextUserNumberByUserTypeQuery(userType, application);
+            return await _queryHandler.Handle<GetNextUserNumberByUserTypeQuery, Integer>(getHighestNumberQuery);
         }
 
         private async Task<User> GetUserById(Guid userId)
@@ -135,10 +141,10 @@ namespace AcceptanceTests.TestAPI.DAL.Commands
         {
             const string emailStem = "EMAIL_STEM_TO_REPLACE";
 
-            var request = new UserRequestBuilder(emailStem, newNumber)
+            var request = new UserBuilder(emailStem, newNumber)
                 .WithUserType(userType)
                 .ForApplication(application)
-                .Build();
+                .BuildRequest();
 
             var createNewUserCommand = new CreateNewUserCommand
             (
@@ -151,9 +157,9 @@ namespace AcceptanceTests.TestAPI.DAL.Commands
             return createNewUserCommand.NewUserId;
         }
 
-        private async Task AllocateUser(Guid userId)
+        private async Task AllocateUser(Guid userId, int expiresInMinutes)
         {
-            var allocateCommand = new AllocateByUserIdCommand(userId);
+            var allocateCommand = new AllocateByUserIdCommand(userId, expiresInMinutes);
             await _commandHandler.Handle(allocateCommand);
         }
     }

@@ -13,14 +13,14 @@ namespace AcceptanceTests.TestAPI.Contract.Responses
         public Guid Id { get; set; }
 
         /// <summary>
+        /// User Id 
+        /// </summary>
+        public Guid UserId { get; set; }
+
+        /// <summary>
         /// Username
         /// </summary>
         public string Username { get; set; }
-
-        /// <summary>
-        /// EnvironmentName
-        /// </summary>
-        public string EnvironmentName { get; set; }
 
         /// <summary>
         /// ExpiresAt

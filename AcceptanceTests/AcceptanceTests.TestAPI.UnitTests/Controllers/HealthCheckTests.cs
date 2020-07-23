@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
 
-namespace AcceptanceTests.UnitTests.Controllers
+namespace AcceptanceTests.TestAPI.UnitTests.Controllers
 {
     public class HealthCheckTests
     {
@@ -31,13 +31,14 @@ namespace AcceptanceTests.UnitTests.Controllers
         {
             const string emailStem = "made_up_email_stem_for_test";
             const int userNumber = 1;
+            var application = Application.TestApi;
 
             var user = new UserBuilder(emailStem, userNumber)
                 .WithUserType(UserType.Judge)
-                .ForApplication(Application.AdminWeb)
-                .Build();
+                .ForApplication(application)
+                .BuildUser();
 
-            var query = new GetUserByUsernameQuery(user.Username);
+            var query = new GetUserByUsernameQuery(user.Username, application);
             
             _controller = new HealthCheckController(_mockQueryHandler.Object);
             _mockQueryHandler.Setup(x => x.Handle<GetUserByUsernameQuery, User>(query))

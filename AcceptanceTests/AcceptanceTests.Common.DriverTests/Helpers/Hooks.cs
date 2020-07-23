@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
-namespace AcceptanceTests.Tests.Helpers
+namespace AcceptanceTests.DriverTests.Helpers
 {
     public static class Hooks
     {

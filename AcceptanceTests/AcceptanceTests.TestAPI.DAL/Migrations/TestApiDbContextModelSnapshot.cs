@@ -28,9 +28,6 @@ namespace AcceptanceTests.TestAPI.DAL.Migrations
                     b.Property<bool>("Allocated")
                         .HasColumnType("bit");
 
-                    b.Property<long>("EnvironmentId")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime?>("ExpiresAt")
                         .HasColumnType("datetime2");
 
@@ -42,27 +39,10 @@ namespace AcceptanceTests.TestAPI.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EnvironmentId");
-
-                    b.HasIndex("UserId", "EnvironmentId")
+                    b.HasIndex("UserId")
                         .IsUnique();
 
                     b.ToTable("Allocation");
-                });
-
-            modelBuilder.Entity("AcceptanceTests.TestAPI.Domain.Environment", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Environment");
                 });
 
             modelBuilder.Entity("AcceptanceTests.TestAPI.Domain.User", b =>
@@ -73,9 +53,6 @@ namespace AcceptanceTests.TestAPI.DAL.Migrations
 
                     b.Property<int>("Application")
                         .HasColumnType("int");
-
-                    b.Property<string>("CaseRoleName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ContactEmail")
                         .HasColumnType("nvarchar(450)");
@@ -89,20 +66,14 @@ namespace AcceptanceTests.TestAPI.DAL.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("HearingRoleName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Reference")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Representee")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserType")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("UserType")
+                        .HasColumnType("int");
 
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(450)");
@@ -122,12 +93,6 @@ namespace AcceptanceTests.TestAPI.DAL.Migrations
 
             modelBuilder.Entity("AcceptanceTests.TestAPI.Domain.Allocation", b =>
                 {
-                    b.HasOne("AcceptanceTests.TestAPI.Domain.Environment", "Environment")
-                        .WithMany()
-                        .HasForeignKey("EnvironmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("AcceptanceTests.TestAPI.Domain.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")

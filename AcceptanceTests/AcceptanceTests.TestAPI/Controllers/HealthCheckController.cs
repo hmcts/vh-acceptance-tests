@@ -6,6 +6,7 @@ using AcceptanceTests.TestAPI.Contract.Responses;
 using AcceptanceTests.TestAPI.DAL.Queries;
 using AcceptanceTests.TestAPI.DAL.Queries.Core;
 using AcceptanceTests.TestAPI.Domain;
+using AcceptanceTests.TestAPI.Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -39,7 +40,8 @@ namespace AcceptanceTests.TestAPI.Controllers
             try
             {
                 const string username = "health";
-                var query = new GetUserByUsernameQuery(username);
+                var application = Application.TestApi;
+                var query = new GetUserByUsernameQuery(username, application);
                 await _queryHandler.Handle<GetUserByUsernameQuery, User>(query);
                 response.Successful = true;
             }

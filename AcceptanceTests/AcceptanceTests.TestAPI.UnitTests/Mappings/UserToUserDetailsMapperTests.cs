@@ -4,7 +4,7 @@ using AcceptanceTests.TestAPI.Mappings;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace AcceptanceTests.UnitTests.Mappings
+namespace AcceptanceTests.TestAPI.UnitTests.Mappings
 {
     public class UserToUserDetailsMapperTests
     {
@@ -13,10 +13,10 @@ namespace AcceptanceTests.UnitTests.Mappings
         {
             var user = new UserBuilder("made_up_email_stem_for_test", 1)
                 .WithUserType(UserType.Individual)
-                .ForApplication(Application.AdminWeb)
-                .Build();
+                .ForApplication(Application.TestApi)
+                .BuildUser();
 
-            var response = UserToDetailsResponseMapper.MapUserToResponse(user);
+            var response = UserToDetailsResponseMapper.MapToResponse(user);
             response.Should().BeEquivalentTo(user);
         }
     }

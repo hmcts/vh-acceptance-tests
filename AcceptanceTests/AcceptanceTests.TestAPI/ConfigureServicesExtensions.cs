@@ -29,7 +29,7 @@ namespace AcceptanceTests.TestAPI
             var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
             var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 
-            var contractsXmlFile = $"{typeof(CreateNewUserRequest).Assembly.GetName().Name}.xml";
+            var contractsXmlFile = $"{typeof(CreateUserRequest).Assembly.GetName().Name}.xml";
             var contractsXmlPath = Path.Combine(AppContext.BaseDirectory, contractsXmlFile);
 
             services.AddSwaggerGen(c =>

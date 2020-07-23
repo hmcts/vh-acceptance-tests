@@ -6,18 +6,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AcceptanceTests.TestAPI.DAL.Commands
 {
-    public class CreateNewAllocationCommand : ICommand
+    public class CreateNewAllocationByUserIdCommand : ICommand
     {
         public Guid UserId { get; set; }
         public Guid NewAllocationId { get; set; }
 
-        public CreateNewAllocationCommand(Guid userId)
+        public CreateNewAllocationByUserIdCommand(Guid userId)
         {
             UserId = userId;
         }
     }
 
-    public class CreateNewAllocationCommandHandler : ICommandHandler<CreateNewAllocationCommand>
+    public class CreateNewAllocationCommandHandler : ICommandHandler<CreateNewAllocationByUserIdCommand>
     {
         private readonly TestApiDbContext _context;
 
@@ -26,7 +26,7 @@ namespace AcceptanceTests.TestAPI.DAL.Commands
             _context = context;
         }
 
-        public async Task Handle(CreateNewAllocationCommand command)
+        public async Task Handle(CreateNewAllocationByUserIdCommand command)
         {
             var user = await _context.Users
                 .SingleOrDefaultAsync(x => x.Id == command.UserId);

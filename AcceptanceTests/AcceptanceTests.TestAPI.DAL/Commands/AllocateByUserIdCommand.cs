@@ -11,6 +11,7 @@ namespace AcceptanceTests.TestAPI.DAL.Commands
     {
         public Guid UserId { get; set; }
         public int ExtendedExpiryInMinutes { get; set; }
+        public User User { get; set; }
 
         public AllocateByUserIdCommand(Guid userId, int extendedExpiryInMinutes = 10)
         {
@@ -47,8 +48,7 @@ namespace AcceptanceTests.TestAPI.DAL.Commands
                 await _context.SaveChangesAsync();
             }
 
-            var allocation = await _context.Allocations
-                .SingleOrDefaultAsync(x => x.User.Id == user.Id);
+            var allocation = await _context.Allocations.SingleOrDefaultAsync(x => x.User.Id == user.Id);
 
             if (allocation.IsAllocated())
             {
@@ -57,6 +57,7 @@ namespace AcceptanceTests.TestAPI.DAL.Commands
 
             allocation.Allocate(command.ExtendedExpiryInMinutes);
             await _context.SaveChangesAsync();
+            command.User = user;
         }
     }
 }

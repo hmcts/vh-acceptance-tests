@@ -5,7 +5,7 @@ namespace AcceptanceTests.TestAPI.Mappings
 {
     public static class UserToDetailsResponseMapper
     {
-        public static UserDetailsResponse MapUserToResponse(User user)
+        public static UserDetailsResponse MapToResponse(User user)
         {
             return new UserDetailsResponse
             {

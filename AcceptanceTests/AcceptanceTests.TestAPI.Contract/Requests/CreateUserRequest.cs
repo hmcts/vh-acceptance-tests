@@ -5,7 +5,7 @@ namespace AcceptanceTests.TestAPI.Contract.Requests
     /// <summary>
     /// Creating a new user request
     /// </summary>
-    public class CreateNewUserRequest
+    public class CreateUserRequest
     {
         /// <summary>
         ///     Username

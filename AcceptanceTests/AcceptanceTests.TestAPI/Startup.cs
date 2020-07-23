@@ -1,5 +1,5 @@
 using System;
-using AcceptanceTests.TestAPI.Configuration;
+using AcceptanceTests.TestAPI.Common.Configuration;
 using AcceptanceTests.TestAPI.DAL;
 using AcceptanceTests.TestAPI.Extensions;
 using AcceptanceTests.TestAPI.Telemetry;

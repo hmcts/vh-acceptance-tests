@@ -8,19 +8,6 @@ namespace AcceptanceTests.TestAPI.DAL.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Environment",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Environment", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
@@ -30,11 +17,8 @@ namespace AcceptanceTests.TestAPI.DAL.Migrations
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     DisplayName = table.Column<string>(nullable: true),
-                    UserRole = table.Column<string>(nullable: true),
-                    CaseRoleName = table.Column<string>(nullable: true),
-                    HearingRoleName = table.Column<string>(nullable: true),
-                    Reference = table.Column<string>(nullable: true),
-                    Representee = table.Column<string>(nullable: true),
+                    Number = table.Column<int>(nullable: false),
+                    UserType = table.Column<int>(nullable: false),
                     Application = table.Column<int>(nullable: false),
                     CreatedDate = table.Column<DateTime>(nullable: false)
                 },
@@ -48,21 +32,14 @@ namespace AcceptanceTests.TestAPI.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Username = table.Column<string>(nullable: true),
                     UserId = table.Column<Guid>(nullable: false),
-                    EnvironmentId = table.Column<long>(nullable: false),
+                    Username = table.Column<string>(nullable: true),
                     ExpiresAt = table.Column<DateTime>(nullable: true),
                     Allocated = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Allocation", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Allocation_Environment_EnvironmentId",
-                        column: x => x.EnvironmentId,
-                        principalTable: "Environment",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Allocation_User_UserId",
                         column: x => x.UserId,
@@ -72,14 +49,9 @@ namespace AcceptanceTests.TestAPI.DAL.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Allocation_EnvironmentId",
+                name: "IX_Allocation_UserId",
                 table: "Allocation",
-                column: "EnvironmentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Allocation_UserId_EnvironmentId",
-                table: "Allocation",
-                columns: new[] { "UserId", "EnvironmentId" },
+                column: "UserId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -101,9 +73,6 @@ namespace AcceptanceTests.TestAPI.DAL.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Allocation");
-
-            migrationBuilder.DropTable(
-                name: "Environment");
 
             migrationBuilder.DropTable(
                 name: "User");

@@ -1,4 +1,4 @@
-﻿namespace AcceptanceTests.Tests.Helpers
+﻿namespace AcceptanceTests.DriverTests.Helpers
 {
     internal class TestConfiguration
     {

@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Threading;
 using AcceptanceTests.Common.Configuration;
-using AcceptanceTests.Common.Driver;
 using AcceptanceTests.Common.Driver.Drivers;
 using AcceptanceTests.Common.Driver.Enums;
 using AcceptanceTests.Common.Driver.Settings;
-using AcceptanceTests.Tests.Helpers;
+using AcceptanceTests.DriverTests.Helpers;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace AcceptanceTests.Tests.DriverTests
+namespace AcceptanceTests.DriverTests.DriverTests
 {
     public class DesktopLocal
     {

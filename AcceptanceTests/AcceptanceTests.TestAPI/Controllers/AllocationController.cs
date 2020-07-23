@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using AcceptanceTests.TestAPI.Common.Builders;
-using AcceptanceTests.TestAPI.Contract.Requests;
 using AcceptanceTests.TestAPI.Contract.Responses;
 using AcceptanceTests.TestAPI.DAL.Commands;
 using AcceptanceTests.TestAPI.DAL.Commands.Core;
 using AcceptanceTests.TestAPI.DAL.Queries;
 using AcceptanceTests.TestAPI.DAL.Queries.Core;
 using AcceptanceTests.TestAPI.Domain;
+using AcceptanceTests.TestAPI.Domain.Enums;
 using AcceptanceTests.TestAPI.Mappings;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -34,14 +32,81 @@ namespace AcceptanceTests.TestAPI.Controllers
         }
 
         /// <summary>
-        /// Create new allocation for new unallocated user by User Id
+        /// Get the details of an allocation by user id
+        /// </summary>
+        /// <param name="userId">Id of the user</param>
+        /// <returns>Full details of an allocation</returns>
+        [HttpGet("{userId}")]
+        [ProducesResponseType(typeof(AllocationDetailsResponse), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> GetAllocationDetailsByUserIdAsync(Guid userId)
+        {
+            _logger.LogDebug($"GetUserDetailsByIdAsync {userId}");
+
+            var getUserByIdQuery = new GetUserByIdQuery(userId);
+            var queriedUser = await _queryHandler.Handle<GetUserByIdQuery, User>(getUserByIdQuery);
+
+            if (queriedUser == null)
+            {
+                _logger.LogWarning($"Unable to find user with id {userId}");
+
+                return NotFound();
+            }
+
+            var getAllocationByUserIdQuery = new GetAllocationByUserIdQuery(userId);
+            var allocation = await _queryHandler.Handle<GetAllocationByUserIdQuery, Allocation>(getAllocationByUserIdQuery);
+
+            var response = AllocationToDetailsResponseMapper.MapToResponse(allocation);
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// Allocate user by user type and application
+        /// </summary>
+        /// <param name="userType">Type of user (e.g Judge)</param>
+        /// <param name="application">Application (e.g. VideoWeb)</param>
+        /// <returns>Full details of an allocated user</returns>
+        [HttpPut]
+        [ProducesResponseType(typeof(UserDetailsResponse), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> AllocateUserByUserTypeAndApplicationAsync(UserType userType, Application application)
+        {
+            _logger.LogDebug($"AllocateUserByUserTypeAndApplicationAsync {userType} {application}");
+
+            var user = await AllocateAsync(userType, application);
+            var response = UserToDetailsResponseMapper.MapToResponse(user);
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// Allocate user by user id
+        /// </summary>
+        /// <param name="userId">Type of user (e.g Judge)</param>
+        /// <returns>Full details of an allocated user</returns>
+        [HttpPut("{userId}")]
+        [ProducesResponseType(typeof(UserDetailsResponse), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> AllocateUserByUserIdAsync(Guid userId)
+        {
+            _logger.LogDebug($"AllocateUserByUserIdAsync {userId}");
+
+            var allocateCommand = new AllocateByUserIdCommand(userId);
+            await _commandHandler.Handle(allocateCommand);
+            var user = allocateCommand.User;
+            var response = UserToDetailsResponseMapper.MapToResponse(user);
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// Create new allocation for new unallocated user by user id
         /// </summary>
         /// <param name="userId">User Id of the new user</param>
         /// <returns>Details of the created allocation</returns>
         [HttpPost]
         [ProducesResponseType(typeof(UserAllocationResponse), (int)HttpStatusCode.Created)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> CreateNewAllocationByIdAsync(Guid userId)
+        public async Task<IActionResult> CreateNewAllocationByUserIdAsync(Guid userId)
         {
             _logger.LogDebug("CreateNewAllocation");
 
@@ -49,115 +114,35 @@ namespace AcceptanceTests.TestAPI.Controllers
             _logger.LogDebug("New Allocation Created");
 
             var getAllocationByIdQuery = new GetAllocationByIdQuery(allocationId);
-            var queriedAllocation = await _queryHandler.Handle<GetAllocationByIdQuery, Allocation>(getAllocationByIdQuery);
+            var allocation = await _queryHandler.Handle<GetAllocationByIdQuery, Allocation>(getAllocationByIdQuery);
 
-            var response = AllocationToDetailsResponseMapper.MapToResponse(queriedAllocation);
+            var response = AllocationToDetailsResponseMapper.MapToResponse(allocation);
 
             _logger.LogInformation($"Created allocation for {response.Username} with id {response.Id}");
 
-            return CreatedAtAction(nameof(CreateNewAllocationByIdAsync), new { allocationId = response.Id }, response);
+            return CreatedAtAction(nameof(CreateNewAllocationByUserIdAsync), new { allocationId = response.Id }, response);
         }
 
         /// <summary>
-        /// Allocate a user in an environment
+        /// Delete allocation by user id
         /// </summary>
-        /// <param name="request">Specifics of the allocate</param>
-        /// <returns>Details of the allocated user</returns>
-        [HttpPut]
-        [ProducesResponseType(typeof(AllocationDetailsResponse), (int)HttpStatusCode.OK)]
+        /// <param name="userId">User Id of the user</param>
+        /// <returns>Delete an allocation</returns>
+        [HttpDelete]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> AllocateUserAsync(AllocateUserRequest request)
+        public async Task<IActionResult> DeleteAllocationByUserIdAsync(Guid userId)
         {
-            _logger.LogDebug($"AllocateUserAsync");
+            _logger.LogDebug($"DeleteAllocationByUserIdAsync {userId}");
 
-            // Get a list of all existing Judges in Video Web
-            var getAllUsersByUserTypeQuery = new GetAllUsersByUserTypeQuery(request.UserType, request.Application);
-            var users = await _queryHandler.Handle<GetAllUsersByUserTypeQuery, List<User>>(getAllUsersByUserTypeQuery);
-
-            // Keep a count of the user with the highest number 
-            var highestNumber = 0;
-
-            // Does the list have at least 1 Judge?
-            if (users.Count > 0)
-            {
-                highestNumber = 1;
-                // Yes : Continue
-                // 1 by 1, do they have an allocation already in this env?
-                foreach (var user in users)
-                {
-                    var getAllocationByUsernameQuery = new GetAllocationByUsernameQuery(user.Username);
-                    var allocation = await _queryHandler.Handle<GetAllocationByUsernameQuery, Allocation>(getAllocationByUsernameQuery);
-                    if (allocation == null)
-                    {
-                        // Create new allocation 
-                        //allocation = new Allocation
-                    }
-
-                    if (!allocation.IsAllocated())
-                    {
-                        allocation.Allocate(10);
-                        var allocationResponse = AllocationToDetailsResponseMapper.MapToResponse(allocation);
-
-                        _logger.LogDebug($"User '{user.DisplayName}' allocated");
-
-                        return Ok(allocationResponse);
-                    }
-
-                    if (user.Number > highestNumber)
-                    {
-                        highestNumber = user.Number;
-                    }
-                }
-            }
+            var deleteAllocationCommand = new DeleteAllocationByUserIdCommand(userId);
             
-            // Create new User
-            var newUserRequest = new UserRequestBuilder("EMAILSTEMGOESHERE", highestNumber + 1)
-                .WithUserType(request.UserType)
-                .ForApplication(request.Application)
-                .Build();
-
-            var userId = await CreateUserAsync(newUserRequest);
-            _logger.LogDebug($"New user '{newUserRequest.DisplayName}' created");
-
-            // Create new allocation 
-            var allocationId = await CreateAllocationAsync(userId);
-            _logger.LogDebug($"New allocation for '{newUserRequest.DisplayName}' created");
-
-            // Allocate the new user 
-            allocationId = await AllocateAsync(allocationId);
-            _logger.LogDebug($"'{newUserRequest.DisplayName}' allocated with id {allocationId}");
-
-            var getAllocationByIdQuery = new GetAllocationByIdQuery(allocationId);
-            var queriedAllocation = await _queryHandler.Handle<GetAllocationByIdQuery, Allocation>(getAllocationByIdQuery);
-
-            if (queriedAllocation == null)
-            {
-                _logger.LogWarning($"Unable to find allocation with id {allocationId}");
-
-                return NotFound();
-            }
-
-            var response = AllocationToDetailsResponseMapper.MapToResponse(queriedAllocation);
-
-            return Ok(response);
-        }
-
-        private async Task<Guid> CreateUserAsync(CreateNewUserRequest request)
-        {
-            var existingUser = await _queryHandler.Handle<GetUserByUsernameQuery, User>(
-                new GetUserByUsernameQuery(request.Username));
-
-            if (existingUser != null) return existingUser.Id;
-
-            var createNewUserCommand = new CreateNewUserCommand
-            (
-                request.Username, request.ContactEmail, request.FirstName, request.LastName,
-                request.DisplayName, request.Number, request.UserType, request.Application
-            );
-
-            await _commandHandler.Handle(createNewUserCommand);
-
-            return createNewUserCommand.NewUserId;
+            await _commandHandler.Handle(deleteAllocationCommand);
+            
+            _logger.LogInformation($"Successfully deleted allocation for user with id {userId}");
+            
+            return NoContent();
         }
 
         private async Task<Guid> CreateAllocationAsync(Guid userId)
@@ -167,30 +152,27 @@ namespace AcceptanceTests.TestAPI.Controllers
 
             if (existingAllocation != null) return existingAllocation.Id;
 
-            var createNewAllocationCommand = new CreateNewAllocationCommand(userId);
+            var createNewAllocationCommand = new CreateNewAllocationByUserIdCommand(userId);
 
             await _commandHandler.Handle(createNewAllocationCommand);
 
             return createNewAllocationCommand.NewAllocationId;
         }
 
-        private async Task<Guid> AllocateAsync(Guid allocationId)
+        private async Task<User> AllocateAsync(UserType userType, Application application, int expiresInMinutes = 10)
+        {
+            var allocateCommand = new AllocateByUserTypeAndApplicationCommand(userType, application, expiresInMinutes);
+            await _commandHandler.Handle(allocateCommand);
+            return allocateCommand.User;
+        }
+
+        private async Task<Guid> UnallocateAsync(Guid allocationId)
         {
             var allocateCommand = new AllocateByIdCommand(allocationId);
 
             await _commandHandler.Handle(allocateCommand);
 
             return allocateCommand.AllocationId;
-        }
-
-        private bool IsAllocated(Allocation allocation)
-        {
-            if (allocation.ExpiresAt == null)
-            {
-                return false;
-            }
-
-            return allocation.Allocated && DateTime.UtcNow < allocation.ExpiresAt;
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System;
-using AcceptanceTests.TestAPI.Configuration;
+using AcceptanceTests.TestAPI.Common.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
