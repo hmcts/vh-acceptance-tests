@@ -77,6 +77,7 @@ namespace AcceptanceTests.TestAPI.IntegrationTests.Hooks
         {
             context.Test = new TestData
             {
+                Allocations = new List<Allocation>(),
                 Users = new List<User>(),
                 UserResponses = new List<UserDetailsResponse>()
             };

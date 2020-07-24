@@ -9,6 +9,7 @@ using AcceptanceTests.Common.Api.Helpers;
 using AcceptanceTests.TestAPI.Common.Builders;
 using AcceptanceTests.TestAPI.Contract.Requests;
 using AcceptanceTests.TestAPI.Contract.Responses;
+using AcceptanceTests.TestAPI.Domain;
 using AcceptanceTests.TestAPI.Domain.Enums;
 using AcceptanceTests.TestAPI.IntegrationTests.Configuration;
 using AcceptanceTests.TestAPI.IntegrationTests.Helpers;
@@ -44,6 +45,20 @@ namespace AcceptanceTests.TestAPI.IntegrationTests.Steps
             _context.HttpMethod = HttpMethod.Get;
         }
 
+        [Given(@"I have a valid get user details by username request")]
+        public void GivenIHaveAValidGetUserDetailsByUsernameRequest()
+        {
+            _context.Uri = ApiUriFactory.UserEndpoints.GetUserByUsername(_context.Test.User.Username);
+            _context.HttpMethod = HttpMethod.Get;
+        }
+
+        [Given(@"I have a get user details by username request with a nonexistent username")]
+        public void GivenIHaveAGetUserDetailsByUsernameRequestWithANonexistentUsername()
+        {
+            _context.Uri = ApiUriFactory.UserEndpoints.GetUserByUsername("MadeUpUsername@email.com");
+            _context.HttpMethod = HttpMethod.Get;
+        }
+
         [Given(@"I have a valid create user request for a (.*)")]
         public async Task GivenIHaveAValidCreateUserRequest(UserType userType)
         {
@@ -59,7 +74,6 @@ namespace AcceptanceTests.TestAPI.IntegrationTests.Steps
             _context.HttpMethod = HttpMethod.Post;
 
             var jsonBody = RequestHelper.SerialiseRequestToSnakeCaseJson(_createUserRequest);
-            
             _context.HttpContent = new StringContent(jsonBody, Encoding.UTF8, "application/json");
         }
 
@@ -131,6 +145,25 @@ namespace AcceptanceTests.TestAPI.IntegrationTests.Steps
             response.Number.Should().Be(_createUserRequest.Number);
             response.UserType.Should().Be(_createUserRequest.UserType);
             response.Username.Should().Be(_createUserRequest.Username);
+        }
+
+        [Then(@"the user details for the newly created (.*) user during allocation should be retrieved")]
+        public async Task ThenTheUserDetailsShouldBeRetrieved(UserType userType)
+        {
+            var response = await Response.GetResponses<UserDetailsResponse>(_context.Response.Content);
+            response.Should().NotBeNull();
+            response.Application.Should().Be(Application.TestApi);
+            response.ContactEmail.Should().Contain(userType.ToString());
+            response.CreatedDate.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(10));
+            response.DisplayName.Should().Contain(userType.ToString());
+            response.FirstName.Should().Be("TA");
+            response.Id.Should().NotBeEmpty();
+            response.LastName.Should().Contain(userType.ToString());
+            response.Number.Should().BeGreaterThan(0);
+            response.UserType.Should().Be(userType);
+            response.Username.Should().Contain(userType.ToString());
+            _context.Test.User = new User(response.Username, response.ContactEmail, response.FirstName, response.LastName,
+            response.DisplayName, response.Number, response.UserType, response.Application);
         }
 
         [Then(@"the user details should be retrieved")]

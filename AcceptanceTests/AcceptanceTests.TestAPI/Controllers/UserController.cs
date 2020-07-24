@@ -37,7 +37,7 @@ namespace AcceptanceTests.TestAPI.Controllers
         }
 
         /// <summary>
-        /// Get the details of a user
+        /// Get user by user id
         /// </summary>
         /// <param name="userId">Id of the user</param>
         /// <returns>Full details of a user</returns>
@@ -49,13 +49,37 @@ namespace AcceptanceTests.TestAPI.Controllers
         {
             _logger.LogDebug($"GetUserDetailsByIdAsync {userId}");
 
-            var getUserByIdQuery = new GetUserByIdQuery(userId);
-            var queriedUser = await _queryHandler.Handle<GetUserByIdQuery, User>(getUserByIdQuery);
+            var user = await GetUserByIdAsync(userId);
 
-            if (queriedUser == null)
+            if (user == null)
             {
                 _logger.LogWarning($"Unable to find user with id {userId}");
 
+                return NotFound();
+            }
+
+            var response = UserToDetailsResponseMapper.MapToResponse(user);
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// Get user by username
+        /// </summary>
+        /// <param name="username">Username of the user (case insensitive)</param>
+        /// <returns>Full details of a user</returns>
+        [HttpGet("username/{username}")]
+        [ProducesResponseType(typeof(UserDetailsResponse), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> GetUserDetailsByUsernameAsync(string username)
+        {
+            _logger.LogDebug($"GetUserDetailsByUsernameAsync {username}");
+
+            var queriedUser = await GetUserByUsernameAsync(username);
+
+            if (queriedUser == null)
+            {
+                _logger.LogWarning($"Unable to find user with username {username}");
                 return NotFound();
             }
 
@@ -105,8 +129,7 @@ namespace AcceptanceTests.TestAPI.Controllers
         {
             _logger.LogDebug($"GetHighestUserNumberByUserTypeAsync {userType} {application}");
 
-            var getHighestNumberQuery = new GetNextUserNumberByUserTypeQuery(userType, application);
-            var number = await _queryHandler.Handle<GetNextUserNumberByUserTypeQuery, Integer>(getHighestNumberQuery);
+            var number = await _queryHandler.Handle<GetNextUserNumberByUserTypeQuery, Integer>(new GetNextUserNumberByUserTypeQuery(userType, application));
             _logger.LogDebug($"Highest user number plus 1 will be {number}");
 
             var response = NumberToResponseMapper.MapToResponse(number);
@@ -129,10 +152,9 @@ namespace AcceptanceTests.TestAPI.Controllers
             var userId = await CreateUserAsync(request);
             _logger.LogDebug("New User Created");
 
-            var getUserByIdQuery = new GetUserByIdQuery(userId);
-            var queriedUser = await _queryHandler.Handle<GetUserByIdQuery, User>(getUserByIdQuery);
+            var user = await GetUserByIdAsync(userId);
 
-            var response = UserToDetailsResponseMapper.MapToResponse(queriedUser);
+            var response = UserToDetailsResponseMapper.MapToResponse(user);
 
             _logger.LogInformation($"Created user {response.Username} with id {response.Id}");
 
@@ -152,19 +174,33 @@ namespace AcceptanceTests.TestAPI.Controllers
         {
             _logger.LogDebug($"DeleteUserByUserIdAsync {userId}");
 
-            var deleteUserCommand = new DeleteUserByUserIdCommand(userId);
+            var user = await GetUserByIdAsync(userId);
 
-            await _commandHandler.Handle(deleteUserCommand);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            await _commandHandler.Handle(new DeleteUserByUserIdCommand(userId));
 
             _logger.LogInformation($"Successfully deleted user with id {userId}");
 
             return NoContent();
         }
 
+        private async Task<User> GetUserByIdAsync(Guid userId)
+        {
+            return await _queryHandler.Handle<GetUserByIdQuery, User>(new GetUserByIdQuery(userId));
+        }
+
+        private async Task<User> GetUserByUsernameAsync(string username)
+        {
+            return await _queryHandler.Handle<GetUserByUsernameQuery, User>(new GetUserByUsernameQuery(username));
+        }
+
         private async Task<Guid> CreateUserAsync(CreateUserRequest request)
         {
-            var existingUser = await _queryHandler.Handle<GetUserByUsernameQuery, User>(
-                new GetUserByUsernameQuery(request.Username, request.Application));
+            var existingUser = await _queryHandler.Handle<GetUserByUsernameQuery, User>(new GetUserByUsernameQuery(request.Username));
 
             if (existingUser != null)
             {

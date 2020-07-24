@@ -40,8 +40,7 @@ namespace AcceptanceTests.TestAPI.Controllers
             try
             {
                 const string username = "health";
-                var application = Application.TestApi;
-                var query = new GetUserByUsernameQuery(username, application);
+                var query = new GetUserByUsernameQuery(username);
                 await _queryHandler.Handle<GetUserByUsernameQuery, User>(query);
                 response.Successful = true;
             }

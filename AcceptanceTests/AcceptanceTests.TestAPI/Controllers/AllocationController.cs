@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using AcceptanceTests.TestAPI.Contract.Requests;
 using AcceptanceTests.TestAPI.Contract.Responses;
 using AcceptanceTests.TestAPI.DAL.Commands;
 using AcceptanceTests.TestAPI.DAL.Commands.Core;
@@ -44,10 +46,9 @@ namespace AcceptanceTests.TestAPI.Controllers
         {
             _logger.LogDebug($"GetUserDetailsByIdAsync {userId}");
 
-            var getUserByIdQuery = new GetUserByIdQuery(userId);
-            var queriedUser = await _queryHandler.Handle<GetUserByIdQuery, User>(getUserByIdQuery);
+            var existingUser = await GetUserByIdAsync(userId);
 
-            if (queriedUser == null)
+            if (existingUser == null)
             {
                 _logger.LogWarning($"Unable to find user with id {userId}");
 
@@ -75,6 +76,8 @@ namespace AcceptanceTests.TestAPI.Controllers
             _logger.LogDebug($"AllocateUserByUserTypeAndApplicationAsync {userType} {application}");
 
             var user = await AllocateAsync(userType, application);
+            _logger.LogDebug($"User '{user.Username}' successfully allocated");
+
             var response = UserToDetailsResponseMapper.MapToResponse(user);
             return Ok(response);
         }
@@ -91,10 +94,17 @@ namespace AcceptanceTests.TestAPI.Controllers
         {
             _logger.LogDebug($"AllocateUserByUserIdAsync {userId}");
 
+            var user = await GetUserByIdAsync(userId);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
             var allocateCommand = new AllocateByUserIdCommand(userId);
             await _commandHandler.Handle(allocateCommand);
-            var user = allocateCommand.User;
-            var response = UserToDetailsResponseMapper.MapToResponse(user);
+            var allocatedUser = allocateCommand.User;
+            var response = UserToDetailsResponseMapper.MapToResponse(allocatedUser);
             return Ok(response);
         }
 
@@ -105,13 +115,30 @@ namespace AcceptanceTests.TestAPI.Controllers
         /// <returns>Details of the created allocation</returns>
         [HttpPost]
         [ProducesResponseType(typeof(UserAllocationResponse), (int)HttpStatusCode.Created)]
+        [ProducesResponseType((int)HttpStatusCode.Conflict)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> CreateNewAllocationByUserIdAsync(Guid userId)
         {
             _logger.LogDebug("CreateNewAllocation");
 
+            var user = await GetUserByIdAsync(userId);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            _logger.LogDebug($"User with id {userId} retrieved");
+
+            var existingAllocation = await GetAllocationByUserIdAsync(userId);
+
+            if (existingAllocation != null)
+            {
+                return Conflict();
+            }
+
             var allocationId = await CreateAllocationAsync(userId);
-            _logger.LogDebug("New Allocation Created");
+            _logger.LogDebug($"New Allocation Created for use with id {userId}");
 
             var getAllocationByIdQuery = new GetAllocationByIdQuery(allocationId);
             var allocation = await _queryHandler.Handle<GetAllocationByIdQuery, Allocation>(getAllocationByIdQuery);
@@ -136,6 +163,15 @@ namespace AcceptanceTests.TestAPI.Controllers
         {
             _logger.LogDebug($"DeleteAllocationByUserIdAsync {userId}");
 
+            var existingUser = await GetUserByIdAsync(userId);
+
+            if (existingUser == null)
+            {
+                return NotFound();
+            }
+
+            _logger.LogDebug($"User with id {userId} retrieved");
+
             var deleteAllocationCommand = new DeleteAllocationByUserIdCommand(userId);
             
             await _commandHandler.Handle(deleteAllocationCommand);
@@ -145,17 +181,69 @@ namespace AcceptanceTests.TestAPI.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Unallocate users by username
+        /// </summary>
+        /// <param name="request">List of usernames to unallocate</param>
+        /// <returns>Allocation details of the unallocated users</returns>
+        [HttpPut("unallocateUsers")]
+        [ProducesResponseType(typeof(List<AllocationDetailsResponse>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> UnallocateUsersByUsernameAsync(UnallocateUsersRequest request)
+        {
+            _logger.LogDebug($"UnallocateUsersByUsernameAsync");
+
+            var allocationIds = new List<Guid>();
+
+            foreach (var username in request.Usernames)
+            {
+                var user = await GetUserByUsernameAsync(username);
+
+                if (user == null)
+                {
+                    return NotFound();
+                }
+
+                allocationIds.Add(await UnallocateAsync(username));
+            }
+
+            var response = new List<AllocationDetailsResponse>();
+
+            foreach (var allocationId in allocationIds)
+            {
+                var allocation = await GetAllocationByAllocationIdAsync(allocationId);
+                response.Add(AllocationToDetailsResponseMapper.MapToResponse(allocation));
+            }
+
+            _logger.LogInformation($"Allocated {response.Count} user(s)");
+
+            return Ok(response);
+        }
+
+        private async Task<User> GetUserByIdAsync(Guid userId)
+        {
+           return await _queryHandler.Handle<GetUserByIdQuery, User>(new GetUserByIdQuery(userId));
+        }
+
+        private async Task<User> GetUserByUsernameAsync(string username)
+        {
+            return await _queryHandler.Handle<GetUserByUsernameQuery, User>(new GetUserByUsernameQuery(username));
+        }
+
+        private async Task<Allocation> GetAllocationByUserIdAsync(Guid userId)
+        {
+            return await _queryHandler.Handle<GetAllocationByUserIdQuery, Allocation>(new GetAllocationByUserIdQuery(userId));
+        }
+
+        private async Task<Allocation> GetAllocationByAllocationIdAsync(Guid allocationId)
+        {
+            return await _queryHandler.Handle<GetAllocationByIdQuery, Allocation>(new GetAllocationByIdQuery(allocationId));
+        }
+
         private async Task<Guid> CreateAllocationAsync(Guid userId)
         {
-            var existingAllocation = await _queryHandler.Handle<GetAllocationByUserIdQuery, Allocation>(
-                new GetAllocationByUserIdQuery(userId));
-
-            if (existingAllocation != null) return existingAllocation.Id;
-
             var createNewAllocationCommand = new CreateNewAllocationByUserIdCommand(userId);
-
             await _commandHandler.Handle(createNewAllocationCommand);
-
             return createNewAllocationCommand.NewAllocationId;
         }
 
@@ -166,13 +254,11 @@ namespace AcceptanceTests.TestAPI.Controllers
             return allocateCommand.User;
         }
 
-        private async Task<Guid> UnallocateAsync(Guid allocationId)
+        private async Task<Guid> UnallocateAsync(string username)
         {
-            var allocateCommand = new AllocateByIdCommand(allocationId);
-
-            await _commandHandler.Handle(allocateCommand);
-
-            return allocateCommand.AllocationId;
+            var unallocateCommand = new UnallocateByUsernameCommand(username);
+            await _commandHandler.Handle(unallocateCommand);
+            return unallocateCommand.AllocationId;
         }
     }
 }

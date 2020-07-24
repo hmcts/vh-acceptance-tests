@@ -9,6 +9,7 @@ namespace AcceptanceTests.TestAPI.IntegrationTests.Hooks
         [AfterScenario(Order = (int)HooksSequence.RemoveDataCreatedDuringTest)]
         public static async Task RemoveDataCreatedDuringTest(TestContext context)
         {
+            //await context.TestDataManager.DeleteUsers();
         }
 
         [AfterScenario(Order = (int)HooksSequence.RemoveServer)]

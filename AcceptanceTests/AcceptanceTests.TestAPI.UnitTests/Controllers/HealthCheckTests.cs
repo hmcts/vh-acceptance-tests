@@ -38,7 +38,7 @@ namespace AcceptanceTests.TestAPI.UnitTests.Controllers
                 .ForApplication(application)
                 .BuildUser();
 
-            var query = new GetUserByUsernameQuery(user.Username, application);
+            var query = new GetUserByUsernameQuery(user.Username);
             
             _controller = new HealthCheckController(_mockQueryHandler.Object);
             _mockQueryHandler.Setup(x => x.Handle<GetUserByUsernameQuery, User>(query))

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Configuration;
 using System.Threading.Tasks;
 using AcceptanceTests.TestAPI.Common.Builders;
 using AcceptanceTests.TestAPI.DAL.Commands.Core;
@@ -9,6 +9,7 @@ using AcceptanceTests.TestAPI.DAL.Queries;
 using AcceptanceTests.TestAPI.DAL.Queries.Core;
 using AcceptanceTests.TestAPI.Domain;
 using AcceptanceTests.TestAPI.Domain.Enums;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace AcceptanceTests.TestAPI.DAL.Commands
@@ -31,18 +32,20 @@ namespace AcceptanceTests.TestAPI.DAL.Commands
         private readonly IQueryHandler _queryHandler;
         private readonly ICommandHandler _commandHandler;
         private readonly ILogger<AllocationService> _logger;
+        private readonly IConfiguration _config;
 
-        public AllocationService(ICommandHandler commandHandler, IQueryHandler queryHandler, ILogger<AllocationService> logger)
+        public AllocationService(ICommandHandler commandHandler, IQueryHandler queryHandler, ILogger<AllocationService> logger, IConfiguration config)
         {
             _commandHandler = commandHandler;
             _queryHandler = queryHandler;
             _logger = logger;
+            _config = config;
         }
 
         public async Task<User> AllocateToService(UserType userType, Application application, int expiresInMinutes)
         {
             var users = await GetAllUsersByUserTypeAndApplication(userType, application);
-            _logger.LogDebug($"Found {users.Count} users of type '{userType}' and application '{application}'");
+            _logger.LogDebug($"Found {users.Count} user(s) of type '{userType}' and application '{application}'");
 
             await CreateAllocationsForUsersIfRequired(users);
 
@@ -139,8 +142,7 @@ namespace AcceptanceTests.TestAPI.DAL.Commands
 
         private async Task<Guid> CreateNewUser(UserType userType, Application application, int newNumber)
         {
-            const string emailStem = "EMAIL_STEM_TO_REPLACE";
-
+            var emailStem = GetEmailStem();
             var request = new UserBuilder(emailStem, newNumber)
                 .WithUserType(userType)
                 .ForApplication(application)
@@ -155,6 +157,18 @@ namespace AcceptanceTests.TestAPI.DAL.Commands
             await _commandHandler.Handle(createNewUserCommand);
 
             return createNewUserCommand.NewUserId;
+        }
+
+        private string GetEmailStem()
+        {
+            var emailStem = _config.GetValue<string>("UsernameStem");
+
+            if (emailStem == null)
+            {
+                throw new ConfigurationErrorsException("Email stem could not be retrieved");
+            }
+
+            return emailStem;
         }
 
         private async Task AllocateUser(Guid userId, int expiresInMinutes)

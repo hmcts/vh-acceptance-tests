@@ -8,11 +8,12 @@ namespace AcceptanceTests.TestAPI.IntegrationTests.Configuration
         public static class AllocationEndpoints
         {
             public const string ApiRoot = "allocations";
-            public static string GetAllocationByUserId(Guid userId) => $"{ApiRoot}/{userId}";
-            public static string AllocateByUserId(Guid userId) => $"{ApiRoot}/{userId}";
-            public static string AllocateByUserTypeAndApplication => ApiRoot;
-            public static string CreateAllocation => ApiRoot;
-            public static string DeleteAllocation => ApiRoot;
+            public static string GetAllocationByUserId(Guid userId) => $"{ApiRoot}/{userId:D}";
+            public static string AllocateByUserId(Guid userId) => $"{ApiRoot}/{userId:D}";
+            public static string AllocateByUserTypeAndApplication(UserType userType, Application application) => $"{ApiRoot}/?userType={userType}&application={application}";
+            public static string CreateAllocation(Guid userId) => $"{ApiRoot}/?userId={userId:D}";
+            public static string DeleteAllocation(Guid userId) => $"{ApiRoot}/?userId={userId:D}";
+            public static string UnallocateUsers => $"{ApiRoot}/unallocateUsers";
         }
 
         public static class HealthCheckEndpoints
@@ -25,6 +26,7 @@ namespace AcceptanceTests.TestAPI.IntegrationTests.Configuration
         {
             public const string ApiRoot = "users";
             public static string GetUserById(Guid userId) => $"{ApiRoot}/{userId:D}";
+            public static string GetUserByUsername(string username) => $"{ApiRoot}/username/{username}";
             public static string GetAllUsersByUserTypeAndApplication(UserType userType, Application application) => $"{ApiRoot}/?userType={userType}&application={application}";
             public static string GetIteratedUserNumber(UserType userType, Application application) => $"{ApiRoot}/iterate/?userType={userType}&application={application}";
             public static string CreateUser => ApiRoot;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using AcceptanceTests.TestAPI.Domain.Enums;
@@ -28,6 +29,47 @@ namespace AcceptanceTests.TestAPI.IntegrationTests.Steps
         public async Task GivenIHaveAUserWithUserTypeJudge(UserType userType)
         {
             _context.Test.Users.Add(await _context.TestDataManager.SeedUser(userType));
+        }
+
+        [Given(@"I have a user with an allocation")]
+        public async Task GivenIHaveAUserWithAnAllocation()
+        {
+            await GivenIHaveAUser();
+            _context.Test.Allocation = await _context.TestDataManager.SeedAllocation(_context.Test.User.Id);
+        }
+
+        [Given(@"I have a user with an allocation who is allocated")]
+        [Given(@"I have another user with an allocation who is allocated")]
+        public async Task GivenIHaveAUserWithAnAllocationWhoIsAllocated()
+        {
+            await GivenIHaveAUserWithAnAllocation();
+            _context.Test.Users.Add(_context.Test.User);
+            _context.Test.Allocations.Add(await _context.TestDataManager.AllocateUser(_context.Test.Users.Last().Id));
+        }
+
+        [Given(@"I have a user with an allocation who is unallocated")]
+        [Given(@"I have another user with an allocation who is unallocated")]
+        public async Task GivenIHaveAUserWithAnAllocationWhoIsUnallocated()
+        {
+            await GivenIHaveAUserWithAnAllocation();
+            _context.Test.Users.Add(_context.Test.User);
+            _context.Test.Allocations.Add(await _context.TestDataManager.UnallocateUser(_context.Test.Users.Last().Id));
+        }
+
+        [Given(@"I have a (.*) user with an allocation who is allocated")]
+        public async Task GivenIHaveAUserOfTypeWithAnAllocationWhoIsAllocated(UserType userType)
+        {
+            await GivenIHaveAUserWithUserTypeJudge(userType);
+            _context.Test.Users.Add(_context.Test.User);
+            _context.Test.Allocations.Add(await _context.TestDataManager.AllocateUser(_context.Test.Users.Last().Id));
+        }
+
+        [Given(@"I have a (.*) user with an allocation who is unallocated")]
+        public async Task GivenIHaveAUserOfTypeWithAnAllocationWhoIsUnallocated(UserType userType)
+        {
+            await GivenIHaveAUserWithUserTypeJudge(userType);
+            _context.Test.Users.Add(_context.Test.User);
+            _context.Test.Allocations.Add(await _context.TestDataManager.AllocateUser(_context.Test.Users.Last().Id));
         }
 
         [When(@"I send the request to the endpoint")]

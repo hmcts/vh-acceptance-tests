@@ -9,6 +9,7 @@ namespace AcceptanceTests.TestAPI.DAL.Commands
     public class UnallocateByUsernameCommand : ICommand
     {
         public string Username { get; set; }
+        public Guid AllocationId { get; set; }
 
         public UnallocateByUsernameCommand(string username)
         {
@@ -27,7 +28,7 @@ namespace AcceptanceTests.TestAPI.DAL.Commands
 
         public async Task Handle(UnallocateByUsernameCommand command)
         {
-            var user = await _context.Users.SingleOrDefaultAsync(x => string.Equals(x.Username, command.Username, StringComparison.CurrentCultureIgnoreCase));
+            var user = await _context.Users.SingleOrDefaultAsync(x => x.Username.ToLower() == command.Username.ToLower());
 
             if (user == null)
             {
@@ -43,6 +44,7 @@ namespace AcceptanceTests.TestAPI.DAL.Commands
 
             allocation.Unallocate();
             await _context.SaveChangesAsync();
+            command.AllocationId = allocation.Id;
         }
     }
 }

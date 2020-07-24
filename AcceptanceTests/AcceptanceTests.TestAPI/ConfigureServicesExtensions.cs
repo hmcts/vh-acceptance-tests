@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Reflection;
 using AcceptanceTests.TestAPI.Common.Security;
 using AcceptanceTests.TestAPI.Contract.Requests;
@@ -12,7 +11,7 @@ using AcceptanceTests.TestAPI.DAL.Queries.Core;
 using AcceptanceTests.TestAPI.Swagger;
 using AcceptanceTests.TestAPI.Telemetry;
 using Microsoft.ApplicationInsights.Extensibility;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
