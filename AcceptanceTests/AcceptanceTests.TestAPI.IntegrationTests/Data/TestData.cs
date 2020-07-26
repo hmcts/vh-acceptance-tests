@@ -10,6 +10,7 @@ namespace AcceptanceTests.TestAPI.IntegrationTests.Data
         public List<Allocation> Allocations { get; set; }
         public User User { get; set; }
         public List<User> Users { get; set; }
+        public UserDetailsResponse UserDetailsResponse { get; set; }
         public List<UserDetailsResponse> UserResponses { get; set; }
     }
 }

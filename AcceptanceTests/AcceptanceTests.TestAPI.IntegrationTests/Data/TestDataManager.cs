@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AcceptanceTests.TestAPI.Common.Builders;
-using AcceptanceTests.TestAPI.Common.Configuration;
 using AcceptanceTests.TestAPI.DAL;
 using AcceptanceTests.TestAPI.DAL.Exceptions;
 using AcceptanceTests.TestAPI.Domain;
@@ -14,14 +13,11 @@ namespace AcceptanceTests.TestAPI.IntegrationTests.Data
     public class TestDataManager
     {
         private readonly TestContext _context;
-        private readonly ServicesConfiguration _services;
         private readonly DbContextOptions<TestApiDbContext> _dbContextOptions;
 
-        public TestDataManager(TestContext context, ServicesConfiguration services,
-            DbContextOptions<TestApiDbContext> dbContextOptions)
+        public TestDataManager(TestContext context, DbContextOptions<TestApiDbContext> dbContextOptions)
         {
             _context = context;
-            _services = services;
             _dbContextOptions = dbContextOptions;
         }
 

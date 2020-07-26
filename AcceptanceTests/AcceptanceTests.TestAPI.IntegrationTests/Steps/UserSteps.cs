@@ -154,16 +154,15 @@ namespace AcceptanceTests.TestAPI.IntegrationTests.Steps
             response.Should().NotBeNull();
             response.Application.Should().Be(Application.TestApi);
             response.ContactEmail.Should().Contain(userType.ToString());
-            response.CreatedDate.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(10));
-            response.DisplayName.Should().Contain(userType.ToString());
-            response.FirstName.Should().Be("TA");
+            response.CreatedDate.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromMinutes(1));
+            response.DisplayName.Should().Contain(userType == UserType.Judge ? "Courtroom" : userType.ToString());
+            response.FirstName.Should().Contain(userType == UserType.Judge ? "Courtroom" : "TA");
             response.Id.Should().NotBeEmpty();
-            response.LastName.Should().Contain(userType.ToString());
+            response.LastName.Should().Contain(userType == UserType.Judge ? "Building" : userType.ToString());
             response.Number.Should().BeGreaterThan(0);
             response.UserType.Should().Be(userType);
             response.Username.Should().Contain(userType.ToString());
-            _context.Test.User = new User(response.Username, response.ContactEmail, response.FirstName, response.LastName,
-            response.DisplayName, response.Number, response.UserType, response.Application);
+            _context.Test.UserDetailsResponse = response;
         }
 
         [Then(@"the user details should be retrieved")]
@@ -181,6 +180,7 @@ namespace AcceptanceTests.TestAPI.IntegrationTests.Steps
             response.Number.Should().Be(_context.Test.User.Number);
             response.UserType.Should().Be(_context.Test.User.UserType);
             response.Username.Should().Be(_context.Test.User.Username);
+            _context.Test.UserDetailsResponse = response;
         }
 
         [Then(@"a list of user details for the given user type and application should be retrieved")]

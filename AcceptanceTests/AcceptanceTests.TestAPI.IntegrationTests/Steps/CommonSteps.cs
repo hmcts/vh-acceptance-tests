@@ -28,7 +28,8 @@ namespace AcceptanceTests.TestAPI.IntegrationTests.Steps
         [Given(@"I have another user with user type (.*)")]
         public async Task GivenIHaveAUserWithUserTypeJudge(UserType userType)
         {
-            _context.Test.Users.Add(await _context.TestDataManager.SeedUser(userType));
+            _context.Test.User = await _context.TestDataManager.SeedUser(userType);
+            _context.Test.Users.Add(_context.Test.User);
         }
 
         [Given(@"I have a user with an allocation")]
@@ -61,7 +62,9 @@ namespace AcceptanceTests.TestAPI.IntegrationTests.Steps
         {
             await GivenIHaveAUserWithUserTypeJudge(userType);
             _context.Test.Users.Add(_context.Test.User);
-            _context.Test.Allocations.Add(await _context.TestDataManager.AllocateUser(_context.Test.Users.Last().Id));
+            await _context.TestDataManager.SeedAllocation(_context.Test.User.Id);
+            _context.Test.Allocations.Add(_context.Test.Allocation);
+            await _context.TestDataManager.AllocateUser(_context.Test.Users.Last().Id);
         }
 
         [Given(@"I have a (.*) user with an allocation who is unallocated")]
@@ -69,7 +72,8 @@ namespace AcceptanceTests.TestAPI.IntegrationTests.Steps
         {
             await GivenIHaveAUserWithUserTypeJudge(userType);
             _context.Test.Users.Add(_context.Test.User);
-            _context.Test.Allocations.Add(await _context.TestDataManager.AllocateUser(_context.Test.Users.Last().Id));
+            await _context.TestDataManager.SeedAllocation(_context.Test.User.Id);
+            _context.Test.Allocations.Add(_context.Test.Allocation);
         }
 
         [When(@"I send the request to the endpoint")]

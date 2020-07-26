@@ -65,7 +65,7 @@ namespace AcceptanceTests.TestAPI.IntegrationTests.Hooks
             dbContextOptionsBuilder.EnableSensitiveDataLogging();
             dbContextOptionsBuilder.UseSqlServer(context.Config.DbConnection.TestApi);
             context.DbContextOptions = dbContextOptionsBuilder.Options;
-            context.TestDataManager = new TestDataManager(context, context.Config.VhServices, context.DbContextOptions);
+            context.TestDataManager = new TestDataManager(context, context.DbContextOptions);
         }
 
         private void RegisterUsernameStem(TestContext context)

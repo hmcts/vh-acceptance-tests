@@ -128,7 +128,8 @@ namespace AcceptanceTests.TestAPI.IntegrationTests.Steps
         [Then(@"the user should be allocated")]
         public async Task ThenTheUserShouldBeAllocated()
         {
-            GivenIHaveAGetAllocationByUserIdRequestWithAValidUserId();
+            _context.Uri = ApiUriFactory.AllocationEndpoints.GetAllocationByUserId(_context.Test.UserDetailsResponse.Id);
+            _context.HttpMethod = HttpMethod.Get;
             await _commonSteps.WhenISendTheRequestToTheEndpoint();
             _commonSteps.ThenTheResponseShouldHaveStatus(HttpStatusCode.OK, true);
             var response = await Response.GetResponses<AllocationDetailsResponse>(_context.Response.Content);
