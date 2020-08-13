@@ -7,7 +7,7 @@ namespace AcceptanceTests.Common.Api.Helpers
 {
     public static class RequestHelper
     {
-        public static string SerialiseRequestToSnakeCaseJson(object request)
+        public static string Serialise(object request)
         {
             var contractResolver = new DefaultContractResolver
             {
@@ -21,7 +21,7 @@ namespace AcceptanceTests.Common.Api.Helpers
             });
         }
 
-        public static T DeserialiseSnakeCaseJsonToResponse<T>(string response)
+        public static T Deserialise<T>(string response)
         {
             var contractResolver = new DefaultContractResolver
             {
