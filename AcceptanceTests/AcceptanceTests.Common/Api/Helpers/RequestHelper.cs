@@ -10,13 +10,27 @@ namespace AcceptanceTests.Common.Api.Helpers
     {
         public static string Serialise(object request)
         {
-            var converter = new StringEnumConverter
+            var contractResolver = new DefaultContractResolver
             {
-                AllowIntegerValues = false,
                 NamingStrategy = new SnakeCaseNamingStrategy()
             };
 
-            return JsonConvert.SerializeObject(request, converter);
+            return JsonConvert.SerializeObject(request, new JsonSerializerSettings
+            {
+                ContractResolver = contractResolver,
+                Formatting = Formatting.Indented
+            });
+        }
+
+        public static string SerialiseWithEnums(object request)
+        {
+            var enumConverter = new StringEnumConverter
+            {
+                AllowIntegerValues = false,
+                NamingStrategy = new CamelCaseNamingStrategy()
+            };
+
+            return JsonConvert.SerializeObject(request, enumConverter);
         }
 
         public static T Deserialise<T>(string response)
