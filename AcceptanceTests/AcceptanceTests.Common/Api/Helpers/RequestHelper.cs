@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Http;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 
 namespace AcceptanceTests.Common.Api.Helpers
@@ -9,16 +10,13 @@ namespace AcceptanceTests.Common.Api.Helpers
     {
         public static string Serialise(object request)
         {
-            var contractResolver = new DefaultContractResolver
+            var converter = new StringEnumConverter
             {
+                AllowIntegerValues = false,
                 NamingStrategy = new SnakeCaseNamingStrategy()
             };
 
-            return JsonConvert.SerializeObject(request, new JsonSerializerSettings
-            {
-                ContractResolver = contractResolver,
-                Formatting = Formatting.Indented
-            });
+            return JsonConvert.SerializeObject(request, converter);
         }
 
         public static T Deserialise<T>(string response)
