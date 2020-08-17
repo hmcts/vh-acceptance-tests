@@ -16,16 +16,10 @@ namespace AcceptanceTests.Common.Api.Helpers
                 NamingStrategy = new SnakeCaseNamingStrategy()
             };
 
-            var enumConverter = new StringEnumConverter
-            {
-                AllowIntegerValues = false,
-                NamingStrategy = new CamelCaseNamingStrategy()
-            };
-
             return JsonConvert.SerializeObject(request, new JsonSerializerSettings
             {
                 ContractResolver = contractResolver,
-                Converters = new List<JsonConverter>(){enumConverter},
+                Converters = new List<JsonConverter>(){ new StringEnumConverter() },
                 DateTimeZoneHandling = DateTimeZoneHandling.Utc,
                 Formatting = Formatting.Indented
             });
