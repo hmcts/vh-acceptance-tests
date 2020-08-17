@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -15,22 +16,19 @@ namespace AcceptanceTests.Common.Api.Helpers
                 NamingStrategy = new SnakeCaseNamingStrategy()
             };
 
-            return JsonConvert.SerializeObject(request, new JsonSerializerSettings
-            {
-                ContractResolver = contractResolver,
-                Formatting = Formatting.Indented
-            });
-        }
-
-        public static string SerialiseWithEnums(object request)
-        {
             var enumConverter = new StringEnumConverter
             {
                 AllowIntegerValues = false,
                 NamingStrategy = new CamelCaseNamingStrategy()
             };
 
-            return JsonConvert.SerializeObject(request, enumConverter);
+            return JsonConvert.SerializeObject(request, new JsonSerializerSettings
+            {
+                ContractResolver = contractResolver,
+                Converters = new List<JsonConverter>(){enumConverter},
+                DateTimeZoneHandling = DateTimeZoneHandling.Utc,
+                Formatting = Formatting.Indented
+            });
         }
 
         public static T Deserialise<T>(string response)
