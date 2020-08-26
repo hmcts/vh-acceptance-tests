@@ -36,6 +36,7 @@ namespace AcceptanceTests.Common.Api.Uris
             public static string GetTasksByConferenceId(Guid conferenceId) => $"{ApiRoot}/Tasks/{conferenceId:D}";
             public static string CreateVideoEvent => $"{ApiRoot}/events";
             public static string GetSelfTestScore(Guid conferenceId, Guid participantId) => $"{ApiRoot}/{conferenceId}/participants/{participantId}/score";
+            public static string DeleteParticipant(Guid conferenceId, Guid participantId) => $"{ApiRoot}/{conferenceId}/participants/{participantId}";
         }
 
         public static class HealthCheckEndpoints

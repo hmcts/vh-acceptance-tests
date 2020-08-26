@@ -28,14 +28,6 @@ namespace AcceptanceTests.Common.Api.Hearings
             return RequestExecutor.SendToApi(request, client);
         }
 
-        public IRestResponse DeleteConference(Guid conferenceId)
-        {
-            var endpoint = VideoApiUriFactory.ConferenceEndpoints.RemoveConference(conferenceId);
-            var request = RequestBuilder.Delete(endpoint);
-            var client = ApiClient.CreateClient(_videoApiUrl, _videoApiBearerToken);
-            return RequestExecutor.SendToApi(request, client);
-        }
-
         public IRestResponse GetConferenceByConferenceId(Guid conferenceId)
         {
             var endpoint = VideoApiUriFactory.ConferenceEndpoints.GetConferenceDetailsById(conferenceId);
@@ -113,38 +105,12 @@ namespace AcceptanceTests.Common.Api.Hearings
             return RequestExecutor.SendToApi(request, client);
         }
 
-        public bool PollForSelfTestScoreExists(Guid conferenceId, Guid participantId, int timeout = 30)
-        {
-            return PollForSelfTestScoreResponse(conferenceId, participantId, timeout).StatusCode == HttpStatusCode.OK;
-        }
 
-        public IRestResponse PollForSelfTestScoreResponse(Guid conferenceId, Guid participantId, int timeout = 30)
-        {
-            var endpoint = VideoApiUriFactory.VideoApiParticipantsEndpoints.GetSelfTestScore(conferenceId, participantId);
-            return new Polling().WithEndpoint(endpoint).Url(_videoApiUrl).Token(_videoApiBearerToken)
-                .UntilStatusIs(HttpStatusCode.OK).Poll(timeout);
-        }
-
-        public IRestResponse RemoveParticipantFromConference(Guid conferenceId, Guid participantId)
-        {
-            var endpoint = VideoApiUriFactory.VideoApiParticipantsEndpoints.RemoveParticipantFromConference(conferenceId, participantId);
-            var request = RequestBuilder.Delete(endpoint);
-            var client = ApiClient.CreateClient(_videoApiUrl, _videoApiBearerToken);
-            return RequestExecutor.SendToApi(request, client);
-        }
 
         public IRestResponse SendEvent(object eventRequest)
         {
             var endpoint = VideoApiUriFactory.VideoEventsEndpoints.Event;
             var request = RequestBuilder.Post(endpoint, eventRequest);
-            var client = ApiClient.CreateClient(_videoApiUrl, _videoApiBearerToken);
-            return RequestExecutor.SendToApi(request, client);
-        }
-
-        public IRestResponse GetTasks(Guid conferenceId)
-        {
-            var endpoint = VideoApiUriFactory.TasksEndpoints.GetTasks(conferenceId);
-            var request = RequestBuilder.Get(endpoint);
             var client = ApiClient.CreateClient(_videoApiUrl, _videoApiBearerToken);
             return RequestExecutor.SendToApi(request, client);
         }
