@@ -19,6 +19,20 @@ namespace AcceptanceTests.Common.Api.Hearings
             Token = token;
         }
 
+        public IRestResponse CreateHearing(object hearingRequest)
+        {
+            var endpoint = TestApiUriFactory.HearingEndpoints.CreateHearing;
+            var request = RequestBuilder.Post(endpoint, hearingRequest);
+            return SendToApi(request);
+        }
+
+        public IRestResponse ConfirmHearingToCreateConference(Guid hearingId)
+        {
+            var endpoint = TestApiUriFactory.HearingEndpoints.ConfirmHearing(hearingId);
+            var request = RequestBuilder.Patch(endpoint);
+            return SendToApi(request);
+        }
+
         public IRestResponse HealthCheck()
         {
             var endpoint = TestApiUriFactory.HealthCheckEndpoints.CheckServiceHealth;
@@ -99,6 +113,22 @@ namespace AcceptanceTests.Common.Api.Hearings
                 Thread.Sleep(TimeSpan.FromSeconds(1));
             }
             throw new DataException($"Hearing with case name '{caseName}' not found after {timeout} seconds.");
+        }
+
+        public bool PollForParticipantNameUpdated(string username, string updatedDisplayName, int timeout = 60)
+        {
+            for (var i = 0; i < timeout; i++)
+            {
+                var rawResponse = GetHearingsByUsername(username);
+                if (!rawResponse.IsSuccessful) continue;
+                if (rawResponse.Content.ToLower().Contains(updatedDisplayName.ToLower()))
+                {
+                    return true;
+                }
+                Thread.Sleep(TimeSpan.FromSeconds(1));
+            }
+
+            return false;
         }
 
         public IRestResponse GetHearing(Guid hearingId)

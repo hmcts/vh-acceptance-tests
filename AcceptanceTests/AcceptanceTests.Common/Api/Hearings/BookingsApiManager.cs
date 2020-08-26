@@ -19,30 +19,6 @@ namespace AcceptanceTests.Common.Api.Hearings
             _bookingsApiBearerToken = bookingsApiBearerToken;
         }
 
-        public IRestResponse CreateHearing(object hearingRequest)
-        {
-            var endpoint = BookingsApiUriFactory.HearingsEndpoints.BookNewHearing;
-            var request = RequestBuilder.Post(endpoint, hearingRequest);
-            var client = ApiClient.CreateClient(_bookingsApiUrl, _bookingsApiBearerToken);
-            return RequestExecutor.SendToApi(request, client);
-        }
-
-        public IRestResponse ConfirmHearingToCreateConference(Guid hearingId, object updateRequest)
-        {
-            var endpoint = BookingsApiUriFactory.HearingsEndpoints.UpdateHearingStatus(hearingId);
-            var request = RequestBuilder.Patch(endpoint, updateRequest);
-            var client = ApiClient.CreateClient(_bookingsApiUrl, _bookingsApiBearerToken);
-            return RequestExecutor.SendToApi(request, client);
-        }
-
-        public IRestResponse GetHearing(Guid hearingId)
-        {
-            var endpoint = BookingsApiUriFactory.HearingsEndpoints.GetHearingDetailsById(hearingId);
-            var request = RequestBuilder.Get(endpoint);
-            var client = ApiClient.CreateClient(_bookingsApiUrl, _bookingsApiBearerToken);
-            return RequestExecutor.SendToApi(request, client);
-        }
-
         public IRestResponse SetSuitabilityAnswers(Guid hearingId, Guid participantId, object suitabilityRequest)
         {
             var endpoint = BookingsApiUriFactory.HearingsParticipantsEndpoints.SuitabilityAnswers(hearingId, participantId);
@@ -97,22 +73,6 @@ namespace AcceptanceTests.Common.Api.Hearings
             var request = RequestBuilder.Get(endpoint);
             var client = ApiClient.CreateClient(_bookingsApiUrl, _bookingsApiBearerToken);
             return RequestExecutor.SendToApi(request, client);
-        }
-
-        public bool PollForParticipantNameUpdated(string username, string updatedDisplayName, int timeout = 60)
-        {
-            for (var i = 0; i < timeout; i++)
-            {
-                var rawResponse = GetHearingsForUsername(username);
-                if (!rawResponse.IsSuccessful) continue;
-                if (rawResponse.Content.ToLower().Contains(updatedDisplayName.ToLower()))
-                {
-                    return true;
-                }
-                Thread.Sleep(TimeSpan.FromSeconds(1));
-            }
-
-            return false;
         }
 
         public IRestResponse RemoveParticipant(Guid hearingId, Guid participantId)
