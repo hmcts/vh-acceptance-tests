@@ -151,5 +151,19 @@ namespace AcceptanceTests.Common.Api.Hearings
             var request = RequestBuilder.Get(endpoint);
             return SendToApi(request);
         }
+
+        public IRestResponse SendEvent(object eventRequest)
+        {
+            var endpoint = TestApiUriFactory.ConferenceEndpoints.CreateVideoEvent;
+            var request = RequestBuilder.Post(endpoint, eventRequest);
+            return SendToApi(request);
+        }
+
+        public IRestResponse GetAudioRecordingLink(Guid hearingId)
+        {
+            var endpoint = TestApiUriFactory.ConferenceEndpoints.GetAudioRecordingLinkByHearingId(hearingId);
+            var request = RequestBuilder.Get(endpoint);
+            return SendToApi(request);
+        }
     }
 }

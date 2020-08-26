@@ -37,14 +37,6 @@ namespace AcceptanceTests.Common.Api.Hearings
             return RequestExecutor.SendToApi(request, client);
         }
 
-        public IRestResponse GetAudioRecordingLink(Guid hearingId)
-        {
-            var endpoint = VideoApiUriFactory.AudioRecordingEndpoints.GetAudioRecordingLink(hearingId);
-            var request = RequestBuilder.Get(endpoint);
-            var client = ApiClient.CreateClient(_videoApiUrl, _videoApiBearerToken);
-            return RequestExecutor.SendToApi(request, client);
-        }
-
         public bool PollForConferenceExists(Guid hearingId, int timeout = 60)
         {
             return PollForConferenceResponse(hearingId, timeout).StatusCode == HttpStatusCode.OK;
@@ -68,16 +60,6 @@ namespace AcceptanceTests.Common.Api.Hearings
         {
             var endpoint = VideoApiUriFactory.VideoApiParticipantsEndpoints.GetSelfTestScore(conferenceId, participantId);
             var request = RequestBuilder.Get(endpoint);
-            var client = ApiClient.CreateClient(_videoApiUrl, _videoApiBearerToken);
-            return RequestExecutor.SendToApi(request, client);
-        }
-
-
-
-        public IRestResponse SendEvent(object eventRequest)
-        {
-            var endpoint = VideoApiUriFactory.VideoEventsEndpoints.Event;
-            var request = RequestBuilder.Post(endpoint, eventRequest);
             var client = ApiClient.CreateClient(_videoApiUrl, _videoApiBearerToken);
             return RequestExecutor.SendToApi(request, client);
         }
