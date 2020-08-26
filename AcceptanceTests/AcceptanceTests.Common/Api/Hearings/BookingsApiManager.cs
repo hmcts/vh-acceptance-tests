@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Threading;
 using AcceptanceTests.Common.Api.Clients;
 using AcceptanceTests.Common.Api.Requests;
 using AcceptanceTests.Common.Api.Uris;
-using AcceptanceTests.Common.Model.Case;
 using RestSharp;
 
 namespace AcceptanceTests.Common.Api.Hearings
