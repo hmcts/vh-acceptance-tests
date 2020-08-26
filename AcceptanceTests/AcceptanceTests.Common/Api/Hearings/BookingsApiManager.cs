@@ -43,29 +43,6 @@ namespace AcceptanceTests.Common.Api.Hearings
             return RequestExecutor.SendToApi(request, client);
         }
 
-        public IRestResponse GetHearingsForUsername(string username)
-        {
-            var endpoint = BookingsApiUriFactory.HearingsEndpoints.GetHearingsByUsername(username);
-            var request = RequestBuilder.Get(endpoint);
-            var client = ApiClient.CreateClient(_bookingsApiUrl, _bookingsApiBearerToken);
-            return RequestExecutor.SendToApi(request, client);
-        }
-
-        public IRestResponse PollForHearingByUsername(string username, string caseName, int timeout = 60)
-        {
-            for (var i = 0; i < timeout; i++)
-            {
-                var rawResponse = GetHearingsForUsername(username);
-                if (!rawResponse.IsSuccessful) continue;
-                if (rawResponse.Content.ToLower().Contains(caseName.ToLower()))
-                {
-                    return rawResponse;
-                }
-                Thread.Sleep(TimeSpan.FromSeconds(1));
-            }
-            throw new DataException($"Hearing with case name '{caseName}' not found after {timeout} seconds.");
-        }
-
         public IRestResponse SetSuitabilityAnswers(Guid hearingId, Guid participantId, object suitabilityRequest)
         {
             var endpoint = BookingsApiUriFactory.HearingsParticipantsEndpoints.SuitabilityAnswers(hearingId, participantId);
@@ -94,14 +71,6 @@ namespace AcceptanceTests.Common.Api.Hearings
         {
             var endpoint = BookingsApiUriFactory.HearingsEndpoints.UpdateHearingStatus(hearingId);
             var request = RequestBuilder.Patch(endpoint, updateRequest);
-            var client = ApiClient.CreateClient(_bookingsApiUrl, _bookingsApiBearerToken);
-            return RequestExecutor.SendToApi(request, client);
-        }
-
-        public IRestResponse DeleteHearing(Guid hearingId)
-        {
-            var endpoint = BookingsApiUriFactory.HearingsEndpoints.RemoveHearing(hearingId);
-            var request = RequestBuilder.Delete(endpoint);
             var client = ApiClient.CreateClient(_bookingsApiUrl, _bookingsApiBearerToken);
             return RequestExecutor.SendToApi(request, client);
         }

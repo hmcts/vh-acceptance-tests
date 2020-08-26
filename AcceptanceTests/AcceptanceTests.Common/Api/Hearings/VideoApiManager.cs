@@ -28,44 +28,11 @@ namespace AcceptanceTests.Common.Api.Hearings
             return RequestExecutor.SendToApi(request, client);
         }
 
-        public IRestResponse GetConferenceByConferenceId(Guid conferenceId)
-        {
-            var endpoint = VideoApiUriFactory.ConferenceEndpoints.GetConferenceDetailsById(conferenceId);
-            var request = RequestBuilder.Get(endpoint);
-            var client = ApiClient.CreateClient(_videoApiUrl, _videoApiBearerToken);
-            return RequestExecutor.SendToApi(request, client);
-        }
-
-        public IRestResponse GetConferenceByHearingId(Guid hearingId)
-        {
-            var endpoint = VideoApiUriFactory.ConferenceEndpoints.GetConferenceByHearingRefId(hearingId);
-            var request = RequestBuilder.Get(endpoint);
-            var client = ApiClient.CreateClient(_videoApiUrl, _videoApiBearerToken);
-            return RequestExecutor.SendToApi(request, client);
-        }
-
-        public IRestResponse GetConferencesForTodayJudge(string username)
-        {
-            var endpoint = VideoApiUriFactory.ConferenceEndpoints.GetTodaysConferencesForJudge;
-            var parameters = new Dictionary<string, string> {{"username", username}};
-            var request = RequestBuilder.Get(endpoint, parameters);
-            var client = ApiClient.CreateClient(_videoApiUrl, _videoApiBearerToken);
-            return RequestExecutor.SendToApi(request, client);
-        }
-
         public IRestResponse GetConferencesForTodayIndividual(string username)
         {
             var endpoint = VideoApiUriFactory.ConferenceEndpoints.GetTodaysConferencesForIndividual;
             var parameters = new Dictionary<string, string> { { "username", username } };
             var request = RequestBuilder.Get(endpoint, parameters);
-            var client = ApiClient.CreateClient(_videoApiUrl, _videoApiBearerToken);
-            return RequestExecutor.SendToApi(request, client);
-        }
-
-        public IRestResponse GetConferencesForTodayVho()
-        {
-            var endpoint = VideoApiUriFactory.ConferenceEndpoints.GetTodaysConferencesForVho;
-            var request = RequestBuilder.Get(endpoint);
             var client = ApiClient.CreateClient(_videoApiUrl, _videoApiBearerToken);
             return RequestExecutor.SendToApi(request, client);
         }

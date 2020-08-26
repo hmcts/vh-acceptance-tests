@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Net;
+using System.Threading;
+using AcceptanceTests.Common.Api.Clients;
 using AcceptanceTests.Common.Api.Helpers;
 using AcceptanceTests.Common.Api.Requests;
 using AcceptanceTests.Common.Api.Uris;
@@ -51,6 +55,70 @@ namespace AcceptanceTests.Common.Api.Hearings
         {
             var endpoint = TestApiUriFactory.ConferenceEndpoints.DeleteConference(hearingRefId, conferenceId);
             var request = RequestBuilder.Delete(endpoint);
+            return SendToApi(request);
+        }
+
+        public IRestResponse GetConferencesForTodayVho()
+        {
+            var endpoint = TestApiUriFactory.ConferenceEndpoints.GetConferencesForVho;
+            var request = RequestBuilder.Get(endpoint);
+            return SendToApi(request);
+        }
+
+        public IRestResponse GetConferencesForTodayJudge(string username)
+        {
+            var endpoint = TestApiUriFactory.ConferenceEndpoints.GetConferencesForJudge(username);
+            var request = RequestBuilder.Get(endpoint);
+            return SendToApi(request);
+        }
+
+        public IRestResponse DeleteHearing(Guid hearingId)
+        {
+            var endpoint = TestApiUriFactory.HearingEndpoints.DeleteHearing(hearingId);
+            var request = RequestBuilder.Delete(endpoint);
+            return SendToApi(request);
+        }
+
+        public IRestResponse GetHearingsByUsername(string username)
+        {
+            var endpoint = TestApiUriFactory.HearingEndpoints.GetHearingsByUsername(username);
+            var request = RequestBuilder.Get(endpoint);
+            return SendToApi(request);
+        }
+
+        public IRestResponse PollForHearingByUsername(string username, string caseName, int timeout = 60)
+        {
+            for (var i = 0; i < timeout; i++)
+            {
+                var rawResponse = GetHearingsByUsername(username);
+                if (!rawResponse.IsSuccessful) continue;
+                if (rawResponse.Content.ToLower().Contains(caseName.ToLower()))
+                {
+                    return rawResponse;
+                }
+                Thread.Sleep(TimeSpan.FromSeconds(1));
+            }
+            throw new DataException($"Hearing with case name '{caseName}' not found after {timeout} seconds.");
+        }
+
+        public IRestResponse GetHearing(Guid hearingId)
+        {
+            var endpoint = TestApiUriFactory.HearingEndpoints.GetHearing(hearingId);
+            var request = RequestBuilder.Get(endpoint);
+            return SendToApi(request);
+        }
+
+        public IRestResponse GetConferenceByConferenceId(Guid conferenceId)
+        {
+            var endpoint = TestApiUriFactory.ConferenceEndpoints.GetConferenceById(conferenceId);
+            var request = RequestBuilder.Get(endpoint);
+            return SendToApi(request);
+        }
+
+        public IRestResponse GetConferenceByHearingId(Guid hearingRefId)
+        {
+            var endpoint = TestApiUriFactory.ConferenceEndpoints.GetConferenceByHearingRefId(hearingRefId);
+            var request = RequestBuilder.Get(endpoint);
             return SendToApi(request);
         }
     }
