@@ -1,16 +1,31 @@
-﻿namespace AcceptanceTests.Common.Api.Hearings
-{
-    public class TestApiManager
-    {
-        private readonly string _testApiUrl;
-        private readonly string _testApiBearerToken;
+﻿using System;
+using System.Net;
+using AcceptanceTests.Common.Api.Helpers;
+using AcceptanceTests.Common.Api.Requests;
+using AcceptanceTests.Common.Api.Uris;
+using RestSharp;
 
-        public TestApiManager(string testApiUrl, string testApiBearerToken)
+namespace AcceptanceTests.Common.Api.Hearings
+{
+    public class TestApiManager : BaseApiManager
+    {
+        public TestApiManager(string apiUrl, string token)
         {
-            _testApiUrl = testApiUrl;
-            _testApiBearerToken = testApiBearerToken;
+            ApiUrl = apiUrl;
+            Token = token;
         }
 
+        public IRestResponse HealthCheck()
+        {
+            var endpoint = TestApiUriFactory.HealthCheckEndpoints.CheckServiceHealth;
+            var request = RequestBuilder.Get(endpoint);
+            return SendToApi(request);
+        }
 
+        public IRestResponse PollForSelfTestScoreResponse(Guid conferenceId, Guid participantId, int timeout = 30)
+        {
+            var endpoint = TestApiUriFactory.ConferenceEndpoints.GetSelfTestScore(conferenceId, participantId);
+            return new Polling().WithEndpoint(endpoint).Url(ApiUrl).Token(Token).UntilStatusIs(HttpStatusCode.OK).Poll(timeout);
+        }
     }
 }

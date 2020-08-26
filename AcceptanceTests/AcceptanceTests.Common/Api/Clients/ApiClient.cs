@@ -5,7 +5,7 @@ namespace AcceptanceTests.Common.Api.Clients
 {
     public static class ApiClient
     { 
-        public static RestClient SetClient(string apiUrl, string bearerToken, WebProxy webProxy = null)
+        public static RestClient CreateClient(string apiUrl, string bearerToken, WebProxy webProxy = null)
         {
             var client = new RestClient(apiUrl) { Proxy = webProxy };
             client.AddDefaultHeader("Accept", "application/json");

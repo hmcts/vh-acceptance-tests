@@ -20,7 +20,7 @@ namespace AcceptanceTests.Common.Api.Hearings
         {
             var endpoint = VideoWebUriFactory.VideoWebCallbackEndpoints.Event;
             var request = RequestBuilder.Post(endpoint, eventRequest);
-            var client = ApiClient.SetClient(_videoWebUrl, _callBackToken);
+            var client = ApiClient.CreateClient(_videoWebUrl, _callBackToken);
             return RequestExecutor.SendToApi(request, client);
         }
     }

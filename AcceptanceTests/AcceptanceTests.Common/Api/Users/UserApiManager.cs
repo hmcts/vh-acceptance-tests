@@ -46,7 +46,7 @@ namespace AcceptanceTests.Common.Api.Users
         {
             var endpoint = UserApiUriFactory.UserEndpoints.GetUserByEmail(email);
             var request = RequestBuilder.Get(endpoint);
-            var client = ApiClient.SetClient(_userApiUrl, _userApiBearerToken);
+            var client = ApiClient.CreateClient(_userApiUrl, _userApiBearerToken);
             return RequestExecutor.SendToApi(request, client);
         }
 
@@ -54,7 +54,7 @@ namespace AcceptanceTests.Common.Api.Users
         {
             var endpoint = UserApiUriFactory.UserEndpoints.DeleteAnAadAccount(username);
             var request = RequestBuilder.Delete(endpoint);
-            var client = ApiClient.SetClient(_userApiUrl, _userApiBearerToken);
+            var client = ApiClient.CreateClient(_userApiUrl, _userApiBearerToken);
             return RequestExecutor.SendToApi(request, client);
         }
     }

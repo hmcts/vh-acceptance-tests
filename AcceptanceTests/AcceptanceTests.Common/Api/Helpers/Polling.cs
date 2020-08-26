@@ -42,7 +42,7 @@ namespace AcceptanceTests.Common.Api.Helpers
         private IRestResponse SendTheRequest()
         {
             var request = RequestBuilder.Get(_endpoint);
-            var client = ApiClient.SetClient(_url, _token);
+            var client = ApiClient.CreateClient(_url, _token);
             return RequestExecutor.SendToApi(request, client);
         }
         public IRestResponse Poll(int timeout = 60)
