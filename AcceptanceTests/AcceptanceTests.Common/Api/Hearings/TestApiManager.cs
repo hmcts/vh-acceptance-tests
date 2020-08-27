@@ -45,10 +45,10 @@ namespace AcceptanceTests.Common.Api.Hearings
             return SendToApi(request);
         }
 
-        public IRestResponse ConfirmHearingToCreateConference(Guid hearingId)
+        public IRestResponse ConfirmHearingToCreateConference(Guid hearingId, object updateRequest)
         {
             var endpoint = TestApiUriFactory.HearingEndpoints.ConfirmHearing(hearingId);
-            var request = RequestBuilder.Patch(endpoint);
+            var request = RequestBuilder.Patch(endpoint, updateRequest);
             return SendToApi(request);
         }
 
