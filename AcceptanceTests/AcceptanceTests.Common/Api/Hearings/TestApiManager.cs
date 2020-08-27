@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Net;
 using System.Threading;
-using AcceptanceTests.Common.Api.Clients;
 using AcceptanceTests.Common.Api.Helpers;
 using AcceptanceTests.Common.Api.Requests;
 using AcceptanceTests.Common.Api.Uris;
@@ -17,6 +15,27 @@ namespace AcceptanceTests.Common.Api.Hearings
         {
             ApiUrl = apiUrl;
             Token = token;
+        }
+
+        public IRestResponse AllocateUser(object requestBody)
+        {
+            var endpoint = TestApiUriFactory.AllocationEndpoints.AllocateSingleUser;
+            var request = RequestBuilder.Patch(endpoint, requestBody);
+            return SendToApi(request);
+        }
+
+        public IRestResponse AllocateUsers(object requestBody)
+        {
+            var endpoint = TestApiUriFactory.AllocationEndpoints.AllocateUsers;
+            var request = RequestBuilder.Patch(endpoint, requestBody);
+            return SendToApi(request);
+        }
+
+        public IRestResponse UnallocateUsers(object requestBody)
+        {
+            var endpoint = TestApiUriFactory.AllocationEndpoints.UnallocateUsers;
+            var request = RequestBuilder.Patch(endpoint, requestBody);
+            return SendToApi(request);
         }
 
         public IRestResponse CreateHearing(object hearingRequest)
