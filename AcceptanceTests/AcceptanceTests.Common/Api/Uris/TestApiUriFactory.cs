@@ -41,7 +41,7 @@ namespace AcceptanceTests.Common.Api.Uris
 
         public static class HealthCheckEndpoints
         {
-            private const string ApiRoot = "/healthCheck";
+            private const string ApiRoot = "/health";
             public static string CheckServiceHealth => $"{ApiRoot}/health";
         }
 
