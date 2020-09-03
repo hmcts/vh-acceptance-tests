@@ -184,5 +184,19 @@ namespace AcceptanceTests.Common.Api.Hearings
             var request = RequestBuilder.Get(endpoint);
             return SendToApi(request);
         }
+
+        public IRestResponse SetSuitabilityAnswers(Guid hearingId, Guid participantId, object suitabilityRequest)
+        {
+            var endpoint = TestApiUriFactory.HearingEndpoints.UpdateSuitabilityAnswers(hearingId, participantId);
+            var request = RequestBuilder.Put(endpoint, suitabilityRequest);
+            return SendToApi(request);
+        }
+
+        public IRestResponse GetSuitabilityAnswers(string username)
+        {
+            var endpoint = TestApiUriFactory.HearingEndpoints.GetSuitabilityAnswers(username);
+            var request = RequestBuilder.Get(endpoint);
+            return SendToApi(request);
+        }
     }
 }

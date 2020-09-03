@@ -19,22 +19,6 @@ namespace AcceptanceTests.Common.Api.Hearings
             _bookingsApiBearerToken = bookingsApiBearerToken;
         }
 
-        public IRestResponse SetSuitabilityAnswers(Guid hearingId, Guid participantId, object suitabilityRequest)
-        {
-            var endpoint = BookingsApiUriFactory.HearingsParticipantsEndpoints.SuitabilityAnswers(hearingId, participantId);
-            var request = RequestBuilder.Put(endpoint, suitabilityRequest);
-            var client = ApiClient.CreateClient(_bookingsApiUrl, _bookingsApiBearerToken);
-            return RequestExecutor.SendToApi(request, client);
-        }
-
-        public IRestResponse GetSuitabilityAnswers(string username)
-        {
-            var endpoint = BookingsApiUriFactory.PersonEndpoints.GetSuitabilityAnswersByEmail(username);
-            var request = RequestBuilder.Get(endpoint);
-            var client = ApiClient.CreateClient(_bookingsApiUrl, _bookingsApiBearerToken);
-            return RequestExecutor.SendToApi(request, client);
-        }
-
         public IRestResponse UpdateHearing(Guid hearingId, object updateRequest)
         {
             var endpoint = BookingsApiUriFactory.HearingsEndpoints.UpdateHearingDetails(hearingId);
