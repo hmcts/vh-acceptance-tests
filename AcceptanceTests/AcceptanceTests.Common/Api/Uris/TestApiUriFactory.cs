@@ -94,6 +94,11 @@ namespace AcceptanceTests.Common.Api.Uris
             {
                 return $"{ApiRoot}/aad/{contactEmail}";
             }
+
+            public static string DeleteUserInAd(string contactEmail)
+            {
+                return $"{ApiRoot}/aad/{contactEmail}";
+            }
         }
 
         public static class UtilityEndpoints

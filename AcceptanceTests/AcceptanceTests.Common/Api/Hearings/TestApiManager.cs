@@ -11,10 +11,19 @@ namespace AcceptanceTests.Common.Api.Hearings
 {
     public class TestApiManager : BaseApiManager
     {
+        private const int DEFAULT_TIMEOUT = 30;
+
         public TestApiManager(string apiUrl, string token)
         {
             ApiUrl = apiUrl;
             Token = token;
+        }
+
+        public IRestResponse HealthCheck()
+        {
+            var endpoint = TestApiUriFactory.HealthCheckEndpoints.CheckServiceHealth;
+            var request = RequestBuilder.Get(endpoint);
+            return SendToApi(request);
         }
 
         public IRestResponse AllocateUser(object requestBody)
@@ -52,19 +61,12 @@ namespace AcceptanceTests.Common.Api.Hearings
             return SendToApi(request);
         }
 
-        public IRestResponse HealthCheck()
-        {
-            var endpoint = TestApiUriFactory.HealthCheckEndpoints.CheckServiceHealth;
-            var request = RequestBuilder.Get(endpoint);
-            return SendToApi(request);
-        }
-
-        public bool PollForSelfTestScoreExists(Guid conferenceId, Guid participantId, int timeout = 30)
+        public bool PollForSelfTestScoreExists(Guid conferenceId, Guid participantId, int timeout = DEFAULT_TIMEOUT)
         {
             return PollForSelfTestScoreResponse(conferenceId, participantId, timeout).StatusCode == HttpStatusCode.OK;
         }
 
-        public IRestResponse PollForSelfTestScoreResponse(Guid conferenceId, Guid participantId, int timeout = 30)
+        public IRestResponse PollForSelfTestScoreResponse(Guid conferenceId, Guid participantId, int timeout = DEFAULT_TIMEOUT)
         {
             var endpoint = TestApiUriFactory.ConferenceEndpoints.GetSelfTestScore(conferenceId, participantId);
             return new Polling().WithEndpoint(endpoint).Url(ApiUrl).Token(Token).UntilStatusIs(HttpStatusCode.OK).Poll(timeout);
@@ -119,7 +121,7 @@ namespace AcceptanceTests.Common.Api.Hearings
             return SendToApi(request);
         }
 
-        public IRestResponse PollForHearingByUsername(string username, string caseName, int timeout = 60)
+        public IRestResponse PollForHearingByUsername(string username, string caseName, int timeout = DEFAULT_TIMEOUT)
         {
             for (var i = 0; i < timeout; i++)
             {
@@ -134,7 +136,7 @@ namespace AcceptanceTests.Common.Api.Hearings
             throw new DataException($"Hearing with case name '{caseName}' not found after {timeout} seconds.");
         }
 
-        public bool PollForParticipantNameUpdated(string username, string updatedDisplayName, int timeout = 60)
+        public bool PollForParticipantNameUpdated(string username, string updatedDisplayName, int timeout = DEFAULT_TIMEOUT)
         {
             for (var i = 0; i < timeout; i++)
             {
@@ -196,6 +198,42 @@ namespace AcceptanceTests.Common.Api.Hearings
         {
             var endpoint = TestApiUriFactory.HearingEndpoints.GetSuitabilityAnswers(username);
             var request = RequestBuilder.Get(endpoint);
+            return SendToApi(request);
+        }
+
+        public IRestResponse GetUserByUsername(string username)
+        {
+            var endpoint = TestApiUriFactory.UserEndpoints.GetUserByUsername(username);
+            var request = RequestBuilder.Get(endpoint);
+            return SendToApi(request);
+        }
+
+        public IRestResponse GetUserExistsInAD(string contactEmail)
+        {
+            var endpoint = TestApiUriFactory.UserEndpoints.GetUserExistsInAd(contactEmail);
+            var request = RequestBuilder.Get(endpoint);
+            return SendToApi(request);
+        }
+
+        public IRestResponse PollForParticipantExistsInAD(string contactEmail, int timeout = DEFAULT_TIMEOUT)
+        {
+            var endpoint = TestApiUriFactory.UserEndpoints.GetUserExistsInAd(contactEmail);
+            var request = RequestBuilder.Get(endpoint);
+
+            for (var i = 0; i < timeout; i++)
+            {
+                var rawResponse = SendToApi(request);
+                if (!rawResponse.IsSuccessful) continue;
+                return rawResponse;
+            }
+
+            throw new TimeoutException($"Failed to find user in AAD after {timeout} seconds");
+        }
+
+        public IRestResponse DeleteUserFromAD(string contactEmail)
+        {
+            var endpoint = TestApiUriFactory.UserEndpoints.DeleteUserInAd(contactEmail);
+            var request = RequestBuilder.Delete(endpoint);
             return SendToApi(request);
         }
     }
