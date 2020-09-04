@@ -90,6 +90,11 @@ namespace AcceptanceTests.Common.Api.Uris
                 return $"{ApiRoot}/username/{username}";
             }
 
+            public static string GetUserByUserPrincipalName(string username)
+            {
+                return $"{ApiRoot}/userPrincipalName/{username}";
+            }
+
             public static string GetUserExistsInAd(string contactEmail)
             {
                 return $"{ApiRoot}/aad/{contactEmail}";

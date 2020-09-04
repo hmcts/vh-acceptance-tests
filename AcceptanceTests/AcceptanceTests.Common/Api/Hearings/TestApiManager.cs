@@ -208,6 +208,13 @@ namespace AcceptanceTests.Common.Api.Hearings
             return SendToApi(request);
         }
 
+        public IRestResponse GetUserByUserPrincipalName(string username)
+        {
+            var endpoint = TestApiUriFactory.UserEndpoints.GetUserByUserPrincipalName(username);
+            var request = RequestBuilder.Get(endpoint);
+            return SendToApi(request);
+        }
+
         public IRestResponse GetUserExistsInAD(string contactEmail)
         {
             var endpoint = TestApiUriFactory.UserEndpoints.GetUserExistsInAd(contactEmail);
