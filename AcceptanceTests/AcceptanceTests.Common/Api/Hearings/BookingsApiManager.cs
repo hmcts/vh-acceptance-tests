@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Data;
-using System.Threading;
 using AcceptanceTests.Common.Api.Clients;
 using AcceptanceTests.Common.Api.Requests;
 using AcceptanceTests.Common.Api.Uris;

@@ -243,5 +243,24 @@ namespace AcceptanceTests.Common.Api.Hearings
             var request = RequestBuilder.Delete(endpoint);
             return SendToApi(request);
         }
+
+        public bool PollForConferenceExists(Guid hearingId, int timeout = 60)
+        {
+            return PollForConferenceResponse(hearingId, timeout).StatusCode == HttpStatusCode.OK;
+        }
+
+        public IRestResponse PollForConferenceResponse(Guid hearingId, int timeout = 60)
+        {
+            var endpoint = VideoApiUriFactory.ConferenceEndpoints.GetConferenceByHearingRefId(hearingId);
+            return new Polling().WithEndpoint(endpoint).Url(ApiUrl).Token(Token)
+                .UntilStatusIs(HttpStatusCode.OK).Poll(timeout);
+        }
+
+        public bool PollForConferenceDeleted(Guid hearingId, int timeout = 60)
+        {
+            var endpoint = VideoApiUriFactory.ConferenceEndpoints.GetConferenceByHearingRefId(hearingId);
+            return new Polling().WithEndpoint(endpoint).Url(ApiUrl).Token(Token)
+                .UntilStatusIs(HttpStatusCode.NotFound).Poll(timeout).StatusCode == HttpStatusCode.NotFound;
+        }
     }
 }
