@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Azure;
 using Azure.Storage;
@@ -12,6 +13,7 @@ namespace AcceptanceTests.Common.AudioRecordings
         private string _storageAccountName;
         private string _storageAccountKey;
         private string _storageContainerName;
+        private BlobContainerClient _blobContainerClient;
         private BlobClient _blobClient;
 
         public AzureStorageManager SetStorageAccountName(string storageAccountName)
@@ -32,19 +34,25 @@ namespace AcceptanceTests.Common.AudioRecordings
             return this;
         }
 
-        public AzureStorageManager CreateBlobClient(Guid hearingId)
+        public AzureStorageManager CreateBlobClient(string filePathWithoutExtension)
         {
-            var containerClient = CreateContainerClient();
-            _blobClient = containerClient.GetBlobClient($"{hearingId}.mp4");
+            _blobContainerClient = CreateContainerClient();
+            _blobClient = _blobContainerClient.GetBlobClient($"{filePathWithoutExtension}.mp4");
             return this;
         }
 
-        private BlobContainerClient CreateContainerClient()
+        public AzureStorageManager CreateBlobContainerClient()
         {
-            var storageSharedKeyCredential = new StorageSharedKeyCredential(_storageAccountName, _storageAccountKey);
-            var serviceEndpoint = $"https://{_storageAccountName}.blob.core.windows.net/";
-            var serviceClient = new BlobServiceClient(new Uri(serviceEndpoint), storageSharedKeyCredential);
-            return serviceClient.GetBlobContainerClient(_storageContainerName);
+            _blobContainerClient = CreateContainerClient();
+            return this;
+        }
+
+        public async IAsyncEnumerable<BlobClient> GetAllBlobsAsync(string filePathNamePrefix)
+        {
+            await foreach (var page in _blobContainerClient.GetBlobsAsync(prefix: filePathNamePrefix))
+            {
+                yield return _blobContainerClient.GetBlobClient(page.Name);
+            }
         }
 
         public async Task UploadAudioFileToStorage(string file)
@@ -59,6 +67,20 @@ namespace AcceptanceTests.Common.AudioRecordings
             TestContext.WriteLine($"Uploaded audio file to : {file}");
         }
 
+        public async Task UploadFileToStorage(string localFileName, string filePathOnStorage)
+        {
+            var blobClient = _blobContainerClient.GetBlobClient(filePathOnStorage);
+            
+            await blobClient.UploadAsync(localFileName);
+
+            if (!await blobClient.ExistsAsync())
+            {
+                throw new RequestFailedException($"Can not find file: {localFileName} with full path {filePathOnStorage}");
+            }
+
+            TestContext.WriteLine($"Uploaded audio file to : {localFileName} with full path: {filePathOnStorage}");
+        }
+
         public async Task<bool> VerifyAudioFileExistsInStorage()
         {
             return await _blobClient.ExistsAsync();
@@ -67,7 +89,15 @@ namespace AcceptanceTests.Common.AudioRecordings
         public async Task RemoveAudioFileFromStorage()
         {
             await _blobClient.DeleteAsync();
-            TestContext.WriteLine($"Deleted audio file");
+            TestContext.WriteLine("Deleted audio file");
+        }
+
+        private BlobContainerClient CreateContainerClient()
+        {
+            var storageSharedKeyCredential = new StorageSharedKeyCredential(_storageAccountName, _storageAccountKey);
+            var serviceEndpoint = $"https://{_storageAccountName}.blob.core.windows.net/";
+            var serviceClient = new BlobServiceClient(new Uri(serviceEndpoint), storageSharedKeyCredential);
+            return serviceClient.GetBlobContainerClient(_storageContainerName);
         }
     }
 }
