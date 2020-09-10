@@ -14,7 +14,7 @@ namespace AcceptanceTests.Common.AudioRecordings
             return Path.GetDirectoryName(path);
         }
 
-        public static string CreateNewAudioFile(string originalFileName, Guid hearingId, string path = "TestAudioFiles")
+        public static string CreateNewAudioFile(string originalFileName, string fileNameWithoutExtension, string path = "TestAudioFiles")
         {
             var originalFilePath = Path.Join(GetAssemblyDirectory(), path, originalFileName);
             if (!File.Exists(originalFilePath))
@@ -22,7 +22,7 @@ namespace AcceptanceTests.Common.AudioRecordings
                 throw new FileNotFoundException($"Unable to find audio file with path : {originalFilePath}");
             }
 
-            var fileWithExtension = $"{hearingId}.mp4";
+            var fileWithExtension = $"{fileNameWithoutExtension}.mp4";
             var newFilePath = Path.Join(GetAssemblyDirectory(), path, fileWithExtension);
             File.Copy(originalFilePath, newFilePath, true);
             return newFilePath;
