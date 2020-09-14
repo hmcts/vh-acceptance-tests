@@ -262,5 +262,12 @@ namespace AcceptanceTests.Common.Api.Hearings
             return new Polling().WithEndpoint(endpoint).Url(ApiUrl).Token(Token)
                 .UntilStatusIs(HttpStatusCode.NotFound).Poll(timeout).StatusCode == HttpStatusCode.NotFound;
         }
+
+        public IRestResponse GetPersonByUsername(string username)
+        {
+            var endpoint = TestApiUriFactory.UserEndpoints.GetPersonByUsername(username);
+            var request = RequestBuilder.Get(endpoint);
+            return SendToApi(request);
+        }
     }
 }

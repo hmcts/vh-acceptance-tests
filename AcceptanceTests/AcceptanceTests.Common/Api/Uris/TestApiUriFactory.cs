@@ -104,6 +104,11 @@ namespace AcceptanceTests.Common.Api.Uris
             {
                 return $"{ApiRoot}/aad/{contactEmail}";
             }
+
+            public static string GetPersonByUsername(string username)
+            {
+                return $"{ApiRoot}/person/{username}";
+            }
         }
 
         public static class UtilityEndpoints
