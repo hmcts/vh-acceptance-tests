@@ -215,16 +215,16 @@ namespace AcceptanceTests.Common.Api.Hearings
             return SendToApi(request);
         }
 
-        public IRestResponse GetUserExistsInAD(string contactEmail)
+        public IRestResponse GetUserExistsInAD(string username)
         {
-            var endpoint = TestApiUriFactory.UserEndpoints.GetUserExistsInAd(contactEmail);
+            var endpoint = TestApiUriFactory.UserEndpoints.GetUserExistsInAd(username);
             var request = RequestBuilder.Get(endpoint);
             return SendToApi(request);
         }
 
-        public IRestResponse PollForParticipantExistsInAD(string contactEmail, int timeout = DEFAULT_TIMEOUT)
+        public IRestResponse PollForParticipantExistsInAD(string username, int timeout = DEFAULT_TIMEOUT)
         {
-            var endpoint = TestApiUriFactory.UserEndpoints.GetUserExistsInAd(contactEmail);
+            var endpoint = TestApiUriFactory.UserEndpoints.GetUserExistsInAd(username);
             var request = RequestBuilder.Get(endpoint);
 
             for (var i = 0; i < timeout; i++)
