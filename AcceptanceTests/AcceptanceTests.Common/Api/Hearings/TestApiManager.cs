@@ -269,5 +269,12 @@ namespace AcceptanceTests.Common.Api.Hearings
             var request = RequestBuilder.Get(endpoint);
             return SendToApi(request);
         }
+
+        public IRestResponse RefreshJudgesCache()
+        {
+            var endpoint = TestApiUriFactory.UserEndpoints.RefreshJudgesCache();
+            var request = RequestBuilder.Get(endpoint);
+            return SendToApi(request);
+        }
     }
 }

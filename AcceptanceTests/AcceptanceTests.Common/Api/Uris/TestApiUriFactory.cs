@@ -109,6 +109,11 @@ namespace AcceptanceTests.Common.Api.Uris
             {
                 return $"{ApiRoot}/person/{username}";
             }
+
+            public static string RefreshJudgesCache()
+            {
+                return $"{ApiRoot}/judges/cache";
+            }
         }
 
         public static class UtilityEndpoints
