@@ -226,15 +226,19 @@ namespace AcceptanceTests.Common.Api.Hearings
         {
             var endpoint = TestApiUriFactory.UserEndpoints.GetUserExistsInAd(username);
             var request = RequestBuilder.Get(endpoint);
+            const int PAUSE = 3;
 
-            for (var i = 0; i < timeout; i++)
+            for (var i = 0; i < timeout / PAUSE; i++)
             {
                 var rawResponse = SendToApi(request);
-                if (!rawResponse.IsSuccessful) continue;
-                return rawResponse;
+                if (rawResponse.IsSuccessful)
+                {
+                    return rawResponse;
+                }
+                Thread.Sleep(TimeSpan.FromSeconds(PAUSE));
             }
 
-            throw new TimeoutException($"Failed to find user in AAD after {timeout} seconds");
+            throw new TimeoutException($"Failed to find user with username '{username}' in AAD after {timeout} seconds");
         }
 
         public IRestResponse DeleteUserFromAD(string contactEmail)
