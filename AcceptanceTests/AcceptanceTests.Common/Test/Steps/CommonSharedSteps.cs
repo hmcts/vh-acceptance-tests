@@ -38,7 +38,8 @@ namespace AcceptanceTests.Common.Test.Steps
         [When(@"the user selects the (.*) option from the dropdown")]
         public void WhenTheUserSelectsTheOptionFromTheDropdown(NgWebDriver driver, By element, string partialText)
         {
-            driver.WaitForListToBePopulated(element);
+            const int TIMEOUT = 2;
+            driver.WaitForListToBePopulated(element, TIMEOUT);
             var hearingTypeOptions = new SelectElement(driver.WaitUntilElementExists(element));
             var found = false;
             if (hearingTypeOptions.Options.Any(option => option.Text.ToLower().Contains(partialText.ToLower())))
@@ -48,7 +49,7 @@ namespace AcceptanceTests.Common.Test.Steps
             }
             var options = string.Join(",", hearingTypeOptions.Options.Select(i => i.Text).ToArray());
             found.Should().BeTrue($"Option '{partialText}' found in the list of options {options}");
-            driver.WaitUntilElementExists(element).SendKeys(Keys.Tab);
+            driver.WaitUntilElementExists(element, TIMEOUT).SendKeys(Keys.Tab);
         }
     }
 }
