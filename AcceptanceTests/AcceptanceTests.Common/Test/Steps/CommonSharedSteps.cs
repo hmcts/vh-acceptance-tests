@@ -47,7 +47,14 @@ namespace AcceptanceTests.Common.Test.Steps
                 found = true;
                 hearingTypeOptions.SelectByText(partialText);
             }
-            var options = string.Join(",", hearingTypeOptions.Options.Select(i => i.Text).ToArray());
+
+            var options = "";
+
+            if (hearingTypeOptions.Options.Count < 10)
+            {
+                options = string.Join(",", hearingTypeOptions.Options.Select(i => i.Text).ToArray());
+            }
+
             found.Should().BeTrue($"Option '{partialText}' found in the list of options {options}");
             driver.WaitUntilElementExists(element, TIMEOUT).SendKeys(Keys.Tab);
         }
