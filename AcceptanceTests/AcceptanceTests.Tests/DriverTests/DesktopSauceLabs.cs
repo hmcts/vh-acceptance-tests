@@ -123,7 +123,7 @@ namespace AcceptanceTests.Tests.DriverTests
             _browser.LaunchBrowser();
             _browser.NavigateToPage(_config.Url);
             Thread.Sleep(TimeSpan.FromSeconds(4));
-            _browser.Driver.Title.Should().Contain("Sign in to your account");
+            _browser.AngularDriver.Title.Should().Contain("Sign in to your account");
         }
 
         private void RunIETest()
@@ -131,7 +131,7 @@ namespace AcceptanceTests.Tests.DriverTests
             _browser.LaunchBrowser();
             _browser.NavigateToPage(_config.Url);
             Thread.Sleep(TimeSpan.FromSeconds(4));
-            _browser.Driver.Title.Should().Contain("Video Hearings");
+            _browser.AngularDriver.Title.Should().Contain("Video Hearings");
         }
 
         [TearDown]
@@ -139,7 +139,7 @@ namespace AcceptanceTests.Tests.DriverTests
         {
             _browser.BrowserTearDown();
 
-            DriverManager.LogTestResult(_sauceLabsSettings != null, _browser.Driver, TestContext.CurrentContext.Result.FailCount == 0);
+            DriverManager.LogTestResult(_sauceLabsSettings != null, _browser.AngularDriver, TestContext.CurrentContext.Result.FailCount == 0);
         }
 
         [TearDown]
