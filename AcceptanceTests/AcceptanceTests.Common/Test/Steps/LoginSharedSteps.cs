@@ -24,10 +24,6 @@ namespace AcceptanceTests.Common.Test.Steps
             ClickNextButton();
             EnterPassword(_password);
             ClickSignInButton();
-
-            // Allow synchronisation once reaching the Angular page
-            _browser.Driver.WaitForAngular();
-            _browser.Driver.IgnoreSynchronization = false;
         }
 
         public void ReSignBackIn()
