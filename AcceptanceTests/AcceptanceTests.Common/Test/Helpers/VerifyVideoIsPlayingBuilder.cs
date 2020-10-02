@@ -39,13 +39,13 @@ namespace AcceptanceTests.Common.Test.Helpers
 
         public void Feed(By element)
         {
-            _browser.AngularDriver.WaitUntilVisible(element, _delayForVideoToAppear);
+            _browser.Driver.WaitUntilVisible(element, _delayForVideoToAppear);
 
             var playing = false;
 
             for (var i = 1; i <= _maxRetries; i++)
             {
-                var currentTime = Convert.ToDouble(_browser.AngularDriver.WaitUntilVisible(element)
+                var currentTime = Convert.ToDouble(_browser.Driver.WaitUntilVisible(element)
                     .GetAttribute("currentTime"));
                 if (currentTime > 0)
                 {

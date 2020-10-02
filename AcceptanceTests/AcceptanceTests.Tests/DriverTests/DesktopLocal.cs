@@ -103,7 +103,7 @@ namespace AcceptanceTests.Tests.DriverTests
             _browser.LaunchBrowser();
             _browser.NavigateToPage(_config.Url);
             Thread.Sleep(TimeSpan.FromSeconds(4));
-            _browser.AngularDriver.Title.Should().Contain("Sign in to your account");
+            _browser.Driver.Title.Should().Contain("Sign in to your account");
         }
 
         private void RunIETest()
@@ -111,7 +111,7 @@ namespace AcceptanceTests.Tests.DriverTests
             _browser.LaunchBrowser();
             _browser.NavigateToPage(_config.Url);
             Thread.Sleep(TimeSpan.FromSeconds(4));
-            _browser.AngularDriver.Title.Should().Contain("Video Hearings");
+            _browser.Driver.Title.Should().Contain("Video Hearings");
         }
 
         [TearDown]

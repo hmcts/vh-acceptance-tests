@@ -17,7 +17,7 @@ namespace AcceptanceTests.Common.Test.Steps
         [When(@"the user clicks the (.*) button")]
         public void WhenTheUserClicksTheButton(UserBrowser browser, string label)
         {
-            browser.AngularDriver.WaitUntilVisible(CommonLocators.ButtonWithInnerText(label)).Displayed.Should().BeTrue();
+            browser.Driver.WaitUntilVisible(CommonLocators.ButtonWithInnerText(label)).Displayed.Should().BeTrue();
             browser.Click(CommonLocators.ButtonWithInnerText(label));
         }
 
@@ -25,13 +25,13 @@ namespace AcceptanceTests.Common.Test.Steps
         public void WhenTheUserSelectsTheRadiobutton(UserBrowser browser, string label)
         {
             browser.ClickRadioButton(CommonLocators.RadioButtonWithLabel(label));
-            browser.AngularDriver.WaitUntilElementExists(CommonLocators.RadioButtonWithLabel(label)).Selected.Should().BeTrue();
+            browser.Driver.WaitUntilElementExists(CommonLocators.RadioButtonWithLabel(label)).Selected.Should().BeTrue();
         }
 
         [When(@"the user clicks the (.*) link")]
         public void WhenTheUserClicksTheChangeCameraOrMicrophoneLink(UserBrowser browser, string linkText)
         {
-            browser.AngularDriver.WaitUntilVisible(CommonLocators.LinkWithText(linkText)).Displayed.Should().BeTrue();
+            browser.Driver.WaitUntilVisible(CommonLocators.LinkWithText(linkText)).Displayed.Should().BeTrue();
             browser.ClickLink(CommonLocators.LinkWithText(linkText));
         }
 

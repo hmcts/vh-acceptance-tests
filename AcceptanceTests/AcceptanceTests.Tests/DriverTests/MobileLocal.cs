@@ -63,7 +63,7 @@ namespace AcceptanceTests.Tests.DriverTests
             _browser.LaunchBrowser();
             _browser.NavigateToPage(_config.Url);
             Thread.Sleep(TimeSpan.FromSeconds(4));
-            _browser.AngularDriver.Title.Should().Contain("Sign in to your account");
+            _browser.Driver.Title.Should().Contain("Sign in to your account");
         }
 
         [TearDown]
