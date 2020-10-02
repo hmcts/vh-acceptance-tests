@@ -24,6 +24,9 @@ namespace AcceptanceTests.Common.Test.Steps
             ClickNextButton();
             EnterPassword(_password);
             ClickSignInButton();
+
+            // Allow synchronisation once reaching the Angular page
+            _browser.Driver.IgnoreSynchronization = false;
         }
 
         public void ReSignBackIn()
@@ -35,17 +38,17 @@ namespace AcceptanceTests.Common.Test.Steps
 
         private void EnterUsername(string username)
         {
-            _browser.AngularDriver.WaitUntilVisible(LoginPage.LoginHeader).Click();
-            _browser.AngularDriver.WaitUntilVisible(LoginPage.UsernameTextfield).Clear();
-            _browser.AngularDriver.WaitUntilVisible(LoginPage.UsernameTextfield).SendKeys(username);
+            _browser.Driver.WaitUntilVisible(LoginPage.LoginHeader).Click();
+            _browser.Driver.WaitUntilVisible(LoginPage.UsernameTextfield).Clear();
+            _browser.Driver.WaitUntilVisible(LoginPage.UsernameTextfield).SendKeys(username);
         }
 
         private void ClickNextButton() => _browser.Click(LoginPage.Next);
 
         private void EnterPassword(string password)
         {
-            _browser.AngularDriver.WaitUntilVisible(LoginPage.PasswordField).Clear();
-            _browser.AngularDriver.WaitUntilVisible(LoginPage.PasswordField).SendKeys(password);
+            _browser.Driver.WaitUntilVisible(LoginPage.PasswordField).Clear();
+            _browser.Driver.WaitUntilVisible(LoginPage.PasswordField).SendKeys(password);
         }
 
         private void ClickSignInButton() => _browser.Click(LoginPage.SignIn);
@@ -53,22 +56,22 @@ namespace AcceptanceTests.Common.Test.Steps
         public void WhenTheUserAttemptsToLogout()
         {
             _browser.Click(CommonPages.SignOutLink);
-            _browser.AngularDriver.WaitUntilVisible(CommonPages.SignOutMessage).Displayed.Should().BeTrue();
+            _browser.Driver.WaitUntilVisible(CommonPages.SignOutMessage).Displayed.Should().BeTrue();
             _browser.Click(CommonPages.SignInLink);
         }
         public void ThenTheSignOutLinkIsDisplayed()
         {
-            _browser.AngularDriver.WaitUntilVisible(CommonPages.SignOutLink).Displayed.Should().BeTrue();
+            _browser.Driver.WaitUntilVisible(CommonPages.SignOutLink).Displayed.Should().BeTrue();
         }
 
         public void ChangeThePassword(string oldPassword, string newPassword)
         {
-            _browser.AngularDriver.WaitUntilVisible(LoginPage.CurrentPassword).Clear();
-            _browser.AngularDriver.WaitUntilVisible(LoginPage.CurrentPassword).SendKeys(oldPassword);
-            _browser.AngularDriver.WaitUntilVisible(LoginPage.NewPassword).Clear();
-            _browser.AngularDriver.WaitUntilVisible(LoginPage.NewPassword).SendKeys(newPassword);
-            _browser.AngularDriver.WaitUntilVisible(LoginPage.ConfirmNewPassword).Clear();
-            _browser.AngularDriver.WaitUntilVisible(LoginPage.ConfirmNewPassword).SendKeys(newPassword); 
+            _browser.Driver.WaitUntilVisible(LoginPage.CurrentPassword).Clear();
+            _browser.Driver.WaitUntilVisible(LoginPage.CurrentPassword).SendKeys(oldPassword);
+            _browser.Driver.WaitUntilVisible(LoginPage.NewPassword).Clear();
+            _browser.Driver.WaitUntilVisible(LoginPage.NewPassword).SendKeys(newPassword);
+            _browser.Driver.WaitUntilVisible(LoginPage.ConfirmNewPassword).Clear();
+            _browser.Driver.WaitUntilVisible(LoginPage.ConfirmNewPassword).SendKeys(newPassword); 
             _browser.Click(LoginPage.SignInButtonAfterPasswordChange);
         }
     }

@@ -17,9 +17,9 @@ namespace AcceptanceTests.Common.Driver.Drivers
         private const int ActionRetries = 4;
         private const int BrowserRetries = 4;
         private string _baseUrl;
-        public NgWebDriver AngularDriver { get; set; }
-        private DriverSetup DriverServices { get; set; }
-        private IWebDriver WebDriver;
+        public NgWebDriver Driver { get; set; }
+        private DriverSetup DriverSetup { get; set; }
+        private IWebDriver NonAngularWebDriver;
         public string LastWindowName { get; set; }
         public TargetBrowser _targetBrowser;
         private TargetDevice _targetDevice;
@@ -32,8 +32,8 @@ namespace AcceptanceTests.Common.Driver.Drivers
 
         public UserBrowser SetDriver(DriverSetup driver)
         {
-            DriverServices = driver;
-            WebDriver = driver.GetDriver();
+            DriverSetup = driver;
+            NonAngularWebDriver = driver.GetDriver();
             return this;
         }
 
@@ -51,7 +51,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
 
         public void LaunchBrowser()
         {
-            AngularDriver = new NgWebDriver(WebDriver) {IgnoreSynchronization = true};
+            Driver = new NgWebDriver(NonAngularWebDriver) {IgnoreSynchronization = true};
 
             if (_targetDevice == TargetDevice.Desktop)
             {
@@ -63,7 +63,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
         {
             try
             {
-                WebDriver.Manage().Window.Maximize();
+                Driver.Manage().Window.Maximize();
             }
             catch (NotImplementedException e)
             {
@@ -78,7 +78,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
                 throw new InvalidOperationException("BaseUrl has not been set");
             }
 
-            WebDriver.Navigate().GoToUrl($"{_baseUrl}{url}");
+            Driver.Navigate().GoToUrl($"{_baseUrl}{url}");
         }
 
         public void Retry(Action action, int times = ActionRetries)
@@ -95,9 +95,9 @@ namespace AcceptanceTests.Common.Driver.Drivers
         {
             for (var i = 0; i < timeout; i++)
             {
-                foreach (var window in AngularDriver.WrappedDriver.WindowHandles)
+                foreach (var window in Driver.WrappedDriver.WindowHandles)
                 {
-                    var tab = AngularDriver.SwitchTo().Window(window);
+                    var tab = Driver.SwitchTo().Window(window);
                     if (tab.Title.Trim().ToLower().Contains(titleOrUrl.ToLower()) || tab.Url.Trim().ToLower().Contains(titleOrUrl.ToLower()))
                     {
                         return window;
@@ -113,28 +113,28 @@ namespace AcceptanceTests.Common.Driver.Drivers
         {
             if (notOnThePage)
             {
-                AngularDriver.Url.Trim().ToLower().Should().NotContain(page.ToLower());
+                Driver.Url.Trim().ToLower().Should().NotContain(page.ToLower());
             }
             else
             {
-                Retry(() => AngularDriver.Url.Trim().ToLower().Should().Contain(page.ToLower()), BrowserRetries);
+                Retry(() => Driver.Url.Trim().ToLower().Should().Contain(page.ToLower()), BrowserRetries);
             }
         }
 
         public void Refresh()
         {
-            AngularDriver.Navigate().Refresh();
+            Driver.Navigate().Refresh();
         }
 
         public void CloseTab()
         {
-            AngularDriver.Close();
-            AngularDriver.SwitchTo().Window(AngularDriver.WrappedDriver.WindowHandles.First());
+            Driver.Close();
+            Driver.SwitchTo().Window(Driver.WrappedDriver.WindowHandles.First());
         }
 
         public void ScrollTo(By element)
         {
-            AngularDriver.ExecuteScript("arguments[0].scrollIntoView(true);", AngularDriver.FindElement(element));
+            Driver.ExecuteScript("arguments[0].scrollIntoView(true);", Driver.FindElement(element));
         }
 
         public void ScrollToTheTopOfThePage()
@@ -146,7 +146,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
         {
             if (_targetDevice != TargetDevice.Tablet)
             {
-                AngularDriver.WaitUntilElementClickable(element, timeout);
+                Driver.WaitUntilElementClickable(element, timeout);
             }
             BrowserClick(element);
         }
@@ -156,11 +156,11 @@ namespace AcceptanceTests.Common.Driver.Drivers
             if (_targetBrowser == TargetBrowser.Firefox ||
                 _targetDevice == TargetDevice.Tablet)
             {
-                AngularDriver.WaitUntilVisible(element).Click();
+                Driver.WaitUntilVisible(element).Click();
             }
             else
             {
-                AngularDriver.ExecuteScript("arguments[0].click();", AngularDriver.FindElement(element));
+                Driver.ExecuteScript("arguments[0].click();", Driver.FindElement(element));
             }
         }
 
@@ -168,7 +168,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
         {
             try
             {
-                return AngularDriver.FindElement(element).Displayed;
+                return Driver.FindElement(element).Displayed;
             }
             catch
             {
@@ -178,45 +178,47 @@ namespace AcceptanceTests.Common.Driver.Drivers
 
         public void ClickLink(By element, int timeout = 20)
         {
-            AngularDriver.WaitUntilVisible(element, timeout);
-            AngularDriver.ExecuteScript("arguments[0].click();", AngularDriver.FindElement(element));
+            Driver.WaitUntilVisible(element, timeout);
+            Driver.ExecuteScript("arguments[0].click();", Driver.FindElement(element));
         }
 
         public void ClickRadioButton(By element, int timeout = 20)
         {
-            AngularDriver.WaitUntilElementExists(element, timeout);
-            AngularDriver.ExecuteScript("arguments[0].click();", AngularDriver.FindElement(element));
+            Driver.WaitUntilElementExists(element, timeout);
+            Driver.ExecuteScript("arguments[0].click();", Driver.FindElement(element));
         }
 
         public void ClickCheckbox(By element, int timeout = 20)
         {
-            AngularDriver.WaitUntilElementExists(element, timeout);
-            AngularDriver.ExecuteScript("arguments[0].click();", AngularDriver.FindElement(element));
+            Driver.WaitUntilElementExists(element, timeout);
+            Driver.ExecuteScript("arguments[0].click();", Driver.FindElement(element));
         }
 
         public void Clear(By element)
         {
-            AngularDriver.WaitUntilVisible(element);
-            AngularDriver.ExecuteScript("arguments[0].value = '';", AngularDriver.FindElement(element));
-            AngularDriver.WaitUntilTextEmpty(element);
+            Driver.WaitUntilVisible(element);
+            Driver.ExecuteScript("arguments[0].value = '';", Driver.FindElement(element));
+            Driver.WaitUntilTextEmpty(element);
         }
 
         public void NavigateBack()
         {
-            AngularDriver.Navigate().Back();
+            Driver.Navigate().Back();
         }
 
         public void WaitForPageToLoad(int timeout = 20)
         {
-            new WebDriverWait(AngularDriver, TimeSpan.FromSeconds(timeout)).Until(
+            new WebDriverWait(Driver, TimeSpan.FromSeconds(timeout)).Until(
                 d => ((IJavaScriptExecutor)d).ExecuteScript("return document.readyState").Equals("complete"));
         }
 
         public void BrowserTearDown()
         {
-            AngularDriver?.Quit();
-            AngularDriver?.Dispose();
-            DriverServices?.StopServices();
+            NonAngularWebDriver?.Quit();
+            NonAngularWebDriver?.Dispose();
+            Driver?.Quit();
+            Driver?.Dispose();
+            DriverSetup?.StopServices();
         }
     }
 }
