@@ -26,6 +26,7 @@ namespace AcceptanceTests.Common.Test.Steps
             ClickSignInButton();
 
             // Allow synchronisation once reaching the Angular page
+            _browser.Driver.WaitForAngular();
             _browser.Driver.IgnoreSynchronization = false;
         }
 
