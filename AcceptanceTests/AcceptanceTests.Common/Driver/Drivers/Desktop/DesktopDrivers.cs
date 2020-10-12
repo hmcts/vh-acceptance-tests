@@ -43,7 +43,8 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop
             {
                 {TargetBrowser.Chrome, new ChromeMacDriverStrategy()},
                 {TargetBrowser.Firefox, new FirefoxMacDriverStrategy()},
-                {TargetBrowser.Safari, new SafariDriverStrategy()}
+                {TargetBrowser.Safari, new SafariDriverStrategy()},
+                {TargetBrowser.EdgeChromium, new EdgeMacDriverStrategy()}
             };
             return drivers;
         }
