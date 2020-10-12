@@ -118,6 +118,13 @@ namespace AcceptanceTests.Tests.DriverTests
             RunTest();
         }
 
+        [Test]
+        public void MacOS_Edge()
+        {
+            _browser = GetBrowser(TargetOS.MacOs, TargetBrowser.EdgeChromium);
+            RunTest();
+        }
+
         private void RunTest()
         {
             _browser.LaunchBrowser();
