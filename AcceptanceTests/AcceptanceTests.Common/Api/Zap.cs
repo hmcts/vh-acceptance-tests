@@ -16,7 +16,7 @@ namespace AcceptanceTests.Common.Api
     public static class Zap
     {
 
-        private const string Configuration = "Release";
+        private static string Configuration => string.IsNullOrEmpty(ZapConfiguration.BuildConfigMode) ? "Release" : ZapConfiguration.BuildConfigMode;
 
         private const string DockerCompose = "docker-compose";
 

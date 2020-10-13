@@ -13,5 +13,6 @@ namespace AcceptanceTests.Common.Configuration
         public string SolutionFolderName { get; set; }
         public bool SkipPublish { get; set; }
         public bool HeadlessMode { get; set; }
+        public string BuildConfigMode { get; set; }
     }
 }
