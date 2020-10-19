@@ -23,7 +23,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
         public string LastWindowName { get; set; }
         public TargetBrowser _targetBrowser;
         private TargetDevice _targetDevice;
-        private string TestName { get; set; }
+        public string TestName { get; set; }
 
         public UserBrowser SetBaseUrl(string baseUrl)
         {
