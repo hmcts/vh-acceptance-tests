@@ -15,17 +15,17 @@ namespace AcceptanceTests.Common.Driver.Drivers
 {
     public class DriverSetup
     {
+        internal SauceLabsOptions SauceLabsOptions;
         private readonly SauceLabsSettingsConfig _sauceLabsSettings;
         private static Proxy _proxy;
         private static DriverOptions _driverOptions;
-        private static SauceLabsOptions _sauceLabsOptions;
         private IDriverService _driverService;
 
         public DriverSetup(SauceLabsSettingsConfig sauceLabsSettings, DriverOptions driverOptions, SauceLabsOptions sauceLabsOptions, Proxy proxy = null)
         {
             _sauceLabsSettings = sauceLabsSettings;
             _driverOptions = driverOptions;
-            _sauceLabsOptions = sauceLabsOptions;
+            SauceLabsOptions = sauceLabsOptions;
             _proxy = proxy;
         }
 
@@ -34,10 +34,10 @@ namespace AcceptanceTests.Common.Driver.Drivers
             return _sauceLabsSettings.RunningOnSauceLabs() ? InitialiseSauceLabsDriver() : InitialiseLocalDriver();
         }
 
-        private static void SetDefaultSettings(bool runningOnSauceLabs)
+        private void SetDefaultSettings(bool runningOnSauceLabs)
         {
             if (!DefaultDevices.IsMobileOrTablet(_driverOptions.TargetDevice)) return;
-            _sauceLabsOptions.AppiumVersion = DefaultDevices.GetAppiumVersion(_driverOptions.TargetDevice, _driverOptions.TargetOS, runningOnSauceLabs, _driverOptions.RealDevice);
+            SauceLabsOptions.AppiumVersion = DefaultDevices.GetAppiumVersion(_driverOptions.TargetDevice, _driverOptions.TargetOS, runningOnSauceLabs, _driverOptions.RealDevice);
             _driverOptions.PlatformVersion = DefaultDevices.GetPlatformVersion(_driverOptions.TargetDevice, _driverOptions.TargetOS, runningOnSauceLabs, _driverOptions.RealDevice);
             _driverOptions.TargetDeviceOrientation = TargetDeviceOrientation.PORTRAIT;
 
@@ -53,16 +53,16 @@ namespace AcceptanceTests.Common.Driver.Drivers
         private IWebDriver InitialiseSauceLabsDriver()
         {
             SetDefaultSettings(true);
-            var sauceOptions = new SauceLabsOptionsBuilder(_driverOptions, _sauceLabsOptions, _sauceLabsSettings).Build();
+            var sauceOptions = new SauceLabsOptionsBuilder(_driverOptions, SauceLabsOptions, _sauceLabsSettings).Build();
             DriverSetupValidator.ValidateDriver(_driverOptions);
-            DriverSetupValidator.ValidateSauceLabs(_driverOptions.TargetDevice, _sauceLabsOptions);
+            DriverSetupValidator.ValidateSauceLabs(_driverOptions.TargetDevice, SauceLabsOptions);
 
             var drivers = GetDrivers();
-            drivers[_driverOptions.TargetBrowser].AppiumVersion = _sauceLabsOptions.AppiumVersion;
+            drivers[_driverOptions.TargetBrowser].AppiumVersion = SauceLabsOptions.AppiumVersion;
             drivers[_driverOptions.TargetBrowser].BrowserVersion = _driverOptions.TargetBrowserVersion;
             drivers[_driverOptions.TargetBrowser].DeviceName = _driverOptions.TargetDeviceName;
-            drivers[_driverOptions.TargetBrowser].LoggingEnabled = _sauceLabsOptions.EnableLogging;
-            drivers[_driverOptions.TargetBrowser].MacPlatform = _sauceLabsOptions.MacPlatformVersion;
+            drivers[_driverOptions.TargetBrowser].LoggingEnabled = SauceLabsOptions.EnableLogging;
+            drivers[_driverOptions.TargetBrowser].MacPlatform = SauceLabsOptions.MacPlatformVersion;
             drivers[_driverOptions.TargetBrowser].Orientation = _driverOptions.TargetDeviceOrientation;
             drivers[_driverOptions.TargetBrowser].PlatformVersion = _driverOptions.PlatformVersion;
             drivers[_driverOptions.TargetBrowser].RealDevice = _driverOptions.RealDevice;
