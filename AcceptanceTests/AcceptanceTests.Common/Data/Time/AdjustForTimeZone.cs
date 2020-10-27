@@ -16,13 +16,7 @@ namespace AcceptanceTests.Common.Data.Time
 
         public DateTime Adjust(DateTime dateTime)
         {
-            if (!_runningOnSauceLabs) return dateTime.ToLocalTime();
-            return _targetOS == TargetOS.MacOs ? dateTime.ToUniversalTime().AddHours(2) : dateTime.ToUniversalTime();
-        }
-
-        public DateTime AdjustAnyOS(DateTime dateTime)
-        {
-            return !_runningOnSauceLabs ? dateTime.ToLocalTime() : dateTime.ToUniversalTime();
+            return _runningOnSauceLabs ? dateTime.ToUniversalTime() : dateTime.ToLocalTime();
         }
 
         public DateTime AdjustAdminWeb(DateTime dateTime)
