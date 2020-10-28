@@ -19,6 +19,7 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Mac
             if (LoggingEnabled)
                 SauceOptions.Add("extendedDebugging", true);
 
+            options.UseSpecCompliantProtocol = true;
             options.AddArgument("use-fake-ui-for-media-stream");
             options.AddArgument("use-fake-device-for-media-stream");
             options.AddAdditionalCapability("sauce:options", SauceOptions, true);

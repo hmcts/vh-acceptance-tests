@@ -41,87 +41,129 @@ namespace AcceptanceTests.Tests.DriverTests
             };
         }
 
-        private UserBrowser GetBrowser(TargetOS targetOS, TargetBrowser targetBrowser)
+        private UserBrowser GetBrowser(TargetOS targetOS, TargetBrowser targetBrowser, string browserVersion = "latest")
         {
             return new UserBrowser()
                 .SetBaseUrl(_config.Url)
                 .SetTargetDevice(TargetDevice.Desktop)
                 .SetTargetBrowser(targetBrowser)
-                .SetDriver(new DriverSetup(GetSauceLabsSettings(), GetDriverOptions(targetOS, targetBrowser), GetSauceLabsOptions()));
+                .SetDriver(new DriverSetup(GetSauceLabsSettings(), GetDriverOptions(targetOS, targetBrowser, browserVersion), GetSauceLabsOptions()));
         }
 
 
-        private static DriverOptions GetDriverOptions(TargetOS targetOS, TargetBrowser targetBrowser)
+        private static DriverOptions GetDriverOptions(TargetOS targetOS, TargetBrowser targetBrowser, string browserVersion)
         {
             return new DriverOptions
             {
                 TargetDevice = TargetDevice.Desktop,
                 TargetOS = targetOS,
                 TargetBrowser = targetBrowser,
-                TargetBrowserVersion = "latest"
+                TargetBrowserVersion = browserVersion
             };
         }
 
         [Test]
-        public void Win_Chrome()
+        public void Latest_Win_Chrome()
         {
             _browser = GetBrowser(TargetOS.Windows, TargetBrowser.Chrome);
             RunTest();
         }
 
         [Test]
-        public void Win_Edge()
+        public void Latest_Win_Edge()
         {
             _browser = GetBrowser(TargetOS.Windows, TargetBrowser.Edge);
             RunTest();
         }
 
         [Test]
-        public void Win_EdgeChromium()
+        public void Latest_Win_EdgeChromium()
         {
             _browser = GetBrowser(TargetOS.Windows, TargetBrowser.EdgeChromium);
             RunTest();
         }
 
         [Test]
-        public void Win_Firefox()
+        public void Latest_Win_Firefox()
         {
             _browser = GetBrowser(TargetOS.Windows, TargetBrowser.Firefox);
             RunTest();
         }
 
         [Test]
-        public void Win_IE11()
+        public void Latest_Win_IE11()
         {
             _browser = GetBrowser(TargetOS.Windows, TargetBrowser.Ie11);
             RunIETest();
         }
 
         [Test]
-        public void MacOS_Chrome()
+        public void Latest_MacOS_Chrome()
         {
             _browser = GetBrowser(TargetOS.MacOs, TargetBrowser.Chrome);
             RunTest();
         }
 
         [Test]
-        public void MacOS_Firefox()
+        public void Latest_MacOS_Firefox()
         {
             _browser = GetBrowser(TargetOS.MacOs, TargetBrowser.Firefox);
             RunTest();
         }
 
         [Test]
-        public void MacOS_Safari()
+        public void Latest_MacOS_Safari()
         {
             _browser = GetBrowser(TargetOS.MacOs, TargetBrowser.Safari);
             RunTest();
         }
 
         [Test]
-        public void MacOS_Edge()
+        public void Latest_MacOS_EdgeChromium()
         {
             _browser = GetBrowser(TargetOS.MacOs, TargetBrowser.EdgeChromium);
+            RunTest();
+        }
+
+        [Test]
+        public void Beta_Win_Chrome()
+        {
+            _browser = GetBrowser(TargetOS.Windows, TargetBrowser.Chrome, "Beta");
+            RunTest();
+        }
+
+        [Test]
+        public void Beta_Win_EdgeChromium()
+        {
+            _browser = GetBrowser(TargetOS.Windows, TargetBrowser.EdgeChromium, "Beta");
+            RunTest();
+        }
+
+        [Test]
+        public void Beta_Win_Firefox()
+        {
+            _browser = GetBrowser(TargetOS.Windows, TargetBrowser.Firefox, "Beta");
+            RunTest();
+        }
+
+        [Test]
+        public void Beta_MacOS_Chrome()
+        {
+            _browser = GetBrowser(TargetOS.MacOs, TargetBrowser.Chrome, "Beta");
+            RunTest();
+        }
+
+        [Test]
+        public void Beta_MacOS_Firefox()
+        {
+            _browser = GetBrowser(TargetOS.MacOs, TargetBrowser.Firefox, "Beta");
+            RunTest();
+        }
+
+        [Test]
+        public void Beta_MacOS_EdgeChromium()
+        {
+            _browser = GetBrowser(TargetOS.MacOs, TargetBrowser.EdgeChromium, "Beta");
             RunTest();
         }
 
@@ -144,9 +186,10 @@ namespace AcceptanceTests.Tests.DriverTests
         [TearDown]
         public void LogResult()
         {
-            _browser.BrowserTearDown();
+            _browser?.BrowserTearDown();
 
-            DriverManager.LogTestResult(_sauceLabsSettings != null, _browser.Driver, TestContext.CurrentContext.Result.FailCount == 0);
+            if (_browser != null)
+                DriverManager.LogTestResult(_sauceLabsSettings != null, _browser.Driver, TestContext.CurrentContext.Result.FailCount == 0);
         }
 
         [TearDown]
