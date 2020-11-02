@@ -37,7 +37,7 @@ namespace AcceptanceTests.Common.Model.Mappings
             var caseRoleMapping = new CaseRoleHearingsRoles
             {
                 CaseRole = CaseRole.Claimant,
-                HearingRoleList = new List<HearingRole> { HearingRole.ClaimantLip, HearingRole.Representative }
+                HearingRoleList = new List<HearingRole> { HearingRole.LitigantInPerson, HearingRole.Representative }
             };
 
             return caseRoleMapping;
@@ -48,7 +48,7 @@ namespace AcceptanceTests.Common.Model.Mappings
             var caseRoleMapping = new CaseRoleHearingsRoles
             {
                 CaseRole = CaseRole.Defendant,
-                HearingRoleList = new List<HearingRole> { HearingRole.DefendantLip, HearingRole.Representative }
+                HearingRoleList = new List<HearingRole> { HearingRole.LitigantInPerson, HearingRole.Representative }
             };
 
             return caseRoleMapping;
@@ -59,7 +59,7 @@ namespace AcceptanceTests.Common.Model.Mappings
             var caseRoleMapping = new CaseRoleHearingsRoles
             {
                 CaseRole = CaseRole.Applicant,
-                HearingRoleList = new List<HearingRole> { HearingRole.ApplicantLip, HearingRole.Representative }
+                HearingRoleList = new List<HearingRole> { HearingRole.LitigantInPerson, HearingRole.Representative }
             };
 
             return caseRoleMapping;
@@ -70,7 +70,7 @@ namespace AcceptanceTests.Common.Model.Mappings
             var caseRoleMapping = new CaseRoleHearingsRoles
             {
                 CaseRole = CaseRole.Applicant,
-                HearingRoleList = new List<HearingRole> { HearingRole.RespondentLip, HearingRole.Representative }
+                HearingRoleList = new List<HearingRole> { HearingRole.LitigantInPerson, HearingRole.Representative }
             };
 
             return caseRoleMapping;
