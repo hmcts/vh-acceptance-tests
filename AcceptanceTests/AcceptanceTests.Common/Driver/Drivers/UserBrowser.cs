@@ -150,19 +150,18 @@ namespace AcceptanceTests.Common.Driver.Drivers
             {
                 Driver.WaitUntilElementClickable(element, timeout);
             }
-            BrowserClick(element);
+            JavascriptClick(element);
         }
 
-        private void BrowserClick(By element)
+        private void JavascriptClick(By element)
         {
-            if (_targetBrowser == TargetBrowser.Firefox ||
-                _targetDevice == TargetDevice.Tablet)
+            if (_targetDevice != TargetDevice.Tablet)
             {
-                Driver.WaitUntilVisible(element).Click();
+                Driver.ExecuteScript("arguments[0].click();", Driver.FindElement(element));
             }
             else
             {
-                Driver.ExecuteScript("arguments[0].click();", Driver.FindElement(element));
+                Driver.WaitUntilVisible(element).Click();
             }
         }
 
