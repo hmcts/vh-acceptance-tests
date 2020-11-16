@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading;
+using System.Xml.Schema;
 using AcceptanceTests.Common.Driver.Enums;
 using AcceptanceTests.Common.Driver.Helpers;
 using FluentAssertions;
@@ -149,20 +150,17 @@ namespace AcceptanceTests.Common.Driver.Drivers
             if (_targetDevice != TargetDevice.Tablet)
             {
                 Driver.WaitUntilElementClickable(element, timeout);
-            }
-            JavascriptClick(element);
-        }
-
-        private void JavascriptClick(By element)
-        {
-            if (_targetDevice != TargetDevice.Tablet)
-            {
-                Driver.ExecuteScript("arguments[0].click();", Driver.FindElement(element));
+                JavascriptClick(element);
             }
             else
             {
                 Driver.WaitUntilVisible(element).Click();
             }
+        }
+
+        private void JavascriptClick(By element)
+        {
+            Driver.ExecuteScript("arguments[0].click();", Driver.FindElement(element));
         }
 
         public bool IsDisplayed(By element)
