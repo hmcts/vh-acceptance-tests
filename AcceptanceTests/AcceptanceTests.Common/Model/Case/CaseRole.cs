@@ -5,6 +5,12 @@
         Claimant,
         Defendant,
         Applicant,
-        Respondent
+        Respondent,
+        Observer,
+        PanelMember,
+        Appellant,
+        State,
+        None,
+        HomeOffice
     }
 }
