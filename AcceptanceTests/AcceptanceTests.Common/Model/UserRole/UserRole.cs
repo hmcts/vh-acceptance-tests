@@ -8,6 +8,7 @@
         Judge,
         Representative,
         VideoHearingsOfficer,
-        VhOfficer
+        VhOfficer, 
+        JudicialOfficeHolder
     }
 }
