@@ -114,6 +114,11 @@ namespace AcceptanceTests.Common.Api.Uris
             {
                 return $"{ApiRoot}/judges/cache";
             }
+
+            public static string ResetUserPassword()
+            {
+                return $"{ApiRoot}/users/aad/password";
+            }
         }
 
         public static class UtilityEndpoints

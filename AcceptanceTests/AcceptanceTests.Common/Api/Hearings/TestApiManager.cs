@@ -280,5 +280,19 @@ namespace AcceptanceTests.Common.Api.Hearings
             var request = RequestBuilder.Get(endpoint);
             return SendToApi(request);
         }
+
+        public IRestResponse ResetUserPassword(object passwordRequest)
+        {
+            var endpoint = TestApiUriFactory.UserEndpoints.ResetUserPassword();
+            var request = RequestBuilder.Patch(endpoint, passwordRequest);
+            return SendToApi(request);
+        }
+
+        public IRestResponse DeleteTestData(object deleteRequest)
+        {
+            var endpoint = TestApiUriFactory.UtilityEndpoints.DeleteHearings;
+            var request = RequestBuilder.Post(endpoint, deleteRequest);
+            return SendToApi(request);
+        }
     }
 }
