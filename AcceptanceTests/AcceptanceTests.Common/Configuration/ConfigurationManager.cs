@@ -20,7 +20,7 @@ namespace AcceptanceTests.Common.Configuration
         public static IConfigurationRoot BuildConfig(string userSecretsId, string testSecretsId)
         {
             var testConfigBuilder = new ConfigurationBuilder()
-                .AddUserSecrets(testSecretsId)
+                .AddUserSecrets(testSecretsId, true)
                 .Build();
 
             return new ConfigurationBuilder()
