@@ -19,11 +19,15 @@ namespace AcceptanceTests.Common.Configuration
         
         public static IConfigurationRoot BuildConfig(string userSecretsId, string testSecretsId)
         {
-            var configRootBuilder = new ConfigurationBuilder()
+            var testConfigBuilder = new ConfigurationBuilder()
+                .AddUserSecrets(testSecretsId)
+                .Build();
+
+            return new ConfigurationBuilder()
                 .AddJsonFile($"appsettings.json")
                 .AddUserSecrets(userSecretsId)
-                .AddUserSecrets(testSecretsId);
-            return configRootBuilder.Build();
+                .AddConfiguration(testConfigBuilder)
+                .Build();
         }
 
         public static void VerifyConfigValuesSet(object o)
