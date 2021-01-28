@@ -13,6 +13,7 @@ namespace AcceptanceTests.Common.Configuration
                 .AddJsonFile($"appsettings.json")
                 .AddJsonFile($"appsettings.Development.json", optional: true)
                 .AddJsonFile($"appsettings.Production.json", optional: true)
+                .AddJsonFile($"useraccounts.json", optional: true)
                 .AddUserSecrets(userSecretsId);
             return configRootBuilder.Build();
         }
@@ -27,6 +28,7 @@ namespace AcceptanceTests.Common.Configuration
                 .AddJsonFile($"appsettings.json")
                 .AddJsonFile($"appsettings.Development.json", optional: true)
                 .AddJsonFile($"appsettings.Production.json", optional: true)
+                .AddJsonFile($"useraccounts.json", optional: true)
                 .AddUserSecrets(userSecretsId)
                 .AddConfiguration(testConfigBuilder)
                 .Build();
