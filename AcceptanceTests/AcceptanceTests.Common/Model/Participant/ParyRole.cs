@@ -15,6 +15,7 @@ namespace AcceptanceTests.Common.Model.Participant
         public static readonly PartyRole LitigantInPerson = new PartyRole("Litigant in person");
         public static readonly PartyRole Representative = new PartyRole("Representative");
         public static readonly PartyRole Judge = new PartyRole("Judge");
+        public static readonly PartyRole Interpreter = new PartyRole("Interpreter");
 
         public static string ToString(PartyRole hearingType)
         {
@@ -41,6 +42,7 @@ namespace AcceptanceTests.Common.Model.Participant
                 yield return LitigantInPerson;
                 yield return Representative;
                 yield return Judge;
+                yield return Interpreter;
             }
         }
     }
