@@ -17,5 +17,6 @@ namespace AcceptanceTests.Common.Configuration.Users
         public string Reference { get; set; }
         public bool DefaultParticipant { get; set; }
         public List<string> HearingTypes { get; set; }
+        public string Interpretee { get; set; }
     }
 }
