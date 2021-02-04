@@ -1,8 +1,11 @@
 ﻿using AcceptanceTests.Common.Driver;
 using AcceptanceTests.Common.Driver.Drivers;
+using AcceptanceTests.Common.Driver.Enums;
 using AcceptanceTests.Common.Driver.Helpers;
 using AcceptanceTests.Common.PageObject.Pages;
 using FluentAssertions;
+using System;
+using System.Threading;
 
 namespace AcceptanceTests.Common.Test.Steps
 {
@@ -20,32 +23,36 @@ namespace AcceptanceTests.Common.Test.Steps
         }
         public void ProgressToNextPage()
         {
-            EnterUsername(_username);
+            var timeOut = _browser.TargetDevice == TargetDevice.Tablet ? 50:30;
+            EnterUsername(_username, timeOut);
             ClickNextButton();
-            EnterPassword(_password);
+            if(_browser.TargetDevice == TargetDevice.Tablet) Thread.Sleep(TimeSpan.FromSeconds(3));
+            EnterPassword(_password, timeOut);
             ClickSignInButton();
         }
 
         public void ReSignBackIn()
         {
+            var timeOut = _browser.TargetDevice == TargetDevice.Tablet ? 60 : 30;
+
             _browser.Click(LoginPage.ReSignInButton(_username));
-            EnterPassword(_password);
+            EnterPassword(_password, timeOut);
             ClickSignInButton();
         }
 
-        private void EnterUsername(string username)
+        private void EnterUsername(string username, int timeOut)
         {
-            _browser.Driver.WaitUntilVisible(LoginPage.LoginHeader).Click();
-            _browser.Driver.WaitUntilVisible(LoginPage.UsernameTextfield).Clear();
-            _browser.Driver.WaitUntilVisible(LoginPage.UsernameTextfield).SendKeys(username);
+            _browser.Driver.WaitUntilVisible(LoginPage.LoginHeader, timeOut).Click();
+            _browser.Driver.WaitUntilVisible(LoginPage.UsernameTextfield, timeOut).Clear();
+            _browser.Driver.WaitUntilVisible(LoginPage.UsernameTextfield, timeOut).SendKeys(username);
         }
 
         private void ClickNextButton() => _browser.Click(LoginPage.Next);
 
-        private void EnterPassword(string password)
+        private void EnterPassword(string password, int timeOut)
         {
-            _browser.Driver.WaitUntilVisible(LoginPage.PasswordField).Clear();
-            _browser.Driver.WaitUntilVisible(LoginPage.PasswordField).SendKeys(password);
+            _browser.Driver.WaitUntilVisible(LoginPage.PasswordField, timeOut).Clear();
+            _browser.Driver.WaitUntilVisible(LoginPage.PasswordField, timeOut).SendKeys(password);
         }
 
         private void ClickSignInButton() => _browser.Click(LoginPage.SignIn);

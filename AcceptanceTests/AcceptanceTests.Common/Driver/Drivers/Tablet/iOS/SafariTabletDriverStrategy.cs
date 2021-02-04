@@ -12,7 +12,7 @@ namespace AcceptanceTests.Common.Driver.Drivers.Tablet.iOS
         public override RemoteWebDriver InitialiseForSauceLabs()
         {
             return RealDevice
-                ? new RemoteWebDriver(new Uri(RealDeviceServerUrl), ConfigureSauceLabsRealDevice())
+                ? new RemoteWebDriver(new Uri(RealDeviceServerUrl), ConfigureSauceLabsRealDevice().ToCapabilities(), TimeSpan.FromMinutes(3)) 
                 : new RemoteWebDriver(Uri, ConfigureSauceLabsSimulator());
         }
 
@@ -48,7 +48,11 @@ namespace AcceptanceTests.Common.Driver.Drivers.Tablet.iOS
             options.AddAdditionalCapability("autoGrantPermissions", true);
             options.AddAdditionalCapability(IOSMobileCapabilityType.AutoAcceptAlerts, true);
             options.AddAdditionalCapability(MobileCapabilityType.BrowserName, "Safari");
-
+            LocalAppiumTimeout *= 9;
+            options.AddAdditionalCapability("newCommandTimeout", LocalAppiumTimeout.TotalSeconds); ;
+            options.AddAdditionalCapability(MobileCapabilityType.NewCommandTimeout, LocalAppiumTimeout.TotalSeconds);
+            options.AddAdditionalCapability(IOSMobileCapabilityType.LaunchTimeout, LocalAppiumTimeout.TotalSeconds);
+            
             foreach (var (key, value) in SauceOptions)
             {
                 options.AddAdditionalCapability(key, value);
