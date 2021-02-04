@@ -23,7 +23,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
         private IWebDriver NonAngularWebDriver;
         public string LastWindowName { get; set; }
         public TargetBrowser _targetBrowser;
-        private TargetDevice _targetDevice;
+        public TargetDevice TargetDevice;
         public string TestName { get; set; }
 
         public UserBrowser SetBaseUrl(string baseUrl)
@@ -42,7 +42,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
 
         public UserBrowser SetTargetDevice(TargetDevice targetDevice)
         {
-            _targetDevice = targetDevice;
+            this.TargetDevice = targetDevice;
             return this;
         }
 
@@ -56,7 +56,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
         {
             Driver = new NgWebDriver(NonAngularWebDriver) {IgnoreSynchronization = true};
 
-            if (_targetDevice == TargetDevice.Desktop)
+            if (TargetDevice == TargetDevice.Desktop)
             {
                 TryMaximizeBrowser();
             }
@@ -147,7 +147,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
 
         public void Click(By element, int timeout = 20)
         {
-            if (_targetDevice != TargetDevice.Tablet)
+            if (TargetDevice != TargetDevice.Tablet)
             {
                 Driver.WaitUntilElementClickable(element, timeout);
                 JavascriptClick(element);
