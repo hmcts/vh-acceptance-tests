@@ -18,7 +18,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
         // 4 retries ^2 will execute after 2 seconds, then 4, 8 then finally 16 (30 seconds total)
         private const int ActionRetries = 4;
         private const int BrowserRetries = 4;
-        private string _baseUrl;
+        public string BaseUrl { get; set; }
         public NgWebDriver Driver { get; set; }
         private DriverSetup DriverSetup { get; set; }
         private IWebDriver NonAngularWebDriver;
@@ -29,7 +29,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
 
         public UserBrowser SetBaseUrl(string baseUrl)
         {
-            _baseUrl = baseUrl;
+            BaseUrl = baseUrl;
             return this;
         }
 
@@ -77,28 +77,19 @@ namespace AcceptanceTests.Common.Driver.Drivers
 
         public void NavigateToPage(string url = "")
         {
-            if (string.IsNullOrEmpty(_baseUrl))
+            if (string.IsNullOrEmpty(BaseUrl))
             {
                 throw new InvalidOperationException("BaseUrl has not been set");
             }
 
-            const int RETRY_ATTEMPTS = 3;
-            const int TIMEOUT = 10;
-
-            var policy = Policy
-                .Handle<WebDriverException>()
-                .Or<WebException>()
-                .WaitAndRetry(RETRY_ATTEMPTS, retryAttempt =>
-                        TimeSpan.FromSeconds(TIMEOUT),
-                    (exception, timeSpan, context) => { NUnit.Framework.TestContext.WriteLine($"Encountered error '{exception.Message}' navigating to page after {timeSpan.Seconds} seconds. Retrying..."); });
-
             try
             {
-                policy.Execute(() => Driver.Navigate().GoToUrl($"{_baseUrl}{url}"));
+                NUnit.Framework.TestContext.WriteLine($"Navigating to '{BaseUrl}'");
+                Driver.Navigate().GoToUrl($"{BaseUrl}{url}");
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                NUnit.Framework.TestContext.WriteLine($"Encountered error '{e.Message}' navigating to page");
                 throw;
             }
         }
