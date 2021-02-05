@@ -1,5 +1,4 @@
-﻿using AcceptanceTests.Common.Driver;
-using AcceptanceTests.Common.Driver.Drivers;
+﻿using AcceptanceTests.Common.Driver.Drivers;
 using AcceptanceTests.Common.Driver.Enums;
 using AcceptanceTests.Common.Driver.Helpers;
 using AcceptanceTests.Common.PageObject.Pages;
@@ -23,7 +22,7 @@ namespace AcceptanceTests.Common.Test.Steps
         }
         public void ProgressToNextPage()
         {
-            var timeOut = _browser.TargetDevice == TargetDevice.Tablet ? 50:30;
+            var timeOut = _browser.TargetDevice == TargetDevice.Tablet ? 50 : 30;
             EnterUsername(_username, timeOut);
             ClickNextButton();
             if(_browser.TargetDevice == TargetDevice.Tablet) Thread.Sleep(TimeSpan.FromSeconds(3));

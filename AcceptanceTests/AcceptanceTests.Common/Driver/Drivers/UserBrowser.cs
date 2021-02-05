@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using System.Threading;
-using System.Xml.Schema;
 using AcceptanceTests.Common.Driver.Enums;
 using AcceptanceTests.Common.Driver.Helpers;
 using FluentAssertions;
@@ -9,6 +9,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using Polly;
 using Protractor;
+using InvalidOperationException = System.InvalidOperationException;
 
 namespace AcceptanceTests.Common.Driver.Drivers
 {
@@ -81,7 +82,25 @@ namespace AcceptanceTests.Common.Driver.Drivers
                 throw new InvalidOperationException("BaseUrl has not been set");
             }
 
-            Driver.Navigate().GoToUrl($"{_baseUrl}{url}");
+            const int RETRY_ATTEMPTS = 3;
+            const int TIMEOUT = 10;
+
+            var policy = Policy
+                .Handle<WebDriverException>()
+                .Or<WebException>()
+                .WaitAndRetry(RETRY_ATTEMPTS, retryAttempt =>
+                        TimeSpan.FromSeconds(TIMEOUT),
+                    (exception, timeSpan, context) => { NUnit.Framework.TestContext.WriteLine($"Encountered error '{exception.Message}' navigating to page after {timeSpan.Seconds} seconds. Retrying..."); });
+
+            try
+            {
+                policy.Execute(() => Driver.Navigate().GoToUrl($"{_baseUrl}{url}"));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         public void Retry(Action action, int times = ActionRetries)
