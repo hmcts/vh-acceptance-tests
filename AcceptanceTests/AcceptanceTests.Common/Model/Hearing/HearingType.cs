@@ -5,7 +5,7 @@ namespace AcceptanceTests.Common.Model.Hearing
 {
     public class HearingType
     {
-        public string Name { get; }
+        private string Name { get; }
 
         private HearingType(string name)
         {
@@ -13,6 +13,7 @@ namespace AcceptanceTests.Common.Model.Hearing
         }
 
         public static readonly HearingType ApplicationToSetJudgmentAside = new HearingType("Application to Set Judgment Aside");
+        public static readonly HearingType AutomatedTest = new HearingType("Automated Test");
         public static readonly HearingType Hearing = new HearingType("Hearing");
         public static readonly HearingType FirstDirectionsAppointment = new HearingType("First Directions Hearing");
         public static readonly HearingType FirstApplication = new HearingType("First Application");
@@ -44,6 +45,7 @@ namespace AcceptanceTests.Common.Model.Hearing
             get
             {
                 yield return ApplicationToSetJudgmentAside;
+                yield return AutomatedTest;
                 yield return Hearing;
                 yield return FirstDirectionsAppointment; 
                 yield return FirstApplication;
