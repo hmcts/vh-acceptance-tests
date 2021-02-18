@@ -5,7 +5,7 @@ namespace AcceptanceTests.Common.Model.Hearing
 {
     public class HearingType
     {
-        private string Name { get; }
+        public string Name { get; }
 
         private HearingType(string name)
         {
