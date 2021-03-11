@@ -24,7 +24,7 @@ namespace AcceptanceTests.Common.Driver.Settings
         {
             var attemptNumber = GetAttemptNumber();
             _driverOptions.TargetBrowserVersion = BrowserVersion.SetBrowserVersion(_driverOptions);
-            var build = $"{GetBuildDefinition()}{GetGitVersionNumber()}     [ {_driverOptions.TargetDevice} | {_driverOptions.TargetOS} | {_driverOptions.TargetBrowser} | {_driverOptions.TargetBrowserVersion.ToPascalCase(new CultureInfo("en-GB", false))} ] {attemptNumber}";
+            var build = $"{GetBuildDefinition()}{GetGitVersionNumber()} {DateTime.Today:dd.MM.yyyy}     [ {_driverOptions.TargetDevice} | {_driverOptions.TargetOS} | {_driverOptions.TargetBrowser} | {_driverOptions.TargetBrowserVersion.ToPascalCase(new CultureInfo("en-GB", false))} ] {attemptNumber}";
             var sauceOptions = new Dictionary<string, object>
             {
                 {"username", _sauceLabsSettings.Username},
@@ -51,7 +51,7 @@ namespace AcceptanceTests.Common.Driver.Settings
                                  .Replace("cd", "")
                                  .Replace("webnightly", " Web Nightly")
                                  .Replace("web", " Web")
-                             ?? $"{DateTime.Today:dd.MM.yyyy}";
+                             ?? string.Empty;
             return new CultureInfo("en-GB", false).TextInfo.ToTitleCase(definition);
         }
 
