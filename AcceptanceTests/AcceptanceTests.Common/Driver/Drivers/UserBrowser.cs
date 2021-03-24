@@ -157,6 +157,16 @@ namespace AcceptanceTests.Common.Driver.Drivers
 
         public void Click(By element, int timeout = 20)
         {
+            Policy
+                .Handle<StaleElementReferenceException>()
+                .WaitAndRetry(ActionRetries, attempt => 
+                        TimeSpan.FromSeconds(Math.Pow(2, attempt)), 
+                    (exception, span) => NUnit.Framework.TestContext.WriteLine($"Stale element found, retrying click..."))
+                .Execute(() => PerformClick(element, timeout));
+        }
+
+        private void PerformClick(By element, int timeout)
+        {
             if (TargetDevice != TargetDevice.Tablet)
             {
                 Driver.WaitUntilElementClickable(element, timeout);
