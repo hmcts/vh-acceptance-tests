@@ -99,7 +99,17 @@ namespace AcceptanceTests.Common.Driver.Drivers
             Policy
                 .Handle<Exception>()
                 .WaitAndRetry(times, retryAttempt => 
-                    TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
+                        TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
+                    (exception, timeSpan, context) => { NUnit.Framework.TestContext.WriteLine($"Encountered error '{exception.Message}' after {timeSpan.Seconds} seconds. Retrying..."); })
+                .Execute(action);
+        }
+
+        private void RetryOnStaleElement(Action action, int times = ActionRetries)
+        {
+            Policy
+                .Handle<StaleElementReferenceException>()
+                .WaitAndRetry(times, retryAttempt => 
+                        TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
                     (exception, timeSpan, context) => { NUnit.Framework.TestContext.WriteLine($"Encountered error '{exception.Message}' after {timeSpan.Seconds} seconds. Retrying..."); })
                 .Execute(action);
         }
@@ -157,12 +167,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
 
         public void Click(By element, int timeout = 20)
         {
-            Policy
-                .Handle<StaleElementReferenceException>()
-                .WaitAndRetry(ActionRetries, attempt => 
-                        TimeSpan.FromSeconds(Math.Pow(2, attempt)), 
-                    (exception, span) => NUnit.Framework.TestContext.WriteLine($"Stale element found, retrying click..."))
-                .Execute(() => PerformClick(element, timeout));
+            RetryOnStaleElement(() => PerformClick(element, timeout));
         }
 
         private void PerformClick(By element, int timeout)
@@ -225,7 +230,19 @@ namespace AcceptanceTests.Common.Driver.Drivers
             Driver.Navigate().Back();
         }
 
-        public void WaitForPageToLoad(int timeout = 20)
+        public string TextOf(By element)
+        {
+            var text = string.Empty;
+            RetryOnStaleElement(() => text = PerformGetText(element));
+            return text;
+        }
+
+        private string PerformGetText(By element)
+        {
+            return Driver.WaitUntilVisible(element).Text;
+        }
+
+            public void WaitForPageToLoad(int timeout = 20)
         {
             new WebDriverWait(Driver, TimeSpan.FromSeconds(timeout)).Until(
                 d => ((IJavaScriptExecutor)d).ExecuteScript("return document.readyState").Equals("complete"));
