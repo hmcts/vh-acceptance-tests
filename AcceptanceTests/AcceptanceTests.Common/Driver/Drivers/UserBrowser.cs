@@ -234,7 +234,6 @@ namespace AcceptanceTests.Common.Driver.Drivers
         {
             var text = string.Empty;
             RetryOnStaleElement(() => text = PerformGetText(element));
-
             return text.IsNullOrEmpty() ? text : text.Trim();
         }
 
