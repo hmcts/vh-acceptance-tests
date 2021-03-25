@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using System.Net;
 using System.Threading;
 using AcceptanceTests.Common.Driver.Enums;
 using AcceptanceTests.Common.Driver.Helpers;
+using Castle.Core.Internal;
 using FluentAssertions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
@@ -234,7 +234,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
         {
             var text = string.Empty;
             RetryOnStaleElement(() => text = PerformGetText(element));
-            return text;
+            return text.IsNullOrEmpty() ? text : text.Trim();
         }
 
         private string PerformGetText(By element)
