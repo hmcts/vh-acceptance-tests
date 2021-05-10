@@ -55,7 +55,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
 
         public void LaunchBrowser()
         {
-            Driver = new NgWebDriver(NonAngularWebDriver) {IgnoreSynchronization = true};
+            Driver = new NgWebDriver(NonAngularWebDriver) { IgnoreSynchronization = true };
 
             if (TargetDevice == TargetDevice.Desktop)
             {
@@ -98,7 +98,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
         {
             Policy
                 .Handle<Exception>()
-                .WaitAndRetry(times, retryAttempt => 
+                .WaitAndRetry(times, retryAttempt =>
                         TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
                     (exception, timeSpan, context) => { NUnit.Framework.TestContext.WriteLine($"Encountered error '{exception.Message}' after {timeSpan.Seconds} seconds. Retrying..."); })
                 .Execute(action);
@@ -108,7 +108,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
         {
             Policy
                 .Handle<StaleElementReferenceException>()
-                .WaitAndRetry(times, retryAttempt => 
+                .WaitAndRetry(times, retryAttempt =>
                         TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
                     (exception, timeSpan, context) => { NUnit.Framework.TestContext.WriteLine($"Encountered error '{exception.Message}' after {timeSpan.Seconds} seconds. Retrying..."); })
                 .Execute(action);
@@ -163,6 +163,21 @@ namespace AcceptanceTests.Common.Driver.Drivers
         public void ScrollToTheTopOfThePage()
         {
             ScrollTo(By.TagName("header"));
+        }
+
+        public void ClickToProgress(By element, By newElement, int timeout = 20)
+        {
+            for (var i = 0; i < timeout; i++)
+            {
+                try 
+                {
+                    JavascriptClick(element);
+                    Driver.WaitUntilVisible(newElement);
+                    return; 
+                }
+                catch (WebDriverTimeoutException e) {}
+                catch (NoSuchElementException e) {}
+            }
         }
 
         public void Click(By element, int timeout = 20)
@@ -242,7 +257,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
             return Driver.WaitUntilVisible(element).Text;
         }
 
-            public void WaitForPageToLoad(int timeout = 20)
+        public void WaitForPageToLoad(int timeout = 20)
         {
             new WebDriverWait(Driver, TimeSpan.FromSeconds(timeout)).Until(
                 d => ((IJavaScriptExecutor)d).ExecuteScript("return document.readyState").Equals("complete"));
