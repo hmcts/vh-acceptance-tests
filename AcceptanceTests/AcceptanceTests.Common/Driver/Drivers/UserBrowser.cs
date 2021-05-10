@@ -172,11 +172,11 @@ namespace AcceptanceTests.Common.Driver.Drivers
                 try 
                 {
                     JavascriptClick(element);
-                    Thread.Sleep(TimeSpan.FromSeconds(1)); 
-                    Driver.WaitUntilVisible(newElement, 1);
+                    Driver.WaitUntilVisible(newElement);
                     return; 
                 }
-                catch (Exception e) {}
+                catch (WebDriverTimeoutException e) {}
+                catch (NoSuchElementException e) {}
             }
         }
 
