@@ -171,17 +171,12 @@ namespace AcceptanceTests.Common.Driver.Drivers
             {
                 try 
                 {
-                   Console.WriteLine($"loop {i}");
                     JavascriptClick(element);
                     Thread.Sleep(TimeSpan.FromSeconds(1)); 
                     Driver.WaitUntilVisible(newElement, 1);
-                    Console.WriteLine($"new page found in loop {i}");
                     return; 
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine($"new page NOT found in loop {i}");
-                }
+                catch (Exception e) {}
             }
         }
 
