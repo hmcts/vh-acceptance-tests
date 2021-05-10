@@ -165,13 +165,23 @@ namespace AcceptanceTests.Common.Driver.Drivers
             ScrollTo(By.TagName("header"));
         }
 
-        public void ClickToProgress(By element, By oldElement, int timeout = 20)
+        public void ClickToProgress(By element, By newElement, int timeout = 20)
         {
             for (var i = 0; i < timeout; i++)
             {
-                JavascriptClick(element);
-                if (Driver.FindElement(oldElement) == null) return;
-                Thread.Sleep(TimeSpan.FromSeconds(1));
+                try 
+                {
+                   Console.WriteLine($"loop {i}");
+                    JavascriptClick(element);
+                    Thread.Sleep(TimeSpan.FromSeconds(1)); 
+                    Driver.WaitUntilVisible(newElement, 1);
+                    Console.WriteLine($"new page found in loop {i}");
+                    return; 
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"new page NOT found in loop {i}");
+                }
             }
         }
 
