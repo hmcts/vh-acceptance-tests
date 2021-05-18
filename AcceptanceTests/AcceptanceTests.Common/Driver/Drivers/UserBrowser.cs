@@ -84,13 +84,13 @@ namespace AcceptanceTests.Common.Driver.Drivers
 
             try
             {
-                NUnit.Framework.TestContext.WriteLine($"Navigating to '{BaseUrl}'");
+                NUnit.Framework.TestContext.WriteLine($"Navigating to '{BaseUrl}{url}'");
                 Driver.Navigate().GoToUrl($"{BaseUrl}{url}");
             }
             catch (Exception e)
             {
-                NUnit.Framework.TestContext.WriteLine($"Encountered error '{e.Message}' navigating to page");
-                throw;
+                NUnit.Framework.TestContext.WriteLine($"Encountered error '{e.Message}' navigating to page {BaseUrl}{url}");
+                throw e;
             }
         }
 
