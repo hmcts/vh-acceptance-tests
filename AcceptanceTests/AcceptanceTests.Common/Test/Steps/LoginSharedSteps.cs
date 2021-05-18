@@ -41,6 +41,7 @@ namespace AcceptanceTests.Common.Test.Steps
 
         private void EnterUsername(string username, int timeOut)
         {
+            NUnit.Framework.TestContext.WriteLine($"Logging in with id {username} ");
             _browser.Driver.WaitUntilVisible(LoginPage.LoginHeader, timeOut).Click();
             _browser.Driver.WaitUntilVisible(LoginPage.UsernameTextfield, timeOut).Clear();
             _browser.Driver.WaitUntilVisible(LoginPage.UsernameTextfield, timeOut).SendKeys(username);
