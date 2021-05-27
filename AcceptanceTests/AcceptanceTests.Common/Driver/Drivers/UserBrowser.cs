@@ -77,6 +77,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
 
         public void NavigateToPage(string url = "")
         {
+            NUnit.Framework.TestContext.WriteLine($"Current page {Driver.Url}, heading to {url}");
             if (string.IsNullOrEmpty(BaseUrl))
             {
                 throw new InvalidOperationException("BaseUrl has not been set");
@@ -175,8 +176,8 @@ namespace AcceptanceTests.Common.Driver.Drivers
                     Driver.WaitUntilVisible(newElement);
                     return; 
                 }
-                catch (WebDriverTimeoutException e) {}
-                catch (NoSuchElementException e) {}
+                catch (WebDriverTimeoutException) {}
+                catch (NoSuchElementException) {}
             }
         }
 
