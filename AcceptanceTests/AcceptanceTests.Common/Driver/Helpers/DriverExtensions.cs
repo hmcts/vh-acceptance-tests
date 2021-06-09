@@ -39,8 +39,12 @@ namespace AcceptanceTests.Common.Driver.Helpers
         {
             try
             {
-                var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeout));
-                return wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(elementLocator));
+                WebDriverWait wait = new WebDriverWait(driver, timeout: TimeSpan.FromSeconds(30))
+                {
+                    PollingInterval = TimeSpan.FromSeconds(1),
+                };
+                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+                return wait.Until(drv => driver.FindElement(elementLocator));
             }
             catch (NoSuchElementException ex)
             {

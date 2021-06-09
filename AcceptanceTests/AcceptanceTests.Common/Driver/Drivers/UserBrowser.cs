@@ -105,15 +105,16 @@ namespace AcceptanceTests.Common.Driver.Drivers
                 .Execute(action);
         }
 
-        private void RetryOnStaleElement(Action action, int times = ActionRetries)
-        {
-            Policy
-                .Handle<StaleElementReferenceException>()
-                .WaitAndRetry(times, retryAttempt =>
-                        TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
-                    (exception, timeSpan, context) => { NUnit.Framework.TestContext.WriteLine($"Encountered error '{exception.Message}' after {timeSpan.Seconds} seconds. Retrying..."); })
-                .Execute(action);
-        }
+        //  09/06/2021 - Keep for now as this might be meeded to be restored.
+        //private void RetryOnStaleElement(Action action, int times = ActionRetries)
+        //{
+        //    Policy
+        //        .Handle<StaleElementReferenceException>()
+        //        .WaitAndRetry(times, retryAttempt =>
+        //        TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
+        //        (exception, timeSpan, context) => { NUnit.Framework.TestContext.WriteLine($"Encountered error '{exception.Message}' after {timeSpan.Seconds} seconds. Retrying..."); })
+        //        .Execute(action);
+        //}
 
         public string SwitchTab(string titleOrUrl, int timeout = 10)
         {
@@ -183,9 +184,17 @@ namespace AcceptanceTests.Common.Driver.Drivers
 
         public void Click(By element, int timeout = 20)
         {
-            RetryOnStaleElement(() => PerformClick(element, timeout));
+            // 09/06/2021 - Keep for now as this might need to be restored
+            //RetryOnStaleElement(() => PerformClick(element, timeout));
+            NUnit.Framework.TestContext.WriteLine($"Attempting click of element {element.ToString()} on {Driver.Url} ");
+            WebDriverWait wait = new WebDriverWait(Driver, timeout: TimeSpan.FromSeconds(30))
+            {
+                PollingInterval = TimeSpan.FromSeconds(1),
+            };
+            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+            wait.Until(drv => Driver.FindElement(element)).Click();
         }
-
+            
         private void PerformClick(By element, int timeout)
         {
             if (TargetDevice != TargetDevice.Tablet)
@@ -248,9 +257,13 @@ namespace AcceptanceTests.Common.Driver.Drivers
 
         public string TextOf(By element)
         {
-            var text = string.Empty;
-            RetryOnStaleElement(() => text = PerformGetText(element));
-            return text.IsNullOrEmpty() ? text : text.Trim();
+            WebDriverWait wait = new WebDriverWait(Driver, timeout: TimeSpan.FromSeconds(30))
+            {
+                PollingInterval = TimeSpan.FromSeconds(1),
+            };
+            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+            var returnText = wait.Until(drv => Driver.FindElement(element)).Text;
+            return returnText.IsNullOrEmpty() ? returnText : returnText.Trim();
         }
 
         private string PerformGetText(By element)
