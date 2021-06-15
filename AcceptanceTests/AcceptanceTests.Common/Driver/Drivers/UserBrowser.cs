@@ -39,6 +39,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
             DriverSetup = driver;
             NonAngularWebDriver = driver.GetDriver();
             TestName = driver.SauceLabsOptions.Name;
+            _waitHelper = new WaitHelper();
             return this;
         }
 
