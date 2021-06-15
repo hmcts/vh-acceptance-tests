@@ -18,6 +18,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
         // 4 retries ^2 will execute after 2 seconds, then 4, 8 then finally 16 (30 seconds total)
         private const int ActionRetries = 4;
         private const int BrowserRetries = 4;
+        private WaitHelper _waitHelper;
         public string BaseUrl { get; set; }
         public NgWebDriver Driver { get; set; }
         private DriverSetup DriverSetup { get; set; }
@@ -187,14 +188,12 @@ namespace AcceptanceTests.Common.Driver.Drivers
             // 09/06/2021 - Keep for now as this might need to be restored
             //RetryOnStaleElement(() => PerformClick(element, timeout));
             NUnit.Framework.TestContext.WriteLine($"Attempting click of element {element.ToString()} on {Driver.Url} ");
-            WebDriverWait wait = new WebDriverWait(Driver, timeout: TimeSpan.FromSeconds(30))
-            {
-                PollingInterval = TimeSpan.FromSeconds(1),
-            };
-            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+            WebDriverWait wait = _waitHelper.newWait(Driver);
             wait.Until(drv => Driver.FindElement(element)).Click();
         }
-            
+
+
+
         private void PerformClick(By element, int timeout)
         {
             if (TargetDevice != TargetDevice.Tablet)
@@ -257,11 +256,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
 
         public string TextOf(By element)
         {
-            WebDriverWait wait = new WebDriverWait(Driver, timeout: TimeSpan.FromSeconds(30))
-            {
-                PollingInterval = TimeSpan.FromSeconds(1),
-            };
-            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+            WebDriverWait wait = _waitHelper.newWait(Driver);
             var returnText = wait.Until(drv => Driver.FindElement(element)).Text;
             return returnText.IsNullOrEmpty() ? returnText : returnText.Trim();
         }
