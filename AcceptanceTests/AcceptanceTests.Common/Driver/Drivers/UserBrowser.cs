@@ -39,6 +39,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
             DriverSetup = driver;
             NonAngularWebDriver = driver.GetDriver();
             TestName = driver.SauceLabsOptions.Name;
+            _waitHelper = new WaitHelper();
             return this;
         }
 
@@ -106,16 +107,6 @@ namespace AcceptanceTests.Common.Driver.Drivers
                 .Execute(action);
         }
 
-        //  09/06/2021 - Keep for now as this might be meeded to be restored.
-        //private void RetryOnStaleElement(Action action, int times = ActionRetries)
-        //{
-        //    Policy
-        //        .Handle<StaleElementReferenceException>()
-        //        .WaitAndRetry(times, retryAttempt =>
-        //        TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
-        //        (exception, timeSpan, context) => { NUnit.Framework.TestContext.WriteLine($"Encountered error '{exception.Message}' after {timeSpan.Seconds} seconds. Retrying..."); })
-        //        .Execute(action);
-        //}
 
         public string SwitchTab(string titleOrUrl, int timeout = 10)
         {
@@ -170,6 +161,8 @@ namespace AcceptanceTests.Common.Driver.Drivers
 
         public void ClickToProgress(By element, By newElement, int timeout = 20)
         {
+            NUnit.Framework.TestContext.WriteLine($"Attempting click of element {element.ToString()} on {Driver.Url} ");
+            WebDriverWait wait = _waitHelper.newWait(Driver);
             for (var i = 0; i < timeout; i++)
             {
                 try 
@@ -185,8 +178,6 @@ namespace AcceptanceTests.Common.Driver.Drivers
 
         public void Click(By element, int timeout = 20)
         {
-            // 09/06/2021 - Keep for now as this might need to be restored
-            //RetryOnStaleElement(() => PerformClick(element, timeout));
             NUnit.Framework.TestContext.WriteLine($"Attempting click of element {element.ToString()} on {Driver.Url} ");
             WebDriverWait wait = _waitHelper.newWait(Driver);
             wait.Until(drv => Driver.FindElement(element)).Click();
@@ -196,6 +187,8 @@ namespace AcceptanceTests.Common.Driver.Drivers
 
         private void PerformClick(By element, int timeout)
         {
+            NUnit.Framework.TestContext.WriteLine($"Attempting click of element {element.ToString()} on {Driver.Url} ");
+            WebDriverWait wait = _waitHelper.newWait(Driver);
             if (TargetDevice != TargetDevice.Tablet)
             {
                 Driver.WaitUntilElementClickable(element, timeout);
@@ -226,24 +219,32 @@ namespace AcceptanceTests.Common.Driver.Drivers
 
         public void ClickLink(By element, int timeout = 20)
         {
+            NUnit.Framework.TestContext.WriteLine($"Attempting click of element {element.ToString()} on {Driver.Url} ");
+            WebDriverWait wait = _waitHelper.newWait(Driver);
             Driver.WaitUntilVisible(element, timeout);
             Driver.ExecuteScript("arguments[0].click();", Driver.FindElement(element));
         }
 
         public void ClickRadioButton(By element, int timeout = 20)
         {
+            NUnit.Framework.TestContext.WriteLine($"Attempting click of element {element.ToString()} on {Driver.Url} ");
+            WebDriverWait wait = _waitHelper.newWait(Driver);
             Driver.WaitUntilElementExists(element, timeout);
             Driver.ExecuteScript("arguments[0].click();", Driver.FindElement(element));
         }
 
         public void ClickCheckbox(By element, int timeout = 20)
         {
+            NUnit.Framework.TestContext.WriteLine($"Attempting click of element {element.ToString()} on {Driver.Url} ");
+            WebDriverWait wait = _waitHelper.newWait(Driver);
             Driver.WaitUntilElementExists(element, timeout);
             Driver.ExecuteScript("arguments[0].click();", Driver.FindElement(element));
         }
 
         public void Clear(By element)
         {
+            NUnit.Framework.TestContext.WriteLine($"Attempting click of element {element.ToString()} on {Driver.Url} ");
+            WebDriverWait wait = _waitHelper.newWait(Driver);
             Driver.WaitUntilVisible(element);
             Driver.ExecuteScript("arguments[0].value = '';", Driver.FindElement(element));
             Driver.WaitUntilTextEmpty(element);
@@ -263,6 +264,8 @@ namespace AcceptanceTests.Common.Driver.Drivers
 
         private string PerformGetText(By element)
         {
+            NUnit.Framework.TestContext.WriteLine($"Attempting click of element {element.ToString()} on {Driver.Url} ");
+            WebDriverWait wait = _waitHelper.newWait(Driver);
             return Driver.WaitUntilVisible(element).Text;
         }
 
