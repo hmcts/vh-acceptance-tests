@@ -10,6 +10,7 @@ namespace AcceptanceTests.Common.PageObject.Pages
         public static By Next = By.Id("idSIButton9");
         public static By SignIn = By.Id("idSIButton9");
         public static string SignInTitle = "Sign in to your account";
+        public static string SignOutTitle = "Sign out";
         public static By ReSignInButton(string username) => By.XPath($"//div[contains(text(), '{username}')]");
         public static By CurrentPassword = By.Id("currentPassword");
         public static By NewPassword = By.Id("newPassword");
