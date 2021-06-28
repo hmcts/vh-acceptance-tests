@@ -12,7 +12,6 @@ namespace AcceptanceTests.Common.Driver.Helpers
     {
         public WebDriverWait newWait(NgWebDriver Driver)
         {
-            NUnit.Framework.TestContext.WriteLine($"New Wait driver run.");
             WebDriverWait wait = new WebDriverWait(Driver, timeout: TimeSpan.FromSeconds(30))
             {
                 PollingInterval = TimeSpan.FromSeconds(1),
