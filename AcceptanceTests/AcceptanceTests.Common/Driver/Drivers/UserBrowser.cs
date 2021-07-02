@@ -9,6 +9,8 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using Polly;
 using Protractor;
+
+using  Expected = SeleniumExtras.WaitHelpers;
 using InvalidOperationException = System.InvalidOperationException;
 
 namespace AcceptanceTests.Common.Driver.Drivers
@@ -183,7 +185,11 @@ namespace AcceptanceTests.Common.Driver.Drivers
             wait.Until(drv => Driver.FindElement(element)).Click();
         }
 
-
+        public void WaitForElementToNotExist(By element, int timout = 300)
+        {
+            WebDriverWait wait = _waitHelper.newWait(Driver);
+            wait.Until(Expected.ExpectedConditions.InvisibilityOfElementLocated(element));
+        }
 
         private void PerformClick(By element, int timeout)
         {
