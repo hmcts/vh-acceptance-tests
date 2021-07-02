@@ -1,5 +1,4 @@
 ﻿using RestSharp;
-
 using System.Net;
 
 namespace AcceptanceTests.Common.Api.Clients

@@ -9,7 +9,6 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using Polly;
 using Protractor;
-
 using  Expected = SeleniumExtras.WaitHelpers;
 using InvalidOperationException = System.InvalidOperationException;
 
@@ -187,6 +186,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
 
         public void WaitForElementToNotExist(By element, int timout = 300)
         {
+            NUnit.Framework.TestContext.WriteLine($"Waiting for element {element.ToString()} on {Driver.Url} to disappear.");
             WebDriverWait wait = _waitHelper.newWait(Driver);
             wait.Until(Expected.ExpectedConditions.InvisibilityOfElementLocated(element));
         }
