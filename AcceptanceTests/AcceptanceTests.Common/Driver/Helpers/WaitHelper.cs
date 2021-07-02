@@ -12,7 +12,11 @@ namespace AcceptanceTests.Common.Driver.Helpers
     {
         public WebDriverWait newWait(NgWebDriver Driver)
         {
-            WebDriverWait wait = new WebDriverWait(Driver, timeout: TimeSpan.FromSeconds(30))
+            return newWait(Driver, 30);
+        }
+        public WebDriverWait newWait(NgWebDriver Driver, int timeout)
+        {
+            WebDriverWait wait = new WebDriverWait(Driver, timeout: TimeSpan.FromSeconds(timeout))
             {
                 PollingInterval = TimeSpan.FromSeconds(1),
             };
