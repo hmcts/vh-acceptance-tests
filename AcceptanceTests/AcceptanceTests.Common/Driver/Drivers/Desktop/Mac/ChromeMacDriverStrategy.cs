@@ -30,6 +30,7 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Mac
         public override IWebDriver InitialiseForLocal()
         {
             var browserOptions = new ChromeOptions();
+            browserOptions.AddArgument("no-sandbox");
             browserOptions.AddArgument("ignore-certificate-errors");
 
             if (Proxy?.HttpProxy != null)
