@@ -29,7 +29,6 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Windows
         public override IWebDriver InitialiseForLocal()
         {
             var options = new ChromeOptions();
-            options.AddArgument("no-sandbox");
             options.AddArgument("ignore-certificate-errors");
             options.AddArgument("use-fake-ui-for-media-stream");
             options.AddArgument("use-fake-device-for-media-stream");
