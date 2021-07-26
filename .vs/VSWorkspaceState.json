@@ -1,12 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\AcceptanceTests",
-    "\\AcceptanceTests\\AcceptanceTests.Common",
-    "\\AcceptanceTests\\AcceptanceTests.Driver",
-    "\\AcceptanceTests\\AcceptanceTests.Driver\\Capabilities"
+    "\\AcceptanceTests"
   ],
-  "SelectedNode":"\\AcceptanceTests\\AcceptanceTests.Common",
-  ],
+  "SelectedNode": "\\AcceptanceTests\\AcceptanceTests.sln",
   "PreviewInSolutionExplorer": false
 }
