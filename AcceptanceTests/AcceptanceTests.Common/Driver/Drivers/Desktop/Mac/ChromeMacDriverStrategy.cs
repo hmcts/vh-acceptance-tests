@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using System;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
 
@@ -24,7 +25,7 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Mac
             options.AddArgument("use-fake-device-for-media-stream");
             options.AddAdditionalCapability("sauce:options", SauceOptions, true);
 
-            return new RemoteWebDriver(Uri, options.ToCapabilities());
+            return new RemoteWebDriver(new Uri(Uri.AbsolutePath), options.ToCapabilities());
         }
 
         public override IWebDriver InitialiseForLocal()
