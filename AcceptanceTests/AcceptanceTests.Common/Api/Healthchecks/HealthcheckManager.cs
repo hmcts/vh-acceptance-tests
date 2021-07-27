@@ -19,6 +19,7 @@ namespace AcceptanceTests.Common.Api.Healthchecks
             var request = RequestBuilder.Get(endpoint);
             var client = ApiClient.CreateClient(apiUrl, bearerToken, webProxy);
             var response = RequestExecutor.SendToApi(request, client);
+            NUnit.Framework.TestContext.WriteLine($"Healthcheckmanager Send: Endpoint {endpoint} apiname {apiName} api url {apiUrl} request {request} response {response}");
             response.StatusCode.Should().Be(HttpStatusCode.OK, $"the {apiName} is available, but healthcheck failed with '{response.StatusCode}' and error message '{response.ErrorMessage}'");
         }
     }

@@ -22,6 +22,7 @@ namespace AcceptanceTests.Common.Api.Hearings
             var endpoint = BookingsApiUriFactory.HearingsEndpoints.UpdateHearingDetails(hearingId);
             var request = RequestBuilder.Put(endpoint, updateRequest);
             var client = ApiClient.CreateClient(_bookingsApiUrl, _bookingsApiBearerToken);
+            NUnit.Framework.TestContext.WriteLine($"UpdateHearing: hearing id {hearingId} endpoint {endpoint} request {request} client {client}");
             return RequestExecutor.SendToApi(request, client);
         }
 
@@ -30,6 +31,7 @@ namespace AcceptanceTests.Common.Api.Hearings
             var endpoint = BookingsApiUriFactory.HearingsEndpoints.UpdateHearingStatus(hearingId);
             var request = RequestBuilder.Patch(endpoint, updateRequest);
             var client = ApiClient.CreateClient(_bookingsApiUrl, _bookingsApiBearerToken);
+            NUnit.Framework.TestContext.WriteLine($"UpdateHearingDetails: hearing id {hearingId} endpoint {endpoint} request {request} client {client}");
             return RequestExecutor.SendToApi(request, client);
         }
 
@@ -38,6 +40,7 @@ namespace AcceptanceTests.Common.Api.Hearings
             var endpoint = BookingsApiUriFactory.HearingsParticipantsEndpoints.AddParticipantsToHearing(hearingId);
             var request = RequestBuilder.Post(endpoint, participantsRequest);
             var client = ApiClient.CreateClient(_bookingsApiUrl, _bookingsApiBearerToken);
+            NUnit.Framework.TestContext.WriteLine($"AddParticipantsToHearing: hearing id {hearingId} endpoint {endpoint} request {request} client {client}");
             return RequestExecutor.SendToApi(request, client);
         }
 
@@ -46,6 +49,7 @@ namespace AcceptanceTests.Common.Api.Hearings
             var endpoint = BookingsApiUriFactory.HearingsParticipantsEndpoints.UpdateParticipantDetails(hearingId, participantId);
             var request = RequestBuilder.Put(endpoint, updateRequest);
             var client = ApiClient.CreateClient(_bookingsApiUrl, _bookingsApiBearerToken);
+            NUnit.Framework.TestContext.WriteLine($"UpdateParticipantDetails: hearing id {hearingId} participant {participantId} endpoint {endpoint} request {request} client {client}");
             return RequestExecutor.SendToApi(request, client);
         }
 
@@ -54,6 +58,7 @@ namespace AcceptanceTests.Common.Api.Hearings
             var endpoint = BookingsApiUriFactory.HearingsEndpoints.GetHearingsByAnyCaseType(limit);
             var request = RequestBuilder.Get(endpoint);
             var client = ApiClient.CreateClient(_bookingsApiUrl, _bookingsApiBearerToken);
+            NUnit.Framework.TestContext.WriteLine($"GetHearingsByAnyCaseType: endpoint {endpoint} request {request} client {client}");
             return RequestExecutor.SendToApi(request, client);
         }
 
@@ -62,6 +67,7 @@ namespace AcceptanceTests.Common.Api.Hearings
             var endpoint = BookingsApiUriFactory.HearingsParticipantsEndpoints.RemoveParticipantFromHearing(hearingId, participantId);
             var request = RequestBuilder.Delete(endpoint);
             var client = ApiClient.CreateClient(_bookingsApiUrl, _bookingsApiBearerToken);
+            NUnit.Framework.TestContext.WriteLine($"RemoveParticipant hearing id: {hearingId} endpoint {endpoint} Request: {request} clinet {client}");
             return RequestExecutor.SendToApi(request, client);
         }
     }

@@ -21,6 +21,7 @@ namespace AcceptanceTests.Common.Api.Hearings
             var endpoint = VideoWebUriFactory.VideoWebCallbackEndpoints.Event;
             var request = RequestBuilder.Post(endpoint, eventRequest);
             var client = ApiClient.CreateClient(_videoWebUrl, _callBackToken);
+            NUnit.Framework.TestContext.WriteLine($"SendCallBackEvent: eventrequest {eventRequest} endpoint {endpoint} videowebURL {_videoWebUrl} callback token {_callBackToken}");
             return RequestExecutor.SendToApi(request, client);
         }
     }
