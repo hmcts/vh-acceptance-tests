@@ -22,9 +22,10 @@ namespace AcceptanceTests.Common.Api.Hearings
 
         public IRestResponse SendToApi(IRestRequest request)
         {
-            NUnit.Framework.TestContext.WriteLine($"API Request: {request} ApiUrl {ApiUrl} Token {Token}");
             var client = ApiClient.CreateClient(ApiUrl, Token);
-            return client.Execute(request);
+            var response = client.Execute(request);
+            NUnit.Framework.TestContext.WriteLine($"API Request: {request} ApiUrl {ApiUrl} Token {Token} response {response.Content}");
+            return response;
         }
     }
 }

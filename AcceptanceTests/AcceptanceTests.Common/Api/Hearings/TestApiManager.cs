@@ -144,7 +144,7 @@ namespace AcceptanceTests.Common.Api.Hearings
                 if (!rawResponse.IsSuccessful) continue;
                 if (rawResponse.Content.ToLower().Contains(caseName.ToLower()))
                 {
-                    NUnit.Framework.TestContext.WriteLine($"PollForHearingByUsername link: user {username} case name  {caseName}");
+                    NUnit.Framework.TestContext.WriteLine($"PollForHearingByUsername link: user {username} case name  {caseName} content {rawResponse.Content}");
                     return rawResponse;
                 }
                 Thread.Sleep(TimeSpan.FromSeconds(1));
@@ -160,7 +160,7 @@ namespace AcceptanceTests.Common.Api.Hearings
                 if (!rawResponse.IsSuccessful) continue;
                 if (rawResponse.Content.ToLower().Contains(updatedDisplayName.ToLower()))
                 {
-                    NUnit.Framework.TestContext.WriteLine($"PollForParticipantNameUpdatedlink: user name {username} updated display name  {updatedDisplayName}");
+                    NUnit.Framework.TestContext.WriteLine($"PollForParticipantNameUpdatedlink: user name {username} updated display name  {updatedDisplayName} content {rawResponse.Content}");
                     return true;
                 }
                 Thread.Sleep(TimeSpan.FromSeconds(1));
@@ -260,7 +260,7 @@ namespace AcceptanceTests.Common.Api.Hearings
                 var rawResponse = SendToApi(request);
                 if (rawResponse.IsSuccessful)
                 {
-                    NUnit.Framework.TestContext.WriteLine($"PollForParticipantExistsInAD link: {endpoint} Request body {request}  user name {username}");
+                    NUnit.Framework.TestContext.WriteLine($"PollForParticipantExistsInAD link: {endpoint} Request body {request}  user name {username} content {rawResponse.Content}");
                     return rawResponse;
                 }
                 Thread.Sleep(TimeSpan.FromSeconds(PAUSE));
