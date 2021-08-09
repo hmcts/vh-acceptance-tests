@@ -33,7 +33,7 @@ namespace AcceptanceTests.Common.Test.Steps
         public void ReSignBackIn()
         {
             var timeOut = _browser.TargetDevice == TargetDevice.Tablet ? 60 : 30;
-
+            _browser.ClickLink(LogoutSuccessPage.SignBackInLink);
             _browser.Click(LoginPage.ReSignInButton(_username));
             EnterPassword(_password, timeOut);
             ClickSignInButton();
