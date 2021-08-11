@@ -25,7 +25,9 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Mac
             options.AddArgument("use-fake-device-for-media-stream");
             options.AddAdditionalCapability("sauce:options", SauceOptions, true);
 
-            return new RemoteWebDriver(new Uri(Uri.AbsolutePath), options.ToCapabilities());
+            return Uri != null
+                ? new RemoteWebDriver(new Uri(Uri.AbsolutePath), options.ToCapabilities())
+                : new RemoteWebDriver(Uri, options.ToCapabilities());
         }
 
         public override IWebDriver InitialiseForLocal()
