@@ -32,11 +32,11 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Windows
             if (Uri != null)
             {
                 NUnit.Framework.TestContext.WriteLine($"uri is not null = {Uri.AbsolutePath}");
-                return new RemoteWebDriver(new Uri(Uri.AbsolutePath), options.ToCapabilities());
+                return new RemoteWebDriver(new Uri(Uri.AbsolutePath), options.ToCapabilities(), TimeSpan.FromSeconds(30));
              }
             else {
                 NUnit.Framework.TestContext.WriteLine($"uri is null = {Uri}");
-                return new RemoteWebDriver(Uri, options.ToCapabilities());
+                return new RemoteWebDriver(Uri, options.ToCapabilities(), TimeSpan.FromSeconds(30));
             }
         }
 
