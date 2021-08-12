@@ -24,12 +24,8 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Windows
             options.AddArgument("use-fake-device-for-media-stream");
             options.AddAdditionalCapability("sauce:options", SauceOptions, true);
             NUnit.Framework.TestContext.WriteLine($"does it fail in ChromeWindowsDriverStrategy.InitialiseForSauceLabs and url = {Uri}");
-            //return new RemoteWebDriver(new Uri(Uri.AbsolutePath), options.ToCapabilities());
-            /* return Uri != null
-                ? new RemoteWebDriver(new Uri(Uri.AbsolutePath), options.ToCapabilities())
-                : new RemoteWebDriver(Uri, options.ToCapabilities());
-            */
-            if (Uri != null)
+
+            if (Uri != null && Uri.AbsoluteUri != null)
             {
                 NUnit.Framework.TestContext.WriteLine($"uri is not null = {Uri.AbsolutePath}");
                 return new RemoteWebDriver(new Uri(Uri.AbsolutePath), options.ToCapabilities(), TimeSpan.FromSeconds(30));
