@@ -32,26 +32,34 @@ namespace AcceptanceTests.Common.Driver.Drivers
         public UserBrowser SetBaseUrl(string baseUrl)
         {
             BaseUrl = baseUrl;
+            NUnit.Framework.TestContext.WriteLine($"baseurl set to {baseUrl}");
             return this;
         }
 
         public UserBrowser SetDriver(DriverSetup driver)
         {
+            NUnit.Framework.TestContext.WriteLine($"setdriver step 1");
             DriverSetup = driver;
+            NUnit.Framework.TestContext.WriteLine($"setdriver step 2");
             NonAngularWebDriver = driver.GetDriver();
+            NUnit.Framework.TestContext.WriteLine($"setdriver step 3");
             TestName = driver.SauceLabsOptions.Name;
+            NUnit.Framework.TestContext.WriteLine($"setdriver step 4");
             _waitHelper = new WaitHelper();
+            NUnit.Framework.TestContext.WriteLine($"setdriver step 5");
             return this;
         }
 
         public UserBrowser SetTargetDevice(TargetDevice targetDevice)
         {
             this.TargetDevice = targetDevice;
+            NUnit.Framework.TestContext.WriteLine($"target device set to {targetDevice}");
             return this;
         }
 
         public UserBrowser SetTargetBrowser(TargetBrowser targetBrowser)
         {
+            NUnit.Framework.TestContext.WriteLine($"target browser set to {targetBrowser}");
             _targetBrowser = targetBrowser;
             return this;
         }

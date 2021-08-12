@@ -31,6 +31,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
 
         public IWebDriver GetDriver()
         {
+            NUnit.Framework.TestContext.WriteLine($"getdriver is running on saucelabs {_sauceLabsSettings.RunningOnSauceLabs()}");
             return _sauceLabsSettings.RunningOnSauceLabs() ? InitialiseSauceLabsDriver() : InitialiseLocalDriver();
         }
 
