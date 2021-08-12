@@ -24,7 +24,7 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Windows
             options.AddArgument("use-fake-device-for-media-stream");
             options.AddAdditionalCapability("sauce:options", SauceOptions, true);
 
-            return Uri != null
+            return (Uri != null && Uri.AbsoluteUri != null)
                 ? new RemoteWebDriver(new Uri(Uri.AbsolutePath), options.ToCapabilities())
                 : new RemoteWebDriver(Uri, options.ToCapabilities());
         }
