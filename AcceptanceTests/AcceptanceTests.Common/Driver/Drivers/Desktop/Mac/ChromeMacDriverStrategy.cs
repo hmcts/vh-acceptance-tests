@@ -28,8 +28,8 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Mac
 
             if (Uri != null && Uri.AbsoluteUri != null)
             {
-                NUnit.Framework.TestContext.WriteLine($"uri for Mac is not null = {Uri.AbsoluteUri}");
-                return new RemoteWebDriver(new Uri(Uri.AbsoluteUri), options.ToCapabilities(), TimeSpan.FromSeconds(30));
+                NUnit.Framework.TestContext.WriteLine($"uri for Mac is not null = {Uri.AbsolutePath}");
+                return new RemoteWebDriver(new Uri(Uri.AbsolutePath), options.ToCapabilities(), TimeSpan.FromSeconds(30));
             }
             else
             {
