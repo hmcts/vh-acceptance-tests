@@ -17,7 +17,7 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Windows
                 AcceptInsecureCertificates = true
             };
 
-            if (LoggingEnabled)
+            //if (LoggingEnabled)
                 SauceOptions.Add("extendedDebugging", true);
 
             options.AddArgument("use-fake-ui-for-media-stream");
