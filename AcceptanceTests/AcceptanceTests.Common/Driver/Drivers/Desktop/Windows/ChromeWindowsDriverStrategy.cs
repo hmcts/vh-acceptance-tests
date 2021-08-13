@@ -28,7 +28,7 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Windows
             if (Uri != null && Uri.AbsoluteUri != null)
             {
                 NUnit.Framework.TestContext.WriteLine($"uri for Windows is not null = {Uri.AbsolutePath}");
-                return new RemoteWebDriver(new Uri(Uri, Uri.AbsolutePath), options.ToCapabilities(), TimeSpan.FromSeconds(30));
+                return new RemoteWebDriver(new Uri(Uri.AbsolutePath), options.ToCapabilities(), TimeSpan.FromSeconds(30));
              }
             else {
                 NUnit.Framework.TestContext.WriteLine($"uri for Windows is null = {Uri}");
