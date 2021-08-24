@@ -101,7 +101,7 @@ namespace AcceptanceTests.Tests.DriverTests
         private void RunTest()
         {
             _browser.LaunchBrowser();
-            _browser.NavigateToPage(_config.Url);
+            _browser.NavigateToPage();
             Thread.Sleep(TimeSpan.FromSeconds(4));
             _browser.Driver.Title.Should().Contain("Sign in to your account");
         }
