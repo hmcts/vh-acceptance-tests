@@ -10,9 +10,11 @@ namespace AcceptanceTests.Common.Api.Requests
 
         public static RestRequest Get(string path, Dictionary<string, string> queryParameters)
         {
+            NUnit.Framework.TestContext.WriteLine($"RequestBuilder: path {path}");
             var request = new RestRequest(path, Method.GET);
             foreach (var (key, value) in queryParameters)
             {
+            NUnit.Framework.TestContext.WriteLine($"RequestBuilder: add Key {key} value {value}");
                 request.AddQueryParameter(key, value);
             }
 
