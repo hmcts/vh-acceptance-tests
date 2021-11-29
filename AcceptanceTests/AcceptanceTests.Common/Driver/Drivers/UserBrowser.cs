@@ -16,6 +16,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
 {
     public class UserBrowser
     {
+        private const int DEFAULT_TIMEOUT = 30;
         // 4 retries ^2 will execute after 2 seconds, then 4, 8 then finally 16 (30 seconds total)
         private const int ActionRetries = 4;
         private const int BrowserRetries = 4;
@@ -117,9 +118,9 @@ namespace AcceptanceTests.Common.Driver.Drivers
         }
 
 
-        public string SwitchTab(string titleOrUrl, int timeout = 10)
+        public string SwitchTab(string titleOrUrl)//, int timeout = 10)
         {
-            for (var i = 0; i < timeout; i++)
+            for (var i = 0; i < DEFAULT_TIMEOUT; i++)
             {
                 foreach (var window in Driver.WrappedDriver.WindowHandles)
                 {
@@ -130,7 +131,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
                     }
                 }
 
-                Thread.Sleep(TimeSpan.FromSeconds(1));
+                //Thread.Sleep(TimeSpan.FromSeconds(1));    /* unable to see why waiting for 1 second on each iteration is required or significant */
             }
             throw new ArgumentException($"No windows with title or Url '{titleOrUrl}' were found.");
         }

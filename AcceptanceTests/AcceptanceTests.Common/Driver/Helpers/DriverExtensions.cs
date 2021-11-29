@@ -10,6 +10,7 @@ namespace AcceptanceTests.Common.Driver.Helpers
 {
     public static class DriverExtension
     {
+        private const int DEFAULT_TIMEOUT = 30;
         public static NgWebElement FindElement(this ISearchContext context, By by, int timeout = 20, bool displayed = false)
         {
             var wait = new DefaultWait<ISearchContext>(context)
@@ -189,11 +190,11 @@ namespace AcceptanceTests.Common.Driver.Helpers
             }
         }
 
-        public static void WaitForListToBePopulated(this IWebDriver driver, By elementLocator, int timeout = 30)
+        public static void WaitForListToBePopulated(this IWebDriver driver, By elementLocator)//, int timeout = 30)
         {
             try
             {
-                for (var i = 0; i < timeout; i++)
+                for (var i = 0; i < DEFAULT_TIMEOUT; i++)
                 {
                     var count = new SelectElement(driver.WaitUntilElementExists(elementLocator)).Options.Count;
                     if (count > 0)
@@ -201,7 +202,7 @@ namespace AcceptanceTests.Common.Driver.Helpers
                         break;
                     }
 
-                    Thread.Sleep(TimeSpan.FromSeconds(1));
+                    //Thread.Sleep(TimeSpan.FromSeconds(1));    /* unable to see why waiting for 1 second on each iteration is required or significant */
                 }
             }
             catch (NoSuchElementException ex)
