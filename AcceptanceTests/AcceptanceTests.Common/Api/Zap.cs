@@ -93,32 +93,31 @@ namespace AcceptanceTests.Common.Api
             }
         }
 
-        /* This method is not be called from anywhere */
-        //public static void ReportAndShutDown(string reportFileName, string scanUrl)
-        //{
-        //    if (!ZapConfiguration.ZapScan) return;
+        public static void ReportAndShutDown(string reportFileName, string scanUrl)
+        {
+            if (!ZapConfiguration.ZapScan) return;
 
-        //    try
-        //    {
-        //        PollPassiveScanCompletion();
+            try
+            {
+                PollPassiveScanCompletion();
 
-        //        if (!string.IsNullOrEmpty(scanUrl) && ZapConfiguration.ActiveScan)
-        //        {
-        //            Scan(scanUrl);
-        //        }
+                if (!string.IsNullOrEmpty(scanUrl) && ZapConfiguration.ActiveScan)
+                {
+                    Scan(scanUrl);
+                }
 
-        //        if (!string.IsNullOrEmpty(reportFileName))
-        //        {
-        //            reportFileName = $"{reportFileName}-Tests-Security-{DateTime.Now:dd-MMM-yyyy-hh-mm-ss}";
-        //            WriteHtmlReport(reportFileName);
-        //            WriteXmlReport(reportFileName);
-        //        }
-        //    }
-        //    finally
-        //    {
-        //        StopContainers();
-        //    }
-        //}
+                if (!string.IsNullOrEmpty(reportFileName))
+                {
+                    reportFileName = $"{reportFileName}-Tests-Security-{DateTime.Now:dd-MMM-yyyy-hh-mm-ss}";
+                    WriteHtmlReport(reportFileName);
+                    WriteXmlReport(reportFileName);
+                }
+            }
+            finally
+            {
+                StopContainers();
+            }
+        }
 
         public static void Scan(string target)
         {
