@@ -53,7 +53,7 @@ namespace AcceptanceTests.Common.Test.Helpers
                     break;
                 }
 
-                Thread.Sleep(TimeSpan.FromSeconds(_delayBetweenPolling));
+                Thread.Sleep(TimeSpan.FromSeconds(_delayBetweenPolling));   /* unable to see why waiting for 1 second on each iteration is required or significant */
             }
 
             playing.Should().BeTrue("video is playing");
