@@ -70,5 +70,14 @@ namespace AcceptanceTests.Common.Api.Hearings
             NUnit.Framework.TestContext.WriteLine($"RemoveParticipant hearing id: {hearingId} endpoint {endpoint} Request: {request} clinet {client}");
             return RequestExecutor.SendToApi(request, client);
         }
+        
+        public IRestResponse GetFeatureFlagByName(string featureName)
+        {
+            var endpoint = BookingsApiUriFactory.HearingsParticipantsEndpoints.GetFeatureFlag(featureName);
+            var request = RequestBuilder.Get(endpoint);
+            var client = ApiClient.CreateClient(_bookingsApiUrl, _bookingsApiBearerToken);
+            NUnit.Framework.TestContext.WriteLine($"Get feature flag by name '{featureName}'");
+            return RequestExecutor.SendToApi(request, client);
+        }
     }
 }

@@ -25,7 +25,7 @@ namespace AcceptanceTests.Common.Test.Steps
             var timeOut = _browser.TargetDevice == TargetDevice.Tablet ? 50 : 30;
             EnterUsername(_username, timeOut);
             ClickNextButton();
-            if(_browser.TargetDevice == TargetDevice.Tablet) Thread.Sleep(TimeSpan.FromSeconds(3));
+            //if(_browser.TargetDevice == TargetDevice.Tablet)  Thread.Sleep(TimeSpan.FromSeconds(3));   /* unable to see why waiting for 3 seconds on a specific device is necessary. WaitTime logic more ideal? */
             EnterPassword(_password, timeOut);
             ClickSignInButton();
         }

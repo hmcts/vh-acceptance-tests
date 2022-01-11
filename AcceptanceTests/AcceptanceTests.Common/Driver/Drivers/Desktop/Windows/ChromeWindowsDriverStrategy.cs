@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
@@ -23,14 +25,20 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Windows
             options.AddArgument("use-fake-ui-for-media-stream");
             options.AddArgument("use-fake-device-for-media-stream");
             options.AddAdditionalCapability("sauce:options", SauceOptions, true);
+            //var clipboardException = new Dictionary<string, object> {
+            //  {"[*.]*,*",  new Dictionary<string, object> {
+            //  {"last_modified", DateTimeOffset.Now.ToUnixTimeMilliseconds()},
+            //      {"setting", 1}}}};
+            //options.AddUserProfilePreference("profile.content_settings.exceptions.clipboard", clipboardException);
             NUnit.Framework.TestContext.WriteLine($"does it fail in ChromeWindowsDriverStrategy.InitialiseForSauceLabs and url = {Uri} for Windows");
 
             if (Uri != null && Uri.AbsoluteUri != null)
             {
                 NUnit.Framework.TestContext.WriteLine($"uri for Windows is not null = {Uri.AbsoluteUri}");
                 return new RemoteWebDriver(new Uri(Uri.AbsoluteUri), options.ToCapabilities(), TimeSpan.FromSeconds(30));
-             }
-            else {
+            }
+            else
+            {
                 NUnit.Framework.TestContext.WriteLine($"uri for Windows is null = {Uri}");
                 return new RemoteWebDriver(Uri, options.ToCapabilities(), TimeSpan.FromSeconds(30));
             }
@@ -43,7 +51,7 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Windows
             options.AddArgument("use-fake-ui-for-media-stream");
             options.AddArgument("use-fake-device-for-media-stream");
 
-            if(HeadlessMode)
+            if (HeadlessMode)
                 options.AddArgument("--headless");
 
             if (Proxy?.HttpProxy != null)

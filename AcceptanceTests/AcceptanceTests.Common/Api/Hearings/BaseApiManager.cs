@@ -24,7 +24,7 @@ namespace AcceptanceTests.Common.Api.Hearings
         {
             var client = ApiClient.CreateClient(ApiUrl, Token);
             var response = client.Execute(request);
-            NUnit.Framework.TestContext.WriteLine($"API Request: {request} ApiUrl {ApiUrl} Token {Token} response {response.Content}");
+            NUnit.Framework.TestContext.WriteLine($"BaseApiManager Request: {request.Body} ApiUrl {ApiUrl} Token {Token} response {response.Content}");
             return response;
         }
     }

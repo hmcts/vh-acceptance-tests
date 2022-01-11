@@ -45,6 +45,7 @@ namespace AcceptanceTests.Common.Api.Uris
             public static string UpdateParticipantDetails(Guid hearingId, Guid participantId) => $"{ApiRoot}/{hearingId}/participants/{participantId}";
             public static string RemoveParticipantFromHearing(Guid hearingId, Guid participantId) => $"{ApiRoot}/{hearingId}/participants/{participantId}";
             public static string SuitabilityAnswers(Guid hearingId, Guid participantId) => $"{ApiRoot}/{hearingId}/participants/{participantId}/suitability-answers";
+            public static string GetFeatureFlag(string featureName) => $"/feature-flags?featureName={featureName}";
         }
 
         public static class ParticipantsEndpoints
