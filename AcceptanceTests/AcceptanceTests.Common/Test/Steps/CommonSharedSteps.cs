@@ -39,7 +39,7 @@ namespace AcceptanceTests.Common.Test.Steps
         public void WhenTheUserSelectsTheOptionFromTheDropdown(NgWebDriver driver, By element, string partialText)
         {
             const int TIMEOUT = 2;
-            driver.WaitForListToBePopulated(element, TIMEOUT);
+            driver.WaitForListToBePopulated(element/*, TIMEOUT*/);
             var hearingTypeOptions = new SelectElement(driver.WaitUntilElementExists(element));
             var found = false;
             if (hearingTypeOptions.Options.Any(option => option.Text.ToLower().Contains(partialText.ToLower())))
