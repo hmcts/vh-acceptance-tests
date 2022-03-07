@@ -70,14 +70,14 @@ namespace AcceptanceTests.Common.Api.Hearings
         public bool PollForSelfTestScoreExists(Guid conferenceId, Guid participantId, int timeout = DEFAULT_TIMEOUT)
         {
             NUnit.Framework.TestContext.WriteLine($"PollForSelfTestScoreExistslink: Conference ID {conferenceId} participant id {participantId}");
-            return PollForSelfTestScoreResponse(conferenceId, participantId, timeout).StatusCode == HttpStatusCode.OK;
+            return PollForSelfTestScoreResponse(conferenceId, participantId/*, timeout*/).StatusCode == HttpStatusCode.OK;
         }
 
-        public IRestResponse PollForSelfTestScoreResponse(Guid conferenceId, Guid participantId, int timeout = DEFAULT_TIMEOUT)
+        public IRestResponse PollForSelfTestScoreResponse(Guid conferenceId, Guid participantId/*, int timeout = DEFAULT_TIMEOUT*/)
         {
             var endpoint = TestApiUriFactory.ConferenceEndpoints.GetSelfTestScore(conferenceId, participantId);
             NUnit.Framework.TestContext.WriteLine($"PollForSelfTestScoreResponse link: Conference ID {conferenceId} participant id {participantId}");
-            return new Polling().WithEndpoint(endpoint).Url(ApiUrl).Token(Token).UntilStatusIs(HttpStatusCode.OK).Poll(timeout);
+            return new Polling().WithEndpoint(endpoint).Url(ApiUrl).Token(Token).UntilStatusIs(HttpStatusCode.OK).Poll(/*timeout*/);
         }
 
         public IRestResponse RemoveParticipantFromConference(Guid conferenceId, Guid participantId)
@@ -136,9 +136,9 @@ namespace AcceptanceTests.Common.Api.Hearings
             return SendToApi(request);
         }
 
-        public IRestResponse PollForHearingByUsername(string username, string caseName, int timeout = DEFAULT_TIMEOUT)
+        public IRestResponse PollForHearingByUsername(string username, string caseName)//, int timeout = DEFAULT_TIMEOUT)   /* timeouts removed to avoid overriding from calling code */
         {
-            for (var i = 0; i < timeout; i++)
+            for (var i = 0; i < DEFAULT_TIMEOUT; i++)   
             {
                 var rawResponse = GetHearingsByUsername(username);
                 if (!rawResponse.IsSuccessful) continue;
@@ -147,14 +147,14 @@ namespace AcceptanceTests.Common.Api.Hearings
                     NUnit.Framework.TestContext.WriteLine($"PollForHearingByUsername link: user {username} case name  {caseName} content {rawResponse.Content}");
                     return rawResponse;
                 }
-                Thread.Sleep(TimeSpan.FromSeconds(1));
+                //Thread.Sleep(TimeSpan.FromSeconds(1)); /* unable to see why waiting for 1 second on each iteration is required or significant */
             }
-            throw new DataException($"Hearing with case name '{caseName}' not found after {timeout} seconds.");
+            throw new DataException($"Hearing with case name '{caseName}' not found after {DEFAULT_TIMEOUT} seconds.");
         }
 
-        public bool PollForParticipantNameUpdated(string username, string updatedDisplayName, int timeout = DEFAULT_TIMEOUT)
+        public bool PollForParticipantNameUpdated(string username, string updatedDisplayName)//, int timeout = DEFAULT_TIMEOUT)
         {
-            for (var i = 0; i < timeout; i++)
+            for (var i = 0; i < DEFAULT_TIMEOUT; i++)
             {
                 var rawResponse = GetHearingsByUsername(username);
                 if (!rawResponse.IsSuccessful) continue;
@@ -163,7 +163,7 @@ namespace AcceptanceTests.Common.Api.Hearings
                     NUnit.Framework.TestContext.WriteLine($"PollForParticipantNameUpdatedlink: user name {username} updated display name  {updatedDisplayName} content {rawResponse.Content}");
                     return true;
                 }
-                Thread.Sleep(TimeSpan.FromSeconds(1));
+                //Thread.Sleep(TimeSpan.FromSeconds(1)); /* unable to see why waiting for 1 second on each iteration is required or significant */
             }
 
             return false;
@@ -249,13 +249,13 @@ namespace AcceptanceTests.Common.Api.Hearings
             return SendToApi(request);
         }
 
-        public IRestResponse PollForParticipantExistsInAD(string username, int timeout = DEFAULT_TIMEOUT)
+        public IRestResponse PollForParticipantExistsInAD(string username)//, int timeout = DEFAULT_TIMEOUT)
         {
             var endpoint = TestApiUriFactory.UserEndpoints.GetUserExistsInAd(username);
             var request = RequestBuilder.Get(endpoint);
             const int PAUSE = 3;
 
-            for (var i = 0; i < timeout / PAUSE; i++)
+            for (var i = 0; i < DEFAULT_TIMEOUT / PAUSE; i++)
             {
                 var rawResponse = SendToApi(request);
                 if (rawResponse.IsSuccessful)
@@ -263,10 +263,10 @@ namespace AcceptanceTests.Common.Api.Hearings
                     NUnit.Framework.TestContext.WriteLine($"PollForParticipantExistsInAD link: {endpoint} Request body {request}  user name {username} content {rawResponse.Content}");
                     return rawResponse;
                 }
-                Thread.Sleep(TimeSpan.FromSeconds(PAUSE));
+                Thread.Sleep(TimeSpan.FromSeconds(PAUSE));  /* unable to see why waiting for 3 seconds on each iteration is required or significant */
             }
 
-            throw new TimeoutException($"Failed to find user with username '{username}' in AAD after {timeout} seconds");
+            throw new TimeoutException($"Failed to find user with username '{username}' in AAD after {DEFAULT_TIMEOUT} seconds");
         }
 
         public IRestResponse DeleteUserFromAD(string contactEmail)
@@ -277,26 +277,26 @@ namespace AcceptanceTests.Common.Api.Hearings
             return SendToApi(request);
         }
 
-        public bool PollForConferenceExists(Guid hearingId, int timeout = 60)
+        public bool PollForConferenceExists(Guid hearingId/*, int timeout = 60*/)
         {
             NUnit.Framework.TestContext.WriteLine($"PollForConferenceExists link: hearing id {hearingId}");
-            return PollForConferenceResponse(hearingId, timeout).StatusCode == HttpStatusCode.OK;
+            return PollForConferenceResponse(hearingId/*, timeout*/).StatusCode == HttpStatusCode.OK;
         }
 
-        public IRestResponse PollForConferenceResponse(Guid hearingId, int timeout = 60)
+        public IRestResponse PollForConferenceResponse(Guid hearingId/*, int timeout = 60*/)
         {
             var endpoint = VideoApiUriFactory.ConferenceEndpoints.GetConferenceByHearingRefId(hearingId);
             NUnit.Framework.TestContext.WriteLine($"PollForConferenceResponse link: {endpoint} hearing id {hearingId}");
             return new Polling().WithEndpoint(endpoint).Url(ApiUrl).Token(Token)
-                .UntilStatusIs(HttpStatusCode.OK).Poll(timeout);
+                .UntilStatusIs(HttpStatusCode.OK).Poll(/*timeout*/);
         }
 
-        public bool PollForConferenceDeleted(Guid hearingId, int timeout = 60)
+        public bool PollForConferenceDeleted(Guid hearingId/*, int timeout = 60*/)
         {
             var endpoint = VideoApiUriFactory.ConferenceEndpoints.GetConferenceByHearingRefId(hearingId);
             NUnit.Framework.TestContext.WriteLine($"PollForConferenceDeleted link: {endpoint} hearing id {hearingId}");
             return new Polling().WithEndpoint(endpoint).Url(ApiUrl).Token(Token)
-                .UntilStatusIs(HttpStatusCode.NotFound).Poll(timeout).StatusCode == HttpStatusCode.NotFound;
+                .UntilStatusIs(HttpStatusCode.NotFound).Poll(/*timeout*/).StatusCode == HttpStatusCode.NotFound;
         }
 
         public IRestResponse GetPersonByUsername(string username)

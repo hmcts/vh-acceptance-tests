@@ -149,6 +149,8 @@ namespace AcceptanceTests.Common.Api
             }
         }
 
+        /* This method can be removed since the up most method is not being called from anywhere */
+
         private static void PollScanStatus(string url, ScanType scan)
         {
             var scanid = ZapApi.Scan(scan, url);
@@ -156,7 +158,7 @@ namespace AcceptanceTests.Common.Api
             int progress;
             while (true)
             {
-                Thread.Sleep(2000);
+                //Thread.Sleep(2000);   /* unable to see why waiting for 2 seconds on each iteration is required or significant */
                 var value = ZapApi.ScanStatus(scan,scanid);
                 progress = Convert.ToInt32(value);
                 if (progress >= 100)
@@ -170,7 +172,7 @@ namespace AcceptanceTests.Common.Api
         {
             while (true)
             {
-                Thread.Sleep(1000);
+                //Thread.Sleep(1000);   /* unable to see why waiting for 2 seconds on each iteration is required or significant */
                 var value = ZapApi.RecordsToScan();
                 if (!string.IsNullOrEmpty(value) && value == "0")
                     break;
