@@ -1,15 +1,18 @@
-parameters:
-- name: vstsFeed
-  type: string
-  default: 'Video Hearings/vh-packages'
-
 trigger:
   branches:
     include:
     - master
-
+    - acceptance-tests
 pr:
   - master
+
+resources:
+  repositories:
+    - repository: azTemplates
+      type: github
+      name: hmcts/azure-devops-templates
+      ref: VIH-8979
+      endpoint: hmcts
 
 pool:
   vmImage: ubuntu-latest
@@ -18,36 +21,6 @@ jobs:
 - job: Publish_Nuget_Packages
   displayName: Pulbish Nuget Packages
   steps:
-  - task: gitversion/setup@0
-    displayName: Install Git Version
-    inputs:
-      versionSpec: '5.6.0'
-      
-  - task: gitversion/execute@0
-    displayName: Run Git Version
-    inputs:
-      useConfigFile: true
-      configFilePath: GitVersion.yml
-      
-  - task: DotNetCoreCLI@2
-    displayName: Restore Dependencies
-    inputs:
-      command: restore
-      projects: '**/AcceptanceTests.Common/*.csproj'
-      vstsFeed: '${{ parameters.vstsFeed }}'
-      verbosityRestore: Minimal
-
-  - task: DotNetCoreCLI@2
-    displayName: Create NuGet Package
-    inputs:
-      projects: '**/AcceptanceTests.Common/*.csproj'
-      arguments: '--configuration release /p:Version="$(MajorMinorPatch)" /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)"'
-      versioningScheme: byBuildNumber
-
-  - task: DotNetCoreCLI@2
-    displayName: Push Package to VH NuGet Repo
-    inputs:
-      command: push
-      searchPatternPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
-      publishVstsFeed: '${{ parameters.vstsFeed }}'
-      versioningScheme: byBuildNumber
+  - template: templates/dotnet/publish-nuget-packages.yml@azTemplates
+    parameters:
+      nugetProjectPath: '**/AcceptanceTests.Common'
