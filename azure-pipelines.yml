@@ -1,9 +1,7 @@
-variables:
+parameters:
 - name: vstsFeed
-  ${{ if contains(variables['System.CollectionUri'], 'hmctsreform') }}:
-    value: '3f69a23d-fbc7-4541-afc7-4cccefcad773/e48b2732-376c-4052-ba97-b28783c9bab5'
-  ${{ else }}:
-    value: 'Video Hearings/vh-packages'
+  type: string
+  default: 3f69a23d-fbc7-4541-afc7-4cccefcad773/e48b2732-376c-4052-ba97-b28783c9bab5
 
 trigger:
   branches:
@@ -24,25 +22,17 @@ pool:
 container: dotnetsdk
 
 steps:
-- task: gitversion/setup@0
-  displayName: Install Git Version
+- task: gittools.gitversion.gitversion-task.GitVersion@5
+  displayName: GitVersion
   inputs:
-    versionSpec: '5.0.1'
-    
-- task: gitversion/execute@0
-  displayName: Run Git Version
-  name: GitVersion
-  inputs:
-    useConfigFile: true
-    configFilePath: 'GitVersion.yml'
-    
-    
+    configFilePath: GitVersion.yml
+
 - task: DotNetCoreCLI@2
   displayName: Restore Dependencies
   inputs:
     command: restore
     projects: '**/AcceptanceTests.Common/*.csproj'
-    vstsFeed: '${{ variables.vstsFeed }}'
+    vstsFeed: '${{ parameters.vstsFeed }}'
     verbosityRestore: Minimal
 
 - task: DotNetCoreCLI@2
@@ -57,5 +47,5 @@ steps:
   inputs:
     command: push
     searchPatternPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
-    publishVstsFeed: '${{ variables.vstsFeed }}'
+    publishVstsFeed: '3f69a23d-fbc7-4541-afc7-4cccefcad773/e48b2732-376c-4052-ba97-b28783c9bab5'
     versioningScheme: byBuildNumber
