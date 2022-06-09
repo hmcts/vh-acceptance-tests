@@ -50,7 +50,7 @@ jobs:
     displayName: Create NuGet Package
     inputs:
       projects: '**/AcceptanceTests.Common/*.csproj'
-      arguments: '--configuration release /p:Version="$(NuGetVersion)" /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)"'
+      arguments: '--configuration release /p:Version="$(MajorMinorPatch)" /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)"'
       versioningScheme: byBuildNumber
 
   - task: DotNetCoreCLI@2
