@@ -1,0 +1,62 @@
+variables:
+- name: vstsFeed
+  ${{ if contains(variables['System.CollectionUri'], 'hmctsreform') }}:
+    value: '3f69a23d-fbc7-4541-afc7-4cccefcad773/e48b2732-376c-4052-ba97-b28783c9bab5'
+  ${{ else }}:
+    value: 'Video Hearings/vh-packages'
+
+trigger:
+  branches:
+    include:
+    - master
+    - acceptance-tests
+pr:
+  - master
+
+resources:
+  containers:
+  - container: dotnetsdk
+    image: sspublicsbox.azurecr.io/vh/dotnet:3.1.102
+    endpoint: sspublicsbox
+
+jobs:
+- job: Publish_Nuget_Packages
+  displayName: Pulbish Nuget Packages
+  pool:
+    vmImage: ubuntu-latest
+  container: dotnetsdk
+  steps:
+
+  - task: gitversion/setup@0
+    displayName: Install Git Version
+    inputs:
+      versionSpec: '5.0.1'
+      
+  - task: gitversion/execute@0
+    displayName: Run Git Version
+    inputs:
+      useConfigFile: true
+      configFilePath: GitVersion.yml
+      
+  - task: DotNetCoreCLI@2
+    displayName: Restore Dependencies
+    inputs:
+      command: restore
+      projects: '**/AcceptanceTests.Common/*.csproj'
+      vstsFeed: '${{ variables.vstsFeed }}'
+      verbosityRestore: Minimal
+
+  - task: DotNetCoreCLI@2
+    displayName: Create NuGet Package
+    inputs:
+      projects: '**/AcceptanceTests.Common/*.csproj'
+      arguments: '--configuration release /p:Version="$(NuGetVersion)" /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)"'
+      versioningScheme: byBuildNumber
+
+  - task: DotNetCoreCLI@2
+    displayName: Push Package to VH NuGet Repo
+    inputs:
+      command: push
+      searchPatternPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+      publishVstsFeed: '${{ variables.vstsFeed }}'
+      versioningScheme: byBuildNumber
