@@ -11,7 +11,7 @@ resources:
     - repository: azTemplates
       type: github
       name: hmcts/azure-devops-templates
-      ref: VIH-8979
+      ref: master
       endpoint: hmcts
 
 pool:
