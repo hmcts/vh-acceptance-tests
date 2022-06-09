@@ -1,17 +1,16 @@
-variables:
+parameters:
 - name: vstsFeed
-  ${{ if contains(variables['System.CollectionUri'], 'hmctsreform') }}:
-    value: '3f69a23d-fbc7-4541-afc7-4cccefcad773/e48b2732-376c-4052-ba97-b28783c9bab5'
-  ${{ else }}:
-    value: 'Video Hearings/vh-packages'
+  type: string
+  default: 'Video Hearings/vh-packages'
 
 trigger:
   branches:
     include:
     - master
-    - acceptance-tests
+
 pr:
   - master
+
 pool:
   vmImage: ubuntu-latest
 
@@ -35,7 +34,7 @@ jobs:
     inputs:
       command: restore
       projects: '**/AcceptanceTests.Common/*.csproj'
-      vstsFeed: '${{ variables.vstsFeed }}'
+      vstsFeed: '${{ parameters.vstsFeed }}'
       verbosityRestore: Minimal
 
   - task: DotNetCoreCLI@2
@@ -50,5 +49,5 @@ jobs:
     inputs:
       command: push
       searchPatternPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
-      publishVstsFeed: '${{ variables.vstsFeed }}'
+      publishVstsFeed: '${{ parameters.vstsFeed }}'
       versioningScheme: byBuildNumber
