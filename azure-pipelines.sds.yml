@@ -1,0 +1,26 @@
+trigger:
+  branches:
+    include:
+    - master
+pr:
+  - master
+
+resources:
+  repositories:
+    - repository: azTemplates
+      type: github
+      name: hmcts/azure-devops-templates
+      ref: master
+      endpoint: hmcts
+
+pool:
+  vmImage: ubuntu-latest
+
+jobs:
+- job: Publish_Nuget_Packages
+  displayName: Pulbish Nuget Packages
+  steps:
+  - template: templates/dotnet/publish-nuget-packages.yml@azTemplates
+    parameters:
+      nugetProjectPath: '**/AcceptanceTests.Common'
+      vstsFeed: 'Video Hearings/vh-packages'
