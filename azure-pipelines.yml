@@ -13,7 +13,7 @@ pr:
 resources:
   containers:
   - container: dotnetsdk
-    image: sspublicsbox.azurecr.io/vh/dotnet:6.0
+    image: sspublicsbox.azurecr.io/vh/dotnet:latest
     endpoint: sspublicsbox
 
 pool:
