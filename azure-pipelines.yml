@@ -23,7 +23,7 @@ container: dotnetsdk
 
 
 steps:
-- task: gittools.gitversion.gitversion-task.GitVersion@5.10.3
+- task: gittools.gitversion.gitversion-task.GitVersion@5.6.0
   displayName: GitVersion
   inputs:
     configFilePath: GitVersion.yml
