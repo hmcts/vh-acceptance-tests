@@ -21,7 +21,6 @@ pool:
 
 container: dotnetsdk
 
-
 steps:
 - task: gitversion/setup@0
   displayName: Install Git Version
