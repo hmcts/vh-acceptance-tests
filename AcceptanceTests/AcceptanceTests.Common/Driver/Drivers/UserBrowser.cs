@@ -16,7 +16,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
 {
     public class UserBrowser
     {
-        private const int DEFAULT_TIMEOUT = 30;
+        private const int DEFAULT_TIMEOUT = 60;
         // 4 retries ^2 will execute after 2 seconds, then 4, 8 then finally 16 (30 seconds total)
         private const int ActionRetries = 4;
         private const int BrowserRetries = 4;
