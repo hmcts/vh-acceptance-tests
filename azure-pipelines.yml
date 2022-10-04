@@ -21,6 +21,7 @@ pool:
 
 container: dotnetsdk
 
+
 steps:
 - task: gittools.gitversion.gitversion-task.GitVersion@5.10.3
   displayName: GitVersion
