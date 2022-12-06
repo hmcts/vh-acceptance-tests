@@ -16,7 +16,7 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Mac
             if (LoggingEnabled)
                 SauceOptions.Add("extendedDebugging", true);
 
-            options.AddAdditionalCapability("sauce:options", SauceOptions);
+            options.AddAdditionalOption("sauce:options", SauceOptions);
             return new RemoteWebDriver(Uri, options);
         }
 

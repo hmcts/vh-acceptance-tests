@@ -102,7 +102,7 @@ namespace AcceptanceTests.Tests.DriverTests
         {
             _browser.LaunchBrowser();
             _browser.NavigateToPage();
-            //Thread.Sleep(TimeSpan.FromSeconds(4));    /* unable to see why waiting for 4 seconds on a specific browser is necessary. WaitTime logic more ideal? */
+             Thread.Sleep(TimeSpan.FromSeconds(4));    
             _browser.Driver.Title.Should().Contain("Sign in to your account");
         }
 

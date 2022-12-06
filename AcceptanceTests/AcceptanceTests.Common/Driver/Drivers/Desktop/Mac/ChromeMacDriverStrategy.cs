@@ -13,20 +13,18 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Mac
             {
                 BrowserVersion = BrowserVersion,
                 PlatformName = MacPlatform,
-                UseSpecCompliantProtocol = true,
                 AcceptInsecureCertificates = true
             };
 
             if (LoggingEnabled)
                 SauceOptions.Add("extendedDebugging", true);
 
-            options.UseSpecCompliantProtocol = true;
             options.AddArgument("use-fake-ui-for-media-stream");
             options.AddArgument("use-fake-device-for-media-stream");
-            options.AddAdditionalCapability("sauce:options", SauceOptions, true);
+            options.AddAdditionalOption("sauce:options", SauceOptions);
             NUnit.Framework.TestContext.WriteLine($"does it fail in ChromeWindowsDriverStrategy.InitialiseForSauceLabs and url = {Uri} for Mac");
 
-            if (Uri != null && Uri.AbsoluteUri != null)
+            if (Uri?.AbsoluteUri != null)
             {
                 NUnit.Framework.TestContext.WriteLine($"uri for Mac is not null = {Uri.AbsolutePath}");
                 return new RemoteWebDriver(new Uri(Uri.AbsolutePath), options.ToCapabilities(), TimeSpan.FromSeconds(30));

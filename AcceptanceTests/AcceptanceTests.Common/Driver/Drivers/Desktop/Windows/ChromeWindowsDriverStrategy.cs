@@ -15,7 +15,6 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Windows
             {
                 BrowserVersion = BrowserVersion,
                 PlatformName = "Windows 10",
-                UseSpecCompliantProtocol = true,
                 AcceptInsecureCertificates = true
             };
 
@@ -24,7 +23,7 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Windows
 
             options.AddArgument("use-fake-ui-for-media-stream");
             options.AddArgument("use-fake-device-for-media-stream");
-            options.AddAdditionalCapability("sauce:options", SauceOptions, true);
+            options.AddAdditionalOption("sauce:options", SauceOptions);
             //var clipboardException = new Dictionary<string, object> {
             //  {"[*.]*,*",  new Dictionary<string, object> {
             //  {"last_modified", DateTimeOffset.Now.ToUnixTimeMilliseconds()},

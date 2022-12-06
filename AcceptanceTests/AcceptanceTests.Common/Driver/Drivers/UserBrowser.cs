@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Threading;
 using AcceptanceTests.Common.Driver.Enums;
 using AcceptanceTests.Common.Driver.Helpers;
 using Castle.Core.Internal;
@@ -9,7 +8,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using Polly;
 using Protractor;
-using  Expected = SeleniumExtras.WaitHelpers;
+using Expected = SeleniumExtras.WaitHelpers;
 using InvalidOperationException = System.InvalidOperationException;
 
 namespace AcceptanceTests.Common.Driver.Drivers
@@ -18,8 +17,8 @@ namespace AcceptanceTests.Common.Driver.Drivers
     {
         private const int DEFAULT_TIMEOUT = 60;
         // 4 retries ^2 will execute after 2 seconds, then 4, 8 then finally 16 (30 seconds total)
-        private const int ActionRetries = 4;
-        private const int BrowserRetries = 4;
+        private const int ActionRetries = 5;
+        private const int BrowserRetries = 5;
         private WaitHelper _waitHelper;
         public string BaseUrl { get; set; }
         public NgWebDriver Driver { get; set; }
@@ -103,7 +102,7 @@ namespace AcceptanceTests.Common.Driver.Drivers
             catch (Exception e)
             {
                 NUnit.Framework.TestContext.WriteLine($"Encountered error '{e.Message}' navigating to page {BaseUrl}{url}");
-                throw e;
+                throw;
             }
         }
 

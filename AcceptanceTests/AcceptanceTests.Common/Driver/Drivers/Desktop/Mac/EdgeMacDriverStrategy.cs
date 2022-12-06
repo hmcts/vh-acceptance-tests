@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Remote;
 
 namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Mac
@@ -8,19 +9,15 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Mac
     {
         public override RemoteWebDriver InitialiseForSauceLabs()
         {
-            #pragma warning disable 618
-            var capabilities = new DesiredCapabilities(new Dictionary<string, object>()
-            #pragma warning restore 618
-            {
-                { "browserName", "MicrosoftEdge" },
-                { "platformName", MacPlatform },
-                { "browserVersion", BrowserVersion },
-                { "ms:inPrivate", true },
-                { "ms:edgeOptions", new Dictionary<string, object>() {
-                    { "args", new List<string> { "use-fake-ui-for-media-stream", "use-fake-device-for-media-stream", "log-level=1" } }}},
-                { "sauce:options", SauceOptions}
-            });
-            return new RemoteWebDriver(Uri, capabilities);
+            var options = new EdgeOptions();
+            options.AddAdditionalOption("browserName", "MicrosoftEdge");
+            options.AddAdditionalOption("platformName", MacPlatform);
+            options.AddAdditionalOption("browserVersion", BrowserVersion);
+            options.AddAdditionalOption("ms:inPrivate", true);
+            options.AddAdditionalOption("ms:edgeOptions", new Dictionary<string, object>() {
+                { "args", new List<string> { "use-fake-ui-for-media-stream", "use-fake-device-for-media-stream", "log-level=1" } }});
+            options.AddAdditionalOption("sauce:options", SauceOptions);
+            return new RemoteWebDriver(Uri, options);
         }
 
         public override IWebDriver InitialiseForLocal()
@@ -32,18 +29,14 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Mac
                 argsList.Add($"proxy-server={Proxy.HttpProxy}");
                 argsList.Add(ProxyByPassList);
             }
-
-            #pragma warning disable 618
-            var capabilities = new DesiredCapabilities(new Dictionary<string, object>()
-            #pragma warning restore 618
+            var options = new EdgeOptions();
+            options.AddAdditionalOption("ms:edgeOptions", new Dictionary<string, object>()
             {
-                { "ms:edgeOptions", new Dictionary<string, object>() {
-                    {  "binary", @$"{BuildPath}/msedge.exe" },
-                    {  "args", argsList }
-                }}
+                { "binary", @$"{BuildPath}/msedge.exe" },
+                { "args", argsList }
             });
-
-            return new RemoteWebDriver(Uri, capabilities, LocalDesktopTimeout);
+            
+            return new RemoteWebDriver(Uri, options);
         }
     }
 }

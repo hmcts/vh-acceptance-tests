@@ -13,7 +13,6 @@ namespace AcceptanceTests.Common.Driver.Drivers.Services
         {
             _edgeService = EdgeDriverService.CreateDefaultService(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"msedgedriver.exe");
             _edgeService.UseVerboseLogging = true;
-            _edgeService.UseSpecCompliantProtocol = true;
             _edgeService.Start();
             return _edgeService.ServiceUrl;
         }

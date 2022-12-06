@@ -19,18 +19,18 @@ namespace AcceptanceTests.Common.Driver.Drivers.Tablet.iOS
         private AppiumOptions ConfigureSauceLabsSimulator()
         {
             var options = new AppiumOptions();
-            options.AddAdditionalCapability(MobileCapabilityType.AppiumVersion, AppiumVersion);
-            options.AddAdditionalCapability(MobileCapabilityType.Orientation, Orientation.ToString());
-            options.AddAdditionalCapability(MobileCapabilityType.PlatformVersion, PlatformVersion);
-            options.AddAdditionalCapability(MobileCapabilityType.DeviceName, DeviceName);
-            options.AddAdditionalCapability(MobileCapabilityType.PlatformName, "iOS");
-            options.AddAdditionalCapability(MobileCapabilityType.BrowserName, "safari");
-            options.AddAdditionalCapability(IOSMobileCapabilityType.AutoAcceptAlerts, true);
-            options.AddAdditionalCapability(IOSMobileCapabilityType.SafariAllowPopups, true);
+            options.AddAdditionalOption(MobileCapabilityType.AppiumVersion, AppiumVersion);
+            options.AddAdditionalOption(MobileCapabilityType.Orientation, Orientation.ToString());
+            options.AddAdditionalOption(MobileCapabilityType.PlatformVersion, PlatformVersion);
+            options.AddAdditionalOption(MobileCapabilityType.DeviceName, DeviceName);
+            options.AddAdditionalOption(MobileCapabilityType.PlatformName, "iOS");
+            options.AddAdditionalOption(MobileCapabilityType.BrowserName, "safari");
+            options.AddAdditionalOption(IOSMobileCapabilityType.AutoAcceptAlerts, true);
+            options.AddAdditionalOption(IOSMobileCapabilityType.SafariAllowPopups, true);
 
             foreach (var (key, value) in SauceOptions)
             {
-                options.AddAdditionalCapability(key, value);
+                options.AddAdditionalOption(key, value);
             }
 
             return options;
@@ -39,23 +39,23 @@ namespace AcceptanceTests.Common.Driver.Drivers.Tablet.iOS
         private SafariOptions ConfigureSauceLabsRealDevice()
         {
             var options = new SafariOptions();
-            options.AddAdditionalCapability(MobileCapabilityType.AppiumVersion, AppiumVersion);
-            options.AddAdditionalCapability(MobileCapabilityType.PlatformName, "iOS");
-            options.AddAdditionalCapability(MobileCapabilityType.DeviceName, "iPad.*");
-            options.AddAdditionalCapability(MobileCapabilityType.PlatformVersion, PlatformVersion);
-            options.AddAdditionalCapability("testobject_api_key", RealDeviceApiKey);
-            options.AddAdditionalCapability("tabletOnly", true);
-            options.AddAdditionalCapability("autoGrantPermissions", true);
-            options.AddAdditionalCapability(IOSMobileCapabilityType.AutoAcceptAlerts, true);
-            options.AddAdditionalCapability(MobileCapabilityType.BrowserName, "Safari");
+            options.AddAdditionalOption(MobileCapabilityType.AppiumVersion, AppiumVersion);
+            options.AddAdditionalOption(MobileCapabilityType.PlatformName, "iOS");
+            options.AddAdditionalOption(MobileCapabilityType.DeviceName, "iPad.*");
+            options.AddAdditionalOption(MobileCapabilityType.PlatformVersion, PlatformVersion);
+            options.AddAdditionalOption("testobject_api_key", RealDeviceApiKey);
+            options.AddAdditionalOption("tabletOnly", true);
+            options.AddAdditionalOption("autoGrantPermissions", true);
+            options.AddAdditionalOption(IOSMobileCapabilityType.AutoAcceptAlerts, true);
+            options.AddAdditionalOption(MobileCapabilityType.BrowserName, "Safari");
             LocalAppiumTimeout *= 9;
-            options.AddAdditionalCapability("newCommandTimeout", LocalAppiumTimeout.TotalSeconds); ;
-            options.AddAdditionalCapability(MobileCapabilityType.NewCommandTimeout, LocalAppiumTimeout.TotalSeconds);
-            options.AddAdditionalCapability(IOSMobileCapabilityType.LaunchTimeout, LocalAppiumTimeout.TotalSeconds);
+            options.AddAdditionalOption("newCommandTimeout", LocalAppiumTimeout.TotalSeconds); ;
+            options.AddAdditionalOption(MobileCapabilityType.NewCommandTimeout, LocalAppiumTimeout.TotalSeconds);
+            options.AddAdditionalOption(IOSMobileCapabilityType.LaunchTimeout, LocalAppiumTimeout.TotalSeconds);
             
             foreach (var (key, value) in SauceOptions)
             {
-                options.AddAdditionalCapability(key, value);
+                options.AddAdditionalOption(key, value);
             }
 
             return options;
@@ -69,18 +69,18 @@ namespace AcceptanceTests.Common.Driver.Drivers.Tablet.iOS
         private AppiumOptions ConfigureLocalSimulator()
         {
             var options = new AppiumOptions();
-            options.AddAdditionalCapability(MobileCapabilityType.DeviceName, DeviceName);
-            options.AddAdditionalCapability(MobileCapabilityType.PlatformName, "iOS");
-            options.AddAdditionalCapability(MobileCapabilityType.BrowserName, "Safari");
-            options.AddAdditionalCapability(MobileCapabilityType.Orientation, Orientation.ToString());
-            options.AddAdditionalCapability(MobileCapabilityType.PlatformVersion, PlatformVersion);
-            options.AddAdditionalCapability(IOSMobileCapabilityType.AutoAcceptAlerts, true);
-            options.AddAdditionalCapability(IOSMobileCapabilityType.SafariAllowPopups, true);
+            options.AddAdditionalOption(MobileCapabilityType.DeviceName, DeviceName);
+            options.AddAdditionalOption(MobileCapabilityType.PlatformName, "iOS");
+            options.AddAdditionalOption(MobileCapabilityType.BrowserName, "Safari");
+            options.AddAdditionalOption(MobileCapabilityType.Orientation, Orientation.ToString());
+            options.AddAdditionalOption(MobileCapabilityType.PlatformVersion, PlatformVersion);
+            options.AddAdditionalOption(IOSMobileCapabilityType.AutoAcceptAlerts, true);
+            options.AddAdditionalOption(IOSMobileCapabilityType.SafariAllowPopups, true);
 
             if (ResetDeviceBetweenTests)
             {
                 LocalAppiumTimeout *= 4;
-                options.AddAdditionalCapability(MobileCapabilityType.FullReset, true);
+                options.AddAdditionalOption(MobileCapabilityType.FullReset, true);
             }
 
             return options;
@@ -89,14 +89,14 @@ namespace AcceptanceTests.Common.Driver.Drivers.Tablet.iOS
         private SafariOptions ConfigureLocalRealDevice()
         {
             var options = new SafariOptions();
-            options.AddAdditionalCapability(MobileCapabilityType.Orientation, "LANDSCAPE");
-            options.AddAdditionalCapability(MobileCapabilityType.PlatformName, "iOS");
-            options.AddAdditionalCapability(MobileCapabilityType.BrowserName, "Safari");
-            options.AddAdditionalCapability(MobileCapabilityType.PlatformVersion, PlatformVersion);
-            options.AddAdditionalCapability("safari:deviceType", "iPad");
-            options.AddAdditionalCapability(MobileCapabilityType.DeviceName, DeviceName);
-            options.AddAdditionalCapability(MobileCapabilityType.Udid, UUID);
-            options.AddAdditionalCapability(MobileCapabilityType.FullReset, false);
+            options.AddAdditionalOption(MobileCapabilityType.Orientation, "LANDSCAPE");
+            options.AddAdditionalOption(MobileCapabilityType.PlatformName, "iOS");
+            options.AddAdditionalOption(MobileCapabilityType.BrowserName, "Safari");
+            options.AddAdditionalOption(MobileCapabilityType.PlatformVersion, PlatformVersion);
+            options.AddAdditionalOption("safari:deviceType", "iPad");
+            options.AddAdditionalOption(MobileCapabilityType.DeviceName, DeviceName);
+            options.AddAdditionalOption(MobileCapabilityType.Udid, UUID);
+            options.AddAdditionalOption(MobileCapabilityType.FullReset, false);
             return options;
         }
     }
