@@ -22,10 +22,13 @@ pool:
 container: dotnetsdk
 
 steps:
-- task: gittools.gitversion.gitversion-task.GitVersion@5
-  displayName: GitVersion
+- task: gitversion/setup@0
+  displayName: Install Git Version
   inputs:
-    configFilePath: GitVersion.yml
+    versionSpec: '5.10.3'
+
+- task: gitversion/execute@0
+  displayName: Determine Version
 
 - task: DotNetCoreCLI@2
   displayName: Restore Dependencies
