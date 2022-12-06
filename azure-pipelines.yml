@@ -21,12 +21,7 @@ pool:
 
 container: dotnetsdk
 
-steps:
-- task: gittools.gitversion.gitversion-task.GitVersion@5
-  displayName: GitVersion
-  inputs:
-    configFilePath: GitVersion.yml
-
+√
 - task: DotNetCoreCLI@2
   displayName: Restore Dependencies
   inputs:

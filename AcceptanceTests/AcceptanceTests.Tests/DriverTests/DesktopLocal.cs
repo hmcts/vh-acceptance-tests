@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using AcceptanceTests.Common.Configuration;
-using AcceptanceTests.Common.Driver;
 using AcceptanceTests.Common.Driver.Drivers;
 using AcceptanceTests.Common.Driver.Enums;
 using AcceptanceTests.Common.Driver.Settings;
@@ -102,7 +101,6 @@ namespace AcceptanceTests.Tests.DriverTests
         {
             _browser.LaunchBrowser();
             _browser.NavigateToPage();
-             Thread.Sleep(TimeSpan.FromSeconds(4));    
             _browser.Driver.Title.Should().Contain("Sign in to your account");
         }
 
