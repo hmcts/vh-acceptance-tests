@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using Protractor;
@@ -12,7 +9,7 @@ namespace AcceptanceTests.Common.Driver.Helpers
     {
         public WebDriverWait newWait(NgWebDriver Driver)
         {
-            return newWait(Driver, 30);
+            return newWait(Driver, 60);
         }
         public WebDriverWait newWait(NgWebDriver Driver, int timeout)
         {

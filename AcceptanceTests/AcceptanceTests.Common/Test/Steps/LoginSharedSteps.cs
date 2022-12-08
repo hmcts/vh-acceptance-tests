@@ -3,8 +3,6 @@ using AcceptanceTests.Common.Driver.Enums;
 using AcceptanceTests.Common.Driver.Helpers;
 using AcceptanceTests.Common.PageObject.Pages;
 using FluentAssertions;
-using System;
-using System.Threading;
 
 namespace AcceptanceTests.Common.Test.Steps
 {

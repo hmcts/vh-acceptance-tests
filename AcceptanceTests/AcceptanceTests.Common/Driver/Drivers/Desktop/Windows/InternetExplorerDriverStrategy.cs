@@ -13,7 +13,7 @@ namespace AcceptanceTests.Common.Driver.Drivers.Desktop.Windows
                 PlatformName = "Windows 10", 
                 BrowserVersion = BrowserVersion
             };
-            browserOptions.AddAdditionalCapability("sauce:options", SauceOptions, true);
+            browserOptions.AddAdditionalOption("sauce:options", SauceOptions);
             return new RemoteWebDriver(Uri, browserOptions);
         }
 
