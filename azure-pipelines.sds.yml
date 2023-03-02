@@ -18,7 +18,7 @@ pool:
 
 jobs:
 - job: Publish_Nuget_Packages
-  displayName: Pulbish Nuget Packages
+  displayName: Publish Nuget Packages
   steps:
   - template: templates/dotnet/publish-nuget-packages.yml@azTemplates
     parameters:
