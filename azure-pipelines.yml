@@ -10,16 +10,8 @@ trigger:
 pr:
   - master
 
-resources:
-  containers:
-  - container: dotnetsdk
-    image: sspublicsbox.azurecr.io/vh/dotnet:6.0
-    endpoint: sspublicsbox
-
 pool:
   vmImage: ubuntu-latest
-
-container: dotnetsdk
 
 steps:
 - task: gitversion/setup@0
